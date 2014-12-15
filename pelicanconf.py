@@ -28,9 +28,9 @@ GITHUB_URL = 'https://github.com/hitsumabushi/blog/tree/gh-pages'
 GOOGLE_ANALYTICS = 'UA-24727901-9'
 
 # Blogroll
-LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Python.org', 'http://python.org/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),
+LINKS = (('Old my blog', 'http://blog.hitsumabushi.org/'),
+        ('Old my blog2',
+            'http://hitsumabushi-pc.blogspot.jp/2011/07/blogger.html'),
          )
 
 TWITTER_USERNAME = '__hitsumabushi__'
