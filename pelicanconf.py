@@ -6,11 +6,20 @@ AUTHOR = 'hitsumabushi'
 SITENAME = 'ひつまぶし食べたい'
 SITEURL = 'http://www.hitsumabushi.org/blog'
 
+#THEME = 'themes/tuxlite_tbs'
+#THEME = 'themes/gum'
+THEME = 'themes/pelican-bootstrap3'
 PATH = 'content'
+# These are optional settings
+STATIC_PATHS = ['images']
+ARTICLE_SAVE_AS = '{date:%Y}/{slug}.html'
+ARTICLE_URL = '{date:%Y}/{slug}.html'
+
 
 TIMEZONE = 'Asia/Tokyo'
 DEFAULT_LANG = 'ja'
 DEFAULT_PAGINATION = 10
+DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
 
 # Feed generation is usually not desired when developing
 FEED_MAX_ITEMS = 10
@@ -34,6 +43,7 @@ LINKS = (('Old my blog', 'http://blog.hitsumabushi.org/'),
          )
 
 TWITTER_USERNAME = '__hitsumabushi__'
+TWITTER_CARDS = True
 # Social widget
 SOCIAL = (('Twitter', 'https://twitter.com/_hitsumabushi_'),
         ('Github', 'https://github.com/hitsumabushi'),)
