@@ -17,6 +17,7 @@ rm *.py
 rm Makefile
 rm *.txt
 rm .gitignore
+rm -rf themes/*
 
 git add -A .
 git commit -m "build by drone.io"
