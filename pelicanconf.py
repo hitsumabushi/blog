@@ -4,32 +4,43 @@ from __future__ import unicode_literals
 
 AUTHOR = 'hitsumabushi'
 SITENAME = 'ひつまぶし食べたい'
-SITEURL = ''
+SITEURL = 'http://www.hitsumabushi.org/blog'
 
 PATH = 'content'
 
-TIMEZONE = 'Europe/Paris'
-
+TIMEZONE = 'Asia/Tokyo'
 DEFAULT_LANG = 'ja'
+DEFAULT_PAGINATION = 10
 
 # Feed generation is usually not desired when developing
-FEED_ALL_ATOM = None
+FEED_MAX_ITEMS = 10
+FEED_ALL_ATOM = 'feeds/all.atom.xml'
 CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
+# Tag cloud
+TAG_CLOUD_STEPS = 4
+TAG_CLOUD_MAX_ITEMS = 100
+
+GITHUB_URL = 'https://github.com/hitsumabushi/blog/tree/gh-pages'
+GOOGLE_ANALYTICS = 'UA-24727901-9'
+
 # Blogroll
 LINKS = (('Pelican', 'http://getpelican.com/'),
          ('Python.org', 'http://python.org/'),
          ('Jinja2', 'http://jinja.pocoo.org/'),
-         ('You can modify those links in your config file', '#'),)
+         )
 
+TWITTER_USERNAME = '__hitsumabushi__'
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
-
-DEFAULT_PAGINATION = 10
+SOCIAL = (('Twitter', 'https://twitter.com/_hitsumabushi_'),
+        ('Github', 'https://github.com/hitsumabushi'),)
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+
+# Default Settings
+DEFAULT_CATEGORY = 'misc'
+
