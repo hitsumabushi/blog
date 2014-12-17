@@ -1,6 +1,7 @@
 Title: ソースコードリーディングをするときにctagsを使いたい
 Date: 2014-12-16 20:00
-Category: Emacs, Ruby
+Category: blog
+Tags: Emacs, Ruby
 
 ## きっかけ
 とある事情によって、Fluentdプラグインを自作する or 世間の良い実装のプラグインを見つける必要がありました。

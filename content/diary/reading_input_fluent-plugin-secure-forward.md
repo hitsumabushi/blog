@@ -1,6 +1,7 @@
 Title: fluentd-plugin-secure-forward のソースを読んでみる(Input プラグイン編)
 Date: 2014-12-18 16:45
-Category: Ruby, Fluentd
+Category: blog
+Tags: Ruby, Fluentd
 
 本当は全部読もうと思っていたけど、想像以上に疲れたので、Inputだけにしました。
 ただ、整理されているコードなので、Ruby知らなくても読みやすいのは読みやすいと思います。
