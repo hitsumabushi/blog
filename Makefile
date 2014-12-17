@@ -55,7 +55,7 @@ help:
 	@echo '                                                                       '
 
 html:
-	git clone https://github.com/DandyDev/pelican-bootstrap3.git themes/pelican-bootstrap3
+	[ -a themes/pelican-bootstrap3 ] || git clone https://github.com/DandyDev/pelican-bootstrap3.git themes/pelican-bootstrap3
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
 
 clean:

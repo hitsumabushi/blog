@@ -1,5 +1,5 @@
 Title: drone.ioを使って、pelicanをビルドする
-Date: 2014-12-15
+Date: 2014-12-15 23:00
 Category: blog
 Tags: CI, drone.io, pelican
 

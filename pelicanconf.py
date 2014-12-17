@@ -12,8 +12,10 @@ THEME = 'themes/pelican-bootstrap3'
 PATH = 'content'
 # These are optional settings
 STATIC_PATHS = ['images']
-ARTICLE_SAVE_AS = '{date:%Y}/{slug}.html'
-ARTICLE_URL = '{date:%Y}/{slug}.html'
+ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}{date:%d}_{date:%H%M}.html'
+ARTICLE_URL = '{date:%Y}/{date:%m}{date:%d}_{date:%H%M}.html'
+#ARTICLE_SAVE_AS = '{date:%Y}/{slug}.html'
+#ARTICLE_URL = '{date:%Y}/{slug}.html'
 
 
 TIMEZONE = 'Asia/Tokyo'
@@ -53,4 +55,11 @@ SOCIAL = (('Twitter', 'https://twitter.com/_hitsumabushi_'),
 
 # Default Settings
 DEFAULT_CATEGORY = 'misc'
+
+# Extentions
+# See http://qiita.com/5t111111/items/d745af778969bf00f038
+MD_EXTENSIONS = [
+    'fenced_code', 'codehilite(css_class=highlight)', 'tables',
+    'extra', 'nl2br', 'toc']
+
 
