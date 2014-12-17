@@ -1,5 +1,5 @@
 Title: fluentd-plugin-secure-forward のソースを読んでみる(Input プラグイン編)
-Date: 2014-12-18 16:45
+Date: 2014-12-17 23:45
 Category: blog
 Tags: Ruby, Fluentd
 
@@ -221,3 +221,8 @@ Inputプラグインの場合は、
 
 に集中して読み始めるとわかりやすいと思いました。
 その他は割と雑多なので、困った時に読めば良さそうです。
+
+## 追記(2014-12-18)
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/_hitsumabushi_">@_hitsumabushi_</a> acceptするのはFluentd in_secure_forwardのメインスレッドだけど SSL handshake は割とコストが高い処理なので、それを input_session 側のスレッドにやらせたい、という理由ですね</p>&mdash; tagomoris (@tagomoris) <a href="https://twitter.com/tagomoris/status/545235797960425472">December 17,  2014</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
