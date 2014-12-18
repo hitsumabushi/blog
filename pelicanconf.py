@@ -35,8 +35,16 @@ AUTHOR_FEED_RSS = None
 TAG_CLOUD_STEPS = 4
 TAG_CLOUD_MAX_ITEMS = 100
 
-GITHUB_URL = 'https://github.com/hitsumabushi/blog/tree/gh-pages'
 GOOGLE_ANALYTICS = 'UA-24727901-9'
+DISQUS_SITENAME = "hitsumabushi"
+
+GITHUB_URL = 'https://github.com/hitsumabushi/blog/tree/gh-pages'
+TWITTER_USERNAME = '__hitsumabushi__'
+TWITTER_CARDS = True
+
+# Social widget
+SOCIAL = (('Twitter', 'https://twitter.com/_hitsumabushi_'),
+        ('Github', 'https://github.com/hitsumabushi'),)
 
 # Blogroll
 LINKS = (('Old my blog', 'http://blog.hitsumabushi.org/'),
@@ -44,17 +52,12 @@ LINKS = (('Old my blog', 'http://blog.hitsumabushi.org/'),
             'http://hitsumabushi-pc.blogspot.jp/2011/07/blogger.html'),
          )
 
-TWITTER_USERNAME = '__hitsumabushi__'
-TWITTER_CARDS = True
-# Social widget
-SOCIAL = (('Twitter', 'https://twitter.com/_hitsumabushi_'),
-        ('Github', 'https://github.com/hitsumabushi'),)
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
 
 # Default Settings
-DEFAULT_CATEGORY = 'misc'
+DEFAULT_CATEGORY = 'blog'
 
 # Extentions
 # See http://qiita.com/5t111111/items/d745af778969bf00f038
