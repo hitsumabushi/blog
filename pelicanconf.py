@@ -33,13 +33,10 @@ AUTHOR_FEED_RSS = None
 TAG_CLOUD_STEPS = 4
 TAG_CLOUD_MAX_ITEMS = 100
 
-GOOGLE_ANALYTICS = 'UA-24727901-9'
-DISQUS_SITENAME = "hitsumabushi"
-
+# Social
 GITHUB_URL = 'https://github.com/hitsumabushi/blog/tree/gh-pages'
 TWITTER_USERNAME = '__hitsumabushi__'
 TWITTER_CARDS = True
-
 # Social widget
 SOCIAL = (('Twitter', 'https://twitter.com/_hitsumabushi_'),
         ('Github', 'https://github.com/hitsumabushi'),)
@@ -56,6 +53,15 @@ LINKS = (('Old my blog', 'http://blog.hitsumabushi.org/'),
 
 # Default Settings
 DEFAULT_CATEGORY = 'blog'
+
+# External Services
+GOOGLE_ANALYTICS = 'UA-24727901-9'
+DISQUS_SITENAME = "hitsumabushi"
+
+# For Adding Sitemap
+# default value is ('index', 'tags', 'categories', 'archives')
+DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives', 'sitemap')
+SITEMAP_SAVE_AS = 'sitemap.xml'
 
 # Extentions
 # See http://qiita.com/5t111111/items/d745af778969bf00f038
