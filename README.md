@@ -5,3 +5,5 @@
 これは[Pelican](http://docs.getpelican.com/en/3.5.0/index.html)で書いたブログ用のリポジトリです。
 drone.ioでビルドしています。
 
+ブログのソースはmasterブランチを見てください。
+

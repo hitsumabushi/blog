@@ -6,20 +6,18 @@ AUTHOR = 'hitsumabushi'
 SITENAME = 'ひつまぶし食べたい'
 SITEURL = 'http://www.hitsumabushi.org/blog'
 
-#THEME = 'themes/tuxlite_tbs'
-#THEME = 'themes/gum'
 THEME = 'themes/pelican-bootstrap3'
 PATH = 'content'
 # These are optional settings
 STATIC_PATHS = ['images']
 ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}{date:%d}_{date:%H%M}.html'
 ARTICLE_URL = '{date:%Y}/{date:%m}{date:%d}_{date:%H%M}.html'
-#ARTICLE_SAVE_AS = '{date:%Y}/{slug}.html'
-#ARTICLE_URL = '{date:%Y}/{slug}.html'
 
-
+# TIMEZONE
 TIMEZONE = 'Asia/Tokyo'
 DEFAULT_LANG = 'ja'
+# Top page summary
+SUMMARY_MAX_LENGTH = 25
 DEFAULT_PAGINATION = 10
 DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
 
