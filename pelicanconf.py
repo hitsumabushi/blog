@@ -42,9 +42,7 @@ SOCIAL = (('Twitter', 'https://twitter.com/_hitsumabushi_'),
         ('Github', 'https://github.com/hitsumabushi'),)
 
 # Blogroll
-LINKS = (('Old my blog', 'http://blog.hitsumabushi.org/'),
-        ('Old my blog2',
-            'http://hitsumabushi-pc.blogspot.jp/2011/07/blogger.html'),
+LINKS = (('Old my blog', 'http://hitsumabushi-pc.blogspot.jp/2011/07/blogger.html'),
          )
 
 
