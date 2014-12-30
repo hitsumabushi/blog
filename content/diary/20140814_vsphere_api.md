@@ -58,12 +58,11 @@ ServiceInstance の下には、 Data object typesがぶら下がっている。
 以下の図で、"MOR"というのは、 _ManagedObjectRefarence_ の略で、
 これは、server-side object へのリファレンスを与えるdata objectである。
 
-※図はvmwareのドキュメント(http://pubs.vmware.com/vsphere-50/index.jsp#com.vmware.wssdk.apiref.doc_50/mo-types-landing.html)から。
+※図は[vmwareのドキュメント](http://pubs.vmware.com/vsphere-50/index.jsp#com.vmware.wssdk.apiref.doc_50/mo-types-landing.html)から。
 
-
-<a href="http://blog.hitsumabushi.org/wp-content/uploads/2014/08/ServiceInstance_TopLevel_Figure.gif"><img src="http://blog.hitsumabushi.org/wp-content/uploads/2014/08/ServiceInstance_TopLevel_Figure-300x247.gif" alt="ServiceInstance_TopLevel_Figure" width="300" height="247" class="alignnone size-medium wp-image-114" /></a>
+![ServiceInstance\_TopLevel\_Figure](../images/2014/ServiceInstance_TopLevel_Figure.gif)
 凡例
-<a href="http://blog.hitsumabushi.org/wp-content/uploads/2014/08/legend_figures.jpg"><img src="http://blog.hitsumabushi.org/wp-content/uploads/2014/08/legend_figures.jpg" alt="legend_figures" width="100" height="199" class="alignnone size-full wp-image-115" /></a>
+![legend\_figures](../images/2014/legend_figures.jpg)
 
 managed obejectは、property と operation(method)を持っている。
 
@@ -73,9 +72,9 @@ Javaでいう抽象データ型や、C++でいうstructデータ型のような�
 managed object typeが、プリミティブデータ型だったり、複合データ型だったりする。
 (vSphere API的な意味での、プリミティブデータ型は、 XML Schemeプリミティブで書かれている。例えば、xsd:string とか。)
 
-※図はvmwareのドキュメント(http://pubs.vmware.com/vsphere-50/index.jsp#com.vmware.wssdk.apiref.doc_50/do-types-landing.html) から。
+※図は[vmwareのドキュメント](http://pubs.vmware.com/vsphere-50/index.jsp#com.vmware.wssdk.apiref.doc_50/do-types-landing.html) から。
 
-<a href="http://blog.hitsumabushi.org/wp-content/uploads/2014/08/ServiceInstance_AboutInfo_Detail.gif"><img src="http://blog.hitsumabushi.org/wp-content/uploads/2014/08/ServiceInstance_AboutInfo_Detail-300x93.gif" alt="ServiceInstance_AboutInfo_Detail" width="300" height="93" class="alignnone size-medium wp-image-116" /></a>
+![ServiceInstance\_AboutInfo\_Detail](../images/2014/ServiceInstance_AboutInfo_Detail.gif)
 
 #### Data object typeの例
 

@@ -1,7 +1,7 @@
 Title: VMware 環境でのMACアドレス割当て
 Date: 2014-12-17 14:40
 Category: blog
-Category: VMware
+Tags: VMware
 
 [TOC]
 
@@ -36,13 +36,13 @@ vSphere環境上のMACアドレス割当の方式は、複数あります。自�
 
 以下が vpxd.cfgでの例です。
 
-<pre>
-  &lt;vpxd&gt;
-  &lt;macAllocScheme&gt;
-  &lt;VMwareOUI&gt;true&lt;/VMwareOUI&gt;
-  &lt;/macAllocScheme&gt;
-  &lt;/vpxd&gt;
-</pre>
+```xml
+<vpxd>
+<macAllocScheme>
+<VMwareOUI>true</VMwareOUI>
+</macAllocScheme>
+</vpxd>
+```
 
 #### プレフィックスベース
 
@@ -52,16 +52,16 @@ vSphere環境上のMACアドレス割当の方式は、複数あります。自�
 
 以下の設定は、00:50:26または、00:50:27から始まるMACアドレスを割当てる例です。
 
-<pre>
-  &lt;vpxd&gt;
-  &lt;macAllocScheme&gt;
-  &lt;prefixScheme&gt;
-  &lt;prefix&gt;005026&lt;/prefix&gt;
-  &lt;prefixLength&gt;23&lt;/prefixLength&gt;
-  &lt;/prefixScheme&gt;
-  &lt;/macAllocScheme&gt;
-  &lt;/vpxd&gt;
-</pre>
+```xml
+<vpxd>
+<macAllocScheme>
+<prefixScheme>
+<prefix>005026</prefix>
+<prefixLength>23</prefixLength>
+</prefixScheme>
+</macAllocScheme>
+</vpxd>
+```
 
 #### 範囲ベース
 
@@ -74,19 +74,18 @@ LAAの複数の範囲を指定できるので、便利かもしれません。
 
 以下が、範囲ベース割当ての例です。 range idは0から始まります。 以下の例では、00:50:67:00:00:01のみの範囲1つだけを利用する例です。
 
-<pre>
-  &lt;vpxd&gt;
-  &lt;macAllocScheme&gt;
-  &lt;rangeScheme&gt;
-  &lt;range id="0"&gt;
-    &lt;begin&gt;005067000001&lt;/begin&gt;
-    &lt;end&gt;005067000001&lt;/end&gt;
-  &lt;/range&gt;
-  &lt;/rangeScheme&gt;
-  &lt;/macAllocScheme&gt;
-  &lt;/vpxd&gt;
-</pre>
-
+```xml
+<vpxd>
+<macAllocScheme>
+<rangeScheme>
+<range id="0">
+  <begin>005067000001</begin>
+  <end>005067000001</end>
+</range>
+</rangeScheme>
+</macAllocScheme>
+</vpxd>
+```
 ### vCenterに接続されていないESXiにより自動割当て
 これが利用されるのは、
 1. vCenterに接続されていない
@@ -101,18 +100,18 @@ LAAの複数の範囲を指定できるので、便利かもしれません。
 
 これを利用するためには、以下を削除して、
 
-<pre>
+```
 ethernetN.generatedAddress
 ethernetN.addressType
 ethernetN.generatedAddressOffset
-</pre>
+```
 
 以下を記述します。
 
-<pre>
+```
 ethernetN.addressType = static
 ethernetN.address     = {MAC ADDRESS}
-</pre>
+```
 
 ## 3. MACアドレスが足りなくなった時の動作
 
