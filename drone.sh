@@ -15,7 +15,7 @@ rm -r output
 rm *.sh
 rm *.py
 rm Makefile
-rm *.txt
+rm requirements.txt
 rm .gitignore
 rm -rf themes/*
 
