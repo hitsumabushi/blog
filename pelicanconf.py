@@ -4,25 +4,21 @@ from __future__ import unicode_literals
 
 AUTHOR = 'hitsumabushi'
 SITENAME = 'ひつまぶし食べたい'
-SITEURL = 'http://www.hitsumabushi.org/blog'
+SITEURL = 'http://www.hitsumabushi.org'
 
 THEME = 'themes/pelican-bootstrap3'
 PATH = 'content'
-# These are optional settings
-STATIC_PATHS = ['images', 'extra/robots.txt', 'extra/favicon.ico']
-EXTRA_PATH_METADATA = {
-    'extra/robots.txt': {'path': 'robots.txt'},
-    'extra/favicon.ico': {'path': 'favicon.ico'}
-}
-FAVICON = 'favicon.ico'
-
-# Setting article URLs
-ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}{date:%d}_{date:%H%M}.html'
-ARTICLE_URL = '{date:%Y}/{date:%m}{date:%d}_{date:%H%M}.html'
 
 # TIMEZONE
 TIMEZONE = 'Asia/Tokyo'
 DEFAULT_LANG = 'ja'
+
+# Setting article URLs
+ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}{date:%d}_{date:%H%M}.html'
+ARTICLE_URL = '{date:%Y}/{date:%m}{date:%d}_{date:%H%M}.html'
+# Default Settings
+DEFAULT_CATEGORY = 'blog'
+
 # Top page summary
 SUMMARY_MAX_LENGTH = 25
 DEFAULT_PAGINATION = 10
@@ -52,16 +48,21 @@ SOCIAL = (('Twitter', 'https://twitter.com/_hitsumabushi_'),
 LINKS = (('Old my blog', 'http://hitsumabushi-pc.blogspot.jp/2011/07/blogger.html'),
          )
 
+# External Services
+GOOGLE_ANALYTICS = 'UA-24727901-9'
+DISQUS_SITENAME = "hitsumabushi"
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
 
-# Default Settings
-DEFAULT_CATEGORY = 'blog'
-
-# External Services
-GOOGLE_ANALYTICS = 'UA-24727901-9'
-DISQUS_SITENAME = "hitsumabushi"
+# These are optional settings
+STATIC_PATHS = ['images', 'extra/robots.txt', 'extra/favicon.ico', 'extra/CNAME']
+EXTRA_PATH_METADATA = {
+    'extra/robots.txt': {'path': 'robots.txt'},
+    'extra/favicon.ico': {'path': 'favicon.ico'}, 
+    'extra/CNAME': {'path': 'CNAME'}
+}
+FAVICON = 'favicon.ico'
 
 # For Adding Sitemap
 # default value is ('index', 'tags', 'categories', 'archives')
