@@ -9,7 +9,14 @@ SITEURL = 'http://www.hitsumabushi.org/blog'
 THEME = 'themes/pelican-bootstrap3'
 PATH = 'content'
 # These are optional settings
-STATIC_PATHS = ['images']
+STATIC_PATHS = ['images', 'extra/robots.txt', 'extra/favicon.ico']
+EXTRA_PATH_METADATA = {
+    'extra/robots.txt': {'path': 'robots.txt'},
+    'extra/favicon.ico': {'path': 'favicon.ico'}
+}
+FAVICON = 'favicon.ico'
+
+# Setting article URLs
 ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}{date:%d}_{date:%H%M}.html'
 ARTICLE_URL = '{date:%Y}/{date:%m}{date:%d}_{date:%H%M}.html'
 
