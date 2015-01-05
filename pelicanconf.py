@@ -14,8 +14,8 @@ TIMEZONE = 'Asia/Tokyo'
 DEFAULT_LANG = 'ja'
 
 # Setting article URLs
-ARTICLE_SAVE_AS = 'blog/{date:%Y}/{date:%m}{date:%d}_{date:%H%M}.html'
-ARTICLE_URL = 'blog/{date:%Y}/{date:%m}/{date:%d}_{date:%H%M}.html'
+ARTICLE_SAVE_AS = 'blog/{date:%Y}/{date:%m}/{date:%d}/{date:%H%M}.html'
+ARTICLE_URL = 'blog/{date:%Y}/{date:%m}/{date:%d}/{date:%H%M}.html'
 # Default Settings
 DEFAULT_CATEGORY = 'blog'
 
