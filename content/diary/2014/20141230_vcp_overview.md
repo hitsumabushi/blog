@@ -1,7 +1,7 @@
 Title: VCP-DCVの概要 : VCP550
 Date: 2014-12-30 01:30
 Category: blog
-Tags: VMware, VCP-DCV
+Tags: VMware, VCP
 
 [TOC]
 

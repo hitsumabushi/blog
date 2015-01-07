@@ -1,7 +1,7 @@
 Title: VMware 環境でのMACアドレス割当て
 Date: 2014-12-17 14:40
 Category: blog
-Tags: VMware
+Tags: VMware, VCP
 
 [TOC]
 
