@@ -29,5 +29,7 @@ VDRから発展した点としては、以下があある。
 3. EMC Data Domain システムへのバックアップ (元々は、vmdkにしか保存できない)
 4. 自動バックアップ検証機能 (一時的なVMにリストアして、vmware-toolsのハートビートを検証。NICは抜いてある)
 
-![VDP と VDPAの違いの表](../images/vpd_vdpa.png)
+以下の比較図は、[vSphere 5.5 の新機能紹介 - VMware Blogs](http://blogs.vmware.com/jp-cim/2013/12/vsphere-55-vdpa.html)からのもの。
+![VDP と VDPAの違いの表](/images/2014/vpd_vdpa.png)
+
 

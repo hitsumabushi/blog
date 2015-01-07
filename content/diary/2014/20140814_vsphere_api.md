@@ -60,9 +60,9 @@ ServiceInstance の下には、 Data object typesがぶら下がっている。
 
 ※図は[vmwareのドキュメント](http://pubs.vmware.com/vsphere-50/index.jsp#com.vmware.wssdk.apiref.doc_50/mo-types-landing.html)から。
 
-![ServiceInstance\_TopLevel\_Figure](../images/2014/ServiceInstance_TopLevel_Figure.gif)
+![ServiceInstance\_TopLevel\_Figure](/images/2014/ServiceInstance_TopLevel_Figure.gif)
 凡例
-![legend\_figures](../images/2014/legend_figures.jpg)
+![legend\_figures](/images/2014/legend_figures.jpg)
 
 managed obejectは、property と operation(method)を持っている。
 
@@ -74,7 +74,7 @@ managed object typeが、プリミティブデータ型だったり、複合デ�
 
 ※図は[vmwareのドキュメント](http://pubs.vmware.com/vsphere-50/index.jsp#com.vmware.wssdk.apiref.doc_50/do-types-landing.html) から。
 
-![ServiceInstance\_AboutInfo\_Detail](../images/2014/ServiceInstance_AboutInfo_Detail.gif)
+![ServiceInstance\_AboutInfo\_Detail](/images/2014/ServiceInstance_AboutInfo_Detail.gif)
 
 #### Data object typeの例
 
