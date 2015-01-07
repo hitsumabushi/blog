@@ -75,4 +75,6 @@ MD_EXTENSIONS = [
     'fenced_code', 'codehilite(css_class=highlight)', 'tables',
     'extra', 'nl2br', 'toc']
 
+# Plugins
+PLUGINS = ['pelican_gist']
 
