@@ -66,7 +66,7 @@ FAVICON = 'favicon.ico'
 
 # For Adding Sitemap
 # default value is ('index', 'tags', 'categories', 'archives')
-DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives', 'sitemap')
+DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives', 'sitemap', 'search')
 SITEMAP_SAVE_AS = 'sitemap.xml'
 
 # Extentions
@@ -76,5 +76,8 @@ MD_EXTENSIONS = [
     'extra', 'nl2br', 'toc']
 
 # Plugins
-PLUGINS = ['pelican_gist']
+PLUGIN_PATHS = ['plugins']
+PLUGINS = (('pelican_gist', 'tipue_search'))
+
+DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'authors', 'archives', 'search'))
 
