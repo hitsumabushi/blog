@@ -1,5 +1,5 @@
 User-Agent:*
-Disallow:
+Disallow: /drafts/
 
 Sitemap: http://www.hitsumabushi.org/sitemap.xml
 
