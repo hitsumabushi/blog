@@ -79,5 +79,3 @@ MD_EXTENSIONS = [
 PLUGIN_PATHS = ['plugins']
 PLUGINS = (('pelican_gist', 'tipue_search'))
 
-DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'authors', 'archives', 'search'))
-
