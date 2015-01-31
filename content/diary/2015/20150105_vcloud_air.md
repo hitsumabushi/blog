@@ -2,7 +2,6 @@ Title: vCloud Airの価格感を調べる
 Date: 2015-01-05 17:35
 Category: blog
 Tags: VMware, クラウド
-Status: draft
 
 ## 資料
 - [VMware vCloud Air](http://www.vmware.com/jp/products/vcloud-air)
