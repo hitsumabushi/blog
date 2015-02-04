@@ -7,7 +7,7 @@ Consistent Hash Algorithmという負荷分散などの目的で使えるアル�
 たまたまarxivでシンプルで高速, 省メモリな実装についての論文を見つけたので、読んだ。
 
 ## 読んだ内容
-スライドにまとめた
+pandoc+beamerを試してみるついでに、スライドにまとめた。
 
 <iframe src="//www.slideshare.net/slideshow/embed_code/44282881" width="476" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 
