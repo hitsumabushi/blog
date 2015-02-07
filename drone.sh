@@ -23,6 +23,8 @@ rm Makefile
 rm requirements.txt
 rm .gitignore
 rm -rf themes/*
+rm -rf __pycache__
+rm -rf cache
 
 # Git push
 git add -A .

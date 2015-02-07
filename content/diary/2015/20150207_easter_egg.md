@@ -2,7 +2,6 @@ Title: Easter Egg Collections
 Date: 2015-02-07 21:44
 Category: blog
 Tags: 遊び
-Status: draft
 
 イースターエッグは、見つかるとよく話題に上がっているけど、
 実際にどんなものがあるのか、よく知らないなー、と思ったので集めようと思う。

@@ -9,6 +9,9 @@ SITEURL = 'http://www.hitsumabushi.org'
 THEME = 'themes/pelican-bootstrap3'
 PATH = 'content'
 
+# Content Lisence
+CC_LICENSE = "CC-BY-NC"
+
 # TIMEZONE
 TIMEZONE = 'Asia/Tokyo'
 DEFAULT_LANG = 'ja'
@@ -18,6 +21,9 @@ ARTICLE_SAVE_AS = 'blog/{date:%Y}/{date:%m}/{date:%d}/{date:%H%M}.html'
 ARTICLE_URL = 'blog/{date:%Y}/{date:%m}/{date:%d}/{date:%H%M}.html'
 # Default Settings
 DEFAULT_CATEGORY = 'blog'
+
+# Custom CSS
+CUSTOM_CSS = 'static/custom.css'
 
 # Top page summary
 SUMMARY_MAX_LENGTH = 25
@@ -34,19 +40,27 @@ AUTHOR_FEED_RSS = None
 
 # Tag cloud
 TAG_CLOUD_STEPS = 4
-TAG_CLOUD_MAX_ITEMS = 100
+TAG_CLOUD_MAX_ITEMS = 30
 
 # Social
 GITHUB_URL = 'https://github.com/hitsumabushi/blog/tree/gh-pages'
+GITHUB_USER = 'hitsumabushi'
 TWITTER_USERNAME = '__hitsumabushi__'
+TWITTER_WIDGET_ID = '564098693729492992'
 TWITTER_CARDS = True
+USE_OPEN_GRAPH = True
+OPEN_GRAPH_IMAGE = 'static/icon.jpg'
+ADDTHIS_PROFILE = 'ra-54d6444d503f9b69'
+ADDTHIS_DATA_TRACK_ADDRESSBAR = False
+
 # Social widget
 SOCIAL = (('Twitter', 'https://twitter.com/_hitsumabushi_'),
         ('Github', 'https://github.com/hitsumabushi'),)
 
 # Blogroll
-LINKS = (('Old my blog', 'http://hitsumabushi-pc.blogspot.jp/2011/07/blogger.html'),
-         )
+LINKS = (
+    ('Old blog', 'http://hitsumabushi-pc.blogspot.jp/2011/07/blogger.html'),
+    )
 
 # External Services
 GOOGLE_ANALYTICS = 'UA-24727901-9'
@@ -56,13 +70,20 @@ DISQUS_SITENAME = "hitsumabushi"
 #RELATIVE_URLS = True
 
 # These are optional settings
-STATIC_PATHS = ['images', 'extra/robots.txt', 'extra/favicon.ico', 'extra/CNAME']
+STATIC_PATHS = [
+    'images', 'extra/robots.txt', 'extra/favicon.ico',
+    'extra/CNAME', 'extra/icon.jpg', 'extra/custom.css',
+    'extra/my.js'
+    ]
 EXTRA_PATH_METADATA = {
     'extra/robots.txt': {'path': 'robots.txt'},
-    'extra/favicon.ico': {'path': 'favicon.ico'},
-    'extra/CNAME': {'path': 'CNAME'}
+    'extra/favicon.ico': {'path': 'static/favicon.ico'},
+    'extra/CNAME': {'path': 'CNAME'},
+    'extra/icon.jpg': {'path': 'static/icon.jpg'},
+    'extra/custom.css': {'path': 'static/custom.css'},
+    'extra/my.js': {'path': 'static/js/my.js'}
 }
-FAVICON = 'favicon.ico'
+FAVICON = 'static/favicon.ico'
 
 # For Adding Sitemap
 # default value is ('index', 'tags', 'categories', 'archives')

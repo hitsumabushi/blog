@@ -1,0 +1,84 @@
+header.page-header {
+    border-bottom: 1px solid #eee;
+    margin: 40px 0 0;
+    padding-bottom: 0;
+}
+/* TOC tree */
+.toc {
+    border: 2px solid #879dc6;
+    padding: 10px 0;
+}
+
+/* top page titles */
+article h2.caption-item {
+    color: #0c52a0;
+    font-weight: bold;
+}
+/* h1-h6 */
+#content > article h1 {
+    color: #0c52a0;
+    font-weight: bold;
+}
+#content > article h2 {
+    background-color: #0c52a0;
+    color: #ffffff;
+    font-size: 1.6em;
+    font-weight: bold;
+    padding: 10px 0 10px 15px;
+}
+#content > article h3 {
+    border-color: #0c52a0;
+    border-style: solid;
+    border-width: 2px 2px 2px 10px;
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 10px;
+}
+#content > article h4 {
+    color: #0c52a0;
+}
+
+/* Prevent the navigation header covering contents when jump w/ Anchor Link */
+/*
+[id]:before {
+    content: " ";
+    display: block;
+    height: 50px;
+    margin-top: -50px;
+    visibility: hidden;
+}
+*/
+
+/* Table style */
+article table {
+     border-collapse: collapse;
+     width: 100%;
+     margin-bottom: 10px;
+}
+article th {
+     background-color: #eeeeee;
+     border: 1px solid #b9b9b9;
+     color: #333333;
+     padding: 6px;
+     text-align: left;
+     vertical-align: top;
+     width: 25%;
+     min-width: 100px;
+}
+article td {
+     background-color: #ffffff;
+     border: 1px solid #b9b9b9;
+     padding: 6px;
+     text-align: left;
+}
+
+/* Gist coloring */
+.gist .line-data .line-pre {
+     color: #000;
+}
+
+/* Link */
+.fa-link {
+  vertical-align: super;
+  font-size: 0.5em;
+}
