@@ -1,7 +1,15 @@
+/* ヘッダーの位置を調整 */
 header.page-header {
     border-bottom: 1px solid #eee;
     margin: 40px 0 0;
     padding-bottom: 0;
+}
+/* SNS Shereホタンにunderlineが入るのを防ぐ*/
+.panel #social_bottuns {
+    margin-top: 15px;
+}
+.panel #social_bottuns a {
+    border-bottom: none;
 }
 /* TOC tree */
 .toc {

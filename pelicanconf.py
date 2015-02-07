@@ -44,14 +44,11 @@ TAG_CLOUD_MAX_ITEMS = 30
 
 # Social
 GITHUB_URL = 'https://github.com/hitsumabushi/blog/tree/gh-pages'
-GITHUB_USER = 'hitsumabushi'
 TWITTER_USERNAME = '__hitsumabushi__'
 TWITTER_WIDGET_ID = '564098693729492992'
 TWITTER_CARDS = True
 USE_OPEN_GRAPH = True
 OPEN_GRAPH_IMAGE = 'static/icon.jpg'
-ADDTHIS_PROFILE = 'ra-54d6444d503f9b69'
-ADDTHIS_DATA_TRACK_ADDRESSBAR = False
 
 # Social widget
 SOCIAL = (('Twitter', 'https://twitter.com/_hitsumabushi_'),
