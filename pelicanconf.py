@@ -62,6 +62,7 @@ LINKS = (
 # External Services
 GOOGLE_ANALYTICS = 'UA-24727901-9'
 DISQUS_SITENAME = "hitsumabushi"
+GOOGLE_SITE_SEARCH = '009966809170133509931:4vsx-mk1ktu'
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
