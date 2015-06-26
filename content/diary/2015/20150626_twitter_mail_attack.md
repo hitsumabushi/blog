@@ -2,7 +2,6 @@ Title: Twitterからメールアドレス拾えるんじゃね?的な攻撃に�
 Date: 2015-06-26 12:50
 Category: blog
 Tags: security
-Status: draft
 
 [任意のTwitterアカウントの登録メールアドレス（伏せ字含）を表示させる攻撃が急増中（対策設定有り）](http://did2memo.net/2015/06/24/twitter-one-click-login-attack/) というエントリが盛り上がっていたらしい。
 でも、自分には有用な攻撃シナリオには見えなかったので、とりあえず、考えを整理するために書いておく。
