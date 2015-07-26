@@ -1,7 +1,7 @@
 Title: Consistent Algorithm
 Date: 2015-02-01 00:33
 Category: blog
-Tags: Algorithm, Paper
+Tags: Algorithm, papers, 論文
 
 Consistent Hash Algorithmという負荷分散などの目的で使えるアルゴリズムがある。
 たまたまarxivでシンプルで高速, 省メモリな実装についての論文を見つけたので、読んだ。
