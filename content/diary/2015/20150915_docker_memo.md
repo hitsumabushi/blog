@@ -2,7 +2,6 @@ Title: Dockerの細々としたメモ
 Date: 2015-09-15 04:21
 Category: blog
 Tags: docker, debian
-Status: draft
 
 Debian で利用する際のメモを書いておく。
 

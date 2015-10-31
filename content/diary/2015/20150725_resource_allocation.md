@@ -2,7 +2,6 @@ Title: VM Resource Allocation
 Date: 2015-07-26 20:30
 Category: blog
 Tags: math, papers, 論文
-Status: draft
 
 ## 資料
 * [stillwell_ipdps12.pdf](http://henricasanova.github.io/papers/stillwell_ipdps12.pdf)
