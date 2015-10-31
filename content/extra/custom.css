@@ -31,14 +31,14 @@ article h2.caption-item {
     border-color: #0c52a0;
     border-style: solid;
     border-width: 2px 2px 2px 10px;
-    font-size: 1.3em;
+    font-size: 1.6em;
     font-weight: bold;
     padding: 10px;
 }
 #content > article h3 {
     background-color: #0c52a0;
     color: #ffffff;
-    font-size: 1.6em;
+    font-size: 1.1em;
     font-weight: bold;
     padding: 10px 0 10px 15px;
 }
