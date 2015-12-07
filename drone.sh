@@ -4,6 +4,9 @@ set -x
 # resolv dependency
 pip install -r requirements.txt --use-mirrors
 
+# sync submodule
+git submodule update
+
 # build html
 make clean
 make html
