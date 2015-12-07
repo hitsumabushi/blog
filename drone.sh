@@ -9,7 +9,7 @@ git submodule update
 
 # build html
 make clean
-make html
+make html || exit 1
 
 # checkout branch
 git checkout -b gh-pages
