@@ -29,7 +29,6 @@ CUSTOM_CSS = 'static/custom.css'
 DISPLAY_ARTICLE_INFO_ON_INDEX = True
 SUMMARY_MAX_LENGTH = 25
 DEFAULT_PAGINATION = 10
-DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
 
 # Feed generation is usually not desired when developing
 FEED_MAX_ITEMS = 10
@@ -39,9 +38,10 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
-# Tag cloud
-TAG_CLOUD_STEPS = 4
-TAG_CLOUD_MAX_ITEMS = 15
+# Sidebar
+## Recent post
+DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
+RECENT_POST_COUNT = 5
 
 # Social
 GITHUB_URL = 'https://github.com/hitsumabushi/blog/tree/gh-pages'
@@ -50,15 +50,6 @@ TWITTER_WIDGET_ID = '564098693729492992'
 TWITTER_CARDS = True
 USE_OPEN_GRAPH = True
 OPEN_GRAPH_IMAGE = 'static/icon.jpg'
-# Share button
-SHARIFF = True
-SHARIFF_LANG = 'ja'
-SHARIFF_SERVICES = "[&quot;facebook&quot;, &quot;twitter&quot;, \
-                    &quot;tumblr&quot;, &quot;googleplus&quot;, \
-                    &quot;info&quot;]"
-SHARIFF_THEME = 'standard'
-SHARIFF_TWITTER_VIA = True
-
 
 # Social widget
 SOCIAL = (('Twitter', 'https://twitter.com/_hitsumabushi_'),
@@ -107,4 +98,34 @@ MD_EXTENSIONS = [
 
 # Plugins
 PLUGIN_PATHS = ['plugins']
-PLUGINS = (('pelican_gist', ))
+PLUGINS = ['sitemap', 'related_posts', 'tag_cloud', 'pelican-toc']
+
+BOOTSTRAP_FLUID = True
+# Plugin Settings
+## sitemap
+SITEMAP = {
+    'format': 'xml',
+    'priorities': {
+        'articles': 0.5,
+        'indexes': 0.5,
+        'pages': 0.5
+    },
+    'changefreqs': {
+        'articles': 'monthly',
+        'indexes': 'daily',
+        'pages': 'monthly'
+    }
+}
+## related_posts
+RELATED_POSTS_MAX = 5
+## Tag cloud
+DISPLAY_TAGS_ON_SIDEBAR = True
+TAG_CLOUD_STEPS = 3
+TAG_CLOUD_MAX_ITEMS = 30
+TAG_CLOUD_SORTING = 'random'
+DISPLAY_TAGS_INLINE = 'inline'
+## pelican-toc
+TOC = {
+    'TOC_HEADERS': '^h[1-4]',
+    'TOC_RUN': 'true'
+}
