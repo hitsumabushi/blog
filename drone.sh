@@ -5,6 +5,7 @@ set -x
 pip install -r requirements.txt --use-mirrors
 
 # sync submodule
+git submodule init
 git submodule update
 
 # build html
