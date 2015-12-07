@@ -36,11 +36,12 @@ article h2.caption-item {
     padding: 10px;
 }
 #content > article h3 {
-    background-color: #0c52a0;
-    color: #ffffff;
+    background-color: rgba(12, 82, 160, 0.08);
+    color: #0C52A0;
     font-size: 1.1em;
     font-weight: bold;
     padding: 10px 0 10px 15px;
+    border: solid thin #0C52A0;
 }
 #content > article h4 {
     color: #0c52a0;
