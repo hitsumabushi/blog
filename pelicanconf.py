@@ -26,6 +26,7 @@ DEFAULT_CATEGORY = 'blog'
 CUSTOM_CSS = 'static/custom.css'
 
 # Top page summary
+DISPLAY_ARTICLE_INFO_ON_INDEX = True
 SUMMARY_MAX_LENGTH = 25
 DEFAULT_PAGINATION = 10
 DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
@@ -40,7 +41,7 @@ AUTHOR_FEED_RSS = None
 
 # Tag cloud
 TAG_CLOUD_STEPS = 4
-TAG_CLOUD_MAX_ITEMS = 30
+TAG_CLOUD_MAX_ITEMS = 15
 
 # Social
 GITHUB_URL = 'https://github.com/hitsumabushi/blog/tree/gh-pages'
@@ -49,6 +50,15 @@ TWITTER_WIDGET_ID = '564098693729492992'
 TWITTER_CARDS = True
 USE_OPEN_GRAPH = True
 OPEN_GRAPH_IMAGE = 'static/icon.jpg'
+# Share button
+SHARIFF = True
+SHARIFF_LANG = 'ja'
+SHARIFF_SERVICES = "[&quot;facebook&quot;, &quot;twitter&quot;, \
+                    &quot;tumblr&quot;, &quot;googleplus&quot;, \
+                    &quot;info&quot;]"
+SHARIFF_THEME = 'standard'
+SHARIFF_TWITTER_VIA = True
+
 
 # Social widget
 SOCIAL = (('Twitter', 'https://twitter.com/_hitsumabushi_'),
@@ -98,4 +108,3 @@ MD_EXTENSIONS = [
 # Plugins
 PLUGIN_PATHS = ['plugins']
 PLUGINS = (('pelican_gist', ))
-
