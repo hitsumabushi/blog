@@ -4,6 +4,8 @@ Category: blog
 Tags: golang
 Status: draft
 
+[TOC]
+
 ## やり始めて困ったこと
 1. ディレクトリ構成をどうすべきか?
   loggerなど、共通のモジュールをどう配置するべきか迷った。

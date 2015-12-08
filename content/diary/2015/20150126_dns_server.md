@@ -7,6 +7,8 @@ Tags: DNS, Debian
 DNSサーバーは今までbind+dnsmasqでやっていたが、改めてパフォーマンスの観点から選定したい。
 以下に、参考ページを列挙する。
 
+[TOC]
+
 ## 参考になるページ
 ### 権威サーバ
 - [DNSサーバパフォーマンス評価](http://jprs.co.jp/enum/enum_jprs/activity/pdf/N+I-20050610-C24.pdf)

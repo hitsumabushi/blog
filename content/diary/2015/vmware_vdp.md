@@ -3,6 +3,8 @@ Date: 2015-01-07 19:24
 Category: blog
 Tags: VMware, VCP, VDP
 
+[TOC]
+
 ## VMware Data Protection
 ### 資料
 - [vSphere 5.5 の新機能紹介 - VMware Blogs](http://blogs.vmware.com/jp-cim/2013/12/vsphere-55-vdpa.html)

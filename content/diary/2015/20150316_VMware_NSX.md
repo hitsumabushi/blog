@@ -4,6 +4,8 @@ Category: blog
 Tags: VMware, NSX
 Status: draft
 
+[TOC]
+
 ## 資料
 1. VMware NSX Network Virtualization Design Guide
 

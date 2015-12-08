@@ -8,6 +8,8 @@ VMware のBetaプログラムの利用について、基本的なルールがあ
 
 ざっくり言うと、「ここで知ったことは他で話すなよ」ってことでした。
 
+[TOC]
+
 ## 資料
 - [vSphere Beta Program](https://communities.vmware.com/community/vmtn/vsphere-beta)
 

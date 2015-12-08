@@ -7,6 +7,8 @@ Tags: VDI, DaaS, AWS, Azure, VMware
 DaaSとかVDIは、必ずActive Directoryの話になるので、気後れしていたのだけど、会社ではWindows使っていることもあって、少しは抵抗もなくなってきたので、良いタイミングだったので、調べてみた。
 とは言っても、まずは世間にどんなものがあるかをしらべてみただけ。
 
+[TOC]
+
 ## 参考資料
 - [http://www.netone.co.jp/report/column/20120302.html](http://www.netone.co.jp/report/column/20120302.html)
 - [VSANでの検証](http://www.netone.co.jp/wp-content/uploads/2012/04/7b40e88a83e27031958fd41b697e679d.pdf)

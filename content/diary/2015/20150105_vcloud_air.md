@@ -3,6 +3,8 @@ Date: 2015-01-05 17:35
 Category: blog
 Tags: VMware, クラウド
 
+[TOC]
+
 ## 資料
 - [VMware vCloud Air](http://www.vmware.com/jp/products/vcloud-air)
 - [VMware vCloud Air 価格ガイド](http://vcloud.vmware.com/jp/service-offering/pricing-guide)

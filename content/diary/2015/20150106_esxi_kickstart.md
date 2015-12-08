@@ -5,6 +5,8 @@ Tags: VMware, ESXi
 
 ESXiをPXEブートして自動インストールする方法について、日本語での説明があまりなかったので、メモとして残しておく。
 
+[TOC]
+
 ## 利用OS
 - ESXi 5.5
 - Debian 7.7 (DHCPサーバー, HTTPサーバーを兼務させる)

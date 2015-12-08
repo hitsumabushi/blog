@@ -3,6 +3,8 @@ Date: 2015-01-10 23:49
 Category: blog
 Tags: VMware, VCP, vDS
 
+[TOC]
+
 ## 資料
 [VMware KB: ESX/ESXi でのポート バインド タイプの選択](http://kb.vmware.com/selfservice/search.do?cmd=displayKC&docType=kc&docTypeID=DT_KB_1_1&externalId=2086886)
 

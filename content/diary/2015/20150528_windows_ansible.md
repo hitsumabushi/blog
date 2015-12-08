@@ -3,6 +3,8 @@ Date: 2015-05-28 06:07
 Category: blog
 Tags: Windows, ansible
 
+[TOC]
+
 # 資料
 [Windows Support — Ansible Documentation](http://docs.ansible.com/intro_windows.html)
 
