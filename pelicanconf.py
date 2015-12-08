@@ -94,11 +94,11 @@ SITEMAP_SAVE_AS = 'sitemap.xml'
 # See http://qiita.com/5t111111/items/d745af778969bf00f038
 MD_EXTENSIONS = [
     'fenced_code', 'codehilite(css_class=highlight)', 'tables',
-    'extra', 'nl2br']
+    'extra', 'nl2br', 'toc']
 
 # Plugins
 PLUGIN_PATHS = ['plugins']
-PLUGINS = ['sitemap', 'related_posts', 'tag_cloud', 'pelican-toc']
+PLUGINS = ['sitemap', 'related_posts', 'tag_cloud']
 
 BOOTSTRAP_FLUID = True
 # Plugin Settings
