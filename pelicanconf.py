@@ -94,7 +94,7 @@ SITEMAP_SAVE_AS = 'sitemap.xml'
 # See http://qiita.com/5t111111/items/d745af778969bf00f038
 MD_EXTENSIONS = [
     'fenced_code', 'codehilite(css_class=highlight)', 'tables',
-    'extra', 'nl2br', 'toc']
+    'extra', 'nl2br']
 
 # Plugins
 PLUGIN_PATHS = ['plugins']
@@ -124,8 +124,3 @@ TAG_CLOUD_STEPS = 3
 TAG_CLOUD_MAX_ITEMS = 30
 TAG_CLOUD_SORTING = 'random'
 DISPLAY_TAGS_INLINE = 'inline'
-## pelican-toc
-TOC = {
-    'TOC_HEADERS': '^h[1-4]',
-    'TOC_RUN': 'true'
-}

@@ -3,6 +3,8 @@ Date: 2015-12-08 05:51
 Category: blog
 Tags: VMware, vSphere
 
+[TOC]
+
 ## まとめ
  1. vSphere 6からは、ストレージパスが死んだ場合でもHAを設定できるようになった。
  2. vCenterは watchdogs によりプロセス落下時には再起動される
