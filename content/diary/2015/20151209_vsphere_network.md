@@ -2,6 +2,7 @@ Title: vSphere環境でのQoS
 Date: 2015-12-09 10:05
 Category: blog
 Tags: VMware, vSphere, network
+Status: draft
 
 [TOC]
 
