@@ -1,0 +1,140 @@
+#10 1 65 0
+ip route default gateway pp 1 filter 500000 gateway dhcp lan2
+ip route 172.16.0.0/16 gateway tunnel 1
+ip keepalive 1 icmp-echo 10 5 dhcp lan2
+ipv6 prefix 1 ra-prefix@lan2::/64
+ip lan1 address 192.168.100.1/24
+ip lan1 secure filter in 100000 100001 100002 100003 100004 100005 100006 100007 100099
+vlan lan1/1 802.1q vid=101 name="Standard Network"
+ip lan1/1 address 192.168.101.1/24
+ipv6 lan1/1 address ra-prefix@lan2::1/64
+ipv6 lan1/1 rtadv send 1 o_flag=on
+ipv6 lan1/1 dhcp service server
+vlan lan1/2 802.1q vid=102 name="IO Network"
+ip lan1/2 address 192.168.102.1/24
+vlan lan1/3 802.1q vid=103 name="Management Network"
+ip lan1/3 address 192.168.103.1/24
+vlan lan1/4 802.1q vid=104 name="Global Network"
+ip lan1/4 address 192.168.104.1/24
+vlan lan1/5 802.1q vid=105 name="Private Network"
+ip lan1/5 address 192.168.105.1/24
+ipv6 lan2 secure filter in 1010 1011 1012 2000
+ipv6 lan2 secure filter out 3000 dynamic 100 101 102 103 104 105 106
+ipv6 lan2 dhcp service client ir=on
+pp disable all
+pp select 1
+ description pp PRV/PPPoE/0:NIFTY
+ pp keepalive interval 30 retry-interval=30 count=12
+ pp always-on on
+ pppoe use lan2
+ pppoe auto disconnect off
+ pp auth accept pap chap
+ pp auth myname <ISPのユーザー名> <ISPパスワード>
+ ppp lcp mru on 1454
+ ppp ipcp ipaddress on
+ ppp ipcp msext on
+ ppp ccp type none
+ ip pp mtu 1454
+ ip pp secure filter in 200002 200020 200021 200022 200023 200024 200025 200030 200032 200080 200081 200082
+ ip pp secure filter out 200012 200020 200021 200022 200023 200024 200025 200026 200027 200099 dynamic 200080 200081 200082 200083 200084 200085 200098 200099
+ ip pp nat descriptor 1
+ netvolante-dns hostname host pp server=1 <ネットボランチDNS名>
+ pp enable 1
+no tunnel enable all
+tunnel select 1
+ ipsec tunnel 101
+  ipsec sa policy 101 1 esp aes256-cbc sha-hmac
+  ipsec ike duration ipsec-sa 1 3600
+  ipsec ike duration ike-sa 1 28800
+  ipsec ike encryption 1 aes256-cbc
+  ipsec ike group 1 modp1024
+  ipsec ike hash 1 sha
+  ipsec ike keepalive use 1 on dpd
+  ipsec ike local address 1 192.168.101.1
+  ipsec ike pfs 1 on
+  ipsec ike pre-shared-key 1 text <Preshared key>
+  ipsec ike remote address 1 <クラウド側VPNゲートウェイのグローバルIP>
+ tunnel enable 1
+ip filter 100000 reject * * udp,tcp 135 *
+ip filter 100001 reject * * udp,tcp * 135
+ip filter 100002 reject * * udp,tcp netbios_ns-netbios_dgm *
+ip filter 100003 reject * * udp,tcp * netbios_ns-netbios_dgm
+ip filter 100004 reject * * udp,tcp netbios_ssn *
+ip filter 100005 reject * * udp,tcp * netbios_ssn
+ip filter 100006 reject * * udp,tcp 445 *
+ip filter 100007 reject * * udp,tcp * 445
+ip filter 100099 pass * * * * *
+ip filter 200000 reject 10.0.0.0/8 * * * *
+ip filter 200001 reject 172.16.0.0/12 * * * *
+ip filter 200002 reject 192.168.0.0/16 * * * *
+ip filter 200010 reject * 10.0.0.0/8 * * *
+ip filter 200011 reject * 172.16.0.0/12 * * *
+ip filter 200012 reject * 192.168.0.0/16 * * *
+ip filter 200020 reject * * udp,tcp 135 *
+ip filter 200021 reject * * udp,tcp * 135
+ip filter 200022 reject * * udp,tcp netbios_ns-netbios_ssn *
+ip filter 200023 reject * * udp,tcp * netbios_ns-netbios_ssn
+ip filter 200024 reject * * udp,tcp 445 *
+ip filter 200025 reject * * udp,tcp * 445
+ip filter 200026 restrict * * tcpfin * www,21,nntp
+ip filter 200027 restrict * * tcprst * www,21,nntp
+ip filter 200030 pass * 192.168.0.0/16 icmp * *
+ip filter 200031 pass * 192.168.0.0/16 established * *
+ip filter 200032 pass * 192.168.0.0/16 tcp * ident
+ip filter 200033 pass * 192.168.0.0/16 tcp ftpdata *
+ip filter 200034 pass * 192.168.0.0/16 tcp,udp * domain
+ip filter 200035 pass * 192.168.0.0/16 udp domain *
+ip filter 200036 pass * 192.168.0.0/16 udp * ntp
+ip filter 200037 pass * 192.168.0.0/16 udp ntp *
+ip filter 200080 pass * 192.168.100.1 udp * 500
+ip filter 200081 pass * 192.168.100.1 esp * *
+ip filter 200082 pass * 192.168.100.1 udp * 4500
+ip filter 200099 pass * * * * *
+ip filter 500000 restrict * * * * *
+ip filter dynamic 200080 * * ftp
+ip filter dynamic 200081 * * domain
+ip filter dynamic 200082 * * www
+ip filter dynamic 200083 * * smtp
+ip filter dynamic 200084 * * pop3
+ip filter dynamic 200085 * * submission
+ip filter dynamic 200098 * * tcp
+ip filter dynamic 200099 * * udp
+nat descriptor type 1 masquerade
+nat descriptor masquerade static 1 1 192.168.101.1 udp 500
+nat descriptor masquerade static 1 2 192.168.101.1 udp 4500
+nat descriptor masquerade static 1 3 192.168.101.1 esp
+ipsec auto refresh on
+ipv6 filter 1010 pass * * icmp6 * *
+ipv6 filter 1011 pass * * tcp * ident
+ipv6 filter 1012 pass * * udp * 546
+ipv6 filter 2000 reject * * * * *
+ipv6 filter 3000 pass * * * * *
+ipv6 filter dynamic 100 * * ftp
+ipv6 filter dynamic 101 * * domain
+ipv6 filter dynamic 102 * * www
+ipv6 filter dynamic 103 * * smtp
+ipv6 filter dynamic 104 * * pop3
+ipv6 filter dynamic 105 * * tcp
+ipv6 filter dynamic 106 * * udp
+dhcp service server
+dhcp server rfc2131 compliant except remain-silent
+dhcp scope 1 192.168.100.31-192.168.100.200/24 gateway 192.168.100.1
+dhcp scope option 1 router=192.168.100.1 dns=192.168.100.1 ntp_server=192.168.100.1
+dhcp scope 101 192.168.101.31-192.168.101.200/24
+dhcp scope option 101 router=192.168.101.1 dns=192.168.101.1 ntp_server=192.168.101.1
+dhcp scope 102 192.168.102.31-192.168.102.200/24 gateway 192.168.102.1
+dhcp scope 104 192.168.104.31-192.168.104.200/24 gateway 192.168.104.1
+dhcp client hostname lan2 primary "YAMAHA RTX1200"
+dns server pp 1
+dns server dhcp lan2
+dns private address spoof on
+snmp sysname yamaha-rtx1200
+schedule at 1 */* 01:44:00 * ntpdate pool.ntp.org syslog
+schedule at 2 */* 03:15:20 * copy config 0 usb1:/config.txt
+external-memory config filename usb1:/config.txt,*:config.txt 0
+statistics cpu on
+statistics memory on
+statistics traffic on
+statistics qos on
+sntpd service on
+sntpd host any
