@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = 'hitsumabushi'
 SITENAME = 'ひつまぶし食べたい'
-SITEURL = 'https://www.hitsumabushi.org'
+SITEURL = 'http://www.hitsumabushi.org'
 
 THEME = 'themes/pelican-bootstrap3'
 PATH = 'content'
