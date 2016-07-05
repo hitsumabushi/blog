@@ -1,7 +1,7 @@
 Title: VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる
 Date: 2016-07-05 20:40
 Category: blog
-Tags: VMware, NSX
+Tags: VMware, NSX, VCP
 
 [TOC]
 
