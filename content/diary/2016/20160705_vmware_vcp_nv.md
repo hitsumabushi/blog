@@ -39,6 +39,7 @@ VCP-NVは、VMwareのNSXを用いた仮想ネットワーク管理について�
 ただし、現在有効なVCP資格を持っている場合、トレーニングもFoundation試験も免除されるため、NVの試験(`2V0-641: VMware Certified Professional 6 - Network Virtualization Exam`) を受けるだけで問題ありません。
 
 まとめると以下です。
+
 1. 有効なVCPを持っている場合
     1. `2V0-641: VMware Certified Professional 6 - Network Virtualization Exam` を受験し、合格する
 2. VCPを保有していない、もしくは失効している場合
@@ -57,11 +58,12 @@ VCP-NVは、VMwareのNSXを用いた仮想ネットワーク管理について�
 [VMware Certified Professional 6 – Network Virtualization Exam](https://mylearn.vmware.com/mgrReg/plan.cfm?plan=64297&ui=www_cert)
 
 抜粋すると、以下の通りです。
-* 試験時間 : 100分
-* 問題数 : 85問
-* 合格点 : 300点
-* 対象のプロダクト : VMware NSX for vSphere v6
-* 試験費用 : $225 USD
+
+- 試験時間 : 100分
+- 問題数 : 85問
+- 合格点 : 300点
+- 対象のプロダクト : VMware NSX for vSphere v6
+- 試験費用 : $225 USD
 
 ## まとめ
 
@@ -70,3 +72,6 @@ VMwareの人と話していても、資格試験としてまともなってい�
 (以前のVCPはちょっと・・・という感じの試験内容だった。)
 
 とりあえず、受けたらまた試験について書きます。
+
+## 追記
+[VCP6-NV の試験勉強メモを書いた。](/2016/07/05/2121.html)
