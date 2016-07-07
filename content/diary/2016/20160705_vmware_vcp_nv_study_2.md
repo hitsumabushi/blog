@@ -1,9 +1,15 @@
-Title: VCP6-NV 試験勉強メモ Part2
+Title: VCP6-NV 試験勉強メモ 2日目
 Date: 2016-07-07 07:42:46
 Category: blog
 Tags: VMware, NSX, VCP
 
 [TOC]
+
+## VCP6-NV 受験シリーズ
+
++ [VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる]({filename}/diary/2016/20160705_vmware_vcp_nv.md)
++ [VCP6-NV 試験勉強メモ]({filename}/diary/2016/20160705_vmware_vcp_nv_study.md)
++ [VCP6-NV 試験勉強メモ 2日目]({filename}/diary/2016/20160705_vmware_vcp_nv_study_2.md)
 
 ## 資料
 - [ネットワーク仮想化をネットワークの基本から理解する　〜 第1回：理解するために必要なことを整理する](http://blogs.vmware.com/jp-cim/2015/03/nwv01.html)
@@ -45,6 +51,7 @@ Tags: VMware, NSX, VCP
 ### 制御プレーンについて
 
 分散論理ルータの制御プレーンは、以下の2つある。
+
 - インスタンスごとに作られる、論理ルータコントロール仮想マシン
     - Active/Standby 構成にもできる
     - ダイナミックルーティング(OSPF, BGP)を処理する

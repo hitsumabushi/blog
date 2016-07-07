@@ -5,6 +5,12 @@ Tags: VMware, NSX, VCP
 
 [TOC]
 
+## VCP6-NV 受験シリーズ
+
++ [VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる]({filename}/diary/2016/20160705_vmware_vcp_nv.md)
++ [VCP6-NV 試験勉強メモ]({filename}/diary/2016/20160705_vmware_vcp_nv_study.md)
++ [VCP6-NV 試験勉強メモ 2日目]({filename}/diary/2016/20160705_vmware_vcp_nv_study_2.md)
+
 ## 資料
 
 ### 最も公式っぽい資料
