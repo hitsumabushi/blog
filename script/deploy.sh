@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x
+set -e
 
 # resolv dependency
 pip install -r requirements.txt --use-mirrors
@@ -32,7 +32,13 @@ rm -rf cache
 
 # Git push
 git add -A .
-git commit -m "Build by drone.io"
+git commit -m "Build by Travis-CI"
 git remote set-url origin git@github.com:hitsumabushi/blog.git
 git push -f origin gh-pages  # forced push
 
+# For cloudflare : purge caches
+curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/purge_cache" \
+  -H "X-Auth-Email: ${CLOUDFLARE_AUTH_EMAIL}" \
+  -H "X-Auth-Key: ${CLOUDFLARE_AUTH_KEY}" \
+  -H "Content-Type: application/json" \
+  --data '{"purge_everything":true}'
