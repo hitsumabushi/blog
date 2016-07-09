@@ -2,7 +2,6 @@ Title: VCP6-NV 取得した
 Date: 2016-07-09 12:32
 Category: blog
 Tags: VMware, NSX, VCP
-Status: draft
 
 [TOC]
 
