@@ -12,6 +12,10 @@ set -e
 make clean
 make html || exit 1
 
+# git config
+git config user.email "${GIT_USER_EMAIL}"
+git config user.name "${GIT_USER_NAME}"
+
 # checkout branch
 git checkout -b gh-pages
 
@@ -19,22 +23,23 @@ git checkout -b gh-pages
 cp -r output/* .
 
 # Remove unpublish files
-rm -r content
-rm -r output
-rm *.sh
-rm *.py
-rm Makefile
-rm requirements.txt
-rm .gitignore
-rm -rf themes/*
-rm -rf __pycache__
-rm -rf cache
+rm -rf content \
+  output \
+  script \
+  themes \
+  __pycache__ \
+  cache
+
+rm -f *.py \
+  Makefile \
+  requirements.txt \
+  .gitmodules \
+  .travis.yml
 
 # Git push
 git add -A .
 git commit -m "Build by Travis-CI"
-git remote set-url origin git@github.com:hitsumabushi/blog.git
-git push -f origin gh-pages  # forced push
+git push -fq "https://${GITHUB_TOKEN}@github.com/hitsumabushi/blog.git" gh-pages:gh-pages > /dev/null 2>&1 # forced push
 
 # For cloudflare : purge caches
 curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/purge_cache" \
