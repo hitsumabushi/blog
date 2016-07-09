@@ -2,11 +2,11 @@
 set -e
 
 # resolv dependency
-pip install -r requirements.txt --use-mirrors
+#pip install -r requirements.txt
 
 # sync submodule
-git submodule init
-git submodule update
+#git submodule init
+#git submodule update
 
 # build html
 make clean
