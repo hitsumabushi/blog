@@ -26,6 +26,7 @@ cp -r output/* .
 rm -rf content \
   output \
   script \
+  plugins \
   themes \
   __pycache__ \
   cache
