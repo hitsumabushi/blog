@@ -121,7 +121,7 @@ DaaSとかVDIは、必ずActive Directoryの話になるので、気後れして
 		- SIベースなのかな?
 
 ### 新日鉄ソリューションズ
-- ${M^3$} DaaS@absonne
+- $M^3$ DaaS@absonne
 	+ http://www.absonne.jp/service/m3daas/menu3.php
 	+ 画面転送、仮想デスクトップ型の2タイプ
 	+ XenApp, XenDesktopベース
