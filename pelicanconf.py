@@ -97,8 +97,8 @@ MD_EXTENSIONS = [
     'extra', 'nl2br', 'toc']
 
 # Plugins
-PLUGIN_PATHS = ['plugins']
-PLUGINS = ['sitemap', 'related_posts', 'tag_cloud']
+PLUGIN_PATHS = ['plugins/pelican-plugins']
+PLUGINS = ['sitemap', 'related_posts', 'tag_cloud', 'render_math']
 
 BOOTSTRAP_FLUID = True
 # Plugin Settings

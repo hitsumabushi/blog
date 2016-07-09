@@ -13,3 +13,4 @@ pytz==2015.7
 requests==2.8.1
 six==1.10.0
 uritemplate.py==0.3.0
+typogrify==2.0.7
