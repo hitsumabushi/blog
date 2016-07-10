@@ -15,7 +15,7 @@ https://github.com/hitsumabushi/hub
 
 ## 手順
 
-```
+```sh
 # install
 sudo apt install fakeroot
 
