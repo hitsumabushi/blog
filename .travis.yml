@@ -1,12 +1,15 @@
 language: python
 python:
-  - "3.5"
+- '3.5'
 branches:
   only:
-    - master
+  - master
 before_install:
-  - pip install -U pip
+- pip install -U pip
 install:
-  - pip install -r requirements.txt
-  - git submodule update --init --recursive
-script: ./script/deploy.sh
+- pip install -r requirements.txt
+- git submodule update --init --recursive
+script: "./script/deploy.sh"
+notifications:
+  slack:
+    secure: XEWtJape3GQSntCHwKGnz/ZNlcG9U5IKq94l4qbitjVCcg+NUtJ1l9fyev6aFgmCaJUH4MVg6Su+LGR/eKmOfC8E4e5GtDDapt0Ry0hLKZRjhZVsTkh+SvRpDB6J33b6GQNeww9lzLrH/C9qoPFRf3vC108X7j5oOniDoi1iCCA=
