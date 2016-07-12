@@ -24,3 +24,25 @@ fatal: failed to write commit object
 
 `GPG_TTY=$(tty)` として、ttyを指定すれば良いらしい。
 どうも、署名をするときのパスフレーズを入力する画面を表示しようとしてエラーが出ているように見える。
+
+## 余談
+
+.gitconfig をgitで管理しているので、マシンに依存する設定を分割している。
+今のところは鍵もわけることにしている。
+
+.gitconifg
+```
+[include]
+path=.gitconfig.local
+...
+```
+
+.gitconfig.local
+```
+[user]
+signingkey = (鍵ID)
+[commit]
+gpgsign = true
+[gpg]
+program = gpg2
+```
