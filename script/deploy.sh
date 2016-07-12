@@ -53,4 +53,4 @@ curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}
   -H "X-Auth-Email: ${CLOUDFLARE_AUTH_EMAIL}" \
   -H "X-Auth-Key: ${CLOUDFLARE_AUTH_KEY}" \
   -H "Content-Type: application/json" \
-  --data '{"files":["${SITE_BASE_URL}/", "${SITE_BASE_URL}/index.html", "${SITE_BASE_URL}/archives.html"]}'
+  --data "{\"files\":[\"${SITE_BASE_URL}/\", \"${SITE_BASE_URL}/index.html\", \"${SITE_BASE_URL}/archives.html\"]}"
