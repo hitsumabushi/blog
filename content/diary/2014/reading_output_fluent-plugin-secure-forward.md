@@ -4,7 +4,7 @@ Category: blog
 Tags: Ruby, Fluentd
 Status: draft
 
-[昨日の続き](http://www.hitsumabushi.org/blog/2014/1217_2345.html)で、次はOutput部分の処理を見ようと思います。
+[昨日の続き]({filename}/diary/2014/reading_input_fluent-plugin-secure-forward.md)で、次はOutput部分の処理を見ようと思います。
 Fluentdプラグイン自体の読み方はだいぶわかったので、今日はもう少し詳しいロジックを見ていこうと思います。
 
 [TOC]
