@@ -14,3 +14,4 @@ requests==2.8.1
 six==1.10.0
 uritemplate.py==0.3.0
 typogrify==2.0.7
+pelican-gist==0.3.3
