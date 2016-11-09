@@ -31,6 +31,8 @@ ansible で構成/コンフィグ管理やプロビジョニングをしてい�
 │   │      (└── vault-pass.yml ※今回は関係ないが暗号化したい情報。ansible-vault で作成。)
 │   ├── region
 │   │   └── region-1.yml
+│   ├── role
+│   │   └── web.yml
 │   └── zone
 │       └── zone-1.yml
 ├── inventories
@@ -64,6 +66,9 @@ zone/zone-1
 [zone/zone-1]
 app_server-1
 db_server-1
+
+[role/web]
+app_server-1
 
 [app]
 app_server-1 ansible_host=localhost
