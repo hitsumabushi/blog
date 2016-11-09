@@ -9,7 +9,7 @@ Tags: git, ansible
 * git bisect が便利
 * ansible 2.1.0 -> 2.1.1 で group名に `/` を入れるとうまく動かないケースが存在する
     - [ansible](https://github.com/ansible/ansible) リポジトリでbisect すると対象のコミットは `7287effb5ce241ce645d61e55e981edc73fa382a`
-* group名には `/` を入れないように、 `group_vars` 以下はフラットな構成にしよう
+    - group名には `/` を入れないように、 `group_vars` 以下はフラットな構成にしよう
 
 ## 遭遇した問題
 ansible で構成/コンフィグ管理やプロビジョニングをしているのだけど、
@@ -124,12 +124,12 @@ fatal: [app_server-1]: FAILED! => {"failed": true, "msg": "the field 'args' has 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="ja" dir="ltr"><a href="https://twitter.com/_hitsumabushi_">@_hitsumabushi_</a> なんのことか全然わかってないの勘違いしてるかもしれませんが、ちゃんと問題の検出ができるならば git bisect を使えば二分探索で怪しいコミットを見つけることができるはずです。</p>&mdash; mapk0y (@mapk0y) <a href="https://twitter.com/mapk0y/status/796385700371275776">November 9, 2016</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-### git bisect での調査
-#### リポジトリのクローン
+## git bisect での調査
+### リポジトリのクローン
 ```shell
 git clone https://github.com/ansible/ansible.git
 ```
-#### テストスクリプトの準備
+### テストスクリプトの準備
 ```shell
 $ cd ansible
 $ cat check.sh
@@ -145,7 +145,7 @@ cd "${PATH_TO_PLAYBOOK}"
 ansible-playbook -i inventories/sample.ini site.yml
 ```
 
-#### git bisect の実行(自動)
+### git bisect の実行(自動)
 現在、すでに 2.1.0.0 と 2.1.1.0 の間で動作が変わっていることがわかっている。
 タグとしては、 `v2.1.0.0-1` と `v2.1.1.0-1` の間になる。
 
@@ -156,6 +156,8 @@ $ git bisect start v2.1.1.0-1 v2.1.0.0-1
 ```
 
 次に、各コミットに対して、 good/bad の判断を行うため、テストスクリプトを指定する。
+これで、自動的にテストスクリプトを実行して、2分探索を行ってくれる。
+あとは、結果が出るまで待てば良い。
 ```shell
 $ git bisect run ./check.sh
 ...
@@ -164,7 +166,9 @@ commit 7287effb5ce241ce645d61e55e981edc73fa382a
 ...
 ```
 これで、 commitが特定できた。あとは、内容の変更を精査すれば良い。
-終わったら、 `git bisect reset` する。
+
+### 片付け
+調査が終わったら、 `git bisect reset` して、終わってしまえば良い。
 
 ---
 
