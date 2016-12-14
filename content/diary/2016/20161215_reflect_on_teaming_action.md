@@ -27,7 +27,9 @@ Tags: teaming
 
 ### 組織構造について
 
+<pre style="width: 564px">
 <script async class="speakerdeck-embed" data-slide="23" data-id="8ab0a6fcf5904f12bae44506e5f073b2" data-ratio="1.44428772919605" src="//speakerdeck.com/assets/embed.js"></script>
+</pre>
 
 * 部全体では30~40人程度の時期
 * 各プロジェクトごとに、関係するチームの人がアサインされる
