@@ -5,7 +5,11 @@ Tags: coreos, containerlinux
 
 [TOC]
 
-## イメージ
+## 構成
+
+Mesos などを立てるため、Master 3台, Slave 2台以上の予定で作る。
+
+## OSイメージ
 VMware用のイメージを利用。
 `/usr/share/oem/cloud-config.yml` に vmware tools周りの設定が入っているので便利。
 
