@@ -16,3 +16,9 @@ Status: draft
 まずは swiftの実行環境を整えようと、Xcode をインストールする。
 インストールに時間がかかるので終わり。
 
+# Day 2
+[The Swift Programming Language (Swift 3.1)](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/GuidedTour.html#//apple_ref/doc/uid/TP40014097-CH2-ID1) をクラウドEXPOの出展の合間に読む
+これで大体Swiftの文法を理解した。
+感想としては、割と書きやすそう。何よりMaybe型というかOptional型というかがちゃんとあるのが良い。
+読み終わってないけど、お酒も飲んだしやめる。
+
