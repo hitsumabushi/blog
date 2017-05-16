@@ -30,6 +30,7 @@ Status: draft
 
 0. [X] CI環境の整備
 1. [X] 課金情報周りの Unitテストを書く活動
+2. [ ] 謎の手で書かれたswagger fileを正しいswagger fileにする
 3. [ ] API周りのテスト活動 ← イマココ
 4. [ ] APIドキュメント生成する活動
 
@@ -49,3 +50,41 @@ dockerコンテナを利用してビルドする、簡単な `.Jenkinsfile` の�
 リリースまで時間も限られているので、最も優先度の高い部分のテストを書くことにした。
 そもそもテストしづらいタイプの大きなメソッドを分割することことから始めて、00% → 80%↑ 程度までテストを書いた。
 
+### 2. 謎の手で書かれたswagger fileを正しいswagger fileにする
+
+謎の手書きswagger fileがあった。
+swagger fileとしてパースできるが、APIドキュメントとしては不備があって、invalid だった。
+(例えば、401が返る場合のbodyがundocumentedだったり、エラー構造体が定義されていないなど)
+まず swagger fileとして正しくすることから始めた。
+一旦、これは目で見て確かめて書いていく感じにした。(もちろんソースコードを見ることができるので、ソースコードから補完していく感じ。)
+
+# 色々と試行錯誤
+
+## swaggerfile をパースして json schema としてvalidation
+x-examplesにリクエストの具体的なパラメータを突っ込んで、
+swagger-parse を使って、リクエスト・レスポンスをJSON Schemaから検証した。
+required など書き方が違うものがあり、いろいろな書き方を許容してしまうとまずい印象。
+
+
+## dredd の検証
+
+```
+% dredd init
+? Location of the API description document swagger.yml
+? Command to start API backend server e.g. (bundle exec rails server)
+? URL of tested API endpoint https://api-dev.sakura.io
+? Programming language of hooks python
+? Do you want to use Apiary test inspector? No
+? Dredd is best served with Continuous Integration. Create CircleCI config for Dredd? Yes
+
+Configuration saved to dredd.yml
+
+Install hooks handler and run Dredd test with:
+
+  $ pip install dredd_hooks
+  $ dredd
+```
+
+```
+$ pip install dredd_hooks
+```
