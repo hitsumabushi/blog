@@ -1,4 +1,6 @@
 language: python
+git:
+  submodules: false
 python:
 - '3.5'
 branches:
@@ -8,7 +10,8 @@ before_install:
 - pip install -U pip
 install:
 - pip install -r requirements.txt
-- git submodule update --init --recursive
+- git submodule update --init
+- cd ./plugins/pelican-plugins/ && git submodule update --init pelican-gist && cd $TRAVIS_BUILD_DIR
 script: "./script/deploy.sh"
 notifications:
   slack:
