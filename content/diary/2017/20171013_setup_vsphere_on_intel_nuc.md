@@ -11,14 +11,14 @@ Tags: vmware
 # 環境
 以下の構成のIntel NUC 3台にESXiをインストールして、その上にvCenterを立て、VSAN環境を作る。
 
-* Machine: NUC6i3SYH https://www.amazon.com/gp/product/B018NSAPIM
-    * Memory: 16GBx2 https://www.amazon.com/gp/product/B015YPB8ME
-    * Cache SSD: Intel 128GB https://www.amazon.co.jp/gp/product/B01JSJA1Z2
-    * SSD: Crucial MX300 275GB https://www.amazon.com/gp/product/B01IAGSD5O
-    * USB storage: SanDisk USB Flash Drive 8GB https://www.amazon.co.jp/gp/product/B005FYNSUA
+* Machine: NUC6i3SYH [https://www.amazon.com/gp/product/B018NSAPIM](https://www.amazon.com/gp/product/B018NSAPIM)
+    * Memory: 16GBx2 [https://www.amazon.com/gp/product/B015YPB8ME](https://www.amazon.com/gp/product/B015YPB8ME)
+    * Cache SSD: Intel 128GB [https://www.amazon.co.jp/gp/product/B01JSJA1Z2](https://www.amazon.co.jp/gp/product/B01JSJA1Z2)
+    * SSD: Crucial MX300 275GB [https://www.amazon.com/gp/product/B01IAGSD5O](https://www.amazon.com/gp/product/B01IAGSD5O)
+    * USB storage: SanDisk USB Flash Drive 8GB [https://www.amazon.co.jp/gp/product/B005FYNSUA](https://www.amazon.co.jp/gp/product/B005FYNSUA)
         * ESXi インストール用
         * あんまり良くはないけど、省スペースのために妥協
-    * USB NIC: StarTech.com USB32000SPT https://www.amazon.com/dp/B00D8XTOD0
+    * USB NIC: StarTech.com USB32000SPT [https://www.amazon.com/dp/B00D8XTOD0](https://www.amazon.com/dp/B00D8XTOD0)
         * 一時期、管理ネットワークとVSANネットワークを兼用していたが、すぐにぶっ壊れるので、NICを追加するために購入した
         * 4K までだけどJumbo frame がサポートされているので、まあ良さそう。もちろん本当は9K欲しい。
 * NFS サーバー
@@ -109,6 +109,6 @@ vCenter をデプロイする先のデータストアが必要なので、どれ
 
 
 # 参考
-* ESXi Customizer: https://www.v-front.de/p/esxi-customizer-ps.html
-* UNetbootin: http://unetbootin.github.io/
-* virtuallyGhetto: http://www.virtuallyghetto.com/2016/11/usb-3-0-ethernet-adapter-nic-driver-for-esxi-6-5.html
+* ESXi Customizer: [https://www.v-front.de/p/esxi-customizer-ps.html](https://www.v-front.de/p/esxi-customizer-ps.html)
+* UNetbootin: [http://unetbootin.github.io/](http://unetbootin.github.io/)
+* virtuallyGhetto: [http://www.virtuallyghetto.com/2016/11/usb-3-0-ethernet-adapter-nic-driver-for-esxi-6-5.html](http://www.virtuallyghetto.com/2016/11/usb-3-0-ethernet-adapter-nic-driver-for-esxi-6-5.html)
