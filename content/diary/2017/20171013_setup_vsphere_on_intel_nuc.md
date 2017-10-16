@@ -10,6 +10,7 @@ Tags: vmware
 
 # 環境
 以下の構成のIntel NUC 3台にESXiをインストールして、その上にvCenterを立て、VSAN環境を作る。
+
 * Machine: NUC6i3SYH https://www.amazon.com/gp/product/B018NSAPIM
     * Memory: 16GBx2 https://www.amazon.com/gp/product/B015YPB8ME
     * Cache SSD: Intel 128GB https://www.amazon.co.jp/gp/product/B01JSJA1Z2
