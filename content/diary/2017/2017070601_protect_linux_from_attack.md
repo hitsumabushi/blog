@@ -6,7 +6,7 @@ Status: draft
 
 [TOC]
 
-# やること
+## やること
 
 * 意図しないアクセスを防ぎたい
     * Firewall の設定
@@ -32,16 +32,16 @@ Status: draft
         * ポリシーもRHELの方がサポートされているらしい
         * https://wiki.debian.org/UsingSCAP
 
-# 実行環境
+## 実行環境
 
 ```
 $ uname -a
 Linux workdebian 4.9.0-3-amd64 #1 SMP Debian 4.9.25-1 (2017-05-02) x86_64 GNU/Linux
 ```
 
-# やったこと
+## やったこと
 
-## clamav
+### clamav
 
 ```
 $ sudo apt install clamav clamav-daemon
@@ -55,7 +55,7 @@ $ sudo vim /etc/clamav/clamd.conf
 $ sudo systemctl restart clamav-daemon
 ```
 
-## etckeeper
+### etckeeper
 
 ```
 $ sudo apt install etckeeper
@@ -70,7 +70,7 @@ $ sudo git commit -am "foo bar"
 
 どこかに push しておくと便利だと思うけど、今回はやらない。
 
-## rkhunter
+### rkhunter
 
 ```
 $ sudo apt install rkhunter
@@ -106,7 +106,7 @@ $ sudo vim /etc/rkhunter.conf
 + ALLOWHIDDENFILE=/etc/.etckeeper
 ```
 
-## Lynis
+### Lynis
 
 ```
 $ sudo apt install lynis
@@ -120,16 +120,16 @@ $ sudo lynis audit system --verbose
 cronの設定
 https://cisofy.com/documentation/lynis/#cronjobs に記載されているとおり、 `--cronjobs` をつけるらしい。
 
-## auditd
+### auditd
 
 ```
 $ sudo apt install auditd
 ```
 
-## debsums, debsecan
+### debsums, debsecan
 
 ```
 $ sudo apt install debsums debsecan
 ```
 
-## vuls
+### vuls

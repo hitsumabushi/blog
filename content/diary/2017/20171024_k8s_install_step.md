@@ -6,7 +6,7 @@ Status: draft
 
 [TOC]
 
-# kubectl をインストール
+## kubectl をインストール
 
 kubernetes の管理に使うので、 kubectl をインストール
 
@@ -29,8 +29,8 @@ clientVersion:
   platform: linux/amd64
 ```
 
-# local で k8s を立てる
-## minikube をインストール
+## local で k8s を立てる
+### minikube をインストール
 
 最新バージョンを確認してダウンロードする
 
@@ -44,7 +44,7 @@ $ minikube version
 minikube version: v0.22.3
 ```
 
-## k8s cluster を作る
+### k8s cluster を作る
 
 ```
 $ minikube start
@@ -66,14 +66,14 @@ NAME       STATUS    ROLES     AGE       VERSION
 minikube   Ready     <none>    1m        v1.7.5
 ```
 
-## minikube ちょっと触る
+### minikube ちょっと触る
 * minikube dashboard
 * minikube status
 * minikube ip
 * minikube ssh
 * minikube docker-env
 
-## 
+### 
 
 ```
 $ kubectl run ghost --image=ghost:latest
