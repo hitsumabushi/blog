@@ -150,7 +150,7 @@ https://play.golang.org/p/OvQw6BdxVf
 
 ## ansible 側の準備
 
-`ansible-playbook -i acloud_inventory.py site.yml --check` をしたいのですが、しばしば check modeで実行できていないplaybookや、変更がないのにchangedにしているplaybookがあります。これを直しましょう。
+`ansible-playbook -i sacloud_inventory.py site.yml --check` をしたいのですが、しばしば check modeで実行できていないplaybookや、変更がないのにchangedにしているplaybookがあります。これを直しましょう。
 check modeで実行できていない、典型的なものとしては以下のようなものがあります。
 
 ### 別のtaskの実行結果を参照している
