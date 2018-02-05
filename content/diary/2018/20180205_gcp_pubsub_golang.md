@@ -22,14 +22,14 @@ Tags: GCP, golang
 結論としては、以下のような形でpubsub client を作るときに認証情報を渡すことができます。
 
 ```
-	jsonKey, err := ioutil.ReadFile(credentialJSONPath)
-	conf, err := google.JWTConfigFromJSON(jsonKey, pubsub.ScopePubSub, pubsub.ScopeCloudPlatform)
-	if err != nil {
-		log.Fatal(err)
-	}
-	ctx := context.Background()
-	ts := conf.TokenSource(ctx)
-	c, err := pubsub.NewClient(ctx, projectID, option.WithTokenSource(ts))
+  jsonKey, err := ioutil.ReadFile(credentialJSONPath)
+  conf, err := google.JWTConfigFromJSON(jsonKey, pubsub.ScopePubSub, pubsub.ScopeCloudPlatform)
+  if err != nil {
+    log.Fatal(err)
+  }
+  ctx := context.Background()
+  ts := conf.TokenSource(ctx)
+  c, err := pubsub.NewClient(ctx, projectID, option.WithTokenSource(ts))
 ```
 
 Publisherのサンプルは以下の通りです。
