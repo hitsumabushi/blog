@@ -82,3 +82,8 @@ fi
 
 zsh では `/etc/profile` などを読まないので、パスが設定できていない。
 `/etc/zsh/zprofile` に、上記の内容を書いて置けば良い。
+あるいは、 `/etc/zsh/zprofile` で以下のようにする。
+
+```
+emulate sh -c 'source /etc/profile'
+```
