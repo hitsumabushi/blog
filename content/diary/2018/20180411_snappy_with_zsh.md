@@ -29,7 +29,7 @@ $ sudo apt install snapd
 
 ### snap パッケージのインストール
 
-```
+```sh
 $ sudo snap install hello-world
 ```
 
@@ -63,7 +63,7 @@ kernel  4.9.0-3-amd64
 
 `/etc/profile.d/apps-bin-path.sh` にパスを設定するためのスクリプトが置かれている。
 
-```
+```sh
 $ cat /etc/profile.d/apps-bin-path.sh
 #!/bin/sh --this-shebang-is-just-here-to-inform-shellcheck--
 
@@ -84,6 +84,6 @@ zsh では `/etc/profile` などを読まないので、パスが設定できて
 `/etc/zsh/zprofile` に、上記の内容を書いて置けば良い。
 あるいは、 `/etc/zsh/zprofile` で以下のようにする。
 
-```
+```sh
 emulate sh -c 'source /etc/profile'
 ```
