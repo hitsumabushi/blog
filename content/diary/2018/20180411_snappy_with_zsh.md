@@ -85,5 +85,7 @@ zsh では `/etc/profile` などを読まないので、パスが設定できて
 あるいは、 `/etc/zsh/zprofile` で以下のようにする。
 
 ```sh
-emulate sh -c 'source /etc/profile'
+for i in /etc/profile.d/*.sh ; do
+    [ -r $i ] && source $i
+done
 ```
