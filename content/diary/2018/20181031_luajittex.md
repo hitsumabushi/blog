@@ -2,7 +2,6 @@ Title: DebianでLuaJITTeXを使いたい
 Date: 2018-10-31 19:01
 Category: blog
 Tags: tex,debian
-Status: draft
 
 [TOC]
 
