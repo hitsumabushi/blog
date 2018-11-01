@@ -32,6 +32,8 @@ Tags: tex,debian
 
 ```sh
 sudo apt install texlive-lang-japanese texlive-latex-extra texlive-luatex
+# 参考文献とか書くとき
+sudo apt install texlive-bibtex-extra biber
 ```
 
 `/var/lib/texmf/fmtutil.cnf-TEXLIVEDIST` を編集したい。(未解決の項目に書いた通り、元ファイルがわからないので直接編集している)
@@ -64,3 +66,56 @@ luajittex --fmt=luajitlatex.fmt {tex file}
 ```
 
 問題なくコンパイルできれば、pdfが生成されるはず。
+
+## VSCodeでTeXする
+
+[LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) をインストールして、以下の設定をする。
+参考文献が必要なときは、 `luajittex_with_bib` のレシピでビルドするように書いている。
+
+```json
+{
+    "latex-workshop.chktex.enabled": true,
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "luajittex",
+            "tools": ["luajitlatex"]
+        },
+        {
+            "name": "luajittex_with_bib",
+            "tools": [
+                "luajitlatex",
+                "biber",
+                "luajitlatex",
+                "luajitlatex"
+            ]
+        },
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "luajitlatex",
+            "command": "luajittex",
+            "args": [
+                "--cmdx",
+                "--synctex=1",
+                "--fmt=luajitlatex.fmt",
+                "%DOCFILE%"
+            ]
+        },
+        {
+            "name": "biber",
+            "command": "biber",
+            "args": [
+                "%DOCFILE%"
+            ]
+        }
+    ],
+    "latex-workshop.intellisense.surroundCommand.enabled": true,
+    "latex-workshop.synctex.afterBuild.enabled": true,
+}
+```
+
+## その他実際のTeXを書く時に参考になりそうなもののメモ
+
+* 参考文献まわり
+    * [BibTeXの書誌情報の書き方知りたいとき: Wikipedia](https://ja.wikipedia.org/wiki/BibTeX#.E6.9B.B8.E8.AA.8C.E6.83.85.E5.A0.B1.E3.83.95.E3.82.A1.E3.82.A4.E3.83.AB)
+    * 参考文献を探したい時: Google Scholar
