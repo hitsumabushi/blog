@@ -99,6 +99,7 @@ MARKDOWN = {
         },
         'markdown.extensions.extra': {},
         'markdown.extensions.meta': {},
+        'toc': {},
         'gfm': {},
     },
     'output_format': 'html5',
