@@ -113,6 +113,9 @@ PLUGINS = ['sitemap',
            'related_posts',
            'tag_cloud',
            'render_math',
+           'better_tables',
+           'better_figures_and_images',
+           'extract_toc',
            'pelican_gist']
 
 BOOTSTRAP_FLUID = True
