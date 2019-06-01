@@ -92,10 +92,6 @@ SITEMAP_SAVE_AS = 'sitemap.xml'
 
 # Extentions
 # See http://qiita.com/5t111111/items/d745af778969bf00f038
-# old
-#MD_EXTENSIONS = [
-#    'fenced_code', 'codehilite(css_class=highlight)', 'tables',
-#    'extra', 'nl2br', 'toc']
 MARKDOWN = {
     'extension_configs': {
         'markdown.extensions.codehilite': {
