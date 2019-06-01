@@ -2,17 +2,19 @@ beautifulsoup4==4.7.1
 blinker==1.4
 certifi==2019.3.9
 chardet==3.0.4
-cssutils==1.0.2 # for better_figures_and_images
+cssutils==1.0.2
 docutils==0.14
 feedgenerator==1.9
 idna==2.8
 Jinja2==2.10.1
-Markdown==3.1.1
+Markdown==2.6.11
 MarkupSafe==1.1.1
 pelican==4.0.1
 pelican-gist==0.3.4
+Pillow==6.0.0
+py-gfm==0.1.4
 Pygments==2.4.2
-pysvg-py3==0.2.2.post3 # for better_figures_and_images
+pysvg-py3==0.2.2.post3
 python-dateutil==2.8.0
 pytz==2019.1
 requests==2.22.0
