@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>PXEブートでインストーラを起動する - ひつまぶし食べたい</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://www.hitsumabushi.org/static/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://www.hitsumabushi.org/blog/2014/01/01/0244.html">
+
+        <meta name="author" content="hitsumabushi" />
+        <meta name="keywords" content="pxe,preseed,kickstart" />
+        <meta name="description" content="最近、VMwareのESXiで仮想環境を作っています。 触っていて気づいたのですが、空の仮想マシンを起動するとPXEブートを試みてくれます。 この仕様をうまく使いたいなーと思って、PXEブートでインストールを自動化する方法を調べました。 PXEブートしてインストールを自動化するまでの手順を簡単に書いていきます。 Debianをインストールサーバーとして予め立てておき、DebianまたはCentOSをインストールすることにします。 1. Debian Install 2. DHCPサーバーを立てる 3. TFTPサーバーを立てる 4. PXEブート用のイメージを準備する 5. 中間チェック ブート画面でOSを選択できるようにする 6. CentOSのインストーラを準備 7. メニューの作成 …" />
+
+        <meta property="og:site_name" content="ひつまぶし食べたい" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="PXEブートでインストーラを起動する"/>
+        <meta property="og:url" content="https://www.hitsumabushi.org/blog/2014/01/01/0244.html"/>
+        <meta property="og:description" content="最近、VMwareのESXiで仮想環境を作っています。 触っていて気づいたのですが、空の仮想マシンを起動するとPXEブートを試みてくれます。 この仕様をうまく使いたいなーと思って、PXEブートでインストールを自動化する方法を調べました。 PXEブートしてインストールを自動化するまでの手順を簡単に書いていきます。 Debianをインストールサーバーとして予め立てておき、DebianまたはCentOSをインストールすることにします。 1. Debian Install 2. DHCPサーバーを立てる 3. TFTPサーバーを立てる 4. PXEブート用のイメージを準備する 5. 中間チェック ブート画面でOSを選択できるようにする 6. CentOSのインストーラを準備 7. メニューの作成 …"/>
+        <meta property="article:published_time" content="2014-01-01" />
+            <meta property="article:section" content="blog" />
+            <meta property="article:tag" content="pxe" />
+            <meta property="article:tag" content="preseed" />
+            <meta property="article:tag" content="kickstart" />
+            <meta property="article:author" content="hitsumabushi" />
+            <meta property="og:image"
+                  content="https://www.hitsumabushi.org/static/icon.jpg"/>
+
+    <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@__hitsumabushi__">
+        <meta name="twitter:creator" content="@__hitsumabushi__">
+    <meta name="twitter:domain" content="https://www.hitsumabushi.org">
+            <meta property="twitter:image"
+                  content="https://www.hitsumabushi.org/static/icon.jpg"/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="https://www.hitsumabushi.org/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://www.hitsumabushi.org/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/css/style.css" type="text/css"/>
+        <link href="https://www.hitsumabushi.org/static/custom.css" rel="stylesheet">
+
+        <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="ひつまぶし食べたい ATOM Feed"/>
+
+
+
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gist-embed/2.0/gist-embed.min.js"></script>
+
+<!-- https://developers.google.com/custom-search/docs/structured_data?hl=es&csw=1#microformats -->
+<!--
+<PageMap>
+<DataObject type="document">
+    <Attribute name="title">PXEブートでインストーラを起動する</Attribute>
+    <Attribute name="author">hitsumabushi</Attribute>
+    <Attribute name="description">最近、VMwareのESXiで仮想環境を作っています。 触っていて気づいたのですが、空の仮想マシンを起動するとPXEブートを試みてくれます。 この仕様をうまく使いたいなーと思って、PXEブートでインストールを自動化する方法を調べました。 PXEブートしてインストールを自動化するまでの手順を簡単に書いていきます。 Debianをインストールサーバーとして予め立てておき、DebianまたはCentOSをインストールすることにします。 1. Debian Install 2. DHCPサーバーを立てる 3. TFTPサーバーを立てる 4. PXEブート用のイメージを準備する 5. 中間チェック ブート画面でOSを選択できるようにする 6. CentOSのインストーラを準備 7. メニューの作成 …</Attribute>
+    <Attribute name="page_count">1</Attribute>
+    <Attribute name="rating">5</Attribute>
+    <Attribute name="last_update">2014-01-01T02:44:20+09:00</Attribute>
+</DataObject>
+<DataObject type="metatags">
+    <Attribute name="category" value="blog"/>
+        <Attribute name="category" value="pxe"/>
+        <Attribute name="category" value="preseed"/>
+        <Attribute name="category" value="kickstart"/>
+</DataObject>
+-->    <!-- Google Analytics Universal -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-24727901-9', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics Universal Code -->
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://www.hitsumabushi.org/" class="navbar-brand">
+ひつまぶし食べたい            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="https://www.hitsumabushi.org/category/blog.html">Blog</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><form class="navbar-form navbar-right" role="search"
+  action="https://www.google.com/cse" 
+  id="searchbox_009966809170133509931:4vsx-mk1ktu" target="_blank"> 
+    <input type="hidden" name="cx" value="009966809170133509931:4vsx-mk1ktu" /> 
+    <input type="text" name="q" class="form-control" placeholder="Search">
+</form></li>
+              <li><a href="https://www.hitsumabushi.org/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article itemscope itemtype="http://schema.org/BlogPosting" itemref="copyright">
+            <header class="page-header">
+                <h1 itemprop="name">
+                    <a href="https://www.hitsumabushi.org/blog/2014/01/01/0244.html"
+                       rel="bookmark"
+                       title="Permalink to PXEブートでインストーラを起動する"
+                       itemprop="url">
+                       PXEブートでインストーラを起動する
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+      <i class="fa fa-calendar"></i><time datetime="2014-01-01T02:44:20+09:00" itemprop="datePublished"> Wed 01 January 2014</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://www.hitsumabushi.org/tag/pxe.html">pxe</a>
+        /
+	<a href="https://www.hitsumabushi.org/tag/preseed.html">preseed</a>
+        /
+	<a href="https://www.hitsumabushi.org/tag/kickstart.html">kickstart</a>
+    
+</footer><!-- /.post-info --><div id="social_bottuns" class="clearfix">
+  <div class="pull-left" style="margin-right: 5px"><a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard-balloon" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a></div>
+
+  <div class="pull-left" style="margin-right: 5px"><a href="https://twitter.com/share" class="twitter-share-button"{count} data-via="_hitsumabushi_" data-dnt="true">Tweet</a></div>
+
+  <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button"></div>
+
+  <div class="pull-left" style="margin-right: 5px"><a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a></div>
+</div>                    </div>
+                </div>
+                <div id="article_content" itemprop="articleBody">
+                  <div class="line-block">
+<div class="line">最近、VMwareのESXiで仮想環境を作っています。</div>
+<div class="line">触っていて気づいたのですが、空の仮想マシンを起動するとPXEブートを試みてくれます。</div>
+<div class="line">この仕様をうまく使いたいなーと思って、PXEブートでインストールを自動化する方法を調べました。</div>
+</div>
+<div class="line-block">
+<div class="line">PXEブートしてインストールを自動化するまでの手順を簡単に書いていきます。</div>
+<div class="line">Debianをインストールサーバーとして予め立てておき、DebianまたはCentOSをインストールすることにします。</div>
+</div>
+<div class="contents local topic" id="id1">
+<ul class="simple">
+<li><a class="reference internal" href="#debian-install" id="id12">1. Debian Install</a></li>
+<li><a class="reference internal" href="#dhcp" id="id13">2. DHCPサーバーを立てる</a></li>
+<li><a class="reference internal" href="#tftp" id="id14">3. TFTPサーバーを立てる</a></li>
+<li><a class="reference internal" href="#id2" id="id15">4. PXEブート用のイメージを準備する</a></li>
+<li><a class="reference internal" href="#id3" id="id16">5. 中間チェック</a><ul>
+<li><a class="reference internal" href="#os" id="id17">ブート画面でOSを選択できるようにする</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#centos" id="id18">6. CentOSのインストーラを準備</a></li>
+<li><a class="reference internal" href="#id4" id="id19">7. メニューの作成</a><ul>
+<li><a class="reference internal" href="#debian" id="id20">Debianインストールの自動化</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#preseed" id="id21">8. preseed ファイル作成</a></li>
+<li><a class="reference internal" href="#pxelinux-cfg-default" id="id22">9. pxelinux.cfg/default 書き換え</a></li>
+<li><a class="reference internal" href="#id6" id="id23">10. Debianインストールのチェック</a><ul>
+<li><a class="reference internal" href="#cent-os" id="id24">Cent OSインストールの自動化</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#http" id="id25">11. httpサーバー作成</a></li>
+<li><a class="reference internal" href="#id7" id="id26">12. CentOSイメージのマウント</a></li>
+<li><a class="reference internal" href="#kickstart" id="id27">13. kickstartファイルの準備</a></li>
+<li><a class="reference internal" href="#id8" id="id28">14. kickstartファイルの配置</a></li>
+<li><a class="reference internal" href="#id9" id="id29">15. CentOSインストールのチェック</a><ul>
+<li><a class="reference internal" href="#id10" id="id30">もっと自動化できるけど...</a></li>
+<li><a class="reference internal" href="#id11" id="id31">さらに読もうと思ってるサイト</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="debian-install">
+<h2>1. Debian Install</h2>
+<div class="line-block">
+<div class="line">最初のDebianはCDやらで手動でインストールしてください。</div>
+<div class="line">Debianのインストール手順は省略します。</div>
+</div>
+</div>
+<div class="section" id="dhcp">
+<h2>2. DHCPサーバーを立てる</h2>
+<div class="highlight"><pre><span></span><span class="c1"># Install DHCP Server</span>
+apt-get install isc-dhcp-server
+
+<span class="c1"># Config DHCP : INTERFACES</span>
+vi /etc/default/isc-dhcp-server
+<span class="c1"># Modify INTERFACES="" to INTERFACES "eth1"</span>
+
+<span class="c1"># Config DHCP : Server setting</span>
+vi /etc/dhcp/dhcpd.conf
+</pre></div>
+<p>編集する箇所は以下の通りです。</p>
+<p><a class="reference external" href="https://gist.github.com/10664868">https://gist.github.com/10664868</a></p>
+<p>DHCPサーバーを再起動して設定を反映させます。</p>
+<div class="highlight"><pre><span></span><span class="c1"># Restart DHCP Server</span>
+/etc/init.d/isc-dhcp-server restart
+</pre></div>
+</div>
+<div class="section" id="tftp">
+<h2>3. TFTPサーバーを立てる</h2>
+<p>デフォルトで大丈夫でした。</p>
+<div class="highlight"><pre><span></span><span class="c1"># Install TFTP Server</span>
+apt-get install tftpd-hpa
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h2>4. PXEブート用のイメージを準備する</h2>
+<p>以下のページから適当にnetbootイメージを選んで、netboot/netboot.tar.gzを取って来ます。</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.debian.org/distrib/netinst#netboot">http://www.debian.org/distrib/netinst#netboot</a></li>
+</ul>
+<div class="highlight"><pre><span></span><span class="c1"># 展開する</span>
+tar xvf netboot.tar.gz
+<span class="c1"># move files to root dir of TFTP</span>
+mv ./* /srv/tftp
+</pre></div>
+</div>
+<div class="section" id="id3">
+<h2>5. 中間チェック</h2>
+<p>この段階でPXEブートしてみると、Debianのインストーラが立ち上がるようになります。</p>
+<div class="section" id="os">
+<h3>ブート画面でOSを選択できるようにする</h3>
+</div>
+</div>
+<div class="section" id="centos">
+<h2>6. CentOSのインストーラを準備</h2>
+<ol class="arabic simple">
+<li>mkdir -p /srv/tftp/centos/6.5/x86_64</li>
+<li>CentOSのインストールDVDを持って来る</li>
+<li>mount -o loop &lt;CentOS install ISO&gt; /media</li>
+<li><dl class="first docutils">
+<dt>/media/images/pxeboot/にある次の2つのファイルを/srv/tftp/centos/6.5/x86_64/以下にコピーしてくる</dt>
+<dd><ul class="first last">
+<li>initrd.img</li>
+<li>vmlinuz</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>umount /media</li>
+</ol>
+<p>ここで、Debianのインストーラたちも整理して、
+/srv/tftp/debian/7.4/amd64 以下にあるとします。:</p>
+<pre class="literal-block">
+/srv/tftp/
+        |
+        |-debian/7.4/amd64/
+        |       |
+        |       |-boot-screens
+        |       |
+        |       |-initrd.gz
+        |       |
+        |       |-linux
+        |       |
+        |       |-pxelinux.0
+        |       |
+        |       |-pxelinux.cfg/default
+        |
+        |-centos/6.5/x86_64
+        |       |
+        |       |-initrd.img
+        |       |
+        |       |-vmlinuz
+        |
+        |-pxelinux.0 -(シンボリックリンク)-&gt; debian/7.4/amd64/pxelinux.0
+        |
+        |-pxelinux.cfg -(シンボリックリンク)-&gt; debian/7.4/amd64/pxelinux.cfg
+</pre>
+</div>
+<div class="section" id="id4">
+<h2>7. メニューの作成</h2>
+<p>pxelinux.cfg/defaultの内容を以下のように編集します。
+後でもう少し修正します。
+<a class="reference external" href="https://gist.github.com/10663699">最終形はGistにあがっているので</a>、 そちらを見てください。</p>
+<div class="highlight"><pre><span></span><span class="c1"># D-I config version 2.0</span>
+default debian/7.4/amd64/boot-screens/vesamenu.c32
+
+<span class="c1"># Boot Menuに入りたい</span>
+prompt <span class="m">1</span>
+timeout <span class="m">300</span>
+menu title - Boop Options Menu -
+
+label Debian-7.4
+menu label ^0 Debian <span class="m">7</span>.4
+<span class="c1">#include debian/7.4/amd64/boot-screens/menu.cfg</span>
+kernel debian/7.4/amd64/linux
+append <span class="nv">priority</span><span class="o">=</span>critical <span class="nv">vga</span><span class="o">=</span><span class="m">788</span> <span class="nv">initrd</span><span class="o">=</span>debian/7.4/amd64/initrd.gz
+
+label CentOS-6.5
+menu label ^1 CentOS <span class="m">6</span>.5
+kernel centos/6.5/x86_64/vmlinuz
+append <span class="nv">initrd</span><span class="o">=</span>centos/6.5/x86_64/initrd.img
+</pre></div>
+<div class="section" id="debian">
+<h3>Debianインストールの自動化</h3>
+<div class="line-block">
+<div class="line">ここまでで、PXEブートさえしていれば、複数のOSを選んでインストールできるようになりました。</div>
+<div class="line">いまのところの問題点としては、結局インストーラを起動した後は手作業になっていることです。</div>
+<div class="line">次は、PXEブートした後、放っておくと勝手にインストールが終わっているようにしましょう。</div>
+</div>
+<div class="line-block">
+<div class="line">Debianの場合にこれを実現するには、preseedと呼ばれる設定ファイルを書けば良いです。</div>
+<div class="line">普通にインストールするときに色々な質問に答える必要があると思いますが、その答えを事前に書いておくものです。</div>
+<div class="line">ただ、preseedが読まれる前に、インストーラから質問される(インストールのタイプなど)ことがあるので、そのあたりはブート時のパラメータとして渡しましょう。</div>
+</div>
+</div>
+</div>
+<div class="section" id="preseed">
+<h2>8. preseed ファイル作成</h2>
+<div class="line-block">
+<div class="line">preseedファイルはかなり長いです。</div>
+<div class="line">昔はpreseedのドキュメントを読んでも、作るの大変だった印象があったのですが、<a class="reference external" href="https://www.debian.org/releases/wheezy/example-preseed.txt">コメント付きのpreseedの例がある</a> ので、これを元に書いて行けば特に大きくは困らないです。</div>
+<div class="line">ただ、例に書かれていないのですが、GRUBの設定を追加しないといけないのはわかりづらいかも知れません。</div>
+<div class="line">preseedで細かく設定しようとすると大変なので、それはAnsibleなどインストール終わってからの自動化に入れる方針です。</div>
+</div>
+<div class="line-block">
+<div class="line">今回はパーティションなどは全部インストーラに任せています。</div>
+<div class="line">パーティションを変える場合などは、コメントアウトされているところを変更してください。</div>
+</div>
+<p><a class="reference external" href="https://gist.github.com/10664868">https://gist.github.com/10664868</a> の preseed.cfgを参照。</p>
+</div>
+<div class="section" id="pxelinux-cfg-default">
+<h2>9. pxelinux.cfg/default 書き換え</h2>
+<div class="line-block">
+<div class="line">今書いたpreseedファイルを debian/7.4/preseed.cfg として配置したことにします。</div>
+<div class="line">ブートオプションなどを追加した pxelinux.cfg/default ファイルは以下のようになります。</div>
+</div>
+<div class="line-block">
+<div class="line">あとでどうせCentOSも自動化するので、そちらもあわせてオプションをつけておきます。</div>
+</div>
+<p><a class="reference external" href="https://gist.github.com/10664868">https://gist.github.com/10664868</a> の defaultを参照。</p>
+</div>
+<div class="section" id="id6">
+<h2>10. Debianインストールのチェック</h2>
+<div class="line-block">
+<div class="line">また実際にPXEブートしてみましょう。</div>
+<div class="line">Debianをメニューで選択すると、今度は勝手に画面が進んで行くと思います。</div>
+<div class="line">最後までインストールが終わり、勝手にリブートされてこれば、成功です。s</div>
+</div>
+<div class="section" id="cent-os">
+<h3>Cent OSインストールの自動化</h3>
+</div>
+</div>
+<div class="section" id="http">
+<h2>11. httpサーバー作成</h2>
+<div class="line-block">
+<div class="line">後でやるように、kickstartファイルはhttp経由で配ろうと思います。(TFTPでできないっぽかった)</div>
+<div class="line">なので、httpサーバーを予め立てておくことにします。</div>
+</div>
+<div class="highlight"><pre><span></span><span class="c1"># apache install</span>
+apt-get install apache2
+</pre></div>
+</div>
+<div class="section" id="id7">
+<h2>12. CentOSイメージのマウント</h2>
+<div class="highlight"><pre><span></span>mkdir -p /var/www/images/centos
+mount -o loop &lt;CentOS install ISO&gt; /var/www/images/centos
+</pre></div>
+</div>
+<div class="section" id="kickstart">
+<h2>13. kickstartファイルの準備</h2>
+<p>kickstartファイルの詳細については、
+<a class="reference external" href="https://access.redhat.com/site/documentation/ja-JP/Red_Hat_Enterprise_Linux/6/html/Installation_Guide/s1-kickstart2-options.html">redhatのページ</a>
+が参考になります。というか、コレ見たら大体で書ける。</p>
+<p>今回使っているkickstartfileは以下の通りです。</p>
+<p><a class="reference external" href="https://gist.github.com/10664868">https://gist.github.com/10664868</a> の kickstart.cfgを参照。</p>
+</div>
+<div class="section" id="id8">
+<h2>14. kickstartファイルの配置</h2>
+<div class="line-block">
+<div class="line">pxelinux.cfg/defaultファイルの内容に合わせて、kickstart.cfgを配置します。</div>
+<div class="line">今回は、apacheのドキュメントルート直下に置けば良いようにしました。</div>
+</div>
+<div class="highlight"><pre><span></span>mv kickstart.cfg /var/www/
+</pre></div>
+</div>
+<div class="section" id="id9">
+<h2>15. CentOSインストールのチェック</h2>
+<div class="line-block">
+<div class="line">最後に、CentOSのインストールを確かめます。</div>
+<div class="line">実際にPXEブートして、CentOSをメニューで選択すると、勝手に画面が進んで行くと思います。</div>
+<div class="line">最後までインストールが終わり、勝手にリブートされてこれば、成功です。</div>
+</div>
+<div class="section" id="id10">
+<h3>もっと自動化できるけど...</h3>
+<div class="line-block">
+<div class="line">今回は、インストールの自動化を行いました。</div>
+<div class="line">一応、インストールするOSの種類を選ぶところを手でやることにしましたが、普通はOSは一種類で良いか、MACアドレスでインストールするOSを分けてしまうのだと思います。</div>
+<div class="line">そうしておけば、OSの種類を選ぶところも自動化することができます。</div>
+<div class="line">自分としては、基本はDebianをインストールしたくて、たまにCentOSも選びたいという程度なので、ここまでで止めておきます。</div>
+</div>
+<div class="line-block">
+<div class="line">機会があれば、preseedやkickstartでホスト依存な部分(例えば固定IPとか)を都度生成してインストールする方法も考えたいですね。</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h3>さらに読もうと思ってるサイト</h3>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><a class="reference external" href="http://d.hatena.ne.jp/fujisan3776/20100630/1277861431">http://d.hatena.ne.jp/fujisan3776/20100630/1277861431</a></dt>
+<dd>インストール中は別の作業をしているので、インストールが終わったことも知らせて欲しい</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+
+                </div>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'hitsumabushi'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'pxebutodeinsutorawoqi-dong-suru';
+                var disqus_url = 'https://www.hitsumabushi.org/blog/2014/01/01/0244.html';
+
+            var disqus_config = function () {
+                this.language = "ja";
+                this.page.url = disqus_url;
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://twitter.com/_hitsumabushi_"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+                <li class="list-group-item"><a href="https://github.com/hitsumabushi"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2019/02/12/1630.html">
+                            Python でコメント付きYAMLを扱う時には ruamel.yaml が便利だった
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2019/01/25/1454.html">
+                            CloudFormation の不満点
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/11/30/0913.html">
+                            さくらインターネットを退職しました
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/10/31/1901.html">
+                            DebianでLuaJITTeXを使いたい
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/04/11/1058.html">
+                            Debian でログインシェルをzshにしている人が snappy を使う場合の注意
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="list-group-item"><a href="https://www.hitsumabushi.org/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group list-inline tagcloud" id="tags">
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/ansible.html">
+                            ansible
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/apt.html">
+                            apt
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/aws.html">
+                            aws
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/azure.html">
+                            Azure
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cloudformation.html">
+                            cloudformation
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cross.html">
+                            CROSS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cui-ruo-xing.html">
+                            脆弱性
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/debian.html">
+                            debian
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/dns.html">
+                            DNS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/docker.html">
+                            docker
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/git.html">
+                            git
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/linux.html">
+                            Linux
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/lun-wen.html">
+                            論文
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/mian-qiang-hui.html">
+                            勉強会
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/mscs.html">
+                            MSCS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/nsx.html">
+                            NSX
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/papers.html">
+                            papers
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/perl.html">
+                            perl
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/preseed.html">
+                            preseed
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/python.html">
+                            python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/ruby.html">
+                            Ruby
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/sakura.html">
+                            sakura
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/storage.html">
+                            Storage
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/terraform.html">
+                            terraform
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/vcp.html">
+                            VCP
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/vim.html">
+                            vim
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/vmware.html">
+                            vmware
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/vpls.html">
+                            vpls
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/windows.html">
+                            windows
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/zsh.html">
+                            zsh
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-twitter fa-lg"></i><span class="icon-label">Latest Tweets</span></h4></li>
+    <div id="twitter_timeline">
+        <a class="twitter-timeline" data-chrome="noheader" href="https://twitter.com/__hitsumabushi__" data-widget-id="564098693729492992">Tweets by __hitsumabushi__</a>
+    </div>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://hitsumabushi-pc.blogspot.jp/2011/07/blogger.html" target="_blank">
+                Old blog
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+           <span id="copyright">
+             <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+               &copy; 2019 <b itemprop="name">hitsumabushi</b>
+           </span>
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://www.hitsumabushi.org/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://www.hitsumabushi.org/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://www.hitsumabushi.org/theme/js/respond.min.js"></script>
+
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'hitsumabushi'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+<!-- Hatena -->
+<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+<!-- Twitter -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- FB -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=363359100411070&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Pocket -->
+<script type="text/javascript">!function(d, i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document, "pocket-btn-js");</script>
+
+</body>
+</html>

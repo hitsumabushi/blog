@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>読書メモ: いちばんやさしいグロースハックの教本 - ひつまぶし食べたい</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://www.hitsumabushi.org/static/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://www.hitsumabushi.org/drafts/du-shu-memo-ichibanyasashiigurosuhatsukunojiao-ben.html">
+
+        <meta name="author" content="hitsumabushi" />
+        <meta name="keywords" content="marketing" />
+        <meta name="description" content="前提 マーケティングというより、サービスの効果測定を数値で追い、施策を実施、施策の効果を測定する、という一連の流れを行う必要を感じていたので読み始めた。 念頭にあるサービスは、webサービスではあるけど、オウンドメディアみたいなコンテンツをユーザーに読ませることが主目的ではない。 マーケティングの知識も経験もなく、3C分析などもこの2日くらいで勉強しはじめて知った。 メモ Chapter 1 : グロースハックを理解する サービスの成長を定量化することで、絶対的な成果が見えるようになる 投資に対する説明や、メンバーのやる気も上がる グロースハッカーとは、サービスの成長に対して責任を持ち責務を果たす人間 データからユーザー行動を明らかにする いろいろな部署・役割の人と調整することも必要 プロジェクトリーダー的な人間が担当することが多い …" />
+
+        <meta property="og:site_name" content="ひつまぶし食べたい" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="読書メモ: いちばんやさしいグロースハックの教本"/>
+        <meta property="og:url" content="https://www.hitsumabushi.org/drafts/du-shu-memo-ichibanyasashiigurosuhatsukunojiao-ben.html"/>
+        <meta property="og:description" content="前提 マーケティングというより、サービスの効果測定を数値で追い、施策を実施、施策の効果を測定する、という一連の流れを行う必要を感じていたので読み始めた。 念頭にあるサービスは、webサービスではあるけど、オウンドメディアみたいなコンテンツをユーザーに読ませることが主目的ではない。 マーケティングの知識も経験もなく、3C分析などもこの2日くらいで勉強しはじめて知った。 メモ Chapter 1 : グロースハックを理解する サービスの成長を定量化することで、絶対的な成果が見えるようになる 投資に対する説明や、メンバーのやる気も上がる グロースハッカーとは、サービスの成長に対して責任を持ち責務を果たす人間 データからユーザー行動を明らかにする いろいろな部署・役割の人と調整することも必要 プロジェクトリーダー的な人間が担当することが多い …"/>
+        <meta property="article:published_time" content="2017-08-26" />
+            <meta property="article:section" content="blog" />
+            <meta property="article:tag" content="marketing" />
+            <meta property="article:author" content="hitsumabushi" />
+            <meta property="og:image"
+                  content="https://www.hitsumabushi.org/static/icon.jpg"/>
+
+    <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@__hitsumabushi__">
+        <meta name="twitter:creator" content="@__hitsumabushi__">
+    <meta name="twitter:domain" content="https://www.hitsumabushi.org">
+            <meta property="twitter:image"
+                  content="https://www.hitsumabushi.org/static/icon.jpg"/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="https://www.hitsumabushi.org/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://www.hitsumabushi.org/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/css/style.css" type="text/css"/>
+        <link href="https://www.hitsumabushi.org/static/custom.css" rel="stylesheet">
+
+        <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="ひつまぶし食べたい ATOM Feed"/>
+
+
+
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gist-embed/2.0/gist-embed.min.js"></script>
+
+<!-- https://developers.google.com/custom-search/docs/structured_data?hl=es&csw=1#microformats -->
+<!--
+<PageMap>
+<DataObject type="document">
+    <Attribute name="title">読書メモ: いちばんやさしいグロースハックの教本</Attribute>
+    <Attribute name="author">hitsumabushi</Attribute>
+    <Attribute name="description">前提 マーケティングというより、サービスの効果測定を数値で追い、施策を実施、施策の効果を測定する、という一連の流れを行う必要を感じていたので読み始めた。 念頭にあるサービスは、webサービスではあるけど、オウンドメディアみたいなコンテンツをユーザーに読ませることが主目的ではない。 マーケティングの知識も経験もなく、3C分析などもこの2日くらいで勉強しはじめて知った。 メモ Chapter 1 : グロースハックを理解する サービスの成長を定量化することで、絶対的な成果が見えるようになる 投資に対する説明や、メンバーのやる気も上がる グロースハッカーとは、サービスの成長に対して責任を持ち責務を果たす人間 データからユーザー行動を明らかにする いろいろな部署・役割の人と調整することも必要 プロジェクトリーダー的な人間が担当することが多い …</Attribute>
+    <Attribute name="page_count">1</Attribute>
+    <Attribute name="rating">5</Attribute>
+    <Attribute name="last_update">2017-08-26T16:27:00+09:00</Attribute>
+</DataObject>
+<DataObject type="metatags">
+    <Attribute name="category" value="blog"/>
+        <Attribute name="category" value="marketing"/>
+</DataObject>
+-->    <!-- Google Analytics Universal -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-24727901-9', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics Universal Code -->
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://www.hitsumabushi.org/" class="navbar-brand">
+ひつまぶし食べたい            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="https://www.hitsumabushi.org/category/blog.html">Blog</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><form class="navbar-form navbar-right" role="search"
+  action="https://www.google.com/cse" 
+  id="searchbox_009966809170133509931:4vsx-mk1ktu" target="_blank"> 
+    <input type="hidden" name="cx" value="009966809170133509931:4vsx-mk1ktu" /> 
+    <input type="text" name="q" class="form-control" placeholder="Search">
+</form></li>
+              <li><a href="https://www.hitsumabushi.org/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article itemscope itemtype="http://schema.org/BlogPosting" itemref="copyright">
+            <header class="page-header">
+                <h1 itemprop="name">
+                    <a href="https://www.hitsumabushi.org/drafts/du-shu-memo-ichibanyasashiigurosuhatsukunojiao-ben.html"
+                       rel="bookmark"
+                       title="Permalink to 読書メモ: いちばんやさしいグロースハックの教本"
+                       itemprop="url">
+                       読書メモ: いちばんやさしいグロースハックの教本
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+      <i class="fa fa-calendar"></i><time datetime="2017-08-26T16:27:00+09:00" itemprop="datePublished"> Sat 26 August 2017</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://www.hitsumabushi.org/tag/marketing.html">marketing</a>
+    
+</footer><!-- /.post-info --><div id="social_bottuns" class="clearfix">
+  <div class="pull-left" style="margin-right: 5px"><a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard-balloon" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a></div>
+
+  <div class="pull-left" style="margin-right: 5px"><a href="https://twitter.com/share" class="twitter-share-button"{count} data-via="_hitsumabushi_" data-dnt="true">Tweet</a></div>
+
+  <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button"></div>
+
+  <div class="pull-left" style="margin-right: 5px"><a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a></div>
+</div>                    </div>
+                </div>
+                    <!--
+                      <nav class="toc">
+                      <div class="toc">
+<ul>
+<li><a href="#_1">前提</a></li>
+<li><a href="#_2">メモ</a><ul>
+<li><a href="#chapter-1">Chapter 1 : グロースハックを理解する</a></li>
+<li><a href="#chapter-2">Chapter 2 : 基本のフレームワークを理解しよう</a></li>
+<li><a href="#chapter-3">Chapter 3 : まずは価値提供から手を付けよう</a><ul>
+<li><a href="#psf">PSF</a></li>
+<li><a href="#_3">ユーザーオンボーディング</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+                      </nav>
+                    -->
+                <div id="article_content" itemprop="articleBody">
+                  
+<h2 id="_1">前提</h2>
+<p>マーケティングというより、サービスの効果測定を数値で追い、施策を実施、施策の効果を測定する、という一連の流れを行う必要を感じていたので読み始めた。<br/>
+念頭にあるサービスは、webサービスではあるけど、オウンドメディアみたいなコンテンツをユーザーに読ませることが主目的ではない。<br/>
+マーケティングの知識も経験もなく、3C分析などもこの2日くらいで勉強しはじめて知った。</p>
+<h2 id="_2">メモ</h2>
+<h3 id="chapter-1">Chapter 1 : グロースハックを理解する</h3>
+<ul>
+<li>サービスの成長を定量化することで、絶対的な成果が見えるようになる<ul>
+<li>投資に対する説明や、メンバーのやる気も上がる</li>
+</ul>
+</li>
+<li>グロースハッカーとは、サービスの成長に対して責任を持ち責務を果たす人間<ul>
+<li>データからユーザー行動を明らかにする</li>
+<li>いろいろな部署・役割の人と調整することも必要</li>
+<li>プロジェクトリーダー的な人間が担当することが多い</li>
+</ul>
+</li>
+<li>グロースハッカーに必要なスキル<ul>
+<li>UX の設計は基本</li>
+<li>データを元に意思決定するスキル</li>
+<li>プロジェクトマネジメントのスキル</li>
+</ul>
+</li>
+<li>グロースハッカーに必要なマインドセット<ul>
+<li>マキャベリストの君主論<ul>
+<li><code>国家が聞きに陥った場合、政治家は(国家存続の)目的のために有効ならば、手段を選ぶべきではない</code></li>
+</ul>
+</li>
+<li>目的達成至上主義</li>
+<li>成果という唯一の目的のために、できうるすべてを行動に移す<ul>
+<li>素早く、たくさん、賢く失敗をして、そこから成功を導く<ul>
+<li>Fail fast</li>
+<li>Fail often</li>
+<li>Fail smart</li>
+</ul>
+</li>
+<li>先にコップの器を大きくする<ul>
+<li>改善に注力するよりも、まずはサービスを大きくして、改善メリットが出るサイズになったら、細かい改善をする</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>グロースハックのためには、事業について権限を持つ人をみんな巻き込むこと</li>
+<li>グロースチームの構成<ul>
+<li>3人で構成する<ul>
+<li>ハスラー : まとめ役。for the team。チームをこぶし、社内外の関係者と交渉できることが必要</li>
+<li>ハッカー : 開発すべてを行うことができるエンジニア。技術的なアプローチで課題を解決し、未知ののものでも挑戦し、学習できることが必要</li>
+<li>ヒップスター : UI/UX デザイナ。サービスの価値をデザインして、そのインターフェースを設計して実現できることが必要</li>
+</ul>
+</li>
+<li>人数が増えるとコミュニケーションのパスが増える(3人だと3本しかパスがないのに、4人だと6本のパスがある)</li>
+<li>物理的な距離が近いことも必要<ul>
+<li>とにかくコミュニケーションコストは下げる</li>
+</ul>
+</li>
+<li>かならず専任にすること<ul>
+<li>全体最適の考えが重要なのに、どこかで兼任していると、兼任先の部署の価値観に引っ張られる</li>
+<li>限られた時間でスピードを持ってtry&amp;errorするために、意思決定から施策実行までできるチームが、成長施策に100%の時間を使って行う</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>グロースチームの作り方<ul>
+<li>身の回りの小さなことから始める</li>
+<li>製品開発チームから作る</li>
+</ul>
+</li>
+</ul>
+<h3 id="chapter-2">Chapter 2 : 基本のフレームワークを理解しよう</h3>
+<ul>
+<li>AARRR モデル : サービス全体をユーザの行動に合わせて5つのステージに分ける<ul>
+<li>Acquisition : ユーザー獲得</li>
+<li>Activation  : ユーザー活性化</li>
+<li>Retention   : 継続</li>
+<li>Referral    : 紹介</li>
+<li>Revenue     : 収益化</li>
+</ul>
+</li>
+<li>ARRRA モデル<ul>
+<li>AARRR モデルの欠点<ul>
+<li>施策を行うべき順番ではない</li>
+<li>離脱率に力点があり、UXの最大化という最も重視すべき点が抜けている</li>
+</ul>
+</li>
+<li>ARRRA モデルでは、AARRR モデルとステージごとに意味が違う<ul>
+<li>Activation  : ユーザー活性化<ul>
+<li>製品の価値が顧客が求めているものか?</li>
+<li>それが初回来訪時にしっかりと伝わっているか?</li>
+</ul>
+</li>
+<li>Retention   : 継続<ul>
+<li>顧客は使い続けてくれるくらい、製品の価値に満足しているか?</li>
+</ul>
+</li>
+<li>Referral    : 紹介<ul>
+<li>顧客は友人に伝えたくなるほど、製品の価値に満足しているか?</li>
+</ul>
+</li>
+<li>Revenue     : 収益化<ul>
+<li>顧客はお金を払ってくれるほど、製品の価値に満足しているか?</li>
+</ul>
+</li>
+<li>Acquisition : ユーザー獲得<ul>
+<li>製品の価値をひろめるために、正しいチャネルと訴求軸を選べているか?</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>まずは Activation を達成する<ul>
+<li>サービスは、「誰の・どんな課題を・どうやって解決するのか」で成り立っているが、そもそもそんな対象が存在していない、という場合がある</li>
+<li>本格的な開発をするより先に、「そもそも解決しようとしている課題を、本当に顧客が抱えているのか?」「このサービスは顧客が求めるものか?」を検証すること</li>
+<li>ニーズがあることがわかったら、顧客の初回体験時にしっかりと製品の価値が伝わるようにします</li>
+<li>Activation を達成したら、 Retention のための仕掛けを製品に組み込んでいく</li>
+</ul>
+</li>
+<li>ARRRA モデルと他のフレームワークの比較<ul>
+<li>ARRRA モデルとリーンアナリティクス、グロースピラミッドなどは共通点が多い</li>
+<li>全て、サービスに価値を感じる顧客の発見、を最初に行う<ul>
+<li>リーンアナリティクスでは、 Emphathy</li>
+<li>グロースピラミッドでは、 PSF(Problem Solution Fit)</li>
+</ul>
+</li>
+<li>他のステップも似ている</li>
+</ul>
+</li>
+<li>今いる成長ステージを確認する<ul>
+<li>P.45 のチェックシート</li>
+</ul>
+</li>
+<li>ARRRA の順で考えるが、最後まで Acquisition を行わない、という意味ではない<ul>
+<li>成長の過程で、何度も A→ R→R→R→A→.A→.. という動きを行う</li>
+<li>サイクルをどういうタイミングで回していくかは、適当にユーザー数などで事前に決めておくと良い</li>
+</ul>
+</li>
+</ul>
+<h3 id="chapter-3">Chapter 3 : まずは価値提供から手を付けよう</h3>
+<ul>
+<li>アクティベーション = PSF + ユーザーオンボーディング<ul>
+<li>サービスに価値があるのか</li>
+<li>価値を初回にユーザーに伝えられているか</li>
+</ul>
+</li>
+</ul>
+<h4 id="psf">PSF</h4>
+<p>以下を検証する<br/>
+<em> 顧客は本当にその課題を抱えているか<br/>
+</em> 解決法のアプローチが間違った前提に立脚していないか</p>
+<h4 id="_3">ユーザーオンボーディング</h4>
+                </div>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'hitsumabushi'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'du-shu-memo-ichibanyasashiigurosuhatsukunojiao-ben';
+                var disqus_url = 'https://www.hitsumabushi.org/drafts/du-shu-memo-ichibanyasashiigurosuhatsukunojiao-ben.html';
+
+            var disqus_config = function () {
+                this.language = "ja";
+                this.page.url = disqus_url;
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://twitter.com/_hitsumabushi_"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+                <li class="list-group-item"><a href="https://github.com/hitsumabushi"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2019/02/12/1630.html">
+                            Python でコメント付きYAMLを扱う時には ruamel.yaml が便利だった
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2019/01/25/1454.html">
+                            CloudFormation の不満点
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/11/30/0913.html">
+                            さくらインターネットを退職しました
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/10/31/1901.html">
+                            DebianでLuaJITTeXを使いたい
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/04/11/1058.html">
+                            Debian でログインシェルをzshにしている人が snappy を使う場合の注意
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="list-group-item"><a href="https://www.hitsumabushi.org/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group list-inline tagcloud" id="tags">
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/ansible.html">
+                            ansible
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/apt.html">
+                            apt
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/aws.html">
+                            aws
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/azure.html">
+                            Azure
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cloudformation.html">
+                            cloudformation
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cross.html">
+                            CROSS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cui-ruo-xing.html">
+                            脆弱性
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/debian.html">
+                            debian
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/dns.html">
+                            DNS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/docker.html">
+                            docker
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/git.html">
+                            git
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/linux.html">
+                            Linux
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/lun-wen.html">
+                            論文
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/mian-qiang-hui.html">
+                            勉強会
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/mscs.html">
+                            MSCS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/nsx.html">
+                            NSX
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/papers.html">
+                            papers
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/perl.html">
+                            perl
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/preseed.html">
+                            preseed
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/python.html">
+                            python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/ruby.html">
+                            Ruby
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/sakura.html">
+                            sakura
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/storage.html">
+                            Storage
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/terraform.html">
+                            terraform
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/vcp.html">
+                            VCP
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/vim.html">
+                            vim
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/vmware.html">
+                            vmware
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/vpls.html">
+                            vpls
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/windows.html">
+                            windows
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/zsh.html">
+                            zsh
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-twitter fa-lg"></i><span class="icon-label">Latest Tweets</span></h4></li>
+    <div id="twitter_timeline">
+        <a class="twitter-timeline" data-chrome="noheader" href="https://twitter.com/__hitsumabushi__" data-widget-id="564098693729492992">Tweets by __hitsumabushi__</a>
+    </div>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://hitsumabushi-pc.blogspot.jp/2011/07/blogger.html" target="_blank">
+                Old blog
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+           <span id="copyright">
+             <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+               &copy; 2019 <b itemprop="name">hitsumabushi</b>
+           </span>
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://www.hitsumabushi.org/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://www.hitsumabushi.org/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://www.hitsumabushi.org/theme/js/respond.min.js"></script>
+
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'hitsumabushi'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+<!-- Hatena -->
+<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+<!-- Twitter -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- FB -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=363359100411070&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Pocket -->
+<script type="text/javascript">!function(d, i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document, "pocket-btn-js");</script>
+
+</body>
+</html>

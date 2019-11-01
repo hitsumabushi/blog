@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Consul 使ってみる - ひつまぶし食べたい</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://www.hitsumabushi.org/static/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://www.hitsumabushi.org/blog/2014/11/01/0243.html">
+
+        <meta name="author" content="hitsumabushi" />
+        <meta name="keywords" content="consul,provisioning,cluster" />
+        <meta name="description" content="Consul とは 特徴 Service Discovery Consulのクライアントは、&#34;api&#34;や&#34;mysql&#34;といった与えられた名前を持つサービスを提供 他のクライアントは、Consulを使ってサービスを検出 アプリケーションはConsulが検出したサービスを、DNSやHTTP経由で検出 Health Check 多くのヘルスチェックの提供 実行されているサービスやノード上の情報などと連携 この情報を元に、クラスターの状態を監視 サービス検出コンポーネントを使って、良くない状態のホストを迂回できる Key/Value Store …" />
+
+        <meta property="og:site_name" content="ひつまぶし食べたい" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Consul 使ってみる"/>
+        <meta property="og:url" content="https://www.hitsumabushi.org/blog/2014/11/01/0243.html"/>
+        <meta property="og:description" content="Consul とは 特徴 Service Discovery Consulのクライアントは、&#34;api&#34;や&#34;mysql&#34;といった与えられた名前を持つサービスを提供 他のクライアントは、Consulを使ってサービスを検出 アプリケーションはConsulが検出したサービスを、DNSやHTTP経由で検出 Health Check 多くのヘルスチェックの提供 実行されているサービスやノード上の情報などと連携 この情報を元に、クラスターの状態を監視 サービス検出コンポーネントを使って、良くない状態のホストを迂回できる Key/Value Store …"/>
+        <meta property="article:published_time" content="2014-11-01" />
+            <meta property="article:section" content="blog" />
+            <meta property="article:tag" content="consul" />
+            <meta property="article:tag" content="provisioning" />
+            <meta property="article:tag" content="cluster" />
+            <meta property="article:author" content="hitsumabushi" />
+            <meta property="og:image"
+                  content="https://www.hitsumabushi.org/static/icon.jpg"/>
+
+    <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@__hitsumabushi__">
+        <meta name="twitter:creator" content="@__hitsumabushi__">
+    <meta name="twitter:domain" content="https://www.hitsumabushi.org">
+            <meta property="twitter:image"
+                  content="https://www.hitsumabushi.org/static/icon.jpg"/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="https://www.hitsumabushi.org/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://www.hitsumabushi.org/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/css/style.css" type="text/css"/>
+        <link href="https://www.hitsumabushi.org/static/custom.css" rel="stylesheet">
+
+        <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="ひつまぶし食べたい ATOM Feed"/>
+
+
+
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gist-embed/2.0/gist-embed.min.js"></script>
+
+<!-- https://developers.google.com/custom-search/docs/structured_data?hl=es&csw=1#microformats -->
+<!--
+<PageMap>
+<DataObject type="document">
+    <Attribute name="title">Consul 使ってみる</Attribute>
+    <Attribute name="author">hitsumabushi</Attribute>
+    <Attribute name="description">Consul とは 特徴 Service Discovery Consulのクライアントは、"api"や"mysql"といった与えられた名前を持つサービスを提供 他のクライアントは、Consulを使ってサービスを検出 アプリケーションはConsulが検出したサービスを、DNSやHTTP経由で検出 Health Check 多くのヘルスチェックの提供 実行されているサービスやノード上の情報などと連携 この情報を元に、クラスターの状態を監視 サービス検出コンポーネントを使って、良くない状態のホストを迂回できる Key/Value Store …</Attribute>
+    <Attribute name="page_count">1</Attribute>
+    <Attribute name="rating">5</Attribute>
+    <Attribute name="last_update">2014-11-01T02:43:20+09:00</Attribute>
+</DataObject>
+<DataObject type="metatags">
+    <Attribute name="category" value="blog"/>
+        <Attribute name="category" value="consul"/>
+        <Attribute name="category" value="provisioning"/>
+        <Attribute name="category" value="cluster"/>
+</DataObject>
+-->    <!-- Google Analytics Universal -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-24727901-9', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics Universal Code -->
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://www.hitsumabushi.org/" class="navbar-brand">
+ひつまぶし食べたい            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="https://www.hitsumabushi.org/category/blog.html">Blog</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><form class="navbar-form navbar-right" role="search"
+  action="https://www.google.com/cse" 
+  id="searchbox_009966809170133509931:4vsx-mk1ktu" target="_blank"> 
+    <input type="hidden" name="cx" value="009966809170133509931:4vsx-mk1ktu" /> 
+    <input type="text" name="q" class="form-control" placeholder="Search">
+</form></li>
+              <li><a href="https://www.hitsumabushi.org/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article itemscope itemtype="http://schema.org/BlogPosting" itemref="copyright">
+            <header class="page-header">
+                <h1 itemprop="name">
+                    <a href="https://www.hitsumabushi.org/blog/2014/11/01/0243.html"
+                       rel="bookmark"
+                       title="Permalink to Consul 使ってみる"
+                       itemprop="url">
+                       Consul 使ってみる
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+      <i class="fa fa-calendar"></i><time datetime="2014-11-01T02:43:20+09:00" itemprop="datePublished"> Sat 01 November 2014</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://www.hitsumabushi.org/tag/consul.html">consul</a>
+        /
+	<a href="https://www.hitsumabushi.org/tag/provisioning.html">provisioning</a>
+        /
+	<a href="https://www.hitsumabushi.org/tag/cluster.html">cluster</a>
+    
+</footer><!-- /.post-info --><div id="social_bottuns" class="clearfix">
+  <div class="pull-left" style="margin-right: 5px"><a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard-balloon" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a></div>
+
+  <div class="pull-left" style="margin-right: 5px"><a href="https://twitter.com/share" class="twitter-share-button"{count} data-via="_hitsumabushi_" data-dnt="true">Tweet</a></div>
+
+  <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button"></div>
+
+  <div class="pull-left" style="margin-right: 5px"><a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a></div>
+</div>                    </div>
+                </div>
+                <div id="article_content" itemprop="articleBody">
+                  <div class="section" id="id1">
+<h2>Consul とは</h2>
+<div class="section" id="id2">
+<h3>特徴</h3>
+<ul>
+<li><p class="first">Service Discovery</p>
+<blockquote>
+<ul class="simple">
+<li>Consulのクライアントは、"api"や"mysql"といった与えられた名前を持つサービスを提供</li>
+<li>他のクライアントは、Consulを使ってサービスを検出</li>
+<li>アプリケーションはConsulが検出したサービスを、DNSやHTTP経由で検出</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">Health Check</p>
+<blockquote>
+<ul class="simple">
+<li>多くのヘルスチェックの提供</li>
+<li>実行されているサービスやノード上の情報などと連携</li>
+<li>この情報を元に、クラスターの状態を監視</li>
+<li>サービス検出コンポーネントを使って、良くない状態のホストを迂回できる</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">Key/Value Store</p>
+<blockquote>
+<ul class="simple">
+<li>アプリケーションはConsulの階層的なKey/Valueストアを利用できる</li>
+<li>動的な設定変更や、フラグを立てたり、色々使える</li>
+<li>HTTP APIで簡単に使える</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">Multi Datacenter</p>
+<blockquote>
+<ul class="simple">
+<li>リージョンのことは気にしなくても、Consulが上手いことやる</li>
+<li>(複数のgpssipプールを持っている云々書いているので、LANとWANで変えているのだと思う)</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p>ステータスの確認のためには、謎のキレイなWebUIもある。</p>
+</div>
+<div class="section" id="id3">
+<h3>個人的に良いと思っているところ</h3>
+<ul class="simple">
+<li>DNSインターフェースでホストのIPを取得できるので、クラスター用のDNSサーバーのメンテナンスがいらないのが嬉しい</li>
+<li>ホストの情報が散らばらずに、各サーバーで書かれている。それでいて、問い合わせは分散させられるのが嬉しい。</li>
+<li>一貫性は正義</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3>登場するサーバー</h3>
+<ul>
+<li><p class="first">Agent</p>
+<blockquote>
+<ul class="simple">
+<li>Server or Client</li>
+<li>HTTP, DNS, RPCのインターフェースを持ちうるやつ。
+(実際に、持つかどうかは、起動時のclientオプションで決まる)</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">Server</p>
+<blockquote>
+<ul class="simple">
+<li>クラスタ状況の管理</li>
+<li>クライアントからのRPCへの応答</li>
+<li>WAN側gossip, リモートデータセンターのリーダーへクエリ</li>
+<li>クラスタ内ではそれほど多くなくて良いはず</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">Client</p>
+<blockquote>
+<ul class="simple">
+<li>サーバーにRPCを送ってアピール</li>
+<li>(gossipプールへの参加に関することを除いて、)割とステートレス</li>
+<li>通信料もそんなに多くない</li>
+<li>いくらでもいて良い</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>インストール</h2>
+<p>バイナリを持ってきて、パス通ってるとこに置く。</p>
+<p><a class="reference external" href="http://www.consul.io/downloads.html">http://www.consul.io/downloads.html</a></p>
+</div>
+<div class="section" id="id6">
+<h2>起動方法</h2>
+<ul class="simple">
+<li>Agentの起動</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="c1"># server : serverオプションを指定</span>
+<span class="c1"># - clientオプションは、RPC, DNS, HTTPのためのもの</span>
+<span class="c1"># - bindオプションは、cluster情報のやりとりに使うっぽい</span>
+<span class="c1"># - dcはデータセンター名らしい</span>
+<span class="c1"># - nodeはホスト名</span>
+<span class="c1"># - bootstrapは最初の1つだけにつける。他は大体joinしとけば良い。</span>
+consul agent -server -bootstrap -client<span class="o">=</span><span class="m">192</span>.168.2.5 -dc<span class="o">=</span><span class="nb">local</span> <span class="se">\</span>
+      -node<span class="o">=</span>con -data-dir<span class="o">=</span>/tmp/consul -bind<span class="o">=</span><span class="m">192</span>.168.2.5
+
+<span class="c1"># client</span>
+<span class="c1"># - joinオプションで、agentのアドレスを指定。何個か書けるらしい</span>
+consul agent -dc<span class="o">=</span><span class="nb">local</span> -node<span class="o">=</span>consul2 -data-dir<span class="o">=</span>/tmp/consul2 <span class="se">\</span>
+      -bind<span class="o">=</span><span class="m">192</span>.168.39.6 -join<span class="o">=</span><span class="m">192</span>.168.39.5
+</pre></div>
+<ul class="simple">
+<li>Agentの再起動</li>
+</ul>
+<p>Agentの再起動時には、 <em>SIGHUP</em> を送れば良い。</p>
+</div>
+<div class="section" id="id7">
+<h2>使い方</h2>
+<div class="section" id="cluster">
+<h3>clusterからの情報を取得</h3>
+<ul class="simple">
+<li>Consulメンバー</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="c1"># 自分の胸に聞くときは、"-rpc-addr"は不要</span>
+consul members
+<span class="c1"># クラスタの外にいたりして、誰かに教えてもらうとき</span>
+consul members -rpc-addr<span class="o">=</span><span class="m">192</span>.168.2.5:8400
+</pre></div>
+<ul class="simple">
+<li>HTTPインターフェース</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="c1"># JSON形式で情報が返る</span>
+curl <span class="m">192</span>.168.2.5:8500/v1/catalog/nodes
+</pre></div>
+<ul class="simple">
+<li>DNS</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="c1"># 聞く先は適当に。 anyリクエスト投げとけば良いと思う</span>
+<span class="c1"># &lt;hostname&gt;.node.consul (データセンターはlocalになる)という形式か、</span>
+<span class="c1"># &lt;hostname&gt;.node.&lt;datacenter&gt;.consul という形式で問い合わせ。</span>
+dig @192.168.2.5 -p <span class="m">8600</span> con.node.local.consul
+</pre></div>
+</div>
+<div class="section" id="key-value">
+<h3>Key/Valueストア</h3>
+<ul class="simple">
+<li>put</li>
+</ul>
+<div class="highlight"><pre><span></span>curl -X PUT -d <span class="s1">'first object'</span> <span class="m">192</span>.168.2.5:8500/v1/kv/namespaces/keyname
+
+<span class="c1"># Check-And-Set : atomicなkey変更をするときに使うパラメータ</span>
+<span class="c1"># ModifyIndex の値を指定して更新できる。</span>
+<span class="c1"># まず、GETしてModifyIndexを見てPUTする、という操作をatomicにできる</span>
+curl -X PUT -d <span class="s1">'first object'</span> <span class="m">192</span>.168.2.5:8500/v1/kv/namespaces/keyname?cas<span class="o">=</span><span class="m">97</span>
+</pre></div>
+<ul class="simple">
+<li>get</li>
+</ul>
+<div class="highlight"><pre><span></span>curl -s <span class="m">192</span>.168.2.5:8500/v1/kv/namespaces/keyname
+<span class="c1"># =&gt; jsonが改行もされず表示されて辛い気持ちになる</span>
+curl -s <span class="m">192</span>.168.2.5:8500/v1/kv/namespaces/keyname <span class="p">|</span> python -mjson.tool
+<span class="c1"># =&gt; 見やすくしてくれる</span>
+curl -s <span class="m">192</span>.168.2.5:8500/v1/kv/namespaces/?recurse
+<span class="c1"># =&gt; 再帰的に見てくれる</span>
+
+<span class="c1"># index=101 : ModifyIndexが101より大きいものが帰ってくるまで聞き続ける</span>
+<span class="c1"># wait=5s などすれば、5秒までしか聞かない</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>もっとConsul</h2>
+<div class="section" id="service-health-check">
+<h3>Service, Health Check を定義する</h3>
+<div class="line-block">
+<div class="line">定義はjson形式で書く。</div>
+<div class="line">サービスを定義したいサーバーの例えば、/etc/consul.d/以下に</div>
+</div>
+<div class="highlight"><pre><span></span><span class="err">#</span> <span class="err">/etc/consul.d/mysql.json</span> <span class="err">:</span> <span class="err">サービスを定義</span>
+<span class="p">{</span><span class="nt">"service"</span><span class="p">:</span> <span class="p">{</span><span class="nt">"name"</span><span class="p">:</span> <span class="s2">"mysql"</span><span class="p">,</span>  <span class="nt">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"mysql"</span><span class="p">,</span> <span class="s2">"db"</span><span class="p">],</span>  <span class="nt">"port"</span><span class="p">:</span> <span class="mi">3306</span><span class="p">}}</span>
+
+<span class="err">#</span> <span class="err">/etc/consul.d/ping.json</span> <span class="err">:</span> <span class="err">pingステータスをチェック</span>
+<span class="p">{</span>
+<span class="nt">"check"</span><span class="p">:</span> <span class="p">{</span><span class="nt">"name"</span><span class="p">:</span> <span class="s2">"ping"</span><span class="p">,</span>  <span class="nt">"script"</span><span class="p">:</span> <span class="s2">"ping -c1 google.com &gt;/dev/null"</span><span class="p">,</span>  <span class="nt">"interval"</span><span class="p">:</span> <span class="s2">"30s"</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="err">#</span> <span class="err">/etc/consul.d/web.json</span> <span class="err">:</span> <span class="err">サービスを定義しつつ、サービスレベルでヘルスチェック</span>
+<span class="p">{</span><span class="nt">"service"</span><span class="p">:</span> <span class="p">{</span><span class="nt">"name"</span><span class="p">:</span> <span class="s2">"web"</span><span class="p">,</span>  <span class="nt">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"rails"</span><span class="p">],</span>  <span class="nt">"port"</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+<span class="nt">"check"</span><span class="p">:</span> <span class="p">{</span><span class="nt">"script"</span><span class="p">:</span> <span class="s2">"curl localhost:80 &gt;/dev/null 2&gt;&amp;1"</span><span class="p">,</span>  <span class="nt">"interval"</span><span class="p">:</span> <span class="s2">"30s"</span><span class="p">}}}</span>
+</pre></div>
+<p>とか書いて、起動オプションに、 -config-dir=/etc/consul.d を加える。</p>
+</div>
+<div class="section" id="service-halth">
+<h3>Service, Halthの確認</h3>
+<p>他のサーバーから定義されたサービスやステータスを知りたい。</p>
+<ul class="simple">
+<li>DNS</li>
+</ul>
+<div class="line-block">
+<div class="line">NAME.service.consul or TAG.NAME.service.consul を使う。</div>
+<div class="line">さらに、SRVレコードを見れば、ポートもわかる</div>
+</div>
+<div class="highlight"><pre><span></span><span class="c1"># Serviceを知る</span>
+dig @127.0.0.1 -p <span class="m">8600</span> mysql.service.consul SRV
+dig @127.0.0.1 -p <span class="m">8600</span> db.mysql.service.consul SRV
+
+<span class="c1"># Health Checkに失敗してるやつ</span>
+dig @127.0.0.1 -p <span class="m">8600</span> web.service.consul
+</pre></div>
+<ul class="simple">
+<li>HTTP</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="c1"># Serviceを知る</span>
+curl -s http://192.168.2.5:8500/v1/catalog/service/mysql
+
+<span class="c1"># Halth Checkに失敗してるやつ</span>
+curl http://localhost:8500/v1/health/state/critical
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>参考資料</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.consul.io/intro/index.html">Introduction to Consul</a></li>
+<li><a class="reference external" href="http://www.consul.io/intro/vs/serf.html">Consul vs. Serf</a> (<a class="reference external" href="http://pocketstudio.jp/log3/2014/04/19/translation_consul_related_documents/">Consul vs Serfの日本語訳</a>)</li>
+<li><a class="reference external" href="http://www.slideshare.net/sonots/serf-iiconf-20140325">Serf という Orchestration ツール #immutableinfra</a></li>
+</ul>
+<div class="section" id="advanced">
+<h3>Advanced</h3>
+<ul class="simple">
+<li><a class="reference external" href="http://www.consul.io/docs/internals/index.html">http://www.consul.io/docs/internals/index.html</a></li>
+</ul>
+</div>
+</div>
+
+                </div>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'hitsumabushi'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'consul-shi-tsutemiru';
+                var disqus_url = 'https://www.hitsumabushi.org/blog/2014/11/01/0243.html';
+
+            var disqus_config = function () {
+                this.language = "ja";
+                this.page.url = disqus_url;
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://twitter.com/_hitsumabushi_"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+                <li class="list-group-item"><a href="https://github.com/hitsumabushi"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2019/02/12/1630.html">
+                            Python でコメント付きYAMLを扱う時には ruamel.yaml が便利だった
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2019/01/25/1454.html">
+                            CloudFormation の不満点
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/11/30/0913.html">
+                            さくらインターネットを退職しました
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/10/31/1901.html">
+                            DebianでLuaJITTeXを使いたい
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/04/11/1058.html">
+                            Debian でログインシェルをzshにしている人が snappy を使う場合の注意
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="list-group-item"><a href="https://www.hitsumabushi.org/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group list-inline tagcloud" id="tags">
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/ansible.html">
+                            ansible
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/apt.html">
+                            apt
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/aws.html">
+                            aws
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/azure.html">
+                            Azure
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cloudformation.html">
+                            cloudformation
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cross.html">
+                            CROSS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cui-ruo-xing.html">
+                            脆弱性
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/debian.html">
+                            debian
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/dns.html">
+                            DNS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/docker.html">
+                            docker
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/git.html">
+                            git
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/linux.html">
+                            Linux
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/lun-wen.html">
+                            論文
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/mian-qiang-hui.html">
+                            勉強会
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/mscs.html">
+                            MSCS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/nsx.html">
+                            NSX
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/papers.html">
+                            papers
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/perl.html">
+                            perl
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/preseed.html">
+                            preseed
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/python.html">
+                            python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/ruby.html">
+                            Ruby
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/sakura.html">
+                            sakura
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/storage.html">
+                            Storage
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/terraform.html">
+                            terraform
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/vcp.html">
+                            VCP
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/vim.html">
+                            vim
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/vmware.html">
+                            vmware
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/vpls.html">
+                            vpls
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/windows.html">
+                            windows
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/zsh.html">
+                            zsh
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-twitter fa-lg"></i><span class="icon-label">Latest Tweets</span></h4></li>
+    <div id="twitter_timeline">
+        <a class="twitter-timeline" data-chrome="noheader" href="https://twitter.com/__hitsumabushi__" data-widget-id="564098693729492992">Tweets by __hitsumabushi__</a>
+    </div>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://hitsumabushi-pc.blogspot.jp/2011/07/blogger.html" target="_blank">
+                Old blog
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+           <span id="copyright">
+             <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+               &copy; 2019 <b itemprop="name">hitsumabushi</b>
+           </span>
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://www.hitsumabushi.org/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://www.hitsumabushi.org/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://www.hitsumabushi.org/theme/js/respond.min.js"></script>
+
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'hitsumabushi'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+<!-- Hatena -->
+<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+<!-- Twitter -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- FB -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=363359100411070&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Pocket -->
+<script type="text/javascript">!function(d, i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document, "pocket-btn-js");</script>
+
+</body>
+</html>

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>fluentd-plugin-secure-forward のソースを読んでみる(Output プラグイン編) - ひつまぶし食べたい</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://www.hitsumabushi.org/static/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://www.hitsumabushi.org/drafts/fluentd-plugin-secure-forward-nososuwodu-ndemiruoutput-puraguinbian.html">
+
+        <meta name="author" content="hitsumabushi" />
+        <meta name="keywords" content="Ruby,Fluentd" />
+        <meta name="description" content="昨日の続きで、次はOutput部分の処理を見ようと思います。 Fluentdプラグイン自体の読み方はだいぶわかったので、今日はもう少し詳しいロジックを見ていこうと思います。 さっそく読む initialize def initialize super require &#39;socket&#39; require &#39;openssl&#39; require &#39;digest&#39; require &#39;resolve/hostname&#39; end 必要なライブラリをrequireしています。 こういうのって、クラス定義やファイルに書かずに、initializeでやると嬉しいことがあるんでしょうか。 あまり深く考えてないですが …" />
+
+        <meta property="og:site_name" content="ひつまぶし食べたい" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="fluentd-plugin-secure-forward のソースを読んでみる(Output プラグイン編)"/>
+        <meta property="og:url" content="https://www.hitsumabushi.org/drafts/fluentd-plugin-secure-forward-nososuwodu-ndemiruoutput-puraguinbian.html"/>
+        <meta property="og:description" content="昨日の続きで、次はOutput部分の処理を見ようと思います。 Fluentdプラグイン自体の読み方はだいぶわかったので、今日はもう少し詳しいロジックを見ていこうと思います。 さっそく読む initialize def initialize super require &#39;socket&#39; require &#39;openssl&#39; require &#39;digest&#39; require &#39;resolve/hostname&#39; end 必要なライブラリをrequireしています。 こういうのって、クラス定義やファイルに書かずに、initializeでやると嬉しいことがあるんでしょうか。 あまり深く考えてないですが …"/>
+        <meta property="article:published_time" content="2014-12-18" />
+            <meta property="article:section" content="blog" />
+            <meta property="article:tag" content="Ruby" />
+            <meta property="article:tag" content="Fluentd" />
+            <meta property="article:author" content="hitsumabushi" />
+            <meta property="og:image"
+                  content="https://www.hitsumabushi.org/static/icon.jpg"/>
+
+    <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@__hitsumabushi__">
+        <meta name="twitter:creator" content="@__hitsumabushi__">
+    <meta name="twitter:domain" content="https://www.hitsumabushi.org">
+            <meta property="twitter:image"
+                  content="https://www.hitsumabushi.org/static/icon.jpg"/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="https://www.hitsumabushi.org/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://www.hitsumabushi.org/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/css/style.css" type="text/css"/>
+        <link href="https://www.hitsumabushi.org/static/custom.css" rel="stylesheet">
+
+        <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="ひつまぶし食べたい ATOM Feed"/>
+
+
+
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gist-embed/2.0/gist-embed.min.js"></script>
+
+<!-- https://developers.google.com/custom-search/docs/structured_data?hl=es&csw=1#microformats -->
+<!--
+<PageMap>
+<DataObject type="document">
+    <Attribute name="title">fluentd-plugin-secure-forward のソースを読んでみる(Output プラグイン編)</Attribute>
+    <Attribute name="author">hitsumabushi</Attribute>
+    <Attribute name="description">昨日の続きで、次はOutput部分の処理を見ようと思います。 Fluentdプラグイン自体の読み方はだいぶわかったので、今日はもう少し詳しいロジックを見ていこうと思います。 さっそく読む initialize def initialize super require 'socket' require 'openssl' require 'digest' require 'resolve/hostname' end 必要なライブラリをrequireしています。 こういうのって、クラス定義やファイルに書かずに、initializeでやると嬉しいことがあるんでしょうか。 あまり深く考えてないですが …</Attribute>
+    <Attribute name="page_count">1</Attribute>
+    <Attribute name="rating">5</Attribute>
+    <Attribute name="last_update">2014-12-18T10:03:00+09:00</Attribute>
+</DataObject>
+<DataObject type="metatags">
+    <Attribute name="category" value="blog"/>
+        <Attribute name="category" value="Ruby"/>
+        <Attribute name="category" value="Fluentd"/>
+</DataObject>
+-->    <!-- Google Analytics Universal -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-24727901-9', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics Universal Code -->
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://www.hitsumabushi.org/" class="navbar-brand">
+ひつまぶし食べたい            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="https://www.hitsumabushi.org/category/blog.html">Blog</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><form class="navbar-form navbar-right" role="search"
+  action="https://www.google.com/cse" 
+  id="searchbox_009966809170133509931:4vsx-mk1ktu" target="_blank"> 
+    <input type="hidden" name="cx" value="009966809170133509931:4vsx-mk1ktu" /> 
+    <input type="text" name="q" class="form-control" placeholder="Search">
+</form></li>
+              <li><a href="https://www.hitsumabushi.org/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article itemscope itemtype="http://schema.org/BlogPosting" itemref="copyright">
+            <header class="page-header">
+                <h1 itemprop="name">
+                    <a href="https://www.hitsumabushi.org/drafts/fluentd-plugin-secure-forward-nososuwodu-ndemiruoutput-puraguinbian.html"
+                       rel="bookmark"
+                       title="Permalink to fluentd-plugin-secure-forward のソースを読んでみる(Output プラグイン編)"
+                       itemprop="url">
+                       fluentd-plugin-secure-forward のソースを読んでみる(Output プラグイン編)
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+      <i class="fa fa-calendar"></i><time datetime="2014-12-18T10:03:00+09:00" itemprop="datePublished"> Thu 18 December 2014</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://www.hitsumabushi.org/tag/ruby.html">Ruby</a>
+        /
+	<a href="https://www.hitsumabushi.org/tag/fluentd.html">Fluentd</a>
+    
+</footer><!-- /.post-info --><div id="social_bottuns" class="clearfix">
+  <div class="pull-left" style="margin-right: 5px"><a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard-balloon" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a></div>
+
+  <div class="pull-left" style="margin-right: 5px"><a href="https://twitter.com/share" class="twitter-share-button"{count} data-via="_hitsumabushi_" data-dnt="true">Tweet</a></div>
+
+  <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button"></div>
+
+  <div class="pull-left" style="margin-right: 5px"><a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a></div>
+</div>                    </div>
+                </div>
+                    <!--
+                      <nav class="toc">
+                      <div class="toc">
+<ul>
+<li><a href="#_1">さっそく読む</a><ul>
+<li><a href="#initialize">initialize</a></li>
+<li><a href="#configure">configure</a></li>
+<li><a href="#start">start</a></li>
+<li><a href="#stop">stop</a></li>
+</ul>
+</li>
+</ul>
+</div>
+                      </nav>
+                    -->
+                <div id="article_content" itemprop="articleBody">
+                  <p><a href="https://www.hitsumabushi.org/blog/2014/12/17/2345.html">昨日の続き</a>で、次はOutput部分の処理を見ようと思います。<br/>
+Fluentdプラグイン自体の読み方はだいぶわかったので、今日はもう少し詳しいロジックを見ていこうと思います。</p>
+
+<h2 id="_1">さっそく読む</h2>
+<h3 id="initialize">initialize</h3>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">initialize</span>
+      <span class="k">super</span>
+      <span class="nb">require</span> <span class="s1">'socket'</span>
+      <span class="nb">require</span> <span class="s1">'openssl'</span>
+      <span class="nb">require</span> <span class="s1">'digest'</span>
+      <span class="nb">require</span> <span class="s1">'resolve/hostname'</span>
+    <span class="k">end</span>
+</pre></div>
+<p>必要なライブラリをrequireしています。<br/>
+こういうのって、クラス定義やファイルに書かずに、initializeでやると嬉しいことがあるんでしょうか。<br/>
+あまり深く考えてないですが、それほど気にしなくとも良いかな、と思っています。</p>
+<h3 id="configure">configure</h3>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>
+      <span class="k">super</span>
+      <span class="o">...</span>
+      <span class="vi">@nodes</span> <span class="o">=</span> <span class="o">[]</span>
+      <span class="vi">@servers</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">server</span><span class="o">|</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="no">Node</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">first_session</span> <span class="o">=</span> <span class="kp">true</span>
+        <span class="vi">@nodes</span><span class="o">.</span><span class="n">push</span> <span class="n">node</span>
+      <span class="k">end</span>
+      <span class="o">...</span>
+      <span class="vi">@next_node</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="vi">@mutex</span> <span class="o">=</span> <span class="no">Mutex</span><span class="o">.</span><span class="n">new</span>
+      <span class="o">...</span>
+      <span class="kp">true</span>
+    <span class="k">end</span>
+</pre></div>
+<p><code>@servers</code>に何が入っているか考えてみます。例によって、</p>
+<div class="highlight"><pre><span></span>    <span class="nb">require</span> <span class="s1">'fluent/mixin/config_placeholders'</span>
+    <span class="o">...</span>
+    <span class="k">module</span> <span class="nn">Fluent</span>
+      <span class="k">class</span> <span class="nc">SecureForwardOutput</span> <span class="o">&lt;</span> <span class="no">ObjectBufferedOutput</span>
+        <span class="kp">include</span> <span class="no">Fluent</span><span class="o">::</span><span class="no">Mixin</span><span class="o">::</span><span class="no">ConfigPlaceholders</span>
+        <span class="o">...</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+</pre></div>
+<p>という風に書かれているので、super以降は、プレースホルダーが展開されています。そういうわけで、<code>@servers</code>には、設定ファイル中のserverディレクティブの設定値が展開された状態で入っています。<br/>
+server情報を1つずつ、output_nodeとしてインスタンスを作成していき、<code>@nodes</code>には、各server情報から作成した、output_nodeを格納しています。<br/>
+<a href="http://docs.ruby-lang.org/ja/2.1.0/class/Mutex.html">Mutex</a>を使っているのは、output先が複数あるときに、競合しないようにするためだと思います。</p>
+<h3 id="start">start</h3>
+<p>startを見ると、<code>:node_watcher</code>を新しいスレッドで実行します。<br/>
+なので、node_watcherを見てみましょう。</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">node_watcher</span>
+      <span class="o">...</span>
+      <span class="kp">loop</span> <span class="k">do</span>
+        <span class="o">...</span>
+        <span class="p">(</span><span class="mi">0</span><span class="o">...</span><span class="n">nodes_size</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+          <span class="o">...</span>
+          <span class="k">next</span> <span class="k">if</span> <span class="vi">@nodes</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="n">established?</span> <span class="o">&amp;&amp;</span> <span class="o">!</span> <span class="vi">@nodes</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="n">expired?</span>
+
+          <span class="k">next</span> <span class="k">if</span> <span class="n">reconnectings</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
+
+          <span class="n">reason</span> <span class="o">=</span> <span class="ss">:expired</span>
+
+          <span class="k">unless</span> <span class="vi">@nodes</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="n">established?</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warn</span> <span class="s2">"dead connection found: </span><span class="si">#{</span><span class="vi">@nodes</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="n">host</span><span class="si">}</span><span class="s2">, reconnecting..."</span>
+            <span class="n">reason</span> <span class="o">=</span> <span class="ss">:dead</span>
+          <span class="k">end</span>
+
+          <span class="n">node</span> <span class="o">=</span> <span class="vi">@nodes</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
+          <span class="n">log</span><span class="o">.</span><span class="n">debug</span> <span class="s2">"reconnecting to node"</span><span class="p">,</span> <span class="ss">:host</span> <span class="o">=&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="ss">:port</span> <span class="o">=&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="ss">:expire</span> <span class="o">=&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">expire</span><span class="p">,</span> <span class="ss">:expired</span> <span class="o">=&gt;</span> <span class="n">node</span><span class="o">.</span><span class="n">expired?</span>
+
+          <span class="n">renewed</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">dup</span>
+          <span class="n">renewed</span><span class="o">.</span><span class="n">start</span>
+
+          <span class="no">Thread</span><span class="o">.</span><span class="n">pass</span> <span class="c1"># to connection thread</span>
+          <span class="n">reconnectings</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">:conn</span> <span class="o">=&gt;</span> <span class="n">renewed</span><span class="p">,</span> <span class="ss">:at</span> <span class="o">=&gt;</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="p">,</span> <span class="ss">:reason</span> <span class="o">=&gt;</span> <span class="n">reason</span> <span class="p">}</span>
+        <span class="k">end</span>
+        <span class="o">...</span>
+</pre></div>
+<p>各output_nodeは、<br/>
+- established<br/>
+- expired<br/>
+- reconnecting</p>
+<h3 id="stop">stop</h3>
+                </div>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="https://www.hitsumabushi.org/blog/2014/12/17/2345.html">fluentd-plugin-secure-forward のソースを読んでみる(Input プラグイン編)</a></li>
+        <li><a href="https://www.hitsumabushi.org/blog/2014/12/16/2000.html">ソースコードリーディングをするときにctagsを使いたい</a></li>
+    </ul>
+</section>
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'hitsumabushi'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'fluentd-plugin-secure-forward-nososuwodu-ndemiruoutput-puraguinbian';
+                var disqus_url = 'https://www.hitsumabushi.org/drafts/fluentd-plugin-secure-forward-nososuwodu-ndemiruoutput-puraguinbian.html';
+
+            var disqus_config = function () {
+                this.language = "ja";
+                this.page.url = disqus_url;
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://twitter.com/_hitsumabushi_"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+                <li class="list-group-item"><a href="https://github.com/hitsumabushi"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2019/02/12/1630.html">
+                            Python でコメント付きYAMLを扱う時には ruamel.yaml が便利だった
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2019/01/25/1454.html">
+                            CloudFormation の不満点
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/11/30/0913.html">
+                            さくらインターネットを退職しました
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/10/31/1901.html">
+                            DebianでLuaJITTeXを使いたい
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/04/11/1058.html">
+                            Debian でログインシェルをzshにしている人が snappy を使う場合の注意
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="list-group-item"><a href="https://www.hitsumabushi.org/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group list-inline tagcloud" id="tags">
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/ansible.html">
+                            ansible
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/apt.html">
+                            apt
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/aws.html">
+                            aws
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/azure.html">
+                            Azure
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cloudformation.html">
+                            cloudformation
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cross.html">
+                            CROSS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cui-ruo-xing.html">
+                            脆弱性
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/debian.html">
+                            debian
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/dns.html">
+                            DNS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/docker.html">
+                            docker
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/git.html">
+                            git
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/linux.html">
+                            Linux
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/lun-wen.html">
+                            論文
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/mian-qiang-hui.html">
+                            勉強会
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/mscs.html">
+                            MSCS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/nsx.html">
+                            NSX
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/papers.html">
+                            papers
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/perl.html">
+                            perl
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/preseed.html">
+                            preseed
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/python.html">
+                            python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/ruby.html">
+                            Ruby
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/sakura.html">
+                            sakura
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/storage.html">
+                            Storage
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/terraform.html">
+                            terraform
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/vcp.html">
+                            VCP
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/vim.html">
+                            vim
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/vmware.html">
+                            vmware
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/vpls.html">
+                            vpls
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/windows.html">
+                            windows
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/zsh.html">
+                            zsh
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-twitter fa-lg"></i><span class="icon-label">Latest Tweets</span></h4></li>
+    <div id="twitter_timeline">
+        <a class="twitter-timeline" data-chrome="noheader" href="https://twitter.com/__hitsumabushi__" data-widget-id="564098693729492992">Tweets by __hitsumabushi__</a>
+    </div>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://hitsumabushi-pc.blogspot.jp/2011/07/blogger.html" target="_blank">
+                Old blog
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+           <span id="copyright">
+             <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+               &copy; 2019 <b itemprop="name">hitsumabushi</b>
+           </span>
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://www.hitsumabushi.org/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://www.hitsumabushi.org/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://www.hitsumabushi.org/theme/js/respond.min.js"></script>
+
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'hitsumabushi'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+<!-- Hatena -->
+<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+<!-- Twitter -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- FB -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=363359100411070&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Pocket -->
+<script type="text/javascript">!function(d, i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document, "pocket-btn-js");</script>
+
+</body>
+</html>

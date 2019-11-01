@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>runCをDebianで実行する - ひつまぶし食べたい</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://www.hitsumabushi.org/static/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://www.hitsumabushi.org/blog/2015/06/23/2047.html">
+
+        <meta name="author" content="hitsumabushi" />
+        <meta name="keywords" content="runc,debian" />
+        <meta name="description" content="opencontainers/runc を実行してみようとしたところ、コンパイルまではすぐできるのに、実行するとエラーが出て困ったので、対処方法を書いておく。 runCのインストール golang的に普通の場所に置いてビルドすると良い。git clone の代わりに go getでも良い。 git clone https://github.com/opencontainers/runc $GOPATH/src/github.com/opencontainers …" />
+
+        <meta property="og:site_name" content="ひつまぶし食べたい" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="runCをDebianで実行する"/>
+        <meta property="og:url" content="https://www.hitsumabushi.org/blog/2015/06/23/2047.html"/>
+        <meta property="og:description" content="opencontainers/runc を実行してみようとしたところ、コンパイルまではすぐできるのに、実行するとエラーが出て困ったので、対処方法を書いておく。 runCのインストール golang的に普通の場所に置いてビルドすると良い。git clone の代わりに go getでも良い。 git clone https://github.com/opencontainers/runc $GOPATH/src/github.com/opencontainers …"/>
+        <meta property="article:published_time" content="2015-06-23" />
+            <meta property="article:section" content="blog" />
+            <meta property="article:tag" content="runc" />
+            <meta property="article:tag" content="debian" />
+            <meta property="article:author" content="hitsumabushi" />
+            <meta property="og:image"
+                  content="https://www.hitsumabushi.org/static/icon.jpg"/>
+
+    <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@__hitsumabushi__">
+        <meta name="twitter:creator" content="@__hitsumabushi__">
+    <meta name="twitter:domain" content="https://www.hitsumabushi.org">
+            <meta property="twitter:image"
+                  content="https://www.hitsumabushi.org/static/icon.jpg"/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="https://www.hitsumabushi.org/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://www.hitsumabushi.org/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/css/style.css" type="text/css"/>
+        <link href="https://www.hitsumabushi.org/static/custom.css" rel="stylesheet">
+
+        <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="ひつまぶし食べたい ATOM Feed"/>
+
+
+
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gist-embed/2.0/gist-embed.min.js"></script>
+
+<!-- https://developers.google.com/custom-search/docs/structured_data?hl=es&csw=1#microformats -->
+<!--
+<PageMap>
+<DataObject type="document">
+    <Attribute name="title">runCをDebianで実行する</Attribute>
+    <Attribute name="author">hitsumabushi</Attribute>
+    <Attribute name="description">opencontainers/runc を実行してみようとしたところ、コンパイルまではすぐできるのに、実行するとエラーが出て困ったので、対処方法を書いておく。 runCのインストール golang的に普通の場所に置いてビルドすると良い。git clone の代わりに go getでも良い。 git clone https://github.com/opencontainers/runc $GOPATH/src/github.com/opencontainers …</Attribute>
+    <Attribute name="page_count">1</Attribute>
+    <Attribute name="rating">5</Attribute>
+    <Attribute name="last_update">2015-06-23T20:47:00+09:00</Attribute>
+</DataObject>
+<DataObject type="metatags">
+    <Attribute name="category" value="blog"/>
+        <Attribute name="category" value="runc"/>
+        <Attribute name="category" value="debian"/>
+</DataObject>
+-->    <!-- Google Analytics Universal -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-24727901-9', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics Universal Code -->
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://www.hitsumabushi.org/" class="navbar-brand">
+ひつまぶし食べたい            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="https://www.hitsumabushi.org/category/blog.html">Blog</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><form class="navbar-form navbar-right" role="search"
+  action="https://www.google.com/cse" 
+  id="searchbox_009966809170133509931:4vsx-mk1ktu" target="_blank"> 
+    <input type="hidden" name="cx" value="009966809170133509931:4vsx-mk1ktu" /> 
+    <input type="text" name="q" class="form-control" placeholder="Search">
+</form></li>
+              <li><a href="https://www.hitsumabushi.org/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article itemscope itemtype="http://schema.org/BlogPosting" itemref="copyright">
+            <header class="page-header">
+                <h1 itemprop="name">
+                    <a href="https://www.hitsumabushi.org/blog/2015/06/23/2047.html"
+                       rel="bookmark"
+                       title="Permalink to runCをDebianで実行する"
+                       itemprop="url">
+                       runCをDebianで実行する
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+      <i class="fa fa-calendar"></i><time datetime="2015-06-23T20:47:00+09:00" itemprop="datePublished"> Tue 23 June 2015</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://www.hitsumabushi.org/tag/runc.html">runc</a>
+        /
+	<a href="https://www.hitsumabushi.org/tag/debian.html">debian</a>
+    
+</footer><!-- /.post-info --><div id="social_bottuns" class="clearfix">
+  <div class="pull-left" style="margin-right: 5px"><a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard-balloon" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a></div>
+
+  <div class="pull-left" style="margin-right: 5px"><a href="https://twitter.com/share" class="twitter-share-button"{count} data-via="_hitsumabushi_" data-dnt="true">Tweet</a></div>
+
+  <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button"></div>
+
+  <div class="pull-left" style="margin-right: 5px"><a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a></div>
+</div>                    </div>
+                </div>
+                    <!--
+                      <nav class="toc">
+                      <div class="toc">
+<ul>
+<li><a href="#runc">runCのインストール</a></li>
+<li><a href="#_1">状況</a><ul>
+<li><a href="#_2">ディレクトリ構成</a></li>
+<li><a href="#_3">利用中のカーネル</a></li>
+</ul>
+</li>
+<li><a href="#_4">問題</a></li>
+<li><a href="#_5">対処</a><ul>
+<li><a href="#_6">カーネルの再コンパイル</a></li>
+<li><a href="#_7">ブート時のカーネルパラメータ</a></li>
+</ul>
+</li>
+<li><a href="#_8">その他の参考資料</a></li>
+</ul>
+</div>
+                      </nav>
+                    -->
+                <div id="article_content" itemprop="articleBody">
+                  <p><a href="https://github.com/opencontainers/runc">opencontainers/runc</a> を実行してみようとしたところ、コンパイルまではすぐできるのに、実行するとエラーが出て困ったので、対処方法を書いておく。</p>
+
+<h2 id="runc">runCのインストール</h2>
+<p>golang的に普通の場所に置いてビルドすると良い。git clone の代わりに go getでも良い。</p>
+<div class="highlight"><pre><span></span>git clone https://github.com/opencontainers/runc $GOPATH/src/github.com/opencontainers/runc
+cd $GOPATH/src/github.com/opencontainers/runc/
+make
+sudo make install
+</pre></div>
+<h2 id="_1">状況</h2>
+<h3 id="_2">ディレクトリ構成</h3>
+<div class="highlight"><pre><span></span>.
+├── container.json (とりあえず、runc spec で生成されるものでOK)
+└── rootfs (docker exportして、tarを展開したものを置いたディレクトリ)
+</pre></div>
+<h3 id="_3">利用中のカーネル</h3>
+<div class="highlight"><pre><span></span>% uname -a
+Linux debian <span class="m">4</span>.0.0-2-amd64 <span class="c1">#1 SMP Debian 4.0.5-1 (2015-06-16) x86_64 GNU/Linux</span>
+</pre></div>
+<h2 id="_4">問題</h2>
+<p>ここまで準備できるとruncが実行できるはずなのだけど、やってみるとエラーが出る。</p>
+<div class="highlight"><pre><span></span>% sudo runc --debug
+WARN<span class="o">[</span><span class="m">0000</span><span class="o">]</span> signal: killed
+Timestamp: <span class="m">2015</span>-06-23 <span class="m">20</span>:50:18.148962383 +0900 JST
+Code: System error
+
+Message: open /sys/fs/cgroup/cpu/user.slice/tmp/cpu.cfs_quota_us: permission denied
+
+Frames:
+---
+<span class="m">0</span>: start
+Package: github.com/opencontainers/runc/libcontainer.<span class="o">(</span>*initProcess<span class="o">)</span>
+File: process_linux.go@197
+---
+<span class="m">1</span>: Start
+Package: github.com/opencontainers/runc/libcontainer.<span class="o">(</span>*linuxContainer<span class="o">)</span>
+File: container_linux.go@107
+---
+<span class="m">2</span>: execContainer
+Package: main
+File: run.go@41
+---
+<span class="m">3</span>: func·006
+Package: main
+File: main.go@88
+---
+<span class="m">4</span>: Run
+Package: github.com/codegangsta/cli.<span class="o">(</span>*App<span class="o">)</span>
+File: app.go@159
+---
+<span class="m">5</span>: main
+Package: main
+File: main.go@96
+---
+<span class="m">6</span>: main
+Package: runtime
+File: proc.go@63
+---
+<span class="m">7</span>: goexit
+Package: runtime
+File: asm_amd64.s@2232
+</pre></div>
+<h2 id="_5">対処</h2>
+<h3 id="_6">カーネルの再コンパイル</h3>
+<p><code>cfs_quota_us</code> というのは、CFS Bandwidth Control というカーネルの機能らしく、cgroupなどと一緒に入ったものっぽい。</p>
+<ul>
+<li><a href="https://access.redhat.com/documentation/ja-JP/Red_Hat_Enterprise_Linux/6/html/Resource_Management_Guide/sec-cpu.html">Red Hat Customer Portal</a></li>
+<li><a href="http://d.hatena.ne.jp/defiant/20120116/1326703352">Linux 3.2 の CFS bandwidth control (2) - TenForwardの日記</a></li>
+</ul>
+<p>とりあえず、カーネルコンパイルする必要がありそうなので、以下を参考に実施する。</p>
+<ul>
+<li><a href="http://kernel-handbook.alioth.debian.org/ch-common-tasks.html">Debian Linux Kernel Handbook - Common kernel-related tasks</a></li>
+<li><a href="http://greenleaf.sakuraweb.com/index.php?%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB%20-Debian%20Linux-">カーネルコンパイル -Debian Linux- - GreenLeaf</a></li>
+<li><a href="http://www.foxking.org/oldsite/pc/kernel-deb.html">Debian流Linuxカーネル構築法</a></li>
+</ul>
+<div class="highlight"><pre><span></span>sudo apt-get install build-essential kernel-package libncurses5-dev bc
+sudo apt-get install linux-source
+sudo -s
+<span class="nb">cd</span> /usr/src
+tar xvf linux-source-4.0.tar.xz
+<span class="nb">cd</span> linux-source-4.0
+cp /boot/config-4.0.0-2-amd64 .config
+make oldconfig
+make menuconfig
+</pre></div>
+<p>ここで、 '/' を押し、"CFS" などを検索すると CFS Bandwidthの項目が見つかるので、チェックを入れる。</p>
+<div class="highlight"><pre><span></span>make-kpkg clean
+make-kpkg --revision <span class="m">1</span>.0 --initrd kernel-image 
+sudo dpkg -i <span class="o">(</span>できた debパッケージ<span class="o">)</span>
+</pre></div>
+<h3 id="_7">ブート時のカーネルパラメータ</h3>
+<p>上記だけでは動かなかったので、さらに、GRUBでカーネルパラメータを追加した。</p>
+<p>/etc/default/grub を開いて、</p>
+<div class="highlight"><pre><span></span># GRUB_CMDLINE_LINUX="" &lt;-コメントアウト
+GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
+</pre></div>
+<p>編集した後、 <code>sudo update-grub</code> をして、reboot。<br/>
+これで、<code>sudo runc</code> で実行できるようになっている。</p>
+<p>open container 自体は、まだspecも公開されていないし、特に遊べることはなさそうだ。</p>
+<h2 id="_8">その他の参考資料</h2>
+<p>他にもカーネルコンフィグをいじった方が良いかもしれない。</p>
+<ul>
+<li><a href="https://gist.github.com/mapk0y/2d1b7537b6c6d1c8e7f9">Check Kernel Config Script for CRIU</a></li>
+</ul>
+                </div>
+            </div>
+            <!-- /.entry-content -->
+<section class="well" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="https://www.hitsumabushi.org/blog/2014/07/27/1637.html">DebianにOzをインストールする</a></li>
+        <li><a href="https://www.hitsumabushi.org/blog/2016/07/10/0344.html">s3で自前 Debian Package リポジトリを作る</a></li>
+        <li><a href="https://www.hitsumabushi.org/blog/2017/11/10/1402.html">Ansible でバージョンチェックする</a></li>
+        <li><a href="https://www.hitsumabushi.org/blog/2015/09/15/0421.html">Dockerの細々としたメモ</a></li>
+        <li><a href="https://www.hitsumabushi.org/blog/2015/01/26/0312.html">DNS サーバーの比較資料集め</a></li>
+    </ul>
+</section>
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'hitsumabushi'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'runcwodebiandeshi-xing-suru';
+                var disqus_url = 'https://www.hitsumabushi.org/blog/2015/06/23/2047.html';
+
+            var disqus_config = function () {
+                this.language = "ja";
+                this.page.url = disqus_url;
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://twitter.com/_hitsumabushi_"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+                <li class="list-group-item"><a href="https://github.com/hitsumabushi"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2019/02/12/1630.html">
+                            Python でコメント付きYAMLを扱う時には ruamel.yaml が便利だった
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2019/01/25/1454.html">
+                            CloudFormation の不満点
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/11/30/0913.html">
+                            さくらインターネットを退職しました
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/10/31/1901.html">
+                            DebianでLuaJITTeXを使いたい
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/04/11/1058.html">
+                            Debian でログインシェルをzshにしている人が snappy を使う場合の注意
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="list-group-item"><a href="https://www.hitsumabushi.org/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group list-inline tagcloud" id="tags">
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/ansible.html">
+                            ansible
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/apt.html">
+                            apt
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/aws.html">
+                            aws
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/azure.html">
+                            Azure
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cloudformation.html">
+                            cloudformation
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cross.html">
+                            CROSS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cui-ruo-xing.html">
+                            脆弱性
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/debian.html">
+                            debian
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/dns.html">
+                            DNS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/docker.html">
+                            docker
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/git.html">
+                            git
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/linux.html">
+                            Linux
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/lun-wen.html">
+                            論文
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/mian-qiang-hui.html">
+                            勉強会
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/mscs.html">
+                            MSCS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/nsx.html">
+                            NSX
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/papers.html">
+                            papers
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/perl.html">
+                            perl
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/preseed.html">
+                            preseed
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/python.html">
+                            python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/ruby.html">
+                            Ruby
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/sakura.html">
+                            sakura
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/storage.html">
+                            Storage
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/terraform.html">
+                            terraform
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/vcp.html">
+                            VCP
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/vim.html">
+                            vim
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/vmware.html">
+                            vmware
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/vpls.html">
+                            vpls
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/windows.html">
+                            windows
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/zsh.html">
+                            zsh
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-twitter fa-lg"></i><span class="icon-label">Latest Tweets</span></h4></li>
+    <div id="twitter_timeline">
+        <a class="twitter-timeline" data-chrome="noheader" href="https://twitter.com/__hitsumabushi__" data-widget-id="564098693729492992">Tweets by __hitsumabushi__</a>
+    </div>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://hitsumabushi-pc.blogspot.jp/2011/07/blogger.html" target="_blank">
+                Old blog
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+           <span id="copyright">
+             <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+               &copy; 2019 <b itemprop="name">hitsumabushi</b>
+           </span>
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://www.hitsumabushi.org/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://www.hitsumabushi.org/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://www.hitsumabushi.org/theme/js/respond.min.js"></script>
+
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'hitsumabushi'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+<!-- Hatena -->
+<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+<!-- Twitter -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- FB -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=363359100411070&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Pocket -->
+<script type="text/javascript">!function(d, i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document, "pocket-btn-js");</script>
+
+</body>
+</html>

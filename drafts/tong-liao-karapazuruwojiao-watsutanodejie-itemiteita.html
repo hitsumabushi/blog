@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>同僚からパズルを教わったので解いてみていた - ひつまぶし食べたい</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://www.hitsumabushi.org/static/favicon.ico" rel="icon">
+
+<link rel="canonical" href="https://www.hitsumabushi.org/drafts/tong-liao-karapazuruwojiao-watsutanodejie-itemiteita.html">
+
+        <meta name="author" content="hitsumabushi" />
+        <meta name="keywords" content="go" />
+        <meta name="description" content="同僚から、数の粘度という概念を教えてもらいました。 おもしろい問題だったので、考えたことを忘れないように書き留めておきます。 最低限しか解いていないので、研究の余地がかなりありそう。 問題 \def\qed{\hfill $\Box$} \newtheorem{Theorem}{定理} \newtheorem{Example}[Theorem]{例} \newtheorem{Definition}[Theorem]{定義} \newtheorem{Lemma}[Theorem …" />
+
+        <meta property="og:site_name" content="ひつまぶし食べたい" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="同僚からパズルを教わったので解いてみていた"/>
+        <meta property="og:url" content="https://www.hitsumabushi.org/drafts/tong-liao-karapazuruwojiao-watsutanodejie-itemiteita.html"/>
+        <meta property="og:description" content="同僚から、数の粘度という概念を教えてもらいました。 おもしろい問題だったので、考えたことを忘れないように書き留めておきます。 最低限しか解いていないので、研究の余地がかなりありそう。 問題 \def\qed{\hfill $\Box$} \newtheorem{Theorem}{定理} \newtheorem{Example}[Theorem]{例} \newtheorem{Definition}[Theorem]{定義} \newtheorem{Lemma}[Theorem …"/>
+        <meta property="article:published_time" content="2017-05-25" />
+            <meta property="article:section" content="blog" />
+            <meta property="article:tag" content="go" />
+            <meta property="article:author" content="hitsumabushi" />
+            <meta property="og:image"
+                  content="https://www.hitsumabushi.org/static/icon.jpg"/>
+
+    <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@__hitsumabushi__">
+        <meta name="twitter:creator" content="@__hitsumabushi__">
+    <meta name="twitter:domain" content="https://www.hitsumabushi.org">
+            <meta property="twitter:image"
+                  content="https://www.hitsumabushi.org/static/icon.jpg"/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="https://www.hitsumabushi.org/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://www.hitsumabushi.org/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/css/style.css" type="text/css"/>
+        <link href="https://www.hitsumabushi.org/static/custom.css" rel="stylesheet">
+
+        <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="ひつまぶし食べたい ATOM Feed"/>
+
+
+
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gist-embed/2.0/gist-embed.min.js"></script>
+
+<!-- https://developers.google.com/custom-search/docs/structured_data?hl=es&csw=1#microformats -->
+<!--
+<PageMap>
+<DataObject type="document">
+    <Attribute name="title">同僚からパズルを教わったので解いてみていた</Attribute>
+    <Attribute name="author">hitsumabushi</Attribute>
+    <Attribute name="description">同僚から、数の粘度という概念を教えてもらいました。 おもしろい問題だったので、考えたことを忘れないように書き留めておきます。 最低限しか解いていないので、研究の余地がかなりありそう。 問題 \def\qed{\hfill $\Box$} \newtheorem{Theorem}{定理} \newtheorem{Example}[Theorem]{例} \newtheorem{Definition}[Theorem]{定義} \newtheorem{Lemma}[Theorem …</Attribute>
+    <Attribute name="page_count">1</Attribute>
+    <Attribute name="rating">5</Attribute>
+    <Attribute name="last_update">2017-05-25T02:19:00+09:00</Attribute>
+</DataObject>
+<DataObject type="metatags">
+    <Attribute name="category" value="blog"/>
+        <Attribute name="category" value="go"/>
+</DataObject>
+-->    <!-- Google Analytics Universal -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-24727901-9', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics Universal Code -->
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://www.hitsumabushi.org/" class="navbar-brand">
+ひつまぶし食べたい            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="https://www.hitsumabushi.org/category/blog.html">Blog</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><form class="navbar-form navbar-right" role="search"
+  action="https://www.google.com/cse" 
+  id="searchbox_009966809170133509931:4vsx-mk1ktu" target="_blank"> 
+    <input type="hidden" name="cx" value="009966809170133509931:4vsx-mk1ktu" /> 
+    <input type="text" name="q" class="form-control" placeholder="Search">
+</form></li>
+              <li><a href="https://www.hitsumabushi.org/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article itemscope itemtype="http://schema.org/BlogPosting" itemref="copyright">
+            <header class="page-header">
+                <h1 itemprop="name">
+                    <a href="https://www.hitsumabushi.org/drafts/tong-liao-karapazuruwojiao-watsutanodejie-itemiteita.html"
+                       rel="bookmark"
+                       title="Permalink to 同僚からパズルを教わったので解いてみていた"
+                       itemprop="url">
+                       同僚からパズルを教わったので解いてみていた
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+      <i class="fa fa-calendar"></i><time datetime="2017-05-25T02:19:00+09:00" itemprop="datePublished"> Thu 25 May 2017</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://www.hitsumabushi.org/tag/go.html">go</a>
+    
+</footer><!-- /.post-info --><div id="social_bottuns" class="clearfix">
+  <div class="pull-left" style="margin-right: 5px"><a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard-balloon" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a></div>
+
+  <div class="pull-left" style="margin-right: 5px"><a href="https://twitter.com/share" class="twitter-share-button"{count} data-via="_hitsumabushi_" data-dnt="true">Tweet</a></div>
+
+  <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button"></div>
+
+  <div class="pull-left" style="margin-right: 5px"><a data-pocket-label="pocket" data-pocket-count="none" class="pocket-btn" data-lang="en"></a></div>
+</div>                    </div>
+                </div>
+                    <!--
+                      <nav class="toc">
+                      <div class="toc">
+<ul>
+<li><a href="#_1">問題</a></li>
+</ul>
+</div>
+                      </nav>
+                    -->
+                <div id="article_content" itemprop="articleBody">
+                  
+<p>同僚から、数の粘度という概念を教えてもらいました。<br/>
+おもしろい問題だったので、考えたことを忘れないように書き留めておきます。<br/>
+最低限しか解いていないので、研究の余地がかなりありそう。</p>
+<h2 id="_1">問題</h2>
+<div class="highlight"><pre><span></span>\def\qed{\hfill $\Box$}
+
+\newtheorem{Theorem}{定理}
+\newtheorem{Example}[Theorem]{例}
+\newtheorem{Definition}[Theorem]{定義}
+\newtheorem{Lemma}[Theorem]{補題}
+\newtheorem{Proof}[Theorem]{証明}
+\newtheorem{Problem}[Theorem]{問題}
+
+
+\begin{Definition}[記法について]
+ある0以上の自然数 $a \in \mathbb{N}_{\geq 0}$ に対して、以下のような記法を使うことにする。
+\begin{itemize}
+\item 10進法で表記したときに大きい桁かから見て $i$ 桁目を単に $a_{i}$ こと書く。
+\item 10進法での表記を下線つきで、 $a = \underline{a_0a_1a_2...a_N}$ と書く。
+\end{itemize}
+\end{Definition}
+
+\begin{Example}
+$a=39$ のとき、 $a_0=3$, $a_1=9$ であって、$39 = \underline{39}$
+\end{Example}
+
+\begin{Definition}[粘度]
+ある0以上の自然数 $a \in \mathbb{N}_{\geq 0}$ に対して、粘度 $V(a) \in \mathbb{N}_{\geq 0}$ を以下で定義する。
+\begin{displaymath}
+V(a) = \left\{
+\begin{array}{l}
+$0$  \hspace{145} \mbox{aが1桁の場合} \\
+\min \{ n \in \mathbb{N} | V(Multi^n(a)) = 0 \} \hspace{10} \mbox{それ以外の場合}
+\end{array}
+\right.
+\end{displaymath}
+ただし、 $a = \underline{a_0a_1a_2...a_N}$ に対して、 $Multi(a) := \prod_i a_i$ とする。
+\end{Definition}
+
+\begin{Example} いくつか計算してみる。
+\begin{itemize}
+\item $a=9$ のとき、 $V(a)=0$
+\item $a=100$ のとき、 $Multi(a)=1*0*0=0$ なので、  $V(a) = 1$
+\item $a=33$ のとき、 $Multi(a)=3*3=9$ なので、 $V(a) = 1$
+\item $a=39$ のとき、 $Multi(a)=27, Multi^2(a)=14, Multi^3(a)=4$ なので、 $V(a) = 3$
+\end{itemize}
+\end{Example}
+
+\begin{Problem}[問題]
+粘度 $k (0 \leq k \leq 11)$ を持つ最小の自然数 $mV(k)$ を見つけよ。
+\end{Problem}
+
+\begin{Example}
+$mV(0)=0, mV(1)=10, mV(2)=25, mV(3)=39$
+\end{Example}
+
+\begin{Lemma}[すべての自然数に対して粘度が定義できる]
+$a \in \mathbb{N}_{\geq 0}$ に対し、 $V(a) \in \mathbb{N}_{\geq 0}$ が必ず一意に定まる
+\end{Lemma}
+
+\begin{Proof}
+ある $n \in \mathbb{N}_{\geq 0}$ について、 $V(Multi^n(a)) = 0$ である場合、 一意性は明らか。\\
+任意の$a \in \mathbb{N}_{\geq 0}$ について、あるnがあって $\exists k \    s.t. V(Multi^n(a)) = 0$ が示されれば良い。 \\
+そのために、 $a&gt;0$ として、 $a &gt; Multi(a)$ を示す。 \\
+($a &gt; Multi(a)$ であれば、 $a &gt; Multi(a) &gt; Multi^2(a) &gt;... \geq 0$ となって、 どこかで $Multi^n(a)$ は1桁の数字になっている) \\
+$a=\underline{a_0a_1...a_N} (a_0 \neq 0)$ と書くとき、 $0 \leq a_i &lt; 10$ でなので、
+$a= \sum_{i=0}^N a_i * 10^{N-i} \geq a_0 * 10^N &gt; a_0 * a_1 * a_2 * ... * a_N = Multi(a)$ なので、$a &gt; Multi(a)$ になっている。
+\qed
+\end{Proof}
+
+\begin{Lemma}[1は含まれないこと]
+$k \geq 2$ とする。 $mV(k)=\underline{a_0a_1...a_N}$ について、 $a_i \neq 1 (\forall i)$
+\end{Lemma}
+\begin{Proof}背理法による。\\
+もし、 $a_i = 1$ となる $i$ があったとする。これを $j$ とする。 \\
+$\bar{a} := \underline{a_0a_1...a_{j-1}a_{j+1}...a_N}$ を考えると、\\
+$Multi(\bar{a}) = Multi(mV(k))$ なので、 $V(\bar{a}) = V(mV(k)) = k$ かつ $\bar{a} &lt; mV(k)$ である。\\
+これは、$mV(k)$ が粘度 $k$ を持つ最小の自然数であることに矛盾する。
+\qed
+\end{Proof}
+</pre></div>
+<div class="highlight"><pre><span></span>\begin{Lemma}[単調列であること]
+$k \geq 2$ とする。\\
+$mV(k)=\underline{a_0a_1...a_N}$ について、 $i &lt; j$ ならば $a_i \leq a_j$ である。
+\end{Lemma}
+\begin{Proof} 背理法による。 \\
+ある $l&lt;m$ について、 $a_l &gt; a_m$ と仮定する。 \\
+このとき、 $\bar{a} := \underline{a_0a_1...a_{l-1}a_ma_{l+1}...a_{m-1}a_la_{m+1}...a_N}$ とすると、
+$Multi(\bar{a}) = Multi(mV(k))$ なので、 $V(\bar{a}) = V(mV(k)) = k$ かつ $\bar{a} &lt; mV(k)$ である。\\
+これは、$mV(k)$ が粘度 $k$ を持つ最小の自然数であることに矛盾する。
+\qed
+\end{Proof}
+
+\begin{Lemma}[粘度が大きい場合、5と偶数を同時に含むことはないこと]
+$k \geq 3$ とする。\\
+このとき、 $mV(k)=\underline{a_0a_1...a_N}$ について、以下のどちらか一方のみが成り立つ。
+\begin{enumerate}
+\item $a_i$ はすべて奇数
+\item $a_i \neq 5$ 
+\end{enumerate}
+\end{Lemma}
+\begin{Proof} ${a_i}$ のなかに、偶数と5の両方があったとすると、
+$Multi(mV(k)) = 10 * A$ の形で書ける。\\
+つまり、 $Multi^2(mV(k)) = Multi(10*A) = 0$ になり、 $k \leq 2$ になるため。
+\qed
+\end{Proof}
+
+\begin{Definition}
+$$[789] := \{\underline{7...78...89...9}\}$$
+ただし、7,8,9 がそれぞれ0個でも良いとする。
+\end{Definition}
+
+\begin{Example} \ 
+\begin{itemize}
+\item $7 \in [789]$
+\item $7777777779 \in [789]$
+\item $888 \in [789]$
+\item $77789 \in [789]$
+\end{itemize}
+\end{Example}
+
+\begin{Lemma}[数列の簡約]
+$k \geq 3$ とする。\\
+このとき、 $mV(k)=\underline{a_0a_1...a_N}$ について、以下のどれか1つのみが成り立つ。
+\begin{enumerate}
+\item $a_0=2$ かつ $\underline{a_1...a_N} \in [789]$
+\item $a_0=3$ かつ $\underline{a_1...a_N} \in [789]$
+\item $a_0=4$ かつ $\underline{a_1...a_N} \in [789]$
+\item $a_0=6$ かつ $\underline{a_1...a_N} \in [789]$
+\item $a_0=7$ かつ $\underline{a_1...a_N} \in [789]$
+\item $a_0=8$ かつ $\underline{a_1...a_N} \in [789]$
+\item $a_0=9$ かつ $\underline{a_1...a_N} \in [789]$
+\item $a_0=2, a_1=6$ かつ $\underline{a_2...a_N} \in [789]$
+\item $a_0=3, a_1=5$ かつ $\underline{a_2...a_N} \in [789]$
+\item $a_k=5 (k=0, ...., k_0)$ かつ $\underline{a_{k_0+1}...a_N} \in [789]$
+\end{enumerate}
+\end{Lemma}
+</pre></div>
+<div class="highlight"><pre><span></span>\begin{Proof} これまでの補題を使って1つずつ場合分けをして考える。
+\begin{itemize}
+\item $a_0=2$ の場合
+\begin{itemize}
+\item $\underline{22...}$ の場合、 $\underline{4...}$ と置き換えれると、数字としては小さく、粘度は変わらない。これは $mV(k)$ の最小性に矛盾している。
+\item $\underline{23...}$ の場合、 $\underline{6...}$ と置き換えれると、上と同様。
+\item $\underline{24...}$ の場合、 $\underline{8...}$ と置き換えれると、上と同様。
+\item $\underline{25...}$ は、偶数と5が同時に含まれており含まれており、補題からありえない。
+\end{itemize}
+そのため、 $a_0=2$ の場合には、 $\underline{26...}, \underline{27...}, \underline{28...}, \underline{29...} $ となっている。
+\item $a_0=3$ の場合
+\begin{itemize}
+\item $\underline{33...}$ の場合、 $\underline{9...}$ と置き換えれると、数字としては小さく、粘度は変わらない。これは $mV(k)$ の最小性に矛盾している。
+\item $\underline{34...}$ の場合、 $\underline{26...}$ と置き換えれると、上と同様。
+\item $\underline{36...}$ の場合、 $\underline{29...}$ と置き換えれると、上と同様。
+\end{itemize}
+そのため、 $a_0=3$ の場合には、 $\underline{35...}, \underline{37...}, \underline{38...}, \underline{39...} $ となっている。
+\item $a_0=4$ の場合
+\begin{itemize}
+\item $\underline{44...}$ の場合、 $\underline{28...}$ と置き換えれると、数字としては小さく、粘度は変わらない。これは $mV(k)$ の最小性に矛盾している。
+\item $\underline{45...}$ は、偶数と5が同時に含まれており含まれており、補題からありえない。
+\item $\underline{46...}$ の場合、 $\underline{38...}$ と置き換えれると、上と同様。
+\end{itemize}
+そのため、 $a_0=4$ の場合には、 $\underline{47...}, \underline{48...}, \underline{49...} $ となっている。
+\item $a_0=5$ の場合
+\begin{itemize}
+\item $\underline{55...}$ は、補題からありえない。
+\item $\underline{56...}$ は、偶数と5が同時に含まれており含まれており、補題からありえない。
+\end{itemize}
+そのため、 $a_0=5$ の場合には、 $\underline{57...}, \underline{58...}, \underline{59...} $ となっている。
+\item $a_0=6$ の場合
+\begin{itemize}
+\item $\underline{66...}$ は、$\underline{49...}$ と置き換えれると、数字としては小さく、粘度は変わらない。これは $mV(k)$ の最小性に矛盾している。
+\end{itemize}
+そのため、 $a_0=6$ の場合には、 $\underline{67...}, \underline{68...}, \underline{69...} $ となっている。
+\item $a_0=7$ の場合には、 $\underline{77...}, \underline{78...}, \underline{79...}$ となっている。
+\item $a_0=8$ の場合には、 $\underline{88...}, \underline{89...}$ となっている。
+\item $a_0=9$ の場合には、 $\underline{99...}$ となっている。
+\end{itemize}
+以上を整理して書くと、主張の通りになる。
+\qed
+\end{Proof}
+</pre></div>
+<div class="highlight"><pre><span></span>\begin{Lemma}[5は高々1つだけ]
+$k \geq 3$ とする。\\
+このとき、 $mV(k)=\underline{a_0a_1...a_N}$ について、 $a_i=5$ となる $i$ は高々1つしかない。
+\end{Lemma}
+</pre></div>
+                </div>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'hitsumabushi'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'tong-liao-karapazuruwojiao-watsutanodejie-itemiteita';
+                var disqus_url = 'https://www.hitsumabushi.org/drafts/tong-liao-karapazuruwojiao-watsutanodejie-itemiteita.html';
+
+            var disqus_config = function () {
+                this.language = "ja";
+                this.page.url = disqus_url;
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://twitter.com/_hitsumabushi_"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+                <li class="list-group-item"><a href="https://github.com/hitsumabushi"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+              </ul>
+            </li>
+
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
+                <ul class="list-group" id="recentposts">
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2019/02/12/1630.html">
+                            Python でコメント付きYAMLを扱う時には ruamel.yaml が便利だった
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2019/01/25/1454.html">
+                            CloudFormation の不満点
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/11/30/0913.html">
+                            さくらインターネットを退職しました
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/10/31/1901.html">
+                            DebianでLuaJITTeXを使いたい
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="https://www.hitsumabushi.org/blog/2018/04/11/1058.html">
+                            Debian でログインシェルをzshにしている人が snappy を使う場合の注意
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="list-group-item"><a href="https://www.hitsumabushi.org/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group list-inline tagcloud" id="tags">
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/ansible.html">
+                            ansible
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/apt.html">
+                            apt
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/aws.html">
+                            aws
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/azure.html">
+                            Azure
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cloudformation.html">
+                            cloudformation
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cross.html">
+                            CROSS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/cui-ruo-xing.html">
+                            脆弱性
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/debian.html">
+                            debian
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/dns.html">
+                            DNS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/docker.html">
+                            docker
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/git.html">
+                            git
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/linux.html">
+                            Linux
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/lun-wen.html">
+                            論文
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/mian-qiang-hui.html">
+                            勉強会
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/mscs.html">
+                            MSCS
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/nsx.html">
+                            NSX
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/papers.html">
+                            papers
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/perl.html">
+                            perl
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/preseed.html">
+                            preseed
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/python.html">
+                            python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/ruby.html">
+                            Ruby
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/sakura.html">
+                            sakura
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/storage.html">
+                            Storage
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/terraform.html">
+                            terraform
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/vcp.html">
+                            VCP
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/vim.html">
+                            vim
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="https://www.hitsumabushi.org/tag/vmware.html">
+                            vmware
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/vpls.html">
+                            vpls
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://www.hitsumabushi.org/tag/windows.html">
+                            windows
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-3">
+                        <a href="https://www.hitsumabushi.org/tag/zsh.html">
+                            zsh
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-twitter fa-lg"></i><span class="icon-label">Latest Tweets</span></h4></li>
+    <div id="twitter_timeline">
+        <a class="twitter-timeline" data-chrome="noheader" href="https://twitter.com/__hitsumabushi__" data-widget-id="564098693729492992">Tweets by __hitsumabushi__</a>
+    </div>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://hitsumabushi-pc.blogspot.jp/2011/07/blogger.html" target="_blank">
+                Old blog
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container-fluid">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+           <span id="copyright">
+             <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+               &copy; 2019 <b itemprop="name">hitsumabushi</b>
+           </span>
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://www.hitsumabushi.org/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://www.hitsumabushi.org/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://www.hitsumabushi.org/theme/js/respond.min.js"></script>
+
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'hitsumabushi'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+<!-- Hatena -->
+<script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+
+<!-- Twitter -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- FB -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=363359100411070&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- Pocket -->
+<script type="text/javascript">!function(d, i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document, "pocket-btn-js");</script>
+
+</body>
+</html>
