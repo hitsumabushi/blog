@@ -17,11 +17,16 @@ jobs:
           python-version: '3.9'
       # https://github.com/actions/cache/blob/master/examples.md#python---pip
       - uses: actions/cache@v2
+        id: cache
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
+      # https://github.com/actions/cache#skipping-steps-based-on-cache-hit
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: pip install -r requirements.txt
       - name: run deploy.sh
         run: script/deploy.sh
         shell: bash
