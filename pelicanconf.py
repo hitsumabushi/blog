@@ -25,7 +25,7 @@ CUSTOM_CSS = 'static/custom.css'
 
 # Top page summary
 DISPLAY_ARTICLE_INFO_ON_INDEX = True
-SUMMARY_MAX_LENGTH = 25
+SUMMARY_MAX_LENGTH = 150
 DEFAULT_PAGINATION = 10
 
 # Feed generation is usually not desired when developing
@@ -81,22 +81,27 @@ MARKDOWN = {
         'markdown.extensions.meta': {},
         'markdown.extensions.fenced_code': {},
         'markdown.extensions.nl2br': {},
-        'markdown.extensions.toc': {},
         'markdown.extensions.tables': {},
         'markdown.extensions.admonition': {},
         #'mdx_linkify.mdx_linkify': {},
+        #'markdown.extensions.toc': {},
+        'toc': {}, # use extract_toc
     },
     'output_format': 'html5',
 }
 
 # Plugins
 PLUGIN_PATHS = ['plugins/pelican-plugins']
-PLUGINS = ['sitemap',
-           'related_posts',
-           'render_math',
-           'tipue_search',
-           'neighbors',
-           'pelican_gist']
+PLUGINS = [
+        'sitemap',
+        'related_posts',
+        'render_math',
+        'tipue_search',
+        'neighbors',
+        'pelican_gist',
+        'extract_toc',
+        ]
+
 
 # Plugin Settings
 ## sitemap
