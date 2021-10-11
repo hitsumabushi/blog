@@ -40,6 +40,7 @@ AUTHOR_FEED_RSS = None
 SOCIAL = (
         ('twitter', 'https://twitter.com/_hitsumabushi_'),
         ('github', 'https://github.com/hitsumabushi'),
+        ('rss', 'feeds/all.atom.xml'),
         )
 
 # もう古いのはいいか、ということで削除
