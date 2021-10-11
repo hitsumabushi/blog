@@ -52,8 +52,10 @@ USE_OPEN_GRAPH = True
 OPEN_GRAPH_IMAGE = 'static/icon.jpg'
 
 # Social widget
-SOCIAL = (('Twitter', 'https://twitter.com/_hitsumabushi_'),
-        ('Github', 'https://github.com/hitsumabushi'),)
+SOCIAL = (
+        ('Twitter', 'https://twitter.com/_hitsumabushi_'),
+        ('Github', 'https://github.com/hitsumabushi'),
+        )
 
 # Blogroll
 LINKS = (
@@ -63,7 +65,6 @@ LINKS = (
 # External Services
 GOOGLE_ANALYTICS_UNIVERSAL = 'UA-24727901-9'
 GOOGLE_ANALYTICS_UNIVERSAL_PROPERTY = 'auto'
-DISQUS_SITENAME = "hitsumabushi"
 GOOGLE_SITE_SEARCH = '009966809170133509931:4vsx-mk1ktu'
 
 # Uncomment following line if you want document-relative URLs when developing
@@ -91,16 +92,17 @@ DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives', 'sitemap')
 SITEMAP_SAVE_AS = 'sitemap.xml'
 
 # Extentions
-# See http://qiita.com/5t111111/items/d745af778969bf00f038
+# See https://www.ainoniwa.net/pelican/2020/0830a.html
 MARKDOWN = {
     'extension_configs': {
-        'markdown.extensions.codehilite': {
-            'css_class': 'highlight'
-        },
+        'markdown.extensions.codehilite': {'css_class': 'highlight'},
         'markdown.extensions.extra': {},
         'markdown.extensions.meta': {},
-        'toc': {},
-        'gfm': {},
+        'markdown.extensions.fenced_code': {},
+        'markdown.extensions.nl2br': {},
+        'markdown.extensions.toc': {},
+        'markdown.extensions.admonition': {},
+        #'mdx_linkify.mdx_linkify': {},
     },
     'output_format': 'html5',
 }
@@ -109,11 +111,11 @@ MARKDOWN = {
 PLUGIN_PATHS = ['plugins/pelican-plugins']
 PLUGINS = ['sitemap',
            'related_posts',
-           'tag_cloud',
            'render_math',
            'better_tables',
            'better_figures_and_images',
-           'extract_toc',
+           'tipue_search',
+           'neighbors',
            'pelican_gist']
 
 BOOTSTRAP_FLUID = True
@@ -134,9 +136,3 @@ SITEMAP = {
 }
 ## related_posts
 RELATED_POSTS_MAX = 5
-## Tag cloud
-DISPLAY_TAGS_ON_SIDEBAR = True
-TAG_CLOUD_STEPS = 3
-TAG_CLOUD_MAX_ITEMS = 30
-TAG_CLOUD_SORTING = 'random'
-DISPLAY_TAGS_INLINE = 'inline'
