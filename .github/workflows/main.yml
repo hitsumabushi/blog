@@ -27,3 +27,13 @@ jobs:
       - name: run deploy.sh
         run: script/deploy.sh
         shell: bash
+      # ビルドの実行結果を Slack に投稿する
+      - name: Send notification to slack channel
+        uses: rtCamp/action-slack-notify@v2
+        if: always()
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_MESSAGE: "Job Result: ${{ job.status }}"
+          SLACK_TITLE: Job Result
+          SLACK_USERNAME: rtamp
