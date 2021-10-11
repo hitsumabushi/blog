@@ -93,6 +93,7 @@ SITEMAP_SAVE_AS = 'sitemap.xml'
 
 # Extentions
 # See https://www.ainoniwa.net/pelican/2020/0830a.html
+# See https://qiita.com/5t111111/items/d745af778969bf00f038
 MARKDOWN = {
     'extension_configs': {
         'markdown.extensions.codehilite': {'css_class': 'highlight'},
@@ -101,6 +102,7 @@ MARKDOWN = {
         'markdown.extensions.fenced_code': {},
         'markdown.extensions.nl2br': {},
         'markdown.extensions.toc': {},
+        'markdown.extensions.tables': {},
         'markdown.extensions.admonition': {},
         #'mdx_linkify.mdx_linkify': {},
     },
@@ -112,8 +114,6 @@ PLUGIN_PATHS = ['plugins/pelican-plugins']
 PLUGINS = ['sitemap',
            'related_posts',
            'render_math',
-           'better_tables',
-           'better_figures_and_images',
            'tipue_search',
            'neighbors',
            'pelican_gist']
