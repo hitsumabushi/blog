@@ -66,7 +66,7 @@ EXTRA_PATH_METADATA = {
     'extra/custom.css': {'path': 'static/custom.css'},
     'extra/my.js': {'path': 'static/js/my.js'}
 }
-FAVICON = 'static/favicon.ico'
+FAVICON = '/static/favicon.ico'
 
 # For Adding search and sitemap
 DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives', 'search', 'sitemap')
