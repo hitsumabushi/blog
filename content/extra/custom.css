@@ -1,62 +1,18 @@
-/* ヘッダーの位置を調整 */
-header.page-header {
-    border-bottom: 1px solid #eee;
-    margin: 40px 0 0;
-    padding-bottom: 0;
-}
-/* SNS Shereホタンにunderlineが入るのを防ぐ*/
-.panel #social_bottuns {
-    margin-top: 15px;
-}
-.panel #social_bottuns a {
-    border-bottom: none;
-}
+/* font settings */
+html, body { line-height: 1.25; }
+h1 { font-size: 2.0em; font-weight: 800; }
+h2 { font-size: 1.8em; font-weight: 700; }
+h3 { font-size: 1.6em; font-weight: 600; }
+h4 { font-size: 1.4em; font-weight: 500; }
+h5 { font-size: 1.2em; font-weight: 400; }
+h6 { font-size: 1.1em; font-weight: 300; }
+main nav a { font-size: 14px; }
+
 /* TOC tree */
 .toc {
     border: 2px solid #555;
     padding: 10px 0;
 }
-
-/* top page titles */
-article h2.caption-item {
-    color: #0c52a0;
-    font-weight: bold;
-}
-/* h1-h6 */
-#content > article h1 {
-    color: #0c52a0;
-    font-weight: bold;
-}
-#content > article h2 {
-    border-color: #0c52a0;
-    border-style: solid;
-    border-width: 2px 2px 2px 10px;
-    font-size: 1.6em;
-    font-weight: bold;
-    padding: 10px;
-}
-#content > article h3 {
-    background-color: rgba(12, 82, 160, 0.08);
-    color: #0C52A0;
-    font-size: 1.1em;
-    font-weight: bold;
-    padding: 10px 0 10px 15px;
-    border: solid thin #0C52A0;
-}
-#content > article h4 {
-    color: #0c52a0;
-}
-
-/* Prevent the navigation header covering contents when jump w/ Anchor Link */
-/*
-[id]:before {
-    content: " ";
-    display: block;
-    height: 50px;
-    margin-top: -50px;
-    visibility: hidden;
-}
-*/
 
 /* Table style */
 article table {
@@ -91,3 +47,6 @@ article td {
   vertical-align: super;
   font-size: 0.5em;
 }
+
+/* neighbor plugin button */
+a.btn { background-color: #0880bbe0}

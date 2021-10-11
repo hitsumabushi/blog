@@ -5,12 +5,10 @@ from __future__ import unicode_literals
 AUTHOR = 'hitsumabushi'
 SITENAME = 'ひつまぶし食べたい'
 SITEURL = 'https://www.hitsumabushi.org'
+SITESUBTITLE = 'メモ代わりのブログ'
 
-THEME = 'themes/pelican-bootstrap3'
+THEME = 'themes/Flex'
 PATH = 'content'
-
-# Content Lisence
-CC_LICENSE = "CC-BY-NC"
 
 # TIMEZONE
 TIMEZONE = 'Asia/Tokyo'
@@ -38,34 +36,16 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
-# Sidebar
-## Recent post
-DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
-RECENT_POST_COUNT = 5
-
-# Social
-GITHUB_URL = 'https://github.com/hitsumabushi/blog/tree/gh-pages'
-TWITTER_USERNAME = '__hitsumabushi__'
-TWITTER_WIDGET_ID = '564098693729492992'
-TWITTER_CARDS = True
-USE_OPEN_GRAPH = True
-OPEN_GRAPH_IMAGE = 'static/icon.jpg'
-
 # Social widget
 SOCIAL = (
         ('Twitter', 'https://twitter.com/_hitsumabushi_'),
-        ('Github', 'https://github.com/hitsumabushi'),
+        ('GitHub', 'https://github.com/hitsumabushi'),
         )
 
-# Blogroll
-LINKS = (
-    ('Old blog', 'http://hitsumabushi-pc.blogspot.jp/2011/07/blogger.html'),
-    )
-
-# External Services
-GOOGLE_ANALYTICS_UNIVERSAL = 'UA-24727901-9'
-GOOGLE_ANALYTICS_UNIVERSAL_PROPERTY = 'auto'
-GOOGLE_SITE_SEARCH = '009966809170133509931:4vsx-mk1ktu'
+# もう古いのはいいか、ということで削除
+#LINKS = (
+#    ('Old blog', 'https://hitsumabushi-pc.blogspot.com/'),
+#    )
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
@@ -73,7 +53,7 @@ GOOGLE_SITE_SEARCH = '009966809170133509931:4vsx-mk1ktu'
 # These are optional settings
 STATIC_PATHS = [
     'images', 'extra/robots.txt', 'extra/favicon.ico',
-    'extra/CNAME', 'extra/icon.jpg', 'extra/custom.css',
+    'extra/CNAME', 'extra/icon.jpg', 'extra/profile.jpg','extra/custom.css',
     'extra/my.js'
     ]
 EXTRA_PATH_METADATA = {
@@ -81,13 +61,13 @@ EXTRA_PATH_METADATA = {
     'extra/favicon.ico': {'path': 'static/favicon.ico'},
     'extra/CNAME': {'path': 'CNAME'},
     'extra/icon.jpg': {'path': 'static/icon.jpg'},
+    'extra/profile.jpg': {'path': 'static/profile.jpg'},
     'extra/custom.css': {'path': 'static/custom.css'},
     'extra/my.js': {'path': 'static/js/my.js'}
 }
 FAVICON = 'static/favicon.ico'
 
 # For Adding Sitemap
-# default value is ('index', 'tags', 'categories', 'archives')
 DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives', 'sitemap')
 SITEMAP_SAVE_AS = 'sitemap.xml'
 
@@ -118,21 +98,43 @@ PLUGINS = ['sitemap',
            'neighbors',
            'pelican_gist']
 
-BOOTSTRAP_FLUID = True
 # Plugin Settings
 ## sitemap
 SITEMAP = {
     'format': 'xml',
     'priorities': {
-        'articles': 0.5,
-        'indexes': 0.5,
-        'pages': 0.5
+        'articles': 0.8,
+        'indexes': 1.0,
+        'pages': 1.0
     },
     'changefreqs': {
-        'articles': 'monthly',
+        'articles': 'daily',
         'indexes': 'daily',
-        'pages': 'monthly'
+        'pages': 'weekly'
     }
 }
 ## related_posts
 RELATED_POSTS_MAX = 5
+
+#---
+# Flex Theme settings
+#---
+COPYRIGHT_NAME = AUTHOR
+COPYRIGHT_YEAR = 2021
+# 上部のメニュー表示
+MAIN_MENU = True
+MENUITEMS = (
+    ("Archives", "/archives.html"),
+)
+# アイコン画像
+SITELOGO = "/static/profile.jpg"
+# コードハイライト指定
+PYGMENTS_STYLE = "monokai"
+# Analytics
+GOOGLE_GLOBAL_SITE_TAG = 'G-JPYFS3RY30' # Your Google Analytics 4 Property ID
+CC_LICENSE = {
+    "name": "Creative Commons Attribution-ShareAlike",
+    "version": "4.0",
+    "slug": "by-nc",
+    "language": "ja"
+}
