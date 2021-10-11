@@ -68,8 +68,8 @@ EXTRA_PATH_METADATA = {
 }
 FAVICON = 'static/favicon.ico'
 
-# For Adding Sitemap
-DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives', 'sitemap')
+# For Adding search and sitemap
+DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives', 'search', 'sitemap')
 SITEMAP_SAVE_AS = 'sitemap.xml'
 
 # Extentions
