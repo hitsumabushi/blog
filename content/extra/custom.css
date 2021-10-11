@@ -9,10 +9,13 @@ h6 { font-size: 1.1em; font-weight: 300; }
 main nav a { font-size: 14px; }
 
 /* TOC tree */
-.toc {
-    border: 2px solid #555;
-    padding: 10px 0;
+/*
+div.toc {
+    border-top: 1px dashed #d9411e;
+    border-bottom: 1px dashed #d9411e;
+    padding: 1px 0;
 }
+*/
 
 /* Table style */
 article table {
