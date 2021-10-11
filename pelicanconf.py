@@ -39,7 +39,7 @@ AUTHOR_FEED_RSS = None
 # Social widget
 SOCIAL = (
         ('twitter', 'https://twitter.com/_hitsumabushi_'),
-        ('gitHub', 'https://github.com/hitsumabushi'),
+        ('github', 'https://github.com/hitsumabushi'),
         )
 
 # もう古いのはいいか、ということで削除
