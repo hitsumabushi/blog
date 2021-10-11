@@ -9,6 +9,7 @@ docutils==0.17.1
 feedgenerator==2.0.0
 idna==3.2
 Jinja2==3.0.2
+Markdown==3.3.4
 MarkupSafe==2.0.1
 pelican==4.7.0
 pelican-gist==0.3.4
