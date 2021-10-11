@@ -2,6 +2,7 @@ PY?=python3
 PELICAN?=pelican
 PELICANOPTS=
 
+THEME=themes/Flex
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
 OUTPUTDIR=$(BASEDIR)/output
@@ -55,7 +56,7 @@ help:
 	@echo '                                                                       '
 
 html:
-	[ -e themes/pelican-bootstrap3 ] || git clone https://github.com/hitsumabushi/pelican-bootstrap3.git themes/pelican-bootstrap3
+	[ -e $(THEME) ] || git clone https://github.com/hitsumabushi/Flex.git $(THEME)
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
 
 clean:

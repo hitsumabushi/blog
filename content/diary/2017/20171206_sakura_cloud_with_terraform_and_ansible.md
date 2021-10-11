@@ -48,7 +48,7 @@ ansible は全部実行しろ、などとルールを作ることは簡単なの
 [他のクラウドでのベストプラクティス](https://github.com/hashicorp/best-practices/tree/master/terraform) を参考に、フォルダ構成は以下のようにしています。
 terraform plan, apply などする場合には、 `pod-xxx` ディレクトリ配下で実行します。
 
-```
+```text
 .
 ├── module
 │   └── sakuracloud

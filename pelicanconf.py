@@ -5,12 +5,10 @@ from __future__ import unicode_literals
 AUTHOR = 'hitsumabushi'
 SITENAME = 'ひつまぶし食べたい'
 SITEURL = 'https://www.hitsumabushi.org'
+SITESUBTITLE = 'メモ代わりのブログ'
 
-THEME = 'themes/pelican-bootstrap3'
+THEME = 'themes/Flex'
 PATH = 'content'
-
-# Content Lisence
-CC_LICENSE = "CC-BY-NC"
 
 # TIMEZONE
 TIMEZONE = 'Asia/Tokyo'
@@ -38,33 +36,16 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
-# Sidebar
-## Recent post
-DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
-RECENT_POST_COUNT = 5
-
-# Social
-GITHUB_URL = 'https://github.com/hitsumabushi/blog/tree/gh-pages'
-TWITTER_USERNAME = '__hitsumabushi__'
-TWITTER_WIDGET_ID = '564098693729492992'
-TWITTER_CARDS = True
-USE_OPEN_GRAPH = True
-OPEN_GRAPH_IMAGE = 'static/icon.jpg'
-
 # Social widget
-SOCIAL = (('Twitter', 'https://twitter.com/_hitsumabushi_'),
-        ('Github', 'https://github.com/hitsumabushi'),)
+SOCIAL = (
+        ('Twitter', 'https://twitter.com/_hitsumabushi_'),
+        ('GitHub', 'https://github.com/hitsumabushi'),
+        )
 
-# Blogroll
-LINKS = (
-    ('Old blog', 'http://hitsumabushi-pc.blogspot.jp/2011/07/blogger.html'),
-    )
-
-# External Services
-GOOGLE_ANALYTICS_UNIVERSAL = 'UA-24727901-9'
-GOOGLE_ANALYTICS_UNIVERSAL_PROPERTY = 'auto'
-DISQUS_SITENAME = "hitsumabushi"
-GOOGLE_SITE_SEARCH = '009966809170133509931:4vsx-mk1ktu'
+# もう古いのはいいか、ということで削除
+#LINKS = (
+#    ('Old blog', 'https://hitsumabushi-pc.blogspot.com/'),
+#    )
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
@@ -72,7 +53,7 @@ GOOGLE_SITE_SEARCH = '009966809170133509931:4vsx-mk1ktu'
 # These are optional settings
 STATIC_PATHS = [
     'images', 'extra/robots.txt', 'extra/favicon.ico',
-    'extra/CNAME', 'extra/icon.jpg', 'extra/custom.css',
+    'extra/CNAME', 'extra/icon.jpg', 'extra/profile.jpg','extra/custom.css',
     'extra/my.js'
     ]
 EXTRA_PATH_METADATA = {
@@ -80,27 +61,30 @@ EXTRA_PATH_METADATA = {
     'extra/favicon.ico': {'path': 'static/favicon.ico'},
     'extra/CNAME': {'path': 'CNAME'},
     'extra/icon.jpg': {'path': 'static/icon.jpg'},
+    'extra/profile.jpg': {'path': 'static/profile.jpg'},
     'extra/custom.css': {'path': 'static/custom.css'},
     'extra/my.js': {'path': 'static/js/my.js'}
 }
 FAVICON = 'static/favicon.ico'
 
 # For Adding Sitemap
-# default value is ('index', 'tags', 'categories', 'archives')
 DIRECT_TEMPLATES = ('index', 'tags', 'categories', 'archives', 'sitemap')
 SITEMAP_SAVE_AS = 'sitemap.xml'
 
 # Extentions
-# See http://qiita.com/5t111111/items/d745af778969bf00f038
+# See https://www.ainoniwa.net/pelican/2020/0830a.html
+# See https://qiita.com/5t111111/items/d745af778969bf00f038
 MARKDOWN = {
     'extension_configs': {
-        'markdown.extensions.codehilite': {
-            'css_class': 'highlight'
-        },
+        'markdown.extensions.codehilite': {'css_class': 'highlight'},
         'markdown.extensions.extra': {},
         'markdown.extensions.meta': {},
-        'toc': {},
-        'gfm': {},
+        'markdown.extensions.fenced_code': {},
+        'markdown.extensions.nl2br': {},
+        'markdown.extensions.toc': {},
+        'markdown.extensions.tables': {},
+        'markdown.extensions.admonition': {},
+        #'mdx_linkify.mdx_linkify': {},
     },
     'output_format': 'html5',
 }
@@ -109,34 +93,48 @@ MARKDOWN = {
 PLUGIN_PATHS = ['plugins/pelican-plugins']
 PLUGINS = ['sitemap',
            'related_posts',
-           'tag_cloud',
            'render_math',
-           'better_tables',
-           'better_figures_and_images',
-           'extract_toc',
+           'tipue_search',
+           'neighbors',
            'pelican_gist']
 
-BOOTSTRAP_FLUID = True
 # Plugin Settings
 ## sitemap
 SITEMAP = {
     'format': 'xml',
     'priorities': {
-        'articles': 0.5,
-        'indexes': 0.5,
-        'pages': 0.5
+        'articles': 0.8,
+        'indexes': 1.0,
+        'pages': 1.0
     },
     'changefreqs': {
-        'articles': 'monthly',
+        'articles': 'daily',
         'indexes': 'daily',
-        'pages': 'monthly'
+        'pages': 'weekly'
     }
 }
 ## related_posts
 RELATED_POSTS_MAX = 5
-## Tag cloud
-DISPLAY_TAGS_ON_SIDEBAR = True
-TAG_CLOUD_STEPS = 3
-TAG_CLOUD_MAX_ITEMS = 30
-TAG_CLOUD_SORTING = 'random'
-DISPLAY_TAGS_INLINE = 'inline'
+
+#---
+# Flex Theme settings
+#---
+COPYRIGHT_NAME = AUTHOR
+COPYRIGHT_YEAR = 2021
+# 上部のメニュー表示
+MAIN_MENU = True
+MENUITEMS = (
+    ("Archives", "/archives.html"),
+)
+# アイコン画像
+SITELOGO = "/static/profile.jpg"
+# コードハイライト指定
+PYGMENTS_STYLE = "monokai"
+# Analytics
+GOOGLE_GLOBAL_SITE_TAG = 'G-JPYFS3RY30' # Your Google Analytics 4 Property ID
+CC_LICENSE = {
+    "name": "Creative Commons Attribution-ShareAlike",
+    "version": "4.0",
+    "slug": "by-nc",
+    "language": "ja"
+}
