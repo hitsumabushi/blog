@@ -35,14 +35,8 @@ rm -f *.py \
 git add -A .
 git commit -m "Build by GitHub Actions"
 git push -fq origin gh-pages
-#git push -fq "https://${GITHUB_TOKEN}@github.com/hitsumabushi/blog.git" gh-pages:gh-pages > /dev/null 2>&1 # forced push
 
 # For cloudflare : purge caches of all
-#curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/purge_cache" \
-#  -H "X-Auth-Email: ${CLOUDFLARE_AUTH_EMAIL}" \
-#  -H "X-Auth-Key: ${CLOUDFLARE_AUTH_KEY}" \
-#  -H "Content-Type: application/json" \
-#  --data '{"purge_everything":true}'
 # For cloudflare : purge caches of index.html
 curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE_ID}/purge_cache" \
   -H "X-Auth-Email: ${CLOUDFLARE_AUTH_EMAIL}" \
