@@ -66,7 +66,7 @@ EXTRA_PATH_METADATA = {
     'extra/profile.jpg': {'path': 'static/profile.jpg'},
     'extra/custom.css': {'path': 'static/custom.css'},
     'extra/my.js': {'path': 'static/js/my.js'},
-    'extra/_well-known': {'path': '.well-known'}
+    'extra/_well-known/nostr.json': {'path': '.well-known/nostr.json'}
 }
 FAVICON = '/static/favicon.ico'
 
