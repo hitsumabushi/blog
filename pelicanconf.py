@@ -55,7 +55,8 @@ SOCIAL = (
 STATIC_PATHS = [
     'images', 'extra/robots.txt', 'extra/favicon.ico',
     'extra/CNAME', 'extra/icon.jpg', 'extra/profile.jpg','extra/custom.css',
-    'extra/my.js'
+    'extra/my.js',
+    'extra/_well-known/nostr.json'
     ]
 EXTRA_PATH_METADATA = {
     'extra/robots.txt': {'path': 'robots.txt'},
@@ -64,7 +65,8 @@ EXTRA_PATH_METADATA = {
     'extra/icon.jpg': {'path': 'static/icon.jpg'},
     'extra/profile.jpg': {'path': 'static/profile.jpg'},
     'extra/custom.css': {'path': 'static/custom.css'},
-    'extra/my.js': {'path': 'static/js/my.js'}
+    'extra/my.js': {'path': 'static/js/my.js'},
+    'extra/_well-known/nostr.json': {'path': '.well-known/nostr.json'}
 }
 FAVICON = '/static/favicon.ico'
 
