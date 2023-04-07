@@ -13,8 +13,7 @@ git config user.name "GitHub Actions"
 git checkout -b gh-pages
 
 # copy output to top of repository
-cp -r output/* .
-cp -r output/.* .
+cp -r output/* . && cp -r output/.* . || true
 
 # Remove unpublish files
 rm -rf content \
