@@ -14,6 +14,7 @@ git checkout -b gh-pages
 
 # copy output to top of repository
 cp -r output/* .
+cp -r output/.* .
 
 # Remove unpublish files
 rm -rf content \
