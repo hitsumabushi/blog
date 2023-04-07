@@ -56,7 +56,7 @@ STATIC_PATHS = [
     'images', 'extra/robots.txt', 'extra/favicon.ico',
     'extra/CNAME', 'extra/icon.jpg', 'extra/profile.jpg','extra/custom.css',
     'extra/my.js',
-    'extra/_well-known'
+    'extra/.well-known'
     ]
 EXTRA_PATH_METADATA = {
     'extra/robots.txt': {'path': 'robots.txt'},
@@ -66,7 +66,7 @@ EXTRA_PATH_METADATA = {
     'extra/profile.jpg': {'path': 'static/profile.jpg'},
     'extra/custom.css': {'path': 'static/custom.css'},
     'extra/my.js': {'path': 'static/js/my.js'},
-    'extra/_well-known': {'path': '.well-known'}
+    'extra/.well-known': {'path': '.well-known'}
 }
 FAVICON = '/static/favicon.ico'
 
