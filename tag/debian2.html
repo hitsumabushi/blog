@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+    <meta name="author" content="hitsumabushi" />
+    <meta name="description" content="" />
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:type" content="blog"/>
+  <meta property="og:title" content="ひつまぶし食べたい"/>
+  <meta property="og:description" content=""/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Tag debian</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+
+
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/01/26/0312.html#dns-sabanobi-jiao-zi-liao-ji-me">DNS サーバーの比較資料集め</a></h2>
+    <p>
+      Posted on Mon 26 January 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/dns.html">DNS</a>,              <a href="https://www.hitsumabushi.org/tag/debian.html">Debian</a>
+    </p>
+  </header>
+  <div>
+      <div><p>自宅開発環境を一新するついでに、真面目にサーバー構成を見直すことにした。<br/>
+DNSサーバーは今までbind+dnsmasqでやっていたが、改めてパフォーマンスの観点から選定したい。<br/>
+以下に、参考ページを列挙する。</p>
+
+<h2 id="_1">参考になるページ</h2>
+<h3 id="_2">権威サーバ</h3>
+<ul>
+<li><a href="http://jprs.co.jp/enum/enum_jprs/activity/pdf/N+I-20050610-C24.pdf">DNSサーバパフォーマンス評価</a></li>
+<li><a href="https://github.com/msimerson/NicTool/wiki/Install-Nameserver">NicTool</a></li>
+<li><a href="http://blog.akagi.jp/archives/4072.html">PowerDNS + NSD で DNS を構築する</a></li>
+</ul>
+<h3 id="_3">キャッシュサーバ</h3>
+<ul>
+<li><a href="http://dnsops.jp/event/20140626/DNS-design-operation-higashi.pdf">DNSキャッシュサーバ 設計と運用のノウハウ</a></li>
+<li><a href="http://www.slideshare.net/hdais/dns-32071366">DNSキ …</a></li></ul></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/01/26/0312.html#dns-sabanobi-jiao-zi-liao-ji-me">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/07/27/1637.html#debianniozwoinsutorusuru">DebianにOzをインストールする</a></h2>
+    <p>
+      Posted on Sun 27 July 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/debian.html">Debian</a>,              <a href="https://www.hitsumabushi.org/tag/ctmcp.html">CTMCP</a>
+    </p>
+  </header>
+  <div>
+      <div><p>ガウディ本読みはじめた。</p>
+<iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&nou=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=l0fb-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=ss_til&asins=4798113468" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+
+<h2 id="_1">困ったこと</h2>
+<p>この本で使われるOzという言語をDebian上で実行するのに、少し困った。<br>
+morzart2をダウンロードして、適当にインストールしただけだと、<br>
+emacs上でコンパイルはできるのに、実行結果が表示できない状況になった。<br>
+正常な動作は、コンパイルできるとウィンドウが開いて、そこに結果が表示される。</p>
+<p>このために、必要なパッケージが …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/07/27/1637.html#debianniozwoinsutorusuru">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/06/09/1634.html#debiandezncwoshi-tsute-kuai-shi-naircsheng-huo-wosong-ru">DebianでZNCを使って、快適なIRC生活を送る</a></h2>
+    <p>
+      Posted on Mon 09 June 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/debian.html">Debian</a>
+    </p>
+  </header>
+  <div>
+      <div><h2 id="_1">やりたいこと</h2>
+<p>最近、自分の興味のあるソフトウェアのIRCによく引きこもっています。<br>
+自宅のPCはつけっぱなしにしておけば、全部のログを見れるのですが、<br>
+会社やスマホで見るときには、接続している間のことしか確認できず、若干もどかしいです。</p>
+<p>そういうわけで、ZNCサーバーを立てて、IRCのログを出先からでも確認できるようにしましょう。</p>
+<h2 id="_2">実現するこ …</h2></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/06/09/1634.html#debiandezncwoshi-tsute-kuai-shi-naircsheng-huo-wosong-ru">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/06/02/1631.html#ledbatsukuraitonodiao-zheng">LEDバックライトの調整</a></h2>
+    <p>
+      Posted on Mon 02 June 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/debian.html">Debian</a>,              <a href="https://www.hitsumabushi.org/tag/linux.html">Linux</a>
+    </p>
+  </header>
+  <div>
+      <div><p>ディスプレイの輝度が高すぎて目が痛いので、輝度を下げたい。<br>
+GUIでやっても良いけど、CLIの方が簡単そうだったので、CLIでやってみることにした。</p>
+<h2 id="_1">環境</h2>
+<ul>
+<li>PC: ASUS 24A</li>
+<li>OS: Linux(Debian sid amd64)</li>
+</ul>
+<h2 id="_2">調整可能な範囲</h2>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>cat<span class="w"> </span>/sys/class/backlight/intel_backlight/max_brightness
+</code></pre></div>
+
+<h2 id="_3">ディスプレイの明るさ変更</h2>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="c1"># 明るさを800にするとき</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="m">800</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/sys/class/backlight/intel_backlight/brightness
+</code></pre></div></div>
+  </div>
+</article>
+
+  <div class="pagination">
+    <a class="btn float-right" href="https://www.hitsumabushi.org/tag/debian.html">
+      Newer Posts <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

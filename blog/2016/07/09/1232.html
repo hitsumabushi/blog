@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="VCP6-NV 受験シリーズ VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる VCP6-NV 試験勉強メモ VCP6-NV 試験勉強メモ 2日目 VCP6-NV 取得した 結果 462 / 500 (合格点: 300) 試験の内容について 割と事前に学習した内容が出ていたと感じる。 VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違って、トレーニングの内容と試験内容がきちんと一致しているので、トレーニングのテキストを読 …" />
+<meta name="keywords" content="VMware, NSX, VCP">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="VCP6-NV 取得した"/>
+  <meta property="og:description" content="VCP6-NV 受験シリーズ VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる VCP6-NV 試験勉強メモ VCP6-NV 試験勉強メモ 2日目 VCP6-NV 取得した 結果 462 / 500 (合格点: 300) 試験の内容について 割と事前に学習した内容が出ていたと感じる。 VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違って、トレーニングの内容と試験内容がきちんと一致しているので、トレーニングのテキストを読 …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2016/07/09/1232.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2016-07-09 12:32:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="VMware"/>
+  <meta property="article:tag" content="NSX"/>
+  <meta property="article:tag" content="VCP"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; VCP6-NV 取得した</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="vcp6-nv-qu-de-shita">VCP6-NV 取得した</h1>
+    <p>
+      Posted on Sat 09 July 2016 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#vcp6-nv">VCP6-NV 受験シリーズ</a></li>
+<li><a href="#_1">結果</a></li>
+<li><a href="#_2">試験の内容について</a></li>
+<li><a href="#_3">もっと学習しておくべきだったこと</a></li>
+<li><a href="#_4">感想</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<h2 id="vcp6-nv">VCP6-NV 受験シリーズ</h2>
+<ul>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html">VCP6-NV 試験勉強メモ</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html">VCP6-NV 試験勉強メモ 2日目</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html">VCP6-NV 取得した</a></li>
+</ul>
+<h2 id="_1">結果</h2>
+<p>462 / 500 (合格点: 300)</p>
+<h2 id="_2">試験の内容について</h2>
+<p>割と事前に学習した内容が出ていたと感じる。<br/>
+VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違って、トレーニングの内容と試験内容がきちんと一致しているので、トレーニングのテキストを読み返すだけでも、かなり点は取れる気がする。</p>
+<h2 id="_3">もっと学習しておくべきだったこと</h2>
+<ul>
+<li>VCNSからのアップグレード条件<ul>
+<li>3問くらい出てた気がする</li>
+</ul>
+</li>
+<li>アクティビティモニタリング<ul>
+<li>一般的な使い方を調べておけば良さそう</li>
+</ul>
+</li>
+<li>トラブルシューティングの方法<ul>
+<li>特にフローキャプチャについて</li>
+</ul>
+</li>
+<li>QoS の知識<ul>
+<li>QoSの仕組み</li>
+<li>物理機器との連携について</li>
+</ul>
+</li>
+<li>動的ルーティングプロトコル<ul>
+<li>プロトコル自体の一般的な事柄</li>
+</ul>
+</li>
+</ul>
+<p>一応、vRealize についての問題も出ていたが、使うつもりがないので、学習しない。</p>
+<h2 id="_4">感想</h2>
+<p>3日間くらいでVCP-NVを学習したけど、普段使っていない機能について振り返りつつ、「こんな感じで導入すれば上手くいきそう、と思ったけど上限にぶち当たるなー」とか考えながらできるので良い。<br/>
+やっぱり日常的に使っているプロダクトのベンダー試験は、そこそこの勉強で合格できるようになっているみたいだし、本番である程度運用に慣れてきたら、一度こういう試験を受けるのはアリだと思う。</p>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>
+      <a href="https://www.hitsumabushi.org/tag/nsx.html">NSX</a>
+      <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html" title="VCP6-NV 試験勉強メモ 2日目">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2016/07/10/0344.html" title="s3で自前 Debian Package リポジトリを作る">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html">VCP6-NV 試験勉強メモ 2日目</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html">VCP6-NV 試験勉強メモ</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2015/01/16/2348.html">VCP5-DCV取得した</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2015/01/10/2349.html">vDSのポートバインドタイプ</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

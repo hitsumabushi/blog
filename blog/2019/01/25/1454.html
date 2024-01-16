@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="以下では「手作業で」というのは、「CloudFormation管理外で」という意味で使う。 要点 CloudFormation は、リソースが何かの理由で手作業で変更されていた場合に安全に操作できない Drift 検出は誤検出が多すぎて使いづらい Change Set は動いている状態との差分を見ていないので、信用できない 経緯 CloudFormation で管理されているリソースすべてについて、新しいタグをつけたくなった。 ただ、各サービ …" />
+<meta name="keywords" content="aws, cloudformation">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="CloudFormation の不満点"/>
+  <meta property="og:description" content="以下では「手作業で」というのは、「CloudFormation管理外で」という意味で使う。 要点 CloudFormation は、リソースが何かの理由で手作業で変更されていた場合に安全に操作できない Drift 検出は誤検出が多すぎて使いづらい Change Set は動いている状態との差分を見ていないので、信用できない 経緯 CloudFormation で管理されているリソースすべてについて、新しいタグをつけたくなった。 ただ、各サービ …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2019/01/25/1454.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2019-01-25 14:54:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="aws"/>
+  <meta property="article:tag" content="cloudformation"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; CloudFormation の不満点</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="cloudformation-nobu-man-dian">CloudFormation の不満点</h1>
+    <p>
+      Posted on Fri 25 January 2019 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#_1">要点</a></li>
+<li><a href="#_2">経緯</a></li>
+<li><a href="#_3">期待したこと</a></li>
+<li><a href="#_4">実際</a><ul>
+<li><a href="#_5">ドリフト検出</a></li>
+<li><a href="#change-set">Change Set</a></li>
+</ul>
+</li>
+<li><a href="#_6">まとめ</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<p>以下では「手作業で」というのは、「CloudFormation管理外で」という意味で使う。</p>
+<h2 id="_1">要点</h2>
+<ul>
+<li>CloudFormation は、リソースが何かの理由で手作業で変更されていた場合に安全に操作できない</li>
+<li>Drift 検出は誤検出が多すぎて使いづらい</li>
+<li>Change Set は動いている状態との差分を見ていないので、信用できない</li>
+</ul>
+<h2 id="_2">経緯</h2>
+<p>CloudFormation で管理されているリソースすべてについて、新しいタグをつけたくなった。<br/>
+ただ、各サービスの担当者ごとにある程度自由にオペレーションできるため、手動で変更されていないか、一応調べておこうと思い、<br/>
+<a href="https://aws.amazon.com/jp/blogs/news/new-cloudformation-drift-detection/">2018-11 にリリースされたドリフト検出</a> を使って、<br/>
+手作業で実施された変更点もCloudFormationに取り込みつつ、対応しようとした。</p>
+<h2 id="_3">期待したこと</h2>
+<ul>
+<li>CloudFormation のスタックがたくさんあるため、1つ1つ細かく差分を見て修正することが難しい</li>
+<li>ドリフト検出されたところだけ1つずつ修正していって、Change Setを作りながら現状に合わせたい</li>
+</ul>
+<h2 id="_4">実際</h2>
+<h3 id="_5">ドリフト検出</h3>
+<ul>
+<li>サポートされるリソースが少ない</li>
+<li><a href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html">Resources that Support Drift Detection</a></li>
+<li>そもそも誤検出が多い</li>
+<li><a href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html?shortFooter=true#drift-considerations">Detecting Unmanaged Configuration Changes to Stacks and Resources</a></li>
+<li>LBのプロパティなど、配列で定義されるところをデフォルト値で埋められただけで、ドリフトが検出される</li>
+<li>エッジケースの(とAWSが主張している)誤検出に該当するのか、目で見て考える以外の方法がない</li>
+</ul>
+<h3 id="change-set">Change Set</h3>
+<ul>
+<li>実際に動いているシステムとの差分を見ていない</li>
+<li>前回の設定とのスタックの差分を見ている</li>
+<li>手作業で変更されているとChange Setの実行に失敗する(実際には差分がないので)</li>
+<li>その場合 Update Stack するしかない</li>
+</ul>
+<p>例えば、手作業でタグを増やしたとして、翌営業日にCloudFormationに反映したい、と思った場合、<br/>
+ドリフト検出で誤検知を目でフィルタしつつ(誤検知だと確信が持てるかはわからない)、<br/>
+CloudFormation のパラメータを書き換えて、Update Stackしないといけない。<br/>
+(一応、Update Stack 前に Change Set で差分を見て、execute して失敗することを確認したほうが安心感はある。)</p>
+<h2 id="_6">まとめ</h2>
+<p>手作業の変更をできないようにしておく以外にない。<br/>
+あるいは、本格的にCloudFormationを利用し始めるまでの間に Terraform に移行する。</p>
+<p>(なんでChange SetをRunnning Stateとの比較にしなかったんだろう...)</p>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/aws.html">aws</a>
+      <a href="https://www.hitsumabushi.org/tag/cloudformation.html">cloudformation</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2018/10/31/1901.html" title="DebianでLuaJITTeXを使いたい">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2019/02/12/1630.html" title="Python でコメント付きYAMLを扱う時には ruamel.yaml が便利だった">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2021/10/12/0200.html">CloudFormation Stackを安全に削除する</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2021/10/12/0100.html">1Password CLIを使ってTOTPを取得する</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2015/06/07/0331.html">VDI, DaaS市場を調べてみた</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="資料 Elasticsearch Reference Designing the Perfect Elasticsearch Cluster: the (almost) Definitive Guide Elasticsearch: The Definitive Guide ElasticsearchのShrink APIを検証した Node Type node.master, node.data, node.ingest あたりで決まる。 Master-eligible node: master only Data node: data only Ingest node: ingest true Tribe node: tribe.* settings で指定されるやつだけど、廃止予定なので知らなくて良い。 Cross cluster search を見たほうが良い coordinator: all false Index ESの index は複数の shard から成る。 ES shard = Lucene index で、 Lucene index は複数のsegment から成る。 Lucene はすべての segment を sequencial に検索する(segment ごとに並列ではない)の …" />
+<meta name="keywords" content="">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="Elasticsearch のメモ"/>
+  <meta property="og:description" content="資料 Elasticsearch Reference Designing the Perfect Elasticsearch Cluster: the (almost) Definitive Guide Elasticsearch: The Definitive Guide ElasticsearchのShrink APIを検証した Node Type node.master, node.data, node.ingest あたりで決まる。 Master-eligible node: master only Data node: data only Ingest node: ingest true Tribe node: tribe.* settings で指定されるやつだけど、廃止予定なので知らなくて良い。 Cross cluster search を見たほうが良い coordinator: all false Index ESの index は複数の shard から成る。 ES shard = Lucene index で、 Lucene index は複数のsegment から成る。 Lucene はすべての segment を sequencial に検索する(segment ごとに並列ではない)の …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/drafts/elasticsearch-nomemo.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2018-12-11 09:13:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Elasticsearch のメモ</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="elasticsearch-nomemo">Elasticsearch のメモ</h1>
+    <p>
+      Posted on Tue 11 December 2018 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+
+    <div class="content">
+      <h2 id="_1">資料</h2>
+<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">Elasticsearch Reference</a></li>
+<li><a href="https://thoughts.t37.net/designing-the-perfect-elasticsearch-cluster-the-almost-definitive-guide-e614eabc1a87">Designing the Perfect Elasticsearch Cluster: the (almost) Definitive Guide</a></li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/guide/current/index.html">Elasticsearch: The Definitive Guide</a></li>
+<li><a href="http://acro-engineer.hatenablog.com/entry/2018/03/27/120000">ElasticsearchのShrink APIを検証した</a></li>
+</ul>
+<h2 id="node-type">Node Type</h2>
+<p><code>node.master</code>, <code>node.data</code>, <code>node.ingest</code> あたりで決まる。</p>
+<ul>
+<li>Master-eligible node: master only</li>
+<li>Data node: data only</li>
+<li>Ingest node: ingest true</li>
+<li>Tribe node: <code>tribe.* settings</code> で指定されるやつだけど、廃止予定なので知らなくて良い。<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-cross-cluster-search.html">Cross cluster search</a> を見たほうが良い</li>
+</ul>
+</li>
+<li>coordinator: all false</li>
+</ul>
+<h2 id="index">Index</h2>
+<p>ESの <code>index</code> は複数の <code>shard</code> から成る。<br>
+ES shard = Lucene index で、 Lucene index は複数のsegment から成る。<br>
+Lucene はすべての segment を sequencial に検索する(segment ごとに並列ではない)ので、<br>
+たくさん segment があると遅くなる。<br>
+segment のマージは、だいたい重い。</p>
+<h2 id="routing-key">routing key</h2>
+<ul>
+<li>https://www.elastic.co/blog/customizing-your-document-routing</li>
+<li>https://medium.com/hello-elasticsearch/elasticsearch-f17e9134deb6</li>
+</ul>
+<p>通常、ドキュメントIDをもとにshardが決定されるが、<br>
+routing key を使うことで、 routing key をもとに shard が決まるようになる。</p>
+<p>routing key を指定する方法としては、
+* routing parameter<br>
+    * 保存するときにも指定が必要
+* field<br>
+    * mapping 定義に書く</p>
+<h2 id="search-optimization">search optimization</h2>
+<p>https://www.ebayinc.com/stories/blogs/tech/elasticsearch-performance-tuning-practice-at-ebay/</p>
+<h2 id="write-heavy">write heavy</h2>
+<ul>
+<li>
+<p>https://www.elastic.co/guide/en/elasticsearch/reference/master/tune-for-indexing-speed.html</p>
+<ul>
+<li>bulk request で multi thread でやる<ul>
+<li><code>TOO_MANY_REQUESTS (429)</code> response codes 返ってきたら待つ</li>
+</ul>
+</li>
+<li><code>index.refresh_interval</code><ul>
+<li>1sec ごとにsegment を作っているのを伸ばす</li>
+<li>当然 refresh 時のsegment mergeは重くなる</li>
+</ul>
+</li>
+<li>disabling swapping</li>
+<li>filesystem cache 分のメモリも確保する</li>
+<li>Use auto-generated ids<ul>
+<li>id 指定すると、重複チェックする分で遅くなる</li>
+</ul>
+</li>
+<li><code>indices.memory.index_buffer_size</code></li>
+<li>disable <code>_filed_names</code> field</li>
+</ul>
+</li>
+<li>
+<p><a href="https://gist.github.com/reyjrar/4364063">Gist: ElasticSearch config for a write-heavy cluster</a>: 参考程度<br>
+    *</p>
+</li>
+</ul>
+<h2 id="es">ESのメトリック監視</h2>
+<h2 id="_2">その他設計話</h2>
+<ul>
+<li>sizing<ul>
+<li>at 30GB heap, 700 shard/node<ul>
+<li>related settings<ul>
+<li><code>number_of_shards</code></li>
+<li><code>number_of_replica</code></li>
+</ul>
+</li>
+<li>related api<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-open-close.html"><code>{index}/_close</code>, <code>/{index}/_open</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>segment<ul>
+<li>merge scheduling<ul>
+<li>related settings<ul>
+<li><code>max_thread_count</code></li>
+</ul>
+</li>
+<li>related api<ul>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-forcemerge.html"><code>{index}/_forcemerge</code></a>: should only be called against read-only indices</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>include_type_name</code><ul>
+<li>1 index内に複数のタイプを入れることができなくなりデフォルトで、 <code>include_type_name=false</code> になる予定らしいので、入れたほうが良さそう</li>
+</ul>
+</li>
+</ul>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+  </div>
+
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>
