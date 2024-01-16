@@ -25,4 +25,4 @@ smartypants==2.0.1
 soupsieve==2.2.1
 typogrify==2.0.7
 Unidecode==1.3.2
-urllib3==1.26.17
+urllib3==1.26.18
