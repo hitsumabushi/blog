@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="VMware環境のテストをしたい 会社でVMware使っているのもあって、外でAPI叩いたりツールのテストしたいということがよくある。 今までは自宅でESXiとvCenter立ててやっていたんですが、やっぱりリソース的にVM数を増やしたりできないので、とても困っている。 あと、PackerとかでVMware用のイメージ作るときに使えるESXiも欲しかったので、どうにかできないかなー、という …" />
+<meta name="keywords" content="ravello, VMware">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="Ravelloが便利"/>
+  <meta property="og:description" content="VMware環境のテストをしたい 会社でVMware使っているのもあって、外でAPI叩いたりツールのテストしたいということがよくある。 今までは自宅でESXiとvCenter立ててやっていたんですが、やっぱりリソース的にVM数を増やしたりできないので、とても困っている。 あと、PackerとかでVMware用のイメージ作るときに使えるESXiも欲しかったので、どうにかできないかなー、という …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2015/05/09/1822.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2015-05-09 18:22:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="ravello"/>
+  <meta property="article:tag" content="VMware"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Ravelloが便利</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="ravellogabian-li">Ravelloが便利</h1>
+    <p>
+      Posted on Sat 09 May 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#vmware">VMware環境のテストをしたい</a></li>
+<li><a href="#ravello">Ravello とは</a></li>
+<li><a href="#ravello_1">Ravelloを利用する</a><ul>
+<li><a href="#sign-up">Sign Up</a></li>
+<li><a href="#_1">制限事項</a></li>
+<li><a href="#_2">実際の手順</a></li>
+</ul>
+</li>
+<li><a href="#price">Price</a><ul>
+<li><a href="#_3">試算</a></li>
+</ul>
+</li>
+<li><a href="#_4">まとめ的なの</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<h2 id="vmware">VMware環境のテストをしたい</h2>
+<p>会社でVMware使っているのもあって、外でAPI叩いたりツールのテストしたいということがよくある。<br/>
+今までは自宅でESXiとvCenter立ててやっていたんですが、やっぱりリソース的にVM数を増やしたりできないので、とても困っている。<br/>
+あと、PackerとかでVMware用のイメージ作るときに使えるESXiも欲しかったので、どうにかできないかなー、というのもあって、<br/>
+探していたらRavelloというサービスが面白そうだったので、紹介がてら書いておく。</p>
+<h2 id="ravello">Ravello とは</h2>
+<p><a href="http://www.ravellosystems.com/">Ravello</a> は、テスト環境を作成するためのクラウドサービス。<br/>
+<img alt="Ravelloロゴ" src="http://www.ravellosystems.com/sites/all/themes/ravello/images/new-images/ravello-logo.svg"/></p>
+<p>裏では、AWSとGCEを使っているのですが、どちらにデプロイされるかは意識せずに使える。<br/>
+というのも、きちんとオーバーレイネットワークだったり、ストレージオーバーレイが行われているため。<br/>
+それで、AWSなどでESXiをデプロイする際の最大の問題になるCPUの仮想化支援ですが、Ravelloを使うと良きにはからってエミュレーションして、バイナリ変換してくれるらしい。<br/>
+要は、Ravelloを利用すると、Public Cloud上にNested ESXiを構築できるようになるということ。</p>
+<h2 id="ravello_1">Ravelloを利用する</h2>
+<h3 id="sign-up">Sign Up</h3>
+<p>まだ、ESXiをデプロイする機能はベータ版っぽいので、以下のページからSign Upする。</p>
+<p>http://www.ravellosystems.com/solutions/esxi-cloud/esxi-on-aws</p>
+<h3 id="_1">制限事項</h3>
+<p>デプロイできるバージョンとしては、5.x, 6.0となっているみたい。<br/>
+ただ、以下の通り、6.0ではWindows版のvCenterしか使えない。<br/>
+たぶんvCSAのデプロイ方法が変わったせいだと思う。<br/>
+6.0をテストしたいときには、Windows Serverが別途必要になるので、気をつけましょう。</p>
+<table>
+<thead>
+<tr>
+<th><em>version</em></th>
+<th><em>is supported</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ESXi 5.x</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>ESXi 6.0</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>vCSA 5.x</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>vCenter Server 5.x</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>vcSA 6.0</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>vCenter Server 6.0</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_2">実際の手順</h3>
+<p>手順は、公式の資料を読もう。<br/>
+1. http://www.ravellosystems.com/blog/create-esxi-5-5-iso-image/<br/>
+2. http://www.ravellosystems.com/blog/install-vcenter-server-on-cloud/<br/>
+3. http://www.ravellosystems.com/blog/vsphere-lab-environment-cloud/</p>
+<h2 id="price">Price</h2>
+<p><a href="http://www.ravellosystems.com/ravello-price-list">Price List</a>を見る。</p>
+<table>
+<thead>
+<tr>
+<th><em>element</em></th>
+<th><em>price</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VM(Cost)</td>
+<td>$0.14/h ~</td>
+</tr>
+<tr>
+<td>VM(Performance)</td>
+<td>not fixed</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>$0.12/GB/month</td>
+</tr>
+<tr>
+<td>Library</td>
+<td>$0.12/GB/month</td>
+</tr>
+<tr>
+<td>IP</td>
+<td>$0.01/VM/hour</td>
+</tr>
+<tr>
+<td>Network転送量</td>
+<td>$0.15/GB</td>
+</tr>
+</tbody>
+</table>
+<p>以上のような表になっている。</p>
+<h3 id="_3">試算</h3>
+<table>
+<thead>
+<tr>
+<th><em>VM</em></th>
+<th><em>NUM</em></th>
+<th><em>spec</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vCenter</td>
+<td>1</td>
+<td>2vCPU/8GB mem, 125GB storage</td>
+</tr>
+<tr>
+<td>ESXi</td>
+<td>3</td>
+<td>4vCPU/8GB mem, 100GB storage</td>
+</tr>
+<tr>
+<td>NFS</td>
+<td>1</td>
+<td>2vCPU/4GB mem, 200GB storage</td>
+</tr>
+</tbody>
+</table>
+<p>という構成で作ると、</p>
+<table>
+<thead>
+<tr>
+<th><em>element</em></th>
+<th><em>price</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VM(Cost)</td>
+<td>$1.25/h</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>$0.2158/h</td>
+</tr>
+<tr>
+<td>IP</td>
+<td>$0.05</td>
+</tr>
+</tbody>
+</table>
+<p>となって、$1.5/hくらいになる。（ただし、Library, Network転送量は除く）<br/>
+安いコーヒー1杯分くらいで、自宅よりは快適な検証環境が作れそうだ。<br/>
+この価格も、そもそもESXiに100GBのストレージとかいらないし、もう少し安くできそうではある。</p>
+<h2 id="_4">まとめ的なの</h2>
+<p>もうちょっとRavelloを使い倒していきたい。</p>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/ravello.html">ravello</a>
+      <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2015/04/05/0138.html" title="Xmonadの設定">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2015/05/28/0607.html" title="WindowsをAnsibleで設定する">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2017/10/13/0106.html">Intel NUC 上に vSphere 6.5 のVSAN環境を作る</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html">VCP6-NV 取得した</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html">VCP6-NV 試験勉強メモ 2日目</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html">VCP6-NV 試験勉強メモ</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

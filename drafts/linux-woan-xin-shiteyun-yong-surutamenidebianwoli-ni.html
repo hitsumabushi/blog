@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="やること 意図しないアクセスを防ぎたい Firewall の設定 fail2ban SSH のパスワード認証の拒否 SELinux 攻撃の未然防止をしたい 脆弱性スキャン vuls debsecan 設定のチェック lynis ウイルスを検知したい Antivirusソフトウェアの実行 攻撃を受けたことに気づきたい rootkit 対策(rkhunter, chkrootkit) auditd tripwire 気休め系: debsums, etckeeper 設定が悪くないかを見ておきたい OpenSCAP Debian ではまだ unstable にしかないし、今回はやらない ポリシー …" />
+<meta name="keywords" content="linux">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="Linux を安心して運用するために(Debianを例に)"/>
+  <meta property="og:description" content="やること 意図しないアクセスを防ぎたい Firewall の設定 fail2ban SSH のパスワード認証の拒否 SELinux 攻撃の未然防止をしたい 脆弱性スキャン vuls debsecan 設定のチェック lynis ウイルスを検知したい Antivirusソフトウェアの実行 攻撃を受けたことに気づきたい rootkit 対策(rkhunter, chkrootkit) auditd tripwire 気休め系: debsums, etckeeper 設定が悪くないかを見ておきたい OpenSCAP Debian ではまだ unstable にしかないし、今回はやらない ポリシー …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/drafts/linux-woan-xin-shiteyun-yong-surutamenidebianwoli-ni.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2017-06-01 11:33:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="linux"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Linux を安心して運用するために(Debianを例に)</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="linux-woan-xin-shiteyun-yong-surutamenidebianwoli-ni">Linux を安心して運用するために(Debianを例に)</h1>
+    <p>
+      Posted on Thu 01 June 2017 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#_1">やること</a></li>
+<li><a href="#_2">実行環境</a></li>
+<li><a href="#_3">やったこと</a><ul>
+<li><a href="#clamav">clamav</a></li>
+<li><a href="#etckeeper">etckeeper</a></li>
+<li><a href="#rkhunter">rkhunter</a></li>
+<li><a href="#lynis">Lynis</a></li>
+<li><a href="#auditd">auditd</a></li>
+<li><a href="#debsums-debsecan">debsums, debsecan</a></li>
+<li><a href="#vuls">vuls</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<h2 id="_1">やること</h2>
+<ul>
+<li>意図しないアクセスを防ぎたい<ul>
+<li>Firewall の設定</li>
+<li>fail2ban</li>
+<li>SSH のパスワード認証の拒否</li>
+<li>SELinux</li>
+</ul>
+</li>
+<li>攻撃の未然防止をしたい<ul>
+<li>脆弱性スキャン<ul>
+<li>vuls</li>
+<li>debsecan</li>
+</ul>
+</li>
+<li>設定のチェック<ul>
+<li>lynis</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ウイルスを検知したい<ul>
+<li>Antivirusソフトウェアの実行</li>
+</ul>
+</li>
+<li>攻撃を受けたことに気づきたい<ul>
+<li>rootkit 対策(rkhunter, chkrootkit)</li>
+<li>auditd</li>
+<li>tripwire</li>
+<li>気休め系: debsums, etckeeper</li>
+</ul>
+</li>
+<li>設定が悪くないかを見ておきたい<ul>
+<li>OpenSCAP<ul>
+<li>Debian ではまだ unstable にしかないし、今回はやらない</li>
+<li>ポリシーもRHELの方がサポートされているらしい</li>
+<li>https://wiki.debian.org/UsingSCAP</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="_2">実行環境</h2>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>uname<span class="w"> </span>-a
+Linux<span class="w"> </span>workdebian<span class="w"> </span><span class="m">4</span>.9.0-3-amd64<span class="w"> </span><span class="c1">#1 SMP Debian 4.9.25-1 (2017-05-02) x86_64 GNU/Linux</span>
+</code></pre></div>
+<h2 id="_3">やったこと</h2>
+<h3 id="clamav">clamav</h3>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>clamav<span class="w"> </span>clamav-daemon
+$<span class="w"> </span>sudo<span class="w"> </span>chmod<span class="w"> </span>o+w<span class="w"> </span>/etc/clamav/freshclam.conf
+$<span class="w"> </span>sudo<span class="w"> </span>vim<span class="w"> </span>/etc/clamav/freshclam.conf
+-<span class="w"> </span>DatabaseMirror<span class="w"> </span>db.local.clamav.net
++<span class="w"> </span>DatabaseMirror<span class="w"> </span>db.jp.clamav.net
+$<span class="w"> </span>sudo<span class="w"> </span>chmod<span class="w"> </span>o-w<span class="w"> </span>/etc/clamav/freshclam.conf
+$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>clamav-freshclam
+$<span class="w"> </span>sudo<span class="w"> </span>vim<span class="w"> </span>/etc/clamav/clamd.conf
+$<span class="w"> </span>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>clamav-daemon
+</code></pre></div>
+<h3 id="etckeeper">etckeeper</h3>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>etckeeper
+</code></pre></div>
+<p>何か変更した時</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/etc/
+$<span class="w"> </span>sudo<span class="w"> </span>git<span class="w"> </span>status
+$<span class="w"> </span>sudo<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-am<span class="w"> </span><span class="s2">"foo bar"</span>
+</code></pre></div>
+<p>どこかに push しておくと便利だと思うけど、今回はやらない。</p>
+<h3 id="rkhunter">rkhunter</h3>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>rkhunter
+</code></pre></div>
+<p>定義ファイルの更新</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>rkhunter<span class="w"> </span>--update
+$<span class="w"> </span>sudo<span class="w"> </span>rkhunter<span class="w"> </span>--propupd
+</code></pre></div>
+<p>スキャン</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>rkhunter<span class="w"> </span>-c<span class="w"> </span>--sk<span class="w"> </span>--rwo
+Warning:<span class="w"> </span>Hidden<span class="w"> </span>directory<span class="w"> </span>found:<span class="w"> </span>/etc/.java
+Warning:<span class="w"> </span>Hidden<span class="w"> </span>directory<span class="w"> </span>found:<span class="w"> </span>/etc/.git
+Warning:<span class="w"> </span>Hidden<span class="w"> </span>file<span class="w"> </span>found:<span class="w"> </span>/etc/.etckeeper:<span class="w"> </span>ASCII<span class="w"> </span>text
+Warning:<span class="w"> </span>Hidden<span class="w"> </span>file<span class="w"> </span>found:<span class="w"> </span>/etc/.gitignore:<span class="w"> </span>ASCII<span class="w"> </span>text
+sudo<span class="w"> </span>rkhunter<span class="w"> </span>-c<span class="w"> </span>--sk<span class="w"> </span>--rwo<span class="w">  </span><span class="m">9</span>.45s<span class="w"> </span>user<span class="w"> </span><span class="m">7</span>.24s<span class="w"> </span>system<span class="w"> </span><span class="m">28</span>%<span class="w"> </span>cpu<span class="w"> </span><span class="m">57</span>.817<span class="w"> </span>total
+</code></pre></div>
+<p>Warningの修正(このWarningの内容は問題ないので、次回以降表示したくない)</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>vim<span class="w"> </span>/etc/rkhunter.conf
+-<span class="w"> </span><span class="c1">#ALLOWHIDDENDIR=/etc/.java</span>
+-<span class="w"> </span><span class="c1">#ALLOWHIDDENDIR=/etc/.git</span>
++<span class="w"> </span><span class="nv">ALLOWHIDDENDIR</span><span class="o">=</span>/etc/.java
++<span class="w"> </span><span class="nv">ALLOWHIDDENDIR</span><span class="o">=</span>/etc/.git
+...
+-<span class="w"> </span><span class="c1">#ALLOWHIDDENFILE=/etc/.gitignore</span>
+-<span class="w"> </span><span class="c1">#ALLOWHIDDENFILE=/etc/.etckeeper</span>
++<span class="w"> </span><span class="nv">ALLOWHIDDENFILE</span><span class="o">=</span>/etc/.gitignore
++<span class="w"> </span><span class="nv">ALLOWHIDDENFILE</span><span class="o">=</span>/etc/.etckeeper
+</code></pre></div>
+<h3 id="lynis">Lynis</h3>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>lynis
+</code></pre></div>
+<p>スキャン</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>lynis<span class="w"> </span>audit<span class="w"> </span>system<span class="w"> </span>--verbose
+</code></pre></div>
+<p>cronの設定<br/>
+https://cisofy.com/documentation/lynis/#cronjobs に記載されているとおり、 <code>--cronjobs</code> をつけるらしい。</p>
+<h3 id="auditd">auditd</h3>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>auditd
+</code></pre></div>
+<h3 id="debsums-debsecan">debsums, debsecan</h3>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>debsums<span class="w"> </span>debsecan
+</code></pre></div>
+<h3 id="vuls">vuls</h3>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/linux.html">linux</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2014/06/02/1631.html">LEDバックライトの調整</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2014/01/01/0243.html">実UID, 実行UID</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

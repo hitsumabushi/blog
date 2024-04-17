@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="ニフティクラウド上でサーバーを立てた。 いろいろと設定していこうかと思っているが、まずはDNSから始める。 作業内容 1. /etc/bind/named.conf.options 以下のように書き換える: // v6の設定： v6は応答しない // listen-on-v6 { any; }; listen-on-v6 { none; }; // transfer を許すIPを制限 allow-transfer &#34;192.168.100.1&#34;; 2. /etc/bind/named.conf.local ゾーンの設定: zone &#34;example.com&#34; { type master; file &#34;example.db&#34;; }; zone &#34;100.168.192.in-addr.arpa&#34; { type master; file &#34;192.rev&#34; };" />
+<meta name="keywords" content="dns">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="DNS サーバー"/>
+  <meta property="og:description" content="ニフティクラウド上でサーバーを立てた。 いろいろと設定していこうかと思っているが、まずはDNSから始める。 作業内容 1. /etc/bind/named.conf.options 以下のように書き換える: // v6の設定： v6は応答しない // listen-on-v6 { any; }; listen-on-v6 { none; }; // transfer を許すIPを制限 allow-transfer &#34;192.168.100.1&#34;; 2. /etc/bind/named.conf.local ゾーンの設定: zone &#34;example.com&#34; { type master; file &#34;example.db&#34;; }; zone &#34;100.168.192.in-addr.arpa&#34; { type master; file &#34;192.rev&#34; };"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2014/01/01/0241.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2014-01-01 02:41:20+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="dns"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; DNS サーバー</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="dns-saba">DNS サーバー</h1>
+    <p>
+      Posted on Wed 01 January 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+
+    <div class="content">
+      <p>ニフティクラウド上でサーバーを立てた。
+いろいろと設定していこうかと思っているが、まずはDNSから始める。</p>
+<div class="section" id="id1">
+<h2>作業内容</h2>
+<p>1. /etc/bind/named.conf.options
+以下のように書き換える:</p>
+<pre class="literal-block">
+// v6の設定： v6は応答しない
+// listen-on-v6 { any; };
+listen-on-v6 { none; };
+
+// transfer を許すIPを制限
+allow-transfer &quot;192.168.100.1&quot;;
+</pre>
+<p>2. /etc/bind/named.conf.local
+ゾーンの設定:</p>
+<pre class="literal-block">
+zone &quot;example.com&quot; {
+   type master;
+   file &quot;example.db&quot;;
+};
+zone &quot;100.168.192.in-addr.arpa&quot; {
+   type master;
+   file &quot;192.rev&quot;
+};
+</pre>
+</div>
+
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/dns.html">dns</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2014/01/01/0237.html" title="Perl のコンパイラオプション">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2014/01/01/0243.html" title="実UID, 実行UID">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2015/01/26/0312.html">DNS サーバーの比較資料集め</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

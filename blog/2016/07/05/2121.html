@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="VCP6-NV 受験シリーズ VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる VCP6-NV 試験勉強メモ VCP6-NV 試験勉強メモ 2日目 VCP6-NV 取得した 資料 最も公式っぽい資料 VMware Certified Professional 6 – Network Virtualization Exam の &#34;How to Prepare&#34; に書いているもの。 Reference Design: VMware® NSX for vSphere (NSX) Network Virtualization Design Guide VCP6-NV (2V0-641) Practice Exam ブログ : シリーズものは一通り目を通した方が良い ネットワーク仮想化をネットワークの基本から理解する 〜 第1回：理解す …" />
+<meta name="keywords" content="VMware, NSX, VCP">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="VCP6-NV 試験勉強メモ"/>
+  <meta property="og:description" content="VCP6-NV 受験シリーズ VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる VCP6-NV 試験勉強メモ VCP6-NV 試験勉強メモ 2日目 VCP6-NV 取得した 資料 最も公式っぽい資料 VMware Certified Professional 6 – Network Virtualization Exam の &#34;How to Prepare&#34; に書いているもの。 Reference Design: VMware® NSX for vSphere (NSX) Network Virtualization Design Guide VCP6-NV (2V0-641) Practice Exam ブログ : シリーズものは一通り目を通した方が良い ネットワーク仮想化をネットワークの基本から理解する 〜 第1回：理解す …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2016/07/05/2121.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2016-07-05 21:21:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="VMware"/>
+  <meta property="article:tag" content="NSX"/>
+  <meta property="article:tag" content="VCP"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; VCP6-NV 試験勉強メモ</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="vcp6-nv-shi-yan-mian-qiang-memo">VCP6-NV 試験勉強メモ</h1>
+    <p>
+      Posted on Tue 05 July 2016 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#vcp6-nv">VCP6-NV 受験シリーズ</a></li>
+<li><a href="#_1">資料</a><ul>
+<li><a href="#_2">最も公式っぽい資料</a></li>
+<li><a href="#_3">ブログ : シリーズものは一通り目を通した方が良い</a></li>
+</ul>
+</li>
+<li><a href="#nsx-configuration-maximums">NSXの configuration maximums</a></li>
+<li><a href="#vcp6-nv-2v0-641-practice-exam">VCP6-NV (2V0-641) Practice Exam の問題抜粋</a><ul>
+<li><a href="#_4">良く意味がわかっていない</a></li>
+</ul>
+</li>
+<li><a href="#nsx">NSX の概要おさらい</a><ul>
+<li><a href="#nsx_1">NSX のアーキテクチャ</a></li>
+<li><a href="#nsx_2">NSX のコントローラ</a></li>
+</ul>
+</li>
+<li><a href="#nsx-vxlan">NSX の VXLAN</a><ul>
+<li><a href="#_5">プロトコル概要</a></li>
+<li><a href="#_6">トランスポートゾーン</a></li>
+<li><a href="#vtepmteputep">VTEP,MTEP,UTEP</a></li>
+<li><a href="#_7">レプリケーションモード</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<h2 id="vcp6-nv">VCP6-NV 受験シリーズ</h2>
+<ul>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html">VCP6-NV 試験勉強メモ</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html">VCP6-NV 試験勉強メモ 2日目</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html">VCP6-NV 取得した</a></li>
+</ul>
+<h2 id="_1">資料</h2>
+<h3 id="_2">最も公式っぽい資料</h3>
+<ul>
+<li><a href="https://mylearn.vmware.com/mgrReg/plan.cfm?plan=64297&amp;ui=www_cert">VMware Certified Professional 6 – Network Virtualization Exam</a> の "How to Prepare" に書いているもの。</li>
+<li><a href="https://www.vmware.com/files/pdf/products/nsx/vmw-nsx-network-virtualization-design-guide.pdf">Reference Design: VMware® NSX for vSphere (NSX) Network Virtualization Design Guide</a></li>
+<li><a href="http://mylearn.vmware.com/quiz.cfm?item=57466">VCP6-NV (2V0-641) Practice Exam</a></li>
+</ul>
+<h3 id="_3">ブログ : シリーズものは一通り目を通した方が良い</h3>
+<ul>
+<li><a href="http://blogs.vmware.com/jp-cim/2015/03/nwv01.html">ネットワーク仮想化をネットワークの基本から理解する　〜 第1回：理解するために必要なことを整理する</a></li>
+<li><a href="https://blogs.vmware.com/networkvirtualization/2015/12/2366.html?lang=ja#.V3ve2WiLSUk">NSX 6.2 新機能のご紹介 Part 1 〜 Cross vCenter NSX 〜</a></li>
+</ul>
+<h2 id="nsx-configuration-maximums">NSXの configuration maximums</h2>
+<p><a href="https://www.vmware.com/pdf/vsphere6/r60/vsphere-60-configuration-maximums.pdf">vSphere 製品のように</a> 公開されているわけではない。<br/>
+でも、以下のサイトのように、情報を公開している人はいる。</p>
+<ul>
+<li><a href="https://d-fens.ch/2015/02/16/nsx-v-6-1-configuration-maximums/">NSX-V 6.1 Configuration Maximums</a></li>
+<li><a href="https://www.vmguru.com/2015/03/vmware-nsx-v-configuration-maximums/">VMware NSX-v Configuration Maximums</a></li>
+</ul>
+<p>会社でNSX使っている人は、VMwareの人に言えば上限値資料もらえると思うけど、会社外で確認したいときに、便利。<br/>
+運用・開発を考える場合でも、上限値系は何も見ずに言えることが望ましいと思う。<br/>
+おおざっぱな各上限値のオーダーは頭に入れておきたいところ...なんだけど、NSX 6.1と6.2で数値が違うところがあるんだよなぁ。</p>
+<h2 id="vcp6-nv-2v0-641-practice-exam">VCP6-NV (2V0-641) Practice Exam の問題抜粋</h2>
+<ul>
+<li>上限値系<ul>
+<li>Q. "What is the maximum number of VNIs that can be used in a vSphere environment?"<ul>
+<li>10,000</li>
+<li>これは、NSXの制限というよりは、 vCenterの制限かもしれない※要確認</li>
+<li>VNIを1つ使うごとにポートグループを作ってしまう。現状のvSphere 6.0では、 10,000 portgroup/vC なので、これ以上作成できることに意味がない、ということと覚えている</li>
+</ul>
+</li>
+<li>Q. "How many DHCP pools can be created on the NSX Edge?"<ul>
+<li>20,000</li>
+<li>覚えるしかない?</li>
+<li>"NSX DHCP service can provide configuration of IP pools, gateways, DNS servers, and search domains."</li>
+</ul>
+</li>
+<li>Q. "What is the maximum number of audit logs retained by the NSX Manager?"<ul>
+<li>1,000,000</li>
+<li>覚えるしかない</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>デプロイメント</li>
+<li>Q. "What is the minimum vSphere configuration needed to deploy NSX?"<ul>
+<li>A cluster of ESXi hosts managed by vCenter Server</li>
+</ul>
+</li>
+<li>Q. "What is the minimum vSphere 6.0 license edition required to deploy NSX?"<ul>
+<li>今は、any vSphere edition で動作する。Enterprise plus が必要だったのは昔の話。</li>
+<li>「いやいや、vDS必要でしょ」と思うかもしれないですが、そのあたりは、 <a href="http://infratraining.blogspot.jp/2015/07/vmware-nsxenterprise-plus.html">VMware NSXには、vSphere Enterprise Plusが必要？それは過去の話です。</a> に書かれています。</li>
+</ul>
+</li>
+<li>Q. "Which two components are valid minimum prerequisites for installing NSX in a vSphere environment? (Choose two.)"<ul>
+<li>VMware vCenter Server 5.5 or later</li>
+<li>VMware Tools 8.6 or later</li>
+<li>ESXi 5.0 or later</li>
+</ul>
+</li>
+<li>Q. "What is the packet size of the VXLAN standard test packet when using the Ping test on the logical switches?"<ul>
+<li>1,550</li>
+<li>VXLAN 分のオーバーヘッドは 50 byteなので。</li>
+</ul>
+</li>
+</ul>
+<h3 id="_4">良く意味がわかっていない</h3>
+<ul>
+<li>Q. "What is the minimum number of vSphere Standard Switches (vSS) that must be configured before deploying VMware NSX for vSphere?"<ul>
+<li>選択肢は、0, 1, 2, 3 のどれかで、正解は0。</li>
+<li>解説は、 "NSX includes logical switches. The NSX logical switch creates logical broadcast domains or segments to which an application or tenant virtual machine can be logically wired." となっていた。</li>
+<li>いまいち問題の趣旨がわかっていない。答えるとしたら 0だけど、解説を読む限りは、「NSX自体をデプロイするのにportgroupが必要になるけど、それはvDSで作れば良い」とかそういう話ではないっぽい。</li>
+</ul>
+</li>
+</ul>
+<h2 id="nsx">NSX の概要おさらい</h2>
+<p>おさらいなので、一度でもNSXについて理解したことのある人向け。</p>
+<h3 id="nsx_1">NSX のアーキテクチャ</h3>
+<ul>
+<li>Management plane<ul>
+<li>NSX Manager</li>
+</ul>
+</li>
+<li>Control plane<ul>
+<li>NSX Controller</li>
+<li>論理ルータコントロール VM</li>
+</ul>
+</li>
+<li>Data plane<ul>
+<li>ESXi カーネルモジュール<ul>
+<li>論理スイッチ</li>
+<li>分散ルータ</li>
+<li>分散FW</li>
+</ul>
+</li>
+<li>Edge</li>
+</ul>
+</li>
+</ul>
+<h3 id="nsx_2">NSX のコントローラ</h3>
+<ul>
+<li>コントローラは必ず3つデプロイする。</li>
+<li>コントロールプレーンとして、4つのテーブルを持つ<ul>
+<li>ARP</li>
+<li>MAC</li>
+<li>VTEP</li>
+<li>ルーティング</li>
+</ul>
+</li>
+<li>コントローラとESXiホストのカーネルモジュールは、分散FWを除いて、netcpaというUWAを通じて通信する。(VXLAN, 論理ルータなど。)<ul>
+<li>UWAはカーネルモジュールと通信してよしなにする。</li>
+<li>分散FWは、直接カーネルモジュールがvsfwdを通じて、NSX Managerと通信する。</li>
+</ul>
+</li>
+<li>コントローラは、Paxos ベースのアルゴリズムで分散処理している<ul>
+<li>マスターを選出</li>
+<li>VXLAN, 論理ルータのそれぞれに対して、スライスを作成し、各コントローラに割り当てて処理させる</li>
+<li>コントローラの追加・削除時には再度スライスの分散が行われる</li>
+</ul>
+</li>
+</ul>
+<h2 id="nsx-vxlan">NSX の VXLAN</h2>
+<h3 id="_5">プロトコル概要</h3>
+<ul>
+<li>VXLAN は 24bitのIDを持っていて、VNI という。(つまり、 1677万以上ある)</li>
+<li>VXLAN のオーバーヘッドは、 50byte分ある<ul>
+<li>MTUは少なくとも 1550byteである必要がある</li>
+<li>IPv6 のことも考えると、推奨は、1600byte以上らしい</li>
+<li>ジャンボフレームを設定すれば間違いない</li>
+</ul>
+</li>
+<li>カプセル化後のパケットは、 4789/UDP</li>
+<li>VNI のうち、1NSXでは、10,000までしか利用できない</li>
+<li>VNI のうち、5,000からしか利用できない</li>
+<li>論理スイッチを作成するとき、レプリケーションモード(マルチキャストモード、ハイブリッドモード、ユニキャストモード)を選択する。それにより、BUMトラフィックのパケットフローが大きく変更される。<ul>
+<li>BUMトラフィックとは、 ブロードキャスト、不明なユニキャスト、マルチキャストのトラフィックのこと</li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">トランスポートゾーン</h3>
+<ul>
+<li>トランスポートゾーンは、VNI用の境界になる<ul>
+<li>Layer 3/VXLAN ネットワークの境界になるという意味</li>
+</ul>
+</li>
+<li>VXLANオーバーレイのメンバーまたは、VTEPを定義している。<ul>
+<li>異なるvSphereクラスタのESXiホストを含めることができる</li>
+<li>1個のクラスタを複数のトランスポートゾーンに含めることもできる</li>
+</ul>
+</li>
+</ul>
+<h3 id="vtepmteputep">VTEP,MTEP,UTEP</h3>
+<ul>
+<li>VTEP<ul>
+<li>VXLAN のカプセル化、またはカプセル化の解除を行うエンドポイント</li>
+<li>vSphereでは、vDS上の VMkernelポートでカプセル化される</li>
+<li>NSXと連携可能な H/W VTEP も世の中には存在する予定</li>
+</ul>
+</li>
+<li>VTEPプロキシ : リモートセグメントにある別のVTEPから受け取ったVXLANトラフィックをローカルセグメントに転送するVTEP。MTEP,UTEPがある。</li>
+</ul>
+<h3 id="_7">レプリケーションモード</h3>
+<ul>
+<li>それぞれの場合のBUMトラフィックの図が以下のサイトにある<ul>
+<li><a href="http://ccietrip.blogspot.jp/2015/11/vxlan-simply-what-why-and-how.html">VXLAN simplified - what, why and how ?</a></li>
+</ul>
+</li>
+<li>マルチキャストモード<ul>
+<li>Layer 2でIGMPが有効化されていて、かつ、Layer 3でマルチキャストルーティングが必要</li>
+<li>ローカルもリモートのどちらのトラフィックもマルチキャストのパケットを投げる</li>
+</ul>
+</li>
+<li>ハイブリッドモード<ul>
+<li>Layer 2でIGMPが有効化されている必要</li>
+<li>ローカルではマルチキャストで投げ、リモートにはMTEPへユニキャストパケットを投げる</li>
+<li>MTEPは受け取ったパケットをローカルセグメントへマルチキャストとして投げる</li>
+</ul>
+</li>
+<li>ユニキャストモード<ul>
+<li>特に制限はない</li>
+<li>ローカルもユニキャストで投げ、リモートにはUTEPにユニキャストパケットを投げる</li>
+<li>UTEPは受け取ったパケットをローカルセグメントへユニキャストとして投げる</li>
+</ul>
+</li>
+</ul>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>
+      <a href="https://www.hitsumabushi.org/tag/nsx.html">NSX</a>
+      <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html" title="VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html" title="VCP6-NV 試験勉強メモ 2日目">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html">VCP6-NV 取得した</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html">VCP6-NV 試験勉強メモ 2日目</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2015/01/16/2348.html">VCP5-DCV取得した</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2015/01/10/2349.html">vDSのポートバインドタイプ</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

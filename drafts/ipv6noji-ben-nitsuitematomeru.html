@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="自宅環境をデュアルスタックにしたいので、ルーターのIPv6の設定を調べていた。 IPv6自体の理解が一部怪しいところもあったので、基本的なところから、まとめていく。 アドレスの表現 アドレス形式 128bitを使ったアドレス。 表示形式 2001:0db8:0:0:1111:2222:3333:9abe のような8つの16bitの16進数で表示される。 ただ、ipv6アドレスは長くなりがちであるので、書くのが大変だし読 …" />
+<meta name="keywords" content="IPv6, network">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="IPv6の基本についてまとめる"/>
+  <meta property="og:description" content="自宅環境をデュアルスタックにしたいので、ルーターのIPv6の設定を調べていた。 IPv6自体の理解が一部怪しいところもあったので、基本的なところから、まとめていく。 アドレスの表現 アドレス形式 128bitを使ったアドレス。 表示形式 2001:0db8:0:0:1111:2222:3333:9abe のような8つの16bitの16進数で表示される。 ただ、ipv6アドレスは長くなりがちであるので、書くのが大変だし読 …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/drafts/ipv6noji-ben-nitsuitematomeru.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2015-12-17 05:54:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="IPv6"/>
+  <meta property="article:tag" content="network"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; IPv6の基本についてまとめる</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="ipv6noji-ben-nitsuitematomeru">IPv6の基本についてまとめる</h1>
+    <p>
+      Posted on Thu 17 December 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#_1">アドレスの表現</a><ul>
+<li><a href="#_2">アドレス形式</a></li>
+<li><a href="#_3">表示形式</a></li>
+</ul>
+</li>
+<li><a href="#rfc4291">アドレスの分類 : RFC4291</a><ul>
+<li><a href="#_4">アドレスタイプの分類</a></li>
+<li><a href="#_5">ユニキャスト</a><ul>
+<li><a href="#_6">アドレス形式</a></li>
+<li><a href="#_7">例</a></li>
+</ul>
+</li>
+<li><a href="#_8">エニーキャスト</a><ul>
+<li><a href="#_9">例</a></li>
+</ul>
+</li>
+<li><a href="#_10">マルチキャスト</a><ul>
+<li><a href="#_11">例</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<p>自宅環境をデュアルスタックにしたいので、ルーターのIPv6の設定を調べていた。<br/>
+IPv6自体の理解が一部怪しいところもあったので、基本的なところから、まとめていく。</p>
+<h2 id="_1">アドレスの表現</h2>
+<h3 id="_2">アドレス形式</h3>
+<p>128bitを使ったアドレス。</p>
+<h3 id="_3">表示形式</h3>
+<p><code>2001:0db8:0:0:1111:2222:3333:9abe</code> のような8つの16bitの16進数で表示される。<br/>
+ただ、ipv6アドレスは長くなりがちであるので、書くのが大変だし読みづらい。<br/>
+0が続くフィールドは省略できるように、ということで、<a href="http://tools.ietf.org/html/rfc5952">RFC5952</a> がある。<br/>
+ざっくり言うとルールとしては、以下の3つ。</p>
+<ol>
+<li>各フィールドの先頭に0がある場合には省略する<ul>
+<li>例えば、 <code>...:00a2:...</code> というのは、 <code>...:a2:...</code> と書かれる</li>
+</ul>
+</li>
+<li>フィールドに0が続く場合、 <code>::</code> を使う<ul>
+<li><code>...:a:0:0:0:b:...</code> というアドレスがあった時、0がたくさん続くと読みづらい。こういう場合に、<code>...:a::b:...</code> と書くことにする。<code>::</code>の部分は0が入る。<ul>
+<li><code>1::2</code> とあったら、<code>1:0:0:0:0:0:0:2</code> というアドレスになるということ</li>
+</ul>
+</li>
+<li><code>...:a:0:b:...</code> というような 0のフィールドが続かない場合には、 <code>...:a::b:...</code> と書くのはNG。</li>
+<li><code>::</code>は最も短い表現ができるようにする<ul>
+<li><code>...a:0:0:0:0:b...</code> があった時、 <code>...a:0::b</code> などの中途半端に <code>::</code>で省略するのはNG。</li>
+<li>最も0のフィールドが連続している場所に <code>::</code> を利用する。例えば、<code>a:0:0:b:0:0:0:c</code> というアドレスがあった場合、 <code>a::b:0:0:0:c</code> と書くのは許されない。必ず、<code>a:0:0:b::c</code> である必要がある。<ul>
+<li>(補足) <code>a::b::c</code> と書くのはNG。 元のアドレスが復元できないので。 <code>a:0:0:0:b:0:0:c</code>でも同じになってしまう。そのため、 <code>::</code> は1度しか使えない。</li>
+</ul>
+</li>
+<li><code>a:0:0:b:0:0:c:d</code> のように、省略可能なフィールドが複数あり、長さが同じ場合、先頭にある方を省略する。 つまり、 <code>a::b:0:0:c:d</code> と書く。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>"A"~"F"の文字は小文字を使う<ul>
+<li><code>...:123A:...</code> などは <code>...:123a:</code> と書かれる。</li>
+<li>インターネット上の文書で、これに従っていないものが散見されるので、注意したほうが良い。</li>
+</ul>
+</li>
+</ol>
+<h2 id="rfc4291">アドレスの分類 : <a href="https://tools.ietf.org/html/rfc4291">RFC4291</a></h2>
+<h3 id="_4">アドレスタイプの分類</h3>
+<ol>
+<li>ユニキャスト<ul>
+<li>インターフェースの識別子になる。</li>
+<li>ユニキャストアドレスにパケットが送信された場合、対象のユニキャストアドレスを持つ単一のインターフェースにパケットが配送される。</li>
+</ul>
+</li>
+<li>エニーキャストアドレス<ul>
+<li>インターフェースの集合の識別子になる。</li>
+<li>エニーキャストアドレスにパケットが送信された場合、対象のエニーキャストアドレスに所属するインターフェースのうち、1つのインターフェースにパケットが配送される。<ul>
+<li>ルーティングプロトコル上で決まる、<strong>最も近い</strong> インターフェースに配送される</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>マルチキャスト<ul>
+<li>インターフェースの集合の識別子になる。</li>
+<li>マルチキャストアドレスにパケットが送信された場合、対象のマルチキャストアドレスに所属する、すべてのインターフェースにパケットが配送される。</li>
+</ul>
+</li>
+</ol>
+<p>IPv4との違いとしては、<br/>
+- エニーキャストアドレスという概念ができた<br/>
+- ブロードキャストアドレスがなく、代わりにマルチキャストアドレスを使う</p>
+<h3 id="_5">ユニキャスト</h3>
+<h4 id="_6">アドレス形式</h4>
+<p><code>{n bit: subnet prefix}:{128-n bit: Interface ID}</code> という形式になっている。<br/>
+Interface IDについては、生成方法がいくつかあるけど、ここでは書かない。</p>
+<h4 id="_7">例</h4>
+<ol>
+<li>未指定アドレス<ul>
+<li>0:0:0:0:0:0:0:0</li>
+<li>インターフェースにアサインされることはない</li>
+</ul>
+</li>
+<li>loopback アドレス<ul>
+<li>0:0:0:0:0:0:0:1</li>
+<li>Link-Local アドレスの1つとして扱われる</li>
+</ul>
+</li>
+<li>Link-Local ユニキャストアドレス<ul>
+<li>fe80::/10</li>
+<li>インターフェースは必ず、1つはLink-Localユニキャストアドレスを持つ</li>
+<li>ルーターによって転送されないので、同じL2ドメインにあるノードでしか通信できない</li>
+</ul>
+</li>
+<li>ユニークローカル ユニキャストアドレス : <a href="https://tools.ietf.org/html/rfc4193">RFC4193</a><ul>
+<li>fc00::/7</li>
+<li>IPv4でいうところのプライベートアドレスとして使う想定で運用される(グローバルで疎通できないようになっているはず)</li>
+<li>アドレス範囲は以下のような分類がある<ul>
+<li>fc00::/8 : IANAで管理されるようなので、申請したら取れるようになると思うけど、まだアサインされる方法がないので、使う方法がない。</li>
+<li>fd00::/8 : 勝手に使って良い。ただ、擬似乱数でsubnet prefixを生成しなければならない。<ul>
+<li>生成するツールを公開している人もいる</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Global ユニキャストアドレス<ul>
+<li>ルーターによって転送されるなど、ルーティングされる範囲で通信が可能なアドレス</li>
+<li>グローバルに通信ができるかどうかは、上位ルーターの設定次第なので、特に区別はない</li>
+</ul>
+</li>
+</ol>
+<h3 id="_8">エニーキャスト</h3>
+<p>ユニキャストのアドレス空間から割り当てられるため、アドレスをみただけでは、エニーキャストかどうか判別できない。<br/>
+複数のインターフェースに割り当てられた時点で、エニーキャストアドレスになる。<br/>
+割り当てられたインターフェース側では、それがエニーキャストアドレスであることがわかるように構成されなければならない。</p>
+<p>割り当てられたエニキャストアドレスに足しいて、すべてのインターフェースが属する、トポロジカルな範囲を識別するための、最小のプレフィックスPがある。<br/>
+このPの範囲の中では、エニキャストアドレスは、ルーティングシステムとは別のシステムとして(ホストルートと呼ばれる)保守されなければならない。<br/>
+Pの範囲の外では、エニキャストアドレスをPのためのルーティングエントリに集約しても良い。</p>
+<h4 id="_9">例</h4>
+<p>サブネットルータ エニキャストアドレスは事前に定義されている。<br/>
+<code>{n bit: subnet prefix}::</code> というアドレスは、サブネット上のどれか1つのルーターに配送されることになる。</p>
+<h3 id="_10">マルチキャスト</h3>
+<p><code>FF00::/8</code> が利用される。</p>
+<div class="highlight"><pre><span></span><code><span class="c">| 8bit   | 4bit |  4bit |                 112bit                  |</span>
+<span class="nb">+--------+------+-------+-----------------------------------------+</span>
+<span class="c">|11111111| flag | scope |                 group ID                |</span>
+<span class="nb">+--------+------+-------+-----------------------------------------+</span>
+</code></pre></div>
+<ul>
+<li>flag = 0RPT というビット列<ul>
+<li>R<ul>
+<li>0 : <code>multicast address that does not embed the address of the RP</code> (RPはRendezvous Point のこと)</li>
+<li>1 : <code>multicast address that embeds the address on the RP.</code></li>
+</ul>
+</li>
+<li>P<ul>
+<li>0 : network prefix ベースでない場合。(network prefix ベースであるときは、group IDの中に、network prefixの情報が埋め込まれている)</li>
+<li>1 : network prefix ベースの割当。この場合、Tは必ず1になる。</li>
+</ul>
+</li>
+<li>T<ul>
+<li>0 : permanent<ul>
+<li>"well-known"なものに使う。つまりIANAで管理されている。</li>
+</ul>
+</li>
+<li>1 : non-permanently-assigned</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>scope</p>
+<ul>
+<li>0: reserved</li>
+<li>1: Interface-Local scope</li>
+<li>2: Link-Local scope</li>
+<li>3: reserved</li>
+<li>4: Admin-Local scope</li>
+<li>5: Site-Local scope</li>
+<li>6: (unassigned)</li>
+<li>7: (unassigned)</li>
+<li>8: Organization-Local scope</li>
+<li>9: (unassigned)</li>
+<li>A: (unassigned)</li>
+<li>B: (unassigned)</li>
+<li>C: (unassigned)</li>
+<li>D: (unassigned)</li>
+<li>E: Global scope</li>
+<li>F: reserved</li>
+</ul>
+</li>
+<li>
+<p>group ID</p>
+<ul>
+<li>マルチキャストグループの識別子</li>
+</ul>
+</li>
+</ul>
+<h4 id="_11">例</h4>
+<p><code>FF01::1</code>, <code>FF02::1</code> はそれぞれ、インターフェースローカルか、リンクローカルのすべてのIPv6ノードのグループ。</p>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/ipv6.html">IPv6</a>
+      <a href="https://www.hitsumabushi.org/tag/network.html">network</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2014/08/12/1638.html">IPv6のことを調べ始めた</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

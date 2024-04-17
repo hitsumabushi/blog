@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="VCP6-NV 受験シリーズ VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる VCP6-NV 試験勉強メモ VCP6-NV 試験勉強メモ 2日目 VCP6-NV 取得した 資料 ネットワーク仮想化をネットワークの基本から理解する 〜 第1回：理解するために必要なことを整理する NSX 6.2 新機能のご紹介 Part 1 〜 Cross vCenter NSX 〜 NSX におけるVXLAN 関係する要素 論理スイッチ 分散論理ルータ 論理ルータコントロール …" />
+<meta name="keywords" content="VMware, NSX, VCP">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="VCP6-NV 試験勉強メモ 2日目"/>
+  <meta property="og:description" content="VCP6-NV 受験シリーズ VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる VCP6-NV 試験勉強メモ VCP6-NV 試験勉強メモ 2日目 VCP6-NV 取得した 資料 ネットワーク仮想化をネットワークの基本から理解する 〜 第1回：理解するために必要なことを整理する NSX 6.2 新機能のご紹介 Part 1 〜 Cross vCenter NSX 〜 NSX におけるVXLAN 関係する要素 論理スイッチ 分散論理ルータ 論理ルータコントロール …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2016/07/07/0742.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2016-07-07 07:42:46+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="VMware"/>
+  <meta property="article:tag" content="NSX"/>
+  <meta property="article:tag" content="VCP"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; VCP6-NV 試験勉強メモ 2日目</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="vcp6-nv-shi-yan-mian-qiang-memo-2ri-mu">VCP6-NV 試験勉強メモ 2日目</h1>
+    <p>
+      Posted on Thu 07 July 2016 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#vcp6-nv">VCP6-NV 受験シリーズ</a></li>
+<li><a href="#_1">資料</a></li>
+<li><a href="#nsx-vxlan">NSX におけるVXLAN</a><ul>
+<li><a href="#_2">関係する要素</a></li>
+<li><a href="#_3">分散論理ルータ</a></li>
+<li><a href="#_4">制御プレーンについて</a></li>
+</ul>
+</li>
+<li><a href="#l2">L2 ブリッジ</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<h2 id="vcp6-nv">VCP6-NV 受験シリーズ</h2>
+<ul>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html">VCP6-NV 試験勉強メモ</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html">VCP6-NV 試験勉強メモ 2日目</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html">VCP6-NV 取得した</a></li>
+</ul>
+<h2 id="_1">資料</h2>
+<ul>
+<li><a href="http://blogs.vmware.com/jp-cim/2015/03/nwv01.html">ネットワーク仮想化をネットワークの基本から理解する　〜 第1回：理解するために必要なことを整理する</a></li>
+<li><a href="https://blogs.vmware.com/networkvirtualization/2015/12/2366.html?lang=ja#.V3ve2WiLSUk">NSX 6.2 新機能のご紹介 Part 1 〜 Cross vCenter NSX 〜</a></li>
+</ul>
+<h2 id="nsx-vxlan">NSX におけるVXLAN</h2>
+<h3 id="_2">関係する要素</h3>
+<ul>
+<li>論理スイッチ</li>
+<li>分散論理ルータ</li>
+<li>論理ルータコントロール VM</li>
+<li>Edge</li>
+</ul>
+<h3 id="_3">分散論理ルータ</h3>
+<p>カーネルモジュール内で動作するルーター。<br/>
+各ESXiに分散して存在していて、ヘアピントラフィックを防ぐことができる。</p>
+<p>分散論理ルータのインターフェースは、LIF(論理インターフェース)と呼ばれる。</p>
+<ul>
+<li>LIF<ul>
+<li>IPアドレスが割り当てられる</li>
+<li>ARPテーブルはLIFごとに持つ</li>
+</ul>
+</li>
+<li>vMAC<ul>
+<li>LIFが分散スイッチにささっている時のMAC</li>
+<li>物理スイッチに保存されることはない</li>
+<li>VXLAN LIF の時のMACアドレス<ul>
+<li>VLAN LIFと違い、代表インスタンスなどは不要</li>
+<li>1つの論理スイッチに接続できるVXLAN LIFは1つ</li>
+<li>トランスポートゾーン全体のDVSに広げることができる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>pMAC<ul>
+<li>LIFがポートグループにささっている時のMAC</li>
+<li>物理スイッチに保存される</li>
+<li>VLAN LIF の時のMACアドレス<ul>
+<li>VLAN LIF は1台のDVSにのみ所属できる</li>
+<li>VLAN LIF は代表インスタンスを1つ持ち、ARP要求はその代表インスタンスが処理する<ul>
+<li>疑問: ARP要求は代表インスタンスが答えるが、実際には全てのホストで同じpMACを持っていて、その後のトラフィックは各ホストで処理するということで良いのか?</li>
+</ul>
+</li>
+<li>代表インスタンスの選定は、NSX Controllerが行う</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_4">制御プレーンについて</h3>
+<p>分散論理ルータの制御プレーンは、以下の2つある。</p>
+<ul>
+<li>インスタンスごとに作られる、論理ルータコントロール仮想マシン<ul>
+<li>Active/Standby 構成にもできる</li>
+<li>ダイナミックルーティング(OSPF, BGP)を処理する<ul>
+<li>つまり、隣接ノードから見ると、VLAN LIFとは異なるIPとセッションをはることになる</li>
+</ul>
+</li>
+<li>処理したルーティング情報をNSX Controllerへ送る</li>
+</ul>
+</li>
+<li>NSX Controller<ul>
+<li>ルーティング情報を分散ルータへ(つまり対象のすべてのESXiへ)プッシュする</li>
+</ul>
+</li>
+</ul>
+<h2 id="l2">L2 ブリッジ</h2>
+<p>VXLAN と VLAN の L2ブリッジのみがサポートされる。<br/>
+アップリンクをDVSに割り当てておけば、物理機器とVXLANをつなぐような用途で利用できる。</p>
+<p>L2 ブリッジには分散ルータが必要で、論理ルータコントロール仮想マシンが載っているホストが、ブリッジインスタンスとして、実際のブリッジを行う。つまり、1ホストのラインレートが上限になる。<br/>
+スループットを向上させるには、1つのブリッジに対しては1つの分散ルータを作成するようにすることが良い。</p>
+<p>分散ルーティングと論理スイッチ上のブリッジは同時に有効にできない。</p>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>
+      <a href="https://www.hitsumabushi.org/tag/nsx.html">NSX</a>
+      <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html" title="VCP6-NV 試験勉強メモ">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html" title="VCP6-NV 取得した">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html">VCP6-NV 取得した</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html">VCP6-NV 試験勉強メモ</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2015/01/16/2348.html">VCP5-DCV取得した</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2015/01/10/2349.html">vDSのポートバインドタイプ</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

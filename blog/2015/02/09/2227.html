@@ -1,0 +1,392 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="Intro ディスクベンチマークのツールとして、dbenchであるとか、もっと簡単にはhdparmなどがある。 今回はfioという、単純なread/writeの計測には必要十分なツールを使おうと思う。 ただ、ベンチマークツールはたいていオプションが多く、またアウトプットも複雑なので、一旦まとめてみる。 オプション オプションの与え方 以下の2つが使える。 コマンドラインオプション …" />
+<meta name="keywords" content="fio, benchmark">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="fioを使ったベンチマーク"/>
+  <meta property="og:description" content="Intro ディスクベンチマークのツールとして、dbenchであるとか、もっと簡単にはhdparmなどがある。 今回はfioという、単純なread/writeの計測には必要十分なツールを使おうと思う。 ただ、ベンチマークツールはたいていオプションが多く、またアウトプットも複雑なので、一旦まとめてみる。 オプション オプションの与え方 以下の2つが使える。 コマンドラインオプション …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2015/02/09/2227.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2015-02-09 22:27:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="fio"/>
+  <meta property="article:tag" content="benchmark"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; fioを使ったベンチマーク</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="fiowoshi-tsutabenchimaku">fioを使ったベンチマーク</h1>
+    <p>
+      Posted on Mon 09 February 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#_1">オプション</a><ul>
+<li><a href="#_2">オプションの与え方</a></li>
+<li><a href="#_3">主なオプション</a></li>
+</ul>
+</li>
+<li><a href="#_4">アウトプットの見方</a><ul>
+<li><a href="#_5">実行例</a></li>
+<li><a href="#_6">実行結果の意味</a></li>
+</ul>
+</li>
+<li><a href="#_7">資料</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<h2 id="intro">Intro</h2>
+<p>ディスクベンチマークのツールとして、dbenchであるとか、もっと簡単にはhdparmなどがある。<br/>
+今回はfioという、単純なread/writeの計測には必要十分なツールを使おうと思う。<br/>
+ただ、ベンチマークツールはたいていオプションが多く、またアウトプットも複雑なので、一旦まとめてみる。</p>
+<h2 id="_1">オプション</h2>
+<h3 id="_2">オプションの与え方</h3>
+<p>以下の2つが使える。</p>
+<ul>
+<li>コマンドラインオプションで与える</li>
+<li>オプションを記述したファイルを引数にする<div class="highlight"><pre><span></span><code><span class="k">[global]</span>
+<span class="na">rw</span><span class="o">=</span><span class="s">randread</span>
+<span class="na">size</span><span class="o">=</span><span class="s">256m</span>
+<span class="na">directory</span><span class="o">=</span><span class="s">/tmp/fio-test</span>
+<span class="na">ioengine</span><span class="o">=</span><span class="s">libaio</span>
+<span class="na">iodepth</span><span class="o">=</span><span class="s">4</span>
+<span class="na">invalidate</span><span class="o">=</span><span class="s">1</span>
+<span class="na">direct</span><span class="o">=</span><span class="s">1</span>
+
+<span class="k">[random-read]</span>
+<span class="na">rw</span><span class="o">=</span><span class="s">randread</span>
+<span class="na">size</span><span class="o">=</span><span class="s">128m</span>
+<span class="na">directory</span><span class="o">=</span><span class="s">/tmp/fio-test</span>
+
+<span class="k">[random-write]</span>
+<span class="na">rw</span><span class="o">=</span><span class="s">randwrite</span>
+<span class="na">size</span><span class="o">=</span><span class="s">128m</span>
+<span class="na">directory</span><span class="o">=</span><span class="s">/tmp/fio-test</span>
+</code></pre></div>
+</li>
+</ul>
+<h3 id="_3">主なオプション</h3>
+<table>
+<thead>
+<tr>
+<th>option</th>
+<th>value</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rw</td>
+<td>read, write, randread, randwrite, randrw</td>
+<td>ベンチマークの内容を決める。randrwはMixさせるもの。rwmixread=40でread 40%。</td>
+</tr>
+<tr>
+<td>bs</td>
+<td>&lt;int&gt;[, &lt;int&gt;] (default: 4k)</td>
+<td>ブロックサイズ。2つ与えられていると、read, writeになる。</td>
+</tr>
+<tr>
+<td>size</td>
+<td>&lt;int&gt;, 64{k,M, G, T, P}, 10% など</td>
+<td>Job全体のIOサイズ。単位はb。</td>
+</tr>
+<tr>
+<td>numjobs</td>
+<td>&lt;int&gt; (default: 1)</td>
+<td>同じワークロードを実行するスレッドをいくつ生成するか。</td>
+</tr>
+<tr>
+<td>directory</td>
+<td>&lt;str&gt;</td>
+<td>fioで使うファイルのプレフィックス。</td>
+</tr>
+<tr>
+<td>name</td>
+<td>&lt;str&gt;</td>
+<td>ジョブ名を上書きする</td>
+</tr>
+<tr>
+<td>ioengine</td>
+<td>sync, psync, vsync, libaio, ...</td>
+<td>Job IOをどのように行うかを決める。</td>
+</tr>
+<tr>
+<td>iodepth</td>
+<td>&lt;int&gt; (default: 1)</td>
+<td>ファイルに対するIO書き込みのユニット数。IO waitを作り出すのに使ったり、複数のヘッドがあるときに使われる?</td>
+</tr>
+<tr>
+<td>direct</td>
+<td>0 or 1 (default: 0)</td>
+<td>1、つまりtrueの時、 non-buffered IOを使う。(たいていは O_DIRECT)</td>
+</tr>
+<tr>
+<td>invalidate</td>
+<td>0 or 1 (default: 1)</td>
+<td>IO計測の前に、キャッシュを使わないようにしておく</td>
+</tr>
+<tr>
+<td>runtime</td>
+<td>&lt;int&gt;</td>
+<td>実行最大時間</td>
+</tr>
+<tr>
+<td>thinktime</td>
+<td>&lt;int&gt;</td>
+<td>IO発行の間で、Jobを止める。単位は microsecond(μs)</td>
+</tr>
+<tr>
+<td>fsync</td>
+<td>&lt;int&gt; (default: 0)</td>
+<td>IOが&lt;int&gt;与えられるたびに、fsyncを呼ぶ。 0の時は呼ばない。</td>
+</tr>
+<tr>
+<td>write_iolog</td>
+<td>&lt;str&gt;</td>
+<td>IOパターンの書き出し。各Jobで異なるファイルを指定する必要がある。</td>
+</tr>
+<tr>
+<td>read_iolog</td>
+<td>&lt;str&gt;</td>
+<td>IOパターンの読み出し</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">アウトプットの見方</h2>
+<h3 id="_5">実行例</h3>
+<pre>
+# fio -filename=/mnt/test2g -direct=1 -rw=randwrite -bs=4k -size=2G -numjobs=64 -runtime=10 -group\_reporting -name=file1
+file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K/4K-4K, ioengine=sync, iodepth=1
+...
+file1: (g=0): rw=randwrite, bs=4K-4K/4K-4K/4K-4K, ioengine=sync, iodepth=1
+fio-2.1.3
+Starting 64 processes
+Jobs: 64 (f=29): [wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww] [100.0% done] [0KB/315KB/0KB /s] [0/78/0 iops] [eta 00m:00s]
+file1: (groupid=0, jobs=64): err= 0: pid=3845: Mon Feb  9 20:10:11 2015
+  write: io=3256.0KB, bw=307748B/s, iops=75, runt= 10834msec
+    clat (msec): min=7, max=10192, avg=205.55, stdev=1093.89
+     lat (msec): min=7, max=10192, avg=205.55, stdev=1093.89
+    clat percentiles (msec):
+     |  1.00th=[    8],  5.00th=[    9], 10.00th=[   10], 20.00th=[   11],
+     | 30.00th=[   12], 40.00th=[   13], 50.00th=[   13], 60.00th=[   14],
+     | 70.00th=[   15], 80.00th=[   16], 90.00th=[   20], 95.00th=[  586],
+     | 99.00th=[ 6849], 99.50th=[ 9110], 99.90th=[10159], 99.95th=[10159],
+     | 99.99th=[10159]
+    bw (KB  /s): min=    0, max=  332, per=18.29%, avg=54.86, stdev=114.66
+    lat (msec) : 10=11.30%, 20=78.99%, 50=3.07%, 100=0.12%, 250=0.12%
+    lat (msec) : 750=2.95%, 1000=0.37%, 2000=0.25%, &gt;=2000=2.83%
+  cpu          : usr=0.00%, sys=0.00%, ctx=1726, majf=0, minf=1909
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, &gt;=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, &gt;=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, &gt;=64=0.0%
+     issued    : total=r=0/w=814/d=0, short=r=0/w=0/d=0
+
+Run status group 0 (all jobs):
+  WRITE: io=3256KB, aggrb=300KB/s, minb=300KB/s, maxb=300KB/s, mint=10834msec, maxt=10834msec
+
+Disk stats (read/write):
+  sdc: ios=0/801, merge=0/2, ticks=0/10620, in\_queue=10624, util=98.48%
+</pre>
+<h3 id="_6">実行結果の意味</h3>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bw</td>
+<td>バンド幅</td>
+</tr>
+<tr>
+<td>clat</td>
+<td>completeion latency。リクエスト送信から終了までの遅延時間</td>
+</tr>
+<tr>
+<td>IO depths</td>
+<td>実行時のリクエスト待機状態。submit 以下の行は、IOリクエストまでに要したレイテンシ情報。この例では、0ms~4msですべて処理されている。</td>
+</tr>
+<tr>
+<td>WRITE</td>
+<td>ここのスレッドにおける、帯域幅の平均など</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_7">資料</h2>
+<ul>
+<li><a href="http://linux.die.net/man/1/fio">man fio</a></li>
+<li><a href="http://www.nminoru.jp/~nminoru/unix/fs_benchmarks.html">ファイルシステムのベンチマーク集</a></li>
+<li><a href="http://sourceforge.jp/magazine/08/05/22/0127246">fioを用いたディスクIOのパフォーマンス測定</a></li>
+<li><a href="http://d.hatena.ne.jp/sh2/20121217">Provisioned IOPSの検討 - JPOUG Advent Calendar 2012</a></li>
+</ul>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/fio.html">fio</a>
+      <a href="https://www.hitsumabushi.org/tag/benchmark.html">benchmark</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2015/02/07/2144.html" title="Easter Egg Collections">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2015/02/09/2245.html" title="Hatena Engineer Seminar #4に行ってきました">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

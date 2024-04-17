@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="資料 Windows Support — Ansible Documentation マシンの準備 ansibleコマンドを実行するマシン ansibleがすでに実行できる状況であれば、 pip install http://github.com/diyan/pywinrm/archive/master.zip#egg=pywinrm pip install kerberos # AD accountを使う場合 とすればOK。 Windowsマシン 要件 WinRM がインストール済み PowerShell version &gt; 3.0 自動的に、Windows 7SP1, Windows Server2008 SP1以降になる Windows Server 2012ははじめからPowershell 4.0がインストールされている セットアップ方法 Powershell 3.0にアップデートが必要な場合 …" />
+<meta name="keywords" content="Windows, ansible">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="WindowsをAnsibleで設定する"/>
+  <meta property="og:description" content="資料 Windows Support — Ansible Documentation マシンの準備 ansibleコマンドを実行するマシン ansibleがすでに実行できる状況であれば、 pip install http://github.com/diyan/pywinrm/archive/master.zip#egg=pywinrm pip install kerberos # AD accountを使う場合 とすればOK。 Windowsマシン 要件 WinRM がインストール済み PowerShell version &gt; 3.0 自動的に、Windows 7SP1, Windows Server2008 SP1以降になる Windows Server 2012ははじめからPowershell 4.0がインストールされている セットアップ方法 Powershell 3.0にアップデートが必要な場合 …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2015/05/28/0607.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2015-05-28 06:07:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="Windows"/>
+  <meta property="article:tag" content="ansible"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; WindowsをAnsibleで設定する</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="windowswoansibledeshe-ding-suru">WindowsをAnsibleで設定する</h1>
+    <p>
+      Posted on Thu 28 May 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#_1">資料</a></li>
+<li><a href="#_2">マシンの準備</a><ul>
+<li><a href="#ansible">ansibleコマンドを実行するマシン</a></li>
+<li><a href="#windows">Windowsマシン</a><ul>
+<li><a href="#_3">要件</a></li>
+<li><a href="#_4">セットアップ方法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#ansible_1">ansibleの実行方法</a><ul>
+<li><a href="#inventory">Inventory</a></li>
+<li><a href="#_5">利用可能なモジュール</a></li>
+</ul>
+</li>
+<li><a href="#windows-machine-facts">windows machineの facts</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<h1 id="_1">資料</h1>
+<p><a href="http://docs.ansible.com/intro_windows.html">Windows Support — Ansible Documentation</a></p>
+<h1 id="_2">マシンの準備</h1>
+<h2 id="ansible">ansibleコマンドを実行するマシン</h2>
+<p>ansibleがすでに実行できる状況であれば、</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>http://github.com/diyan/pywinrm/archive/master.zip#egg<span class="o">=</span>pywinrm
+pip<span class="w"> </span>install<span class="w"> </span>kerberos<span class="w"> </span><span class="c1"># AD accountを使う場合</span>
+</code></pre></div>
+<p>とすればOK。</p>
+<h2 id="windows">Windowsマシン</h2>
+<h3 id="_3">要件</h3>
+<ol>
+<li>WinRM がインストール済み</li>
+<li>PowerShell version &gt; 3.0</li>
+<li>自動的に、Windows 7SP1, Windows Server2008 SP1以降になる</li>
+<li>Windows Server 2012ははじめからPowershell 4.0がインストールされている</li>
+</ol>
+<h3 id="_4">セットアップ方法</h3>
+<ol>
+<li><a href="https://github.com/cchurch/ansible/blob/devel/examples/scripts/upgrade_to_ps3.ps1">Powershell 3.0にアップデートが必要な場合</a></li>
+<li><a href="https://github.com/ansible/ansible/blob/devel/examples/scripts/ConfigureRemotingForAnsible.ps1">WinRMのインストール</a></li>
+<li><code>Configure-SMRemoting.exe -get</code> で有効になっていることを確認</li>
+<li><code>WinRM get WinRM/config</code> でWinRMのポートを確認</li>
+</ol>
+<h1 id="ansible_1">ansibleの実行方法</h1>
+<h2 id="inventory">Inventory</h2>
+<p>最小構成は以下の通り。 以降は、hostsという名前で呼ぶ。</p>
+<div class="highlight"><pre><span></span><code><span class="k">[windows]</span>
+<span class="na">hostname</span>
+
+<span class="k">[windows:vars]</span>
+<span class="na">ansible_ssh_user</span><span class="o">=</span><span class="s">administrator</span>
+<span class="na">ansible_ssh_pass</span><span class="o">=</span><span class="s">_password_</span>
+<span class="na">ansible_ssh_port</span><span class="o">=</span><span class="s">5986</span>
+<span class="na">ansible_connection</span><span class="o">=</span><span class="s">winrm</span>
+</code></pre></div>
+<h2 id="_5">利用可能なモジュール</h2>
+<ol>
+<li>raw, script, slurpなど</li>
+<li><a href="http://docs.ansible.com/list_of_windows_modules.html">Windows用のモジュール</a><br/>
+<a href="https://github.com/ansible/ansible-modules-core/tree/devel/windows">この辺</a>にあるやつはできそう</li>
+</ol>
+<h1 id="windows-machine-facts">windows machineの facts</h1>
+<p><code>ansible -i hosts _hostname_ -m setup</code> を実行する。</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="s">"ansible_facts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s">"ansible_distribution"</span><span class="p">:</span><span class="w"> </span><span class="s">"Microsoft Windows NT 6.3.9600.0"</span><span class="p">,</span>
+<span class="w">        </span><span class="s">"ansible_distribution_version"</span><span class="p">:</span><span class="w"> </span><span class="s">"6.3.9600.0"</span><span class="p">,</span>
+<span class="w">        </span><span class="s">"ansible_fqdn"</span><span class="p">:</span><span class="w"> </span><span class="s">"_FQDN_"</span><span class="p">,</span>
+<span class="w">        </span><span class="s">"ansible_hostname"</span><span class="p">:</span><span class="w"> </span><span class="s">"_hostname_"</span><span class="p">,</span>
+<span class="w">        </span><span class="s">"ansible_interfaces"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="s">"default_gateway"</span><span class="p">:</span><span class="w"> </span><span class="nx">null</span><span class="p">,</span>
+<span class="w">                </span><span class="s">"dns_domain"</span><span class="p">:</span><span class="w"> </span><span class="nx">null</span><span class="p">,</span>
+<span class="w">                </span><span class="s">"interface_index"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span>
+<span class="w">                </span><span class="s">"interface_name"</span><span class="p">:</span><span class="w"> </span><span class="s">"vmxnet3 Ethernet Adapter #2"</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="s">"default_gateway"</span><span class="p">:</span><span class="w"> </span><span class="s">"_GATEWAY_"</span><span class="p">,</span>
+<span class="w">                </span><span class="s">"dns_domain"</span><span class="p">:</span><span class="w"> </span><span class="nx">null</span><span class="p">,</span>
+<span class="w">                </span><span class="s">"interface_index"</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span>
+<span class="w">                </span><span class="s">"interface_name"</span><span class="p">:</span><span class="w"> </span><span class="s">"vmxnet3 Ethernet Adapter #3"</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="s">"ansible_ip_addresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s">"_local_ipv4_"</span><span class="p">,</span>
+<span class="w">            </span><span class="s">"_local_ipv6_"</span><span class="p">,</span>
+<span class="w">            </span><span class="s">"_global_ipv4_"</span><span class="p">,</span>
+<span class="w">            </span><span class="s">"_global_ipv6_"</span>
+<span class="w">        </span><span class="p">],</span>
+<span class="w">        </span><span class="s">"ansible_os_family"</span><span class="p">:</span><span class="w"> </span><span class="s">"Windows"</span><span class="p">,</span>
+<span class="w">        </span><span class="s">"ansible_powershell_version"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">        </span><span class="s">"ansible_system"</span><span class="p">:</span><span class="w"> </span><span class="s">"Win32NT"</span><span class="p">,</span>
+<span class="w">        </span><span class="s">"ansible_totalmem"</span><span class="p">:</span><span class="w"> </span><span class="mi">2147483648</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/windows.html">Windows</a>
+      <a href="https://www.hitsumabushi.org/tag/ansible.html">ansible</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2015/05/09/1822.html" title="Ravelloが便利">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2015/06/07/0331.html" title="VDI, DaaS市場を調べてみた">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2016/06/16/0602.html">Anisble for Windows</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2015/06/15/0004.html">Windowsの勉強を始めた</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2017/12/05/1748.html">さくらのクラウドでN百台を管理するためにterraformとansibleを使っている話</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2017/11/10/1402.html">Ansible でバージョンチェックする</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/11/10/0352.html">git bisect でバグ/仕様変更のコミットを探す</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

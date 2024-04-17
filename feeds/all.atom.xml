@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>ひつまぶし食べたい</title><link href="https://www.hitsumabushi.org/" rel="alternate"></link><link href="https://www.hitsumabushi.org/feeds/all.atom.xml" rel="self"></link><id>https://www.hitsumabushi.org/</id><updated>2021-10-12T02:00:00+09:00</updated><subtitle>メモ代わりのブログ</subtitle><entry><title>CloudFormation Stackを安全に削除する</title><link href="https://www.hitsumabushi.org/blog/2021/10/12/0200.html" rel="alternate"></link><published>2021-10-12T02:00:00+09:00</published><updated>2021-10-12T02:00:00+09:00</updated><author><name>hitsumabushi</name></author><id>tag:www.hitsumabushi.org,2021-10-12:/blog/2021/10/12/0200.html</id><summary type="html">
+&lt;p&gt;以前、&lt;a href="https://www.hitsumabushi.org/blog/2019/01/25/1454.html"&gt;CloudFormation の不満点&lt;/a&gt; というのを書いたが、諦めて大半のCfnをterraformに移行した。&lt;br/&gt;
+その際、cfn リソースをきれいにするために、cfn stackを安全に削除する必要があり、その方法をメモしておく。&lt;/p&gt;
+&lt;h2 id="_1"&gt;概要&lt;/h2&gt;
+&lt;p&gt;アイデアは簡単で以下の通り。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;cfn の操作のみが許可されているIAM roleを作成する&lt;/li&gt;
+&lt;li&gt;上記roleを指定して cfn stackをdeleteする&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="_2"&gt;モチベーション&lt;/h2&gt;
+&lt;p&gt;そもそも以前の記事でも、予期せぬ手作業の …&lt;/p&gt;</summary><content type="html">
+&lt;p&gt;以前、&lt;a href="https://www.hitsumabushi.org/blog/2019/01/25/1454.html"&gt;CloudFormation の不満点&lt;/a&gt; というのを書いたが、諦めて大半のCfnをterraformに移行した。&lt;br/&gt;
+その際、cfn リソースをきれいにするために、cfn stackを安全に削除する必要があり、その方法をメモしておく。&lt;/p&gt;
+&lt;h2 id="_1"&gt;概要&lt;/h2&gt;
+&lt;p&gt;アイデアは簡単で以下の通り。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;cfn の操作のみが許可されているIAM roleを作成する&lt;/li&gt;
+&lt;li&gt;上記roleを指定して cfn stackをdeleteする&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="_2"&gt;モチベーション&lt;/h2&gt;
+&lt;p&gt;そもそも以前の記事でも、予期せぬ手作業の変更があった場合に、ドリフト検出やChange setで検出・対応が難しいことを問題としていた。&lt;br/&gt;
+cfn stackを削除しようと思った場合、ドリフトしている状態だと、単純には削除できない。一旦cfn updateすれば簡単かもしれないが、何か手作業で変更されているかもしれない状況だと、updateしたくない。&lt;br/&gt;
+cfn updateをせずに、安全にcfn stackをdeleteしたい。&lt;/p&gt;
+&lt;h2 id="_3"&gt;方法&lt;/h2&gt;
+&lt;h3 id="cfniam-role"&gt;cfnの操作しかできないIAM roleを作成する&lt;/h3&gt;
+&lt;p&gt;以下の通り、terraformで作成した。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kr"&gt;resource&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;"aws_iam_role"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;"delete_cfn_stack"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"delete-cfn-stack"&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;path&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"/"&lt;/span&gt;
+
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;assume_role_policy&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;jsonencode&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;Version&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"2012-10-17"&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;Statement&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Action&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"sts:AssumeRole"&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Effect&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"Allow"&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Sid&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;""&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nb"&gt;Principal&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="na"&gt;Service&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"cloudformation.amazonaws.com"&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kr"&gt;resource&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;"aws_iam_role_policy"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;"delete_cfn_stack_policy"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"cfn_policy"&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;role&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;aws_iam_role.delete_cfn_stack.id&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="na"&gt;policy&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nf"&gt;jsonencode&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;Version&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"2012-10-17"&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="na"&gt;Statement&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Effect&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"Allow"&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Action&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="s2"&gt;"cloudformation:*"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="na"&gt;Resource&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"*"&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id="role"&gt;上記のroleでスタック削除する&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nb"&gt;export&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;STACK_NAME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;stack_name
+
+&lt;span class="c1"&gt;# 失敗するdeleteを実行&lt;/span&gt;
+aws&lt;span class="w"&gt; &lt;/span&gt;cloudformation&lt;span class="w"&gt; &lt;/span&gt;delete-stack&lt;span class="w"&gt; &lt;/span&gt;--role-arn&lt;span class="w"&gt; &lt;/span&gt;arn:aws:iam::_aws_account_id_:role/delete-cfn-stack&lt;span class="w"&gt; &lt;/span&gt;--stack-name&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;STACK_NAME&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;# resource idのリストを取得&lt;/span&gt;
+aws&lt;span class="w"&gt; &lt;/span&gt;cloudformation&lt;span class="w"&gt; &lt;/span&gt;describe-stack-resources&lt;span class="w"&gt; &lt;/span&gt;--stack-name&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;STACK_NAME&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;jq&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;'.StackResources[].LogicalResourceId'&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;xargs
+
+&lt;span class="c1"&gt;# 削除しないリソースとして上の結果を指定&lt;/span&gt;
+aws&lt;span class="w"&gt; &lt;/span&gt;cloudformation&lt;span class="w"&gt; &lt;/span&gt;delete-stack&lt;span class="w"&gt; &lt;/span&gt;--role-arn&lt;span class="w"&gt; &lt;/span&gt;arn:aws:iam::_aws_account_id_:role/delete-cfn-stack&lt;span class="w"&gt; &lt;/span&gt;--stack-name&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;STACK_NAME&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;--retain-resources&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;↑の結果をペースト&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id="_4"&gt;終わり&lt;/h2&gt;
+&lt;p&gt;地道にterraform importしてから、上記をコツコツ(スクリプト化して)実行して、cfn stackを削除した。&lt;br/&gt;
+terraform importは単純に差分がなくなるまでtf fileを修正するだけなので、そんなに困ることはない。&lt;br/&gt;
+これで安心・安全にリソース管理できるようになった。&lt;/p&gt;</content><category term="blog"></category><category term="aws"></category><category term="cloudformation"></category></entry><entry><title>1Password CLIを使ってTOTPを取得する</title><link href="https://www.hitsumabushi.org/blog/2021/10/12/0100.html" rel="alternate"></link><published>2021-10-12T01:00:00+09:00</published><updated>2021-10-12T01:00:00+09:00</updated><author><name>hitsumabushi</name></author><id>tag:www.hitsumabushi.org,2021-10-12:/blog/2021/10/12/0100.html</id><summary type="html">
+&lt;p&gt;2要素認証を必須にしたAWSのswitch roleで、temporary credentialsをCLIで取得したかった。&lt;br/&gt;
+TOTPの数字を毎回調べるのが面倒で、簡単にできないか調べたところ、1Password CLIというのがあった。1Passwordユーザなので、これを利用する。&lt;br/&gt;
+ただし、当然のことだが、2要素認証のデバイスとして、1Passwordが利用されている状況とする。&lt;/p&gt;
+&lt;h2 id="1password-cli"&gt;1Password CLIの初期設定&lt;/h2&gt;
+&lt;p&gt;1Password CLI を利用できるようにする。&lt;br/&gt;
+&lt;a href="https://support.1password.com/command-line-getting-started/"&gt;1Password CLIのGetting Started&lt;/a&gt;を見て、初期設定 …&lt;/p&gt;</summary><content type="html">
+&lt;p&gt;2要素認証を必須にしたAWSのswitch roleで、temporary credentialsをCLIで取得したかった。&lt;br/&gt;
+TOTPの数字を毎回調べるのが面倒で、簡単にできないか調べたところ、1Password CLIというのがあった。1Passwordユーザなので、これを利用する。&lt;br/&gt;
+ただし、当然のことだが、2要素認証のデバイスとして、1Passwordが利用されている状況とする。&lt;/p&gt;
+&lt;h2 id="1password-cli"&gt;1Password CLIの初期設定&lt;/h2&gt;
+&lt;p&gt;1Password CLI を利用できるようにする。&lt;br/&gt;
+&lt;a href="https://support.1password.com/command-line-getting-started/"&gt;1Password CLIのGetting Started&lt;/a&gt;を見て、初期設定する。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;op&lt;span class="w"&gt; &lt;/span&gt;signin&lt;span class="w"&gt; &lt;/span&gt;_1password_url_&lt;span class="w"&gt; &lt;/span&gt;_signin_address_
+...&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c1"&gt;# Secret Key, Password, (設定していればTOTPの6-digit)を聞かれる&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;短縮形が &lt;code&gt;_1password_url_&lt;/code&gt; から自動的に決まるが、どうしても指定したい場合には、 &lt;code&gt;--shorthand&lt;/code&gt;オプションで指定する。&lt;/p&gt;
+&lt;h2 id="totp"&gt;TOTPの取得&lt;/h2&gt;
+&lt;p&gt;通常の1password appのように、30minアクセスがなければ、ロックされるため、パスワードの入力が必要。&lt;br/&gt;
+1passwordのURLが &lt;code&gt;example.1password.com&lt;/code&gt; であれば、&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;eval&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;op&lt;span class="w"&gt; &lt;/span&gt;signin&lt;span class="w"&gt; &lt;/span&gt;example&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;として、再認証する。&lt;br/&gt;
+環境変数 &lt;code&gt;OP_SESSION_example&lt;/code&gt; に認証したときのsession情報が載る。(&lt;code&gt;--session&lt;/code&gt; オプションで各コマンドごとに渡しても良い)&lt;/p&gt;
+&lt;p&gt;TOTPを取得するには、以下のコマンドを実行する。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;op&lt;span class="w"&gt; &lt;/span&gt;get&lt;span class="w"&gt; &lt;/span&gt;totp&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"UUID or Name"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;UUIDで指定したい場合には、 &lt;code&gt;op list items --categories Login&lt;/code&gt; の結果をjqなどで調べて、取得する。&lt;/p&gt;
+&lt;h2 id="_1"&gt;終わり&lt;/h2&gt;
+&lt;p&gt;以上で概ねやりたかった、CLIでTOTPを取得することができるようになった。&lt;br/&gt;
+最近1PasswordはLinux Desktop向けのアプリを出していたりしているので、もう少し真面目に使っていきたい所存。&lt;/p&gt;
+&lt;p&gt;ちなみに、複数のプロファイルの切り替えなどで便利なように、 &lt;a href="https://github.com/99designs/aws-vault"&gt;99designs/aws-vault&lt;/a&gt;というのもあるらしいが、特に使わずに自前シェルスクリプトで使っている。&lt;/p&gt;</content><category term="blog"></category><category term="aws"></category><category term="1password"></category></entry><entry><title>Python でコメント付きYAMLを扱う時には ruamel.yaml が便利だった</title><link href="https://www.hitsumabushi.org/blog/2019/02/12/1630.html" rel="alternate"></link><published>2019-02-12T16:30:00+09:00</published><updated>2019-02-12T16:30:00+09:00</updated><author><name>hitsumabushi</name></author><id>tag:www.hitsumabushi.org,2019-02-12:/blog/2019/02/12/1630.html</id><summary type="html">
+&lt;h2 id="_1"&gt;資料&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://yaml.readthedocs.io/en/latest/"&gt;Document: ruamel.yaml&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://bitbucket.org/ruamel/yaml/"&gt;Repository: ruamel.yaml&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="_2"&gt;背景&lt;/h2&gt;
+&lt;p&gt;とある yamlで書かれたconfigファイル群(数百ファイル)を一括で変更したいことがあった。&lt;br/&gt;
+sedで変更するには少し難しかったので、パースしてから条件判定して、書き換えたい。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;コメントは消したくない&lt;/li&gt;
+&lt;li&gt;ブロックスタイルのままにしたい&lt;/li&gt;
+&lt;li&gt;diff を最小限にしたい (細かい中身を知らないので、チェックするのが面倒)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="ruamelyaml"&gt;ruamel.yaml&lt;/h2&gt;
+&lt;p&gt;python で yaml を扱うときは …&lt;/p&gt;</summary><content type="html">
+&lt;h2 id="_1"&gt;資料&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://yaml.readthedocs.io/en/latest/"&gt;Document: ruamel.yaml&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://bitbucket.org/ruamel/yaml/"&gt;Repository: ruamel.yaml&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="_2"&gt;背景&lt;/h2&gt;
+&lt;p&gt;とある yamlで書かれたconfigファイル群(数百ファイル)を一括で変更したいことがあった。&lt;br/&gt;
+sedで変更するには少し難しかったので、パースしてから条件判定して、書き換えたい。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;コメントは消したくない&lt;/li&gt;
+&lt;li&gt;ブロックスタイルのままにしたい&lt;/li&gt;
+&lt;li&gt;diff を最小限にしたい (細かい中身を知らないので、チェックするのが面倒)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="ruamelyaml"&gt;ruamel.yaml&lt;/h2&gt;
+&lt;p&gt;python で yaml を扱うときは、PyYAML が有名だと思う。&lt;br/&gt;
+PyYAMLを使う場合、yamlをloadしてdumpすると、フロースタイルなのは変更できるが、&lt;br/&gt;
+コメントは消えてしまうのに対応するのが簡単ではない(と思っている)。&lt;/p&gt;
+&lt;p&gt;ruamel.yaml はPyYAMLをフォークしたもので、YAML 1.2 をサポートしているし、コメントやスタイル、キーの順番を保つloaderが実装されている。&lt;br/&gt;
+https://yaml.readthedocs.io/en/latest/overview.html&lt;/p&gt;
+&lt;h3 id="_3"&gt;使い方&lt;/h3&gt;
+&lt;p&gt;使い方としては、 load, dumpの代わりに、 &lt;code&gt;round_trip_load&lt;/code&gt;, &lt;code&gt;round_trip_dump&lt;/code&gt; を使えば良い。&lt;br/&gt;
+オプションは自分が使っているconfigに合わせて使えば良い。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;ruamel.yaml&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;process&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filepath&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;filepath&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'r+'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ruamel&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;yaml&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;round_trip_load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;preserve_quotes&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="c1"&gt;# 必要な処理をする&lt;/span&gt;
+        &lt;span class="c1"&gt;# data["foo"] = "bar"&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;rewrite&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;seek&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="n"&gt;ruamel&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;yaml&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;round_trip_dump&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;explicit_start&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;truncate&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;pathname&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dirnames&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;filenames&lt;/span&gt;  &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;walk&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'.'&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;filename&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;filenames&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;pathname&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;/&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;process&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;pathname&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;/&lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="n"&gt;filename&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="blog"></category><category term="python"></category><category term="yaml"></category></entry><entry><title>CloudFormation の不満点</title><link href="https://www.hitsumabushi.org/blog/2019/01/25/1454.html" rel="alternate"></link><published>2019-01-25T14:54:00+09:00</published><updated>2019-01-25T14:54:00+09:00</updated><author><name>hitsumabushi</name></author><id>tag:www.hitsumabushi.org,2019-01-25:/blog/2019/01/25/1454.html</id><summary type="html">
+&lt;p&gt;以下では「手作業で」というのは、「CloudFormation管理外で」という意味で使う。&lt;/p&gt;
+&lt;h2 id="_1"&gt;要点&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;CloudFormation は、リソースが何かの理由で手作業で変更されていた場合に安全に操作できない&lt;/li&gt;
+&lt;li&gt;Drift 検出は誤検出が多すぎて使いづらい&lt;/li&gt;
+&lt;li&gt;Change Set は動いている状態との差分を見ていないので、信用できない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="_2"&gt;経緯&lt;/h2&gt;
+&lt;p&gt;CloudFormation で管理されているリソースすべてについて、新しいタグをつけたくなった。&lt;br/&gt;
+ただ、各サービ …&lt;/p&gt;</summary><content type="html">
+&lt;p&gt;以下では「手作業で」というのは、「CloudFormation管理外で」という意味で使う。&lt;/p&gt;
+&lt;h2 id="_1"&gt;要点&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;CloudFormation は、リソースが何かの理由で手作業で変更されていた場合に安全に操作できない&lt;/li&gt;
+&lt;li&gt;Drift 検出は誤検出が多すぎて使いづらい&lt;/li&gt;
+&lt;li&gt;Change Set は動いている状態との差分を見ていないので、信用できない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="_2"&gt;経緯&lt;/h2&gt;
+&lt;p&gt;CloudFormation で管理されているリソースすべてについて、新しいタグをつけたくなった。&lt;br/&gt;
+ただ、各サービスの担当者ごとにある程度自由にオペレーションできるため、手動で変更されていないか、一応調べておこうと思い、&lt;br/&gt;
+&lt;a href="https://aws.amazon.com/jp/blogs/news/new-cloudformation-drift-detection/"&gt;2018-11 にリリースされたドリフト検出&lt;/a&gt; を使って、&lt;br/&gt;
+手作業で実施された変更点もCloudFormationに取り込みつつ、対応しようとした。&lt;/p&gt;
+&lt;h2 id="_3"&gt;期待したこと&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;CloudFormation のスタックがたくさんあるため、1つ1つ細かく差分を見て修正することが難しい&lt;/li&gt;
+&lt;li&gt;ドリフト検出されたところだけ1つずつ修正していって、Change Setを作りながら現状に合わせたい&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="_4"&gt;実際&lt;/h2&gt;
+&lt;h3 id="_5"&gt;ドリフト検出&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;サポートされるリソースが少ない&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"&gt;Resources that Support Drift Detection&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;そもそも誤検出が多い&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html?shortFooter=true#drift-considerations"&gt;Detecting Unmanaged Configuration Changes to Stacks and Resources&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;LBのプロパティなど、配列で定義されるところをデフォルト値で埋められただけで、ドリフトが検出される&lt;/li&gt;
+&lt;li&gt;エッジケースの(とAWSが主張している)誤検出に該当するのか、目で見て考える以外の方法がない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="change-set"&gt;Change Set&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;実際に動いているシステムとの差分を見ていない&lt;/li&gt;
+&lt;li&gt;前回の設定とのスタックの差分を見ている&lt;/li&gt;
+&lt;li&gt;手作業で変更されているとChange Setの実行に失敗する(実際には差分がないので)&lt;/li&gt;
+&lt;li&gt;その場合 Update Stack するしかない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例えば、手作業でタグを増やしたとして、翌営業日にCloudFormationに反映したい、と思った場合、&lt;br/&gt;
+ドリフト検出で誤検知を目でフィルタしつつ(誤検知だと確信が持てるかはわからない)、&lt;br/&gt;
+CloudFormation のパラメータを書き換えて、Update Stackしないといけない。&lt;br/&gt;
+(一応、Update Stack 前に Change Set で差分を見て、execute して失敗することを確認したほうが安心感はある。)&lt;/p&gt;
+&lt;h2 id="_6"&gt;まとめ&lt;/h2&gt;
+&lt;p&gt;手作業の変更をできないようにしておく以外にない。&lt;br/&gt;
+あるいは、本格的にCloudFormationを利用し始めるまでの間に Terraform に移行する。&lt;/p&gt;
+&lt;p&gt;(なんでChange SetをRunnning Stateとの比較にしなかったんだろう...)&lt;/p&gt;</content><category term="blog"></category><category term="aws"></category><category term="cloudformation"></category></entry><entry><title>DebianでLuaJITTeXを使いたい</title><link href="https://www.hitsumabushi.org/blog/2018/10/31/1901.html" rel="alternate"></link><published>2018-10-31T19:01:00+09:00</published><updated>2018-10-31T19:01:00+09:00</updated><author><name>hitsumabushi</name></author><id>tag:www.hitsumabushi.org,2018-10-31:/blog/2018/10/31/1901.html</id><summary type="html">
+&lt;p&gt;そろそろLuaTex使ってみたいなと思ったところ、LuaJITTeXの方が早い場合があるということで、試してみようと思った。&lt;/p&gt;
+&lt;h2 id="_1"&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.fugenji.org/~thomas/texlive-guide/luajitlatex.html"&gt;luajittex のセットアップ&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;そもそもこのサイトの情報が有用 &lt;a href="http://www.fugenji.org/~thomas/texlive-guide/index.html"&gt;TeX Live を使おう──主に Linux ユーザのために──&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="_2"&gt;未解決の問題&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/var/lib/texmf/fmtutil.cnf-TEXLIVEDIST&lt;/code&gt; が自動生成されている、とコメントされているが、元ファイルがわからない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;### This file was automatically generated by update-fmtutil.
+#
+# Any local change will be overwritten. Please see the documentation
+# of updmap on …&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">
+&lt;p&gt;そろそろLuaTex使ってみたいなと思ったところ、LuaJITTeXの方が早い場合があるということで、試してみようと思った。&lt;/p&gt;
+&lt;h2 id="_1"&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.fugenji.org/~thomas/texlive-guide/luajitlatex.html"&gt;luajittex のセットアップ&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;そもそもこのサイトの情報が有用 &lt;a href="http://www.fugenji.org/~thomas/texlive-guide/index.html"&gt;TeX Live を使おう──主に Linux ユーザのために──&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="_2"&gt;未解決の問題&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/var/lib/texmf/fmtutil.cnf-TEXLIVEDIST&lt;/code&gt; が自動生成されている、とコメントされているが、元ファイルがわからない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;### This file was automatically generated by update-fmtutil.
+#
+# Any local change will be overwritten. Please see the documentation
+# of updmap on how to override things from here.
+#
+###
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id="_3"&gt;準備&lt;/h2&gt;
+&lt;p&gt;パッケージインストール&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apt&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;texlive-lang-japanese&lt;span class="w"&gt; &lt;/span&gt;texlive-latex-extra&lt;span class="w"&gt; &lt;/span&gt;texlive-luatex
+&lt;span class="c1"&gt;# 参考文献とか書くとき&lt;/span&gt;
+sudo&lt;span class="w"&gt; &lt;/span&gt;apt&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;texlive-bibtex-extra&lt;span class="w"&gt; &lt;/span&gt;biber
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;/var/lib/texmf/fmtutil.cnf-TEXLIVEDIST&lt;/code&gt; を編集したい。(未解決の項目に書いた通り、元ファイルがわからないので直接編集している)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gu"&gt;@@ -6,7 +6,7 @@&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;###
+&lt;span class="w"&gt; &lt;/span&gt;dviluatex luatex language.def,language.dat.lua dviluatex.ini
+&lt;span class="w"&gt; &lt;/span&gt;etex pdftex language.def -translate-file=cp227.tcx *etex.ini
+&lt;span class="gd"&gt;-#! luajittex luajittex language.def,language.dat.lua luatex.ini&lt;/span&gt;
+&lt;span class="gi"&gt;+luajittex luajittex language.def,language.dat.lua luatex.ini&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;luatex luatex language.def,language.dat.lua luatex.ini
+&lt;span class="w"&gt; &lt;/span&gt;mf mf-nowin - -translate-file=cp227.tcx mf.ini
+&lt;span class="w"&gt; &lt;/span&gt;pdfetex pdftex language.def -translate-file=cp227.tcx *pdfetex.ini
+&lt;span class="gu"&gt;@@ -14,7 +14,7 @@&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;tex tex - tex.ini
+&lt;span class="w"&gt; &lt;/span&gt;dvilualatex luatex language.dat,language.dat.lua dvilualatex.ini
+&lt;span class="w"&gt; &lt;/span&gt;latex pdftex language.dat -translate-file=cp227.tcx *latex.ini
+&lt;span class="gd"&gt;-#! luajitlatex luajittex language.dat,language.dat.lua lualatex.ini&lt;/span&gt;
+&lt;span class="gi"&gt;+luajitlatex luajittex language.dat,language.dat.lua lualatex.ini&lt;/span&gt;
+&lt;span class="w"&gt; &lt;/span&gt;lualatex luatex language.dat,language.dat.lua lualatex.ini
+&lt;span class="w"&gt; &lt;/span&gt;mptopdf pdftex - -translate-file=cp227.tcx mptopdf.tex
+&lt;span class="w"&gt; &lt;/span&gt;pdflatex pdftex language.dat -translate-file=cp227.tcx *pdflatex.ini
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id="_4"&gt;使い方&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;luajittex&lt;span class="w"&gt; &lt;/span&gt;--fmt&lt;span class="o"&gt;=&lt;/span&gt;luajitlatex.fmt&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;tex&lt;span class="w"&gt; &lt;/span&gt;file&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;問題なくコンパイルできれば、pdfが生成されるはず。&lt;/p&gt;
+&lt;h2 id="vscodetex"&gt;VSCodeでTeXする&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop"&gt;LaTeX Workshop&lt;/a&gt; をインストールして、以下の設定をする。&lt;br/&gt;
+参考文献が必要なときは、 &lt;code&gt;luajittex_with_bib&lt;/code&gt; のレシピでビルドするように書いている。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nt"&gt;"latex-workshop.chktex.enabled"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nt"&gt;"latex-workshop.latex.recipes"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nt"&gt;"name"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"luajittex"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nt"&gt;"tools"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;"luajitlatex"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nt"&gt;"name"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"luajittex_with_bib"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nt"&gt;"tools"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="s2"&gt;"luajitlatex"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="s2"&gt;"biber"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="s2"&gt;"luajitlatex"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="s2"&gt;"luajitlatex"&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nt"&gt;"latex-workshop.latex.tools"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nt"&gt;"name"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"luajitlatex"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nt"&gt;"command"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"luajittex"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nt"&gt;"args"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="s2"&gt;"--cmdx"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="s2"&gt;"--synctex=1"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="s2"&gt;"--fmt=luajitlatex.fmt"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="s2"&gt;"%DOCFILE%"&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nt"&gt;"name"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"biber"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nt"&gt;"command"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"biber"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="nt"&gt;"args"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="s2"&gt;"%DOCFILE%"&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nt"&gt;"latex-workshop.intellisense.surroundCommand.enabled"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nt"&gt;"latex-workshop.synctex.afterBuild.enabled"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id="tex"&gt;その他実際のTeXを書く時に参考になりそうなもののメモ&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;参考文献まわり&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://ja.wikipedia.org/wiki/BibTeX#.E6.9B.B8.E8.AA.8C.E6.83.85.E5.A0.B1.E3.83.95.E3.82.A1.E3.82.A4.E3.83.AB"&gt;BibTeXの書誌情報の書き方知りたいとき: Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;参考文献を探したい時: Google Scholar&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content><category term="blog"></category><category term="tex"></category><category term="debian"></category></entry><entry><title>Debian でログインシェルをzshにしている人が snappy を使う場合の注意</title><link href="https://www.hitsumabushi.org/blog/2018/04/11/1058.html" rel="alternate"></link><published>2018-04-11T10:58:00+09:00</published><updated>2018-04-11T10:58:00+09:00</updated><author><name>hitsumabushi</name></author><id>tag:www.hitsumabushi.org,2018-04-11:/blog/2018/04/11/1058.html</id><summary type="html">
+&lt;h2 id="snappy"&gt;Snappy について&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.ubuntu.com/desktop/snappy"&gt;Snappy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://snapcraft.io/"&gt;snapcraft&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Canonical が主導しているパッケージシステムで、Universal Linux Package と銘打つように、ポータブルなパッケージングができそうな感じ。&lt;br/&gt;
+ポータビリティを上げるために、dockerみたいな感じで、依存ライブラリも全部パッケージに含めてしまうスタイルなので、多少debパッケージよりは大きくなる。&lt;br/&gt;
+その分、sidを使っているとよく起きる、共通ライブラリの依存バ …&lt;/p&gt;</summary><content type="html">
+&lt;h2 id="snappy"&gt;Snappy について&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.ubuntu.com/desktop/snappy"&gt;Snappy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://snapcraft.io/"&gt;snapcraft&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Canonical が主導しているパッケージシステムで、Universal Linux Package と銘打つように、ポータブルなパッケージングができそうな感じ。&lt;br/&gt;
+ポータビリティを上げるために、dockerみたいな感じで、依存ライブラリも全部パッケージに含めてしまうスタイルなので、多少debパッケージよりは大きくなる。&lt;br/&gt;
+その分、sidを使っているとよく起きる、共通ライブラリの依存バージョンの不整合がおきる、という問題は起きない。&lt;/p&gt;
+&lt;p&gt;snapcraftのページではパッケージングの方法も紹介されているので、配布したい人自身がsnapパッケージを作りやすいはず。&lt;br/&gt;
+少なくとも、ディストーションごとのパッケージを各アプリケーション作成者がやるよりは、遥かにやりやすい。&lt;br/&gt;
+自動アップデートとかもあるので、サービス提供者が利用者に常に最新版を使ってもらいたい場合などにメリットもある。&lt;br/&gt;
+実際、 Ubuntu以外にも、Debian, Arch Linux, Gentoo, Fedora, open SUSE などでも利用できる。&lt;/p&gt;
+&lt;p&gt;Snappy は、snapd というAPIデーモンが動くことになっている。&lt;/p&gt;
+&lt;h3 id="snappy_1"&gt;snappy のインストール&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;apt&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;snapd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id="snap"&gt;snap パッケージのインストール&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;sudo&lt;span class="w"&gt; &lt;/span&gt;snap&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;hello-world
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id="_1"&gt;困ったこと&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Snappy でインストールしたアプリケーションへのパスが通らない&lt;/li&gt;
+&lt;li&gt;Snappy でインストールしたデスクトップアプリケーションが、menuに登録されない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="_2"&gt;調べたこと&lt;/h2&gt;
+&lt;h3 id="_3"&gt;バージョン&lt;/h3&gt;
+&lt;p&gt;Kernel はpinningしているので、少し古い。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;snap&lt;span class="w"&gt; &lt;/span&gt;version
+snap&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;.32.3
+snapd&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;.32.3
+series&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="m"&gt;16&lt;/span&gt;
+debian
+kernel&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;.9.0-3-amd64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id="snappy_2"&gt;snappy でインストールした場合のパス&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;実態はバージョンごとに、 &lt;code&gt;/snap/_app_name_/_version_/&lt;/code&gt; 以下に置かれる。現在利用しているものへのリンクは &lt;code&gt;/snap/_app_name_/current/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;コマンドは、 &lt;code&gt;/snap/bin/&lt;/code&gt; 以下にコピーされる。&lt;/li&gt;
+&lt;li&gt;デスクトップエントリのファイルは &lt;code&gt;/var/lib/snapd/desktop/applications/*.desktop&lt;/code&gt; というファイルが作成される&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="_4"&gt;パスの設定方法について&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;/etc/profile.d/apps-bin-path.sh&lt;/code&gt; にパスを設定するためのスクリプトが置かれている。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;cat&lt;span class="w"&gt; &lt;/span&gt;/etc/profile.d/apps-bin-path.sh
+&lt;span class="c1"&gt;#!/bin/sh --this-shebang-is-just-here-to-inform-shellcheck--&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Expand $PATH to include the directory where snappy applications go.&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="p"&gt;#*/snap/bin&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$PATH&lt;/span&gt;:/snap/bin
+&lt;span class="k"&gt;fi&lt;/span&gt;
+
+&lt;span class="c1"&gt;# desktop files (used by desktop environments within both X11 and Wayland) are&lt;/span&gt;
+&lt;span class="c1"&gt;# looked for in XDG_DATA_DIRS; make sure it includes the relevant directory for&lt;/span&gt;
+&lt;span class="c1"&gt;# snappy applications' desktop files.&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;XDG_DATA_DIRS&lt;/span&gt;&lt;span class="p"&gt;#*/snapd/desktop&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;XDG_DATA_DIRS&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;XDG_DATA_DIRS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;XDG_DATA_DIRS&lt;/span&gt;&lt;span class="k"&gt;:-&lt;/span&gt;&lt;span class="p"&gt;/usr/local/share:/usr/share&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;:/var/lib/snapd/desktop"&lt;/span&gt;
+&lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;zsh では &lt;code&gt;/etc/profile&lt;/code&gt; などを読まないので、パスが設定できていない。&lt;br/&gt;
+&lt;code&gt;/etc/zsh/zprofile&lt;/code&gt; に、上記の内容を書いて置けば良い。&lt;br/&gt;
+あるいは、 &lt;code&gt;/etc/zsh/zprofile&lt;/code&gt; で以下のようにする。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;i&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;/etc/profile.d/*.sh&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;do&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-r&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;$i&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;source&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;$i&lt;/span&gt;
+&lt;span class="k"&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="blog"></category><category term="debian"></category><category term="snappy"></category><category term="zsh"></category></entry><entry><title>PyPIへパッケージをアップロードする</title><link href="https://www.hitsumabushi.org/blog/2018/04/05/1420.html" rel="alternate"></link><published>2018-04-05T14:20:00+09:00</published><updated>2018-04-05T14:20:00+09:00</updated><author><name>hitsumabushi</name></author><id>tag:www.hitsumabushi.org,2018-04-05:/blog/2018/04/05/1420.html</id><summary type="html">
+&lt;h1 id="_1"&gt;資料&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;パッケージ構成については &lt;a href="https://github.com/pypa/sampleproject"&gt;github.com/pypa/sampleproject&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;https://pypi.python.org/pypi/twine&lt;/li&gt;
+&lt;li&gt;https://packaging.python.org/tutorials/distributing-packages/&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id="_2"&gt;手順&lt;/h1&gt;
+&lt;h2 id="pypi"&gt;PyPIへユーザー登録する&lt;/h2&gt;
+&lt;p&gt;PyPI には普段使われている本番環境とは別に、テスト環境がある。&lt;br/&gt;
+アカウントがそれぞれ独立しているので、両方で作成する必要がある。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://pypi.org/"&gt;PyPI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://test.pypi.org/"&gt;PyPI Test&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="pypirc"&gt;&lt;code&gt;.pypirc&lt;/code&gt; の作成&lt;/h2&gt;
+&lt;p&gt;以下のように &lt;code&gt;~/.pypirc&lt;/code&gt; を作成して、test 環境を利用できるようにしておく。&lt;br/&gt;
+平分でパスワードを書くことになる …&lt;/p&gt;</summary><content type="html">
+&lt;h1 id="_1"&gt;資料&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;パッケージ構成については &lt;a href="https://github.com/pypa/sampleproject"&gt;github.com/pypa/sampleproject&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;https://pypi.python.org/pypi/twine&lt;/li&gt;
+&lt;li&gt;https://packaging.python.org/tutorials/distributing-packages/&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id="_2"&gt;手順&lt;/h1&gt;
+&lt;h2 id="pypi"&gt;PyPIへユーザー登録する&lt;/h2&gt;
+&lt;p&gt;PyPI には普段使われている本番環境とは別に、テスト環境がある。&lt;br/&gt;
+アカウントがそれぞれ独立しているので、両方で作成する必要がある。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://pypi.org/"&gt;PyPI&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://test.pypi.org/"&gt;PyPI Test&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="pypirc"&gt;&lt;code&gt;.pypirc&lt;/code&gt; の作成&lt;/h2&gt;
+&lt;p&gt;以下のように &lt;code&gt;~/.pypirc&lt;/code&gt; を作成して、test 環境を利用できるようにしておく。&lt;br/&gt;
+平分でパスワードを書くことになるので、最低限パーミッションを変えておくことにする。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;cat&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pypirc&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;distutils&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="k"&gt;index&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;servers&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="n"&gt;pypi&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="n"&gt;testpypi&lt;/span&gt;
+
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;pypi&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;repository&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nl"&gt;https&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="n"&gt;upload&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pypi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;legacy&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;_username_&lt;/span&gt;
+&lt;span class="n"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;_password_&lt;/span&gt;
+
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;testpypi&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;repository&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nl"&gt;https&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pypi&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;legacy&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;_username_&lt;/span&gt;
+&lt;span class="n"&gt;password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;_password_&lt;/span&gt;
+
+&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;chmod&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;0600&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pypirc&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id="_3"&gt;パッケージのアップロード&lt;/h2&gt;
+&lt;h3 id="_4"&gt;コマンドのインストール&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;twine
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id="_5"&gt;パッケージング前のチェック&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;check-manifest
+$&lt;span class="w"&gt; &lt;/span&gt;check-manifest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id="_6"&gt;パッケージング&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;wheel
+$&lt;span class="w"&gt; &lt;/span&gt;python&lt;span class="w"&gt; &lt;/span&gt;setup.py&lt;span class="w"&gt; &lt;/span&gt;sdist&lt;span class="w"&gt; &lt;/span&gt;bdist_wheel
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id="test"&gt;Test 環境へアップロード&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;twine&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;upload&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;testpypi&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;dist&lt;/span&gt;&lt;span class="o"&gt;/*&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;pip でインストールするには、以下のようにする。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$&lt;span class="w"&gt; &lt;/span&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;--index-url&lt;span class="w"&gt; &lt;/span&gt;https://test.pypi.org/simple/&lt;span class="w"&gt; &lt;/span&gt;_package_
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id="_7"&gt;本番へアップロード&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;$&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;twine&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;upload&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;dist&lt;/span&gt;&lt;span class="o"&gt;/*&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="blog"></category><category term="pypi"></category><category term="python"></category></entry><entry><title>Google Cloud Pub/Sub をGolangから使おうとしてハマったことまとめ</title><link href="https://www.hitsumabushi.org/blog/2018/02/05/2009.html" rel="alternate"></link><published>2018-02-05T20:09:00+09:00</published><updated>2018-02-05T20:09:00+09:00</updated><author><name>hitsumabushi</name></author><id>tag:www.hitsumabushi.org,2018-02-05:/blog/2018/02/05/2009.html</id><summary type="html">
+&lt;h1 id="_1"&gt;概要&lt;/h1&gt;
+&lt;p&gt;&lt;a href="https://cloud.google.com/pubsub/overview?hl=ja"&gt;Google Pub/Sub&lt;/a&gt; を &lt;a href="https://github.com/GoogleCloudPlatform/google-cloud-go"&gt;GoのSDK&lt;/a&gt; から使おうとしていました。&lt;br/&gt;
+やっているといくつか詰まったので、メモしておきます。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;サービスアカウントを利用するためにCredentials JSONを指定する&lt;/li&gt;
+&lt;li&gt;サブスクリプションの &lt;code&gt;Pub/Sub サブスクライバー権限&lt;/code&gt; を与えても Permission Denied になる&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="credentials-json"&gt;サービスアカウントを利用するためにCredentials JSONを指定する&lt;/h2&gt;
+&lt;p&gt;権限の都合上、サービスアカウントのCredentials JSONを利用して認証 …&lt;/p&gt;</summary><content type="html">
+&lt;h1 id="_1"&gt;概要&lt;/h1&gt;
+&lt;p&gt;&lt;a href="https://cloud.google.com/pubsub/overview?hl=ja"&gt;Google Pub/Sub&lt;/a&gt; を &lt;a href="https://github.com/GoogleCloudPlatform/google-cloud-go"&gt;GoのSDK&lt;/a&gt; から使おうとしていました。&lt;br/&gt;
+やっているといくつか詰まったので、メモしておきます。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;サービスアカウントを利用するためにCredentials JSONを指定する&lt;/li&gt;
+&lt;li&gt;サブスクリプションの &lt;code&gt;Pub/Sub サブスクライバー権限&lt;/code&gt; を与えても Permission Denied になる&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="credentials-json"&gt;サービスアカウントを利用するためにCredentials JSONを指定する&lt;/h2&gt;
+&lt;p&gt;権限の都合上、サービスアカウントのCredentials JSONを利用して認証したい、という要件がありました。&lt;br/&gt;
+ドキュメントを見ていると、 &lt;a href="https://cloud.google.com/docs/authentication/production?hl=ja"&gt;ADC(Application Default Credentials)&lt;/a&gt; を利用して認証している場合が多いです。&lt;br/&gt;
+これを使う場合、 &lt;code&gt;GOOGLE_APPLICATION_CREDENTIALS&lt;/code&gt; という環境変数が設定されていれば、そのファイルを読んでくれるのですが、今回の要件では複数の Credentials を利用したかったので、Go プログラム中で指定する必要がありました。&lt;/p&gt;
+&lt;p&gt;結論としては、以下のような形でpubsub client を作るときに認証情報を渡すことができます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nv"&gt;jsonKey&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;ioutil&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;ReadFile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;credentialJSONPath&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nv"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;google&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;JWTConfigFromJSON&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;jsonKey&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;pubsub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nv"&gt;ScopePubSub&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;pubsub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nv"&gt;ScopeCloudPlatform&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;!=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;nil&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nv"&gt;log&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Fatal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;err&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nv"&gt;ctx&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;context&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;Background&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nv"&gt;ts&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;conf&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;TokenSource&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;ctx&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nv"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;err&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;pubsub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;NewClient&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;ctx&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;projectID&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;option&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;WithTokenSource&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;ts&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Publisherのサンプルは以下の通りです。&lt;/p&gt;
+&lt;script src="https://gist.github.com/hitsumabushi/7cf1fa45813208f314b29da84a3ff2cc.js"&gt;&lt;/script&gt;
+&lt;h2 id="pubsub-permission-denied"&gt;サブスクリプションの &lt;code&gt;Pub/Sub サブスクライバー&lt;/code&gt; 権限を与えても Permission Denied になる&lt;/h2&gt;
+&lt;p&gt;結論としては、 &lt;code&gt;Pub/Sub サブスクライバー&lt;/code&gt; 権限に加えて、 &lt;code&gt;Pub/Sub 閲覧者&lt;/code&gt; の権限が必要でした。&lt;br/&gt;
+ドキュメント上は、 &lt;code&gt;Pub/Sub サブスクライバー&lt;/code&gt; 権限だけで良さそうに見えますが、権限不足だったようでした。&lt;br/&gt;
+Subscriberのサンプルは以下の通りです。&lt;/p&gt;
+&lt;script src="https://gist.github.com/hitsumabushi/baaeefd241e27ab0414763bdc6a93f11.js"&gt;&lt;/script&gt;</content><category term="blog"></category><category term="GCP"></category><category term="golang"></category></entry><entry><title>さくらのクラウドでN百台を管理するためにterraformとansibleを使っている話</title><link href="https://www.hitsumabushi.org/blog/2017/12/05/1748.html" rel="alternate"></link><published>2017-12-05T17:48:00+09:00</published><updated>2017-12-05T17:48:00+09:00</updated><author><name>hitsumabushi</name></author><id>tag:www.hitsumabushi.org,2017-12-05:/blog/2017/12/05/1748.html</id><summary type="html">
+&lt;hr/&gt;
+&lt;p&gt;これは、&lt;a href="https://qiita.com/advent-calendar/2017/sakura"&gt;さくらインターネット Advent Calendar 2017&lt;/a&gt; として書いた&lt;a href="https://qiita.com/hitsumabushi/items/e89b763dd4fc41e15136"&gt;記事&lt;/a&gt; です。&lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;さくらインターネットでは、今年4月からIoTプラットフォームの sakura.io をサービス提供しています。&lt;br/&gt;
+sakura.io は、さくらのクラウド上で本番・検証環境を構築しており、数百台のサーバーを利用しています。&lt;/p&gt;
+&lt;p&gt;私はリリース直前にチームに参加し、開発の傍ら運用改善活動をしていました。&lt;br/&gt;
+その結果と …&lt;/p&gt;</summary><content type="html">
+&lt;hr/&gt;
+&lt;p&gt;これは、&lt;a href="https://qiita.com/advent-calendar/2017/sakura"&gt;さくらインターネット Advent Calendar 2017&lt;/a&gt; として書いた&lt;a href="https://qiita.com/hitsumabushi/items/e89b763dd4fc41e15136"&gt;記事&lt;/a&gt; です。&lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;さくらインターネットでは、今年4月からIoTプラットフォームの sakura.io をサービス提供しています。&lt;br/&gt;
+sakura.io は、さくらのクラウド上で本番・検証環境を構築しており、数百台のサーバーを利用しています。&lt;/p&gt;
+&lt;p&gt;私はリリース直前にチームに参加し、開発の傍ら運用改善活動をしていました。&lt;br/&gt;
+その結果としてTerraform を導入し、Terraform (+ Terraform for さくらのクラウド) + Ansible で運用することになりました。&lt;br/&gt;
+導入までの課題と、どのように導入・利用しているのか、について書きたいと思います。&lt;/p&gt;
+&lt;h2 id="_1"&gt;運用の課題&lt;/h2&gt;
+&lt;h3 id="_2"&gt;検証環境と本番環境で構成に差分があり、それに気づきづらい&lt;/h3&gt;
+&lt;p&gt;mesos+marathon を利用したコンテナ実行環境を使ったマイクロサービスアーキテクチャになっていて、それ以外にも、redis, memcached, メッセージキューなどいろいろなコンポーネントがあります。&lt;br/&gt;
+そのため、個別の開発者がクリーンな環境を気軽に用意しづらいです。&lt;/p&gt;
+&lt;p&gt;インフラの構成を変更したいと思ったとき、個別の開発者がクリーンな環境を個別に作るのは手間がかかってしまうため、直接検証環境でテストしがちです。その際に、行われた変更がそのまま残ってしまい、本番環境との差が残ってしまっているケースがありました。&lt;/p&gt;
+&lt;h3 id="ansible-playbook"&gt;Ansible Playbook の内容と現実に差分がある&lt;/h3&gt;
+&lt;p&gt;もともとOS内の設定はansibleで管理していたのですが、対象ホストの増加、ansible playbookの肥大化に伴い、実行時間が増えてしまいました。&lt;br/&gt;
+それに伴い、&lt;code&gt;--limit&lt;/code&gt;,  &lt;code&gt;--tags&lt;/code&gt; をつけて部分的に実行するようになり、playbook と差分が散見されるようになりました。&lt;/p&gt;
+&lt;h2 id="_3"&gt;方針&lt;/h2&gt;
+&lt;p&gt;ansible は全部実行しろ、などとルールを作ることは簡単なのですが、上記に書いたとおり、心理的なハードルによって発生している問題だと思いました。そこでルール化することはエンジニアリングの敗北という感じがしたので、差分がわかるように構成管理することと、差分を定期的にチェックして通知することに集中することにしました。&lt;/p&gt;
+&lt;p&gt;構成管理として、OS内の部分はansibleを利用していたためそのまま利用し、インフラの構成管理としては、ちょうど &lt;a href="https://sacloud.github.io/terraform-provider-sakuracloud/"&gt;Terraform for さくらのクラウド&lt;/a&gt; もあったため、terraformを利用することにしました。&lt;/p&gt;
+&lt;p&gt;差分の検知としては、terraform plan, ansible check mode を定期的に実行することにしました。&lt;/p&gt;
+&lt;h2 id="terraform"&gt;terraform 導入のために&lt;/h2&gt;
+&lt;h3 id="terraform_1"&gt;terraform のフォルダ構成&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://github.com/hashicorp/best-practices/tree/master/terraform"&gt;他のクラウドでのベストプラクティス&lt;/a&gt; を参考に、フォルダ構成は以下のようにしています。&lt;br/&gt;
+terraform plan, apply などする場合には、 &lt;code&gt;pod-xxx&lt;/code&gt; ディレクトリ配下で実行します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;.
+├── module
+│   └── sakuracloud
+│       ├── compute
+│       │   ├── compute.tf          // compute のエントリーポイント。各roleのモジュールへ変数を渡す
+│       │   ├── role-hoge           // role ごとに作成
+│       │   │   └── role-hoge.tf    // util の base-wrapperへ変数を渡す。role固有の変数変換はここでやる
+│       │   └── util                // 他のroleから読まれる
+│       │       ├── base-wrapper    // instance と service-dns を呼ぶためのやつ。他のroleからはこいつを見る
+│       │       ├── instance        // 個別のサーバーの、サーバー/ディスク/DNSレコードの作成
+│       │       └── service-dns     // roleごとに、DNSレコードがある場合(VIPに紐づくレコードなど)
+│       ├── dns                     // さくらのクラウドのドメイン/DNSレコードを管理するために利用
+│       │   ├── dns.tf
+│       │   └── example
+│       │       ├── example.tf
+│       │       └── output.tf
+│       ├── gslb                    // さくらのクラウドのGSLBを管理するために利用
+│       │   ├── api
+│       │   │   └── api.tf
+│       │   └── gslb.tf
+│       ├── network                 // さくらのクラウドのスイッチ/ルーターを管理するために利用
+│       │   ├── internal
+│       │   │   ├── internal.tf
+│       │   │   └── output.tf
+│       │   ├── network.tf
+│       │   └── output.tf
+│       └── simple-monitor          // さくらのクラウドのシンプル監視を管理するために利用
+│           └── simple_monitor.tf
+└── providers
+    └── sakuracloud
+        └── pod-xxx                 // システム単位ごとに作る
+            ├── pod-xxx.tf          // compute.tf, dns.tf, ... などのモジュールごとのエントリーポイントへ変数を渡す
+            ├── terraform.tfstate.d // tfstate。env (今で言うworkspace) で本番と検証環境をわけてる。
+            │   ├── dev
+            │   └── ...
+            └── terraform.tfvars    // 変数をひたすら書く。具体的な値は全てここに書かれているはず。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;大体はさくらのクラウドのコンポーネントごとに、moduleを作っているのですが、compute のところは大きく変更しています。&lt;br/&gt;
+サーバー作成と同時に、ディスクの作成や、DNSレコードの作成を行うためです。&lt;/p&gt;
+&lt;p&gt;例えば、role-hoge というロールが2台あるとき、tfvar中では以下のような変数を作っています。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nx"&gt;sakuracloud_dns_foo&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nx"&gt;dev&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;zone&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"dev.example.com"&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nx"&gt;staging&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;zone&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"staging.example.com"&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nx"&gt;sakuracloud_role_hoge&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nx"&gt;dev&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ipaddresses&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;"192.168.0.10"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"192.168.0.11"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nx"&gt;dev&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;server_tags&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;"hoge"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"develop"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"__with_sacloud_inventory"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"starred"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nx"&gt;dev&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;disk_tags&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;"hoge"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nx"&gt;staging&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ipaddresses&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;"192.168.1.10"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"192.168.1.11"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nx"&gt;staging&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;server_tags&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;"hoge"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"staging"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"__with_sacloud_inventory"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;"starred"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nx"&gt;staging&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;disk_tags&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;"hoge"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これを使って、dev環境でサーバー作成したとき&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;サーバー名をFQDNに一致させる&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;hoge-01.dev.example.com&lt;/code&gt;, &lt;code&gt;hoge-02.dev.example.com&lt;/code&gt; &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;DNSレコードも合わせて作成する&lt;ul&gt;
+&lt;li&gt;Aレコードとして &lt;code&gt;hoge-01.dev.example.com&lt;/code&gt; は192.168.0.10, &lt;code&gt;hoge-02.dev.example.com&lt;/code&gt; は192.168.0.11 に対応させる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;サーバータグとして、ansibleのroleをつける&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;hoge&lt;/code&gt;, &lt;code&gt;develop&lt;/code&gt;, &lt;code&gt;staging&lt;/code&gt; がansible側で利用しているロール名です&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;サーバータグとして、 &lt;code&gt;__with_sacloud_inventory&lt;/code&gt; をつける&lt;ul&gt;
+&lt;li&gt;一応、terraform 管理外のリソースを許すためにつけています&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;サーバータグとして、 &lt;code&gt;@group=a&lt;/code&gt; などのグループタグをつける&lt;ul&gt;
+&lt;li&gt;1つ目のサーバーはa、2つ目はb、...4つ目はd、5つ目はaなどとしています&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="terraformimport"&gt;既存リソースをterraformにimport&lt;/h3&gt;
+&lt;p&gt;既存のリソースをインポートします。形式としては、以下のような形式です。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;terraform&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="s1"&gt;'module.hoge.module.base-instance.sakuracloud_server.base[0]'&lt;/span&gt; &lt;span class="n"&gt;_リソースID_&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;注意点としては、tfファイルを書いたあと、terraform planすれば、何をインポートしないといけないかわかるのですが、&lt;br/&gt;
+その表示では、&lt;code&gt;module.hoge.base-instance.sakuracloud_server.base[0]&lt;/code&gt; というように、途中にmoduleがない形式で表示されます。 import するには都度moduleを書く必要があります。&lt;/p&gt;
+&lt;p&gt;また、さくらのクラウドにはリソースIDがないけど、terraform で管理できるものがあります。例えばDNSレコードがそうです。&lt;br/&gt;
+この場合、リソースIDに当たるものを自分で作成する必要があります。&lt;br/&gt;
+どのように生成するかは、 terraform for さくらのクラウドのソースを見ればよいのですが、参考までにgolangで生成する例を載せておきます。&lt;br/&gt;
+https://play.golang.org/p/OvQw6BdxVf&lt;/p&gt;
+&lt;h3 id="ansible-dynamic-inventory"&gt;ansible の dynamic inventory のスクリプト作成&lt;/h3&gt;
+&lt;script src="https://gist.github.com/hitsumabushi/73411a6bcb900a05c027ae0c8a39a9b3.js"&gt;&lt;/script&gt;
+&lt;p&gt;上記のような&lt;code&gt;sacloud_inventory.py&lt;/code&gt;スクリプトをansibleのリポジトリに実行権限をつけて用意しています。&lt;br/&gt;
+それにより、 &lt;code&gt;ansible-playbook -i sacloud_inventory.py ...&lt;/code&gt; とすることで、インベントリファイルを書くことなくansibleを実行できます。&lt;/p&gt;
+&lt;p&gt;このスクリプトで、さくらのクラウドのAPIを叩くところはすべて、 &lt;a href="https://github.com/sacloud/usacloud"&gt;usacloud&lt;/a&gt; におまかせしています。&lt;br/&gt;
+先程の terraform の例であったように、 &lt;code&gt;__with_sacloud_inventory&lt;/code&gt; が入っていないものは全部無視し、タグは全てグループ名にすることにしています。&lt;br/&gt;
+(13-22行目は、&lt;a href="https://github.com/ansible/awx"&gt;Ansible TowerのOSS版であるAWX&lt;/a&gt; を試しているために入れています。)&lt;/p&gt;
+&lt;p&gt;もしかしたら、さくらのクラウドの特殊タグである &lt;code&gt;@group=a&lt;/code&gt; などは除いた方が使いやすいかもしれませんが、監視側からも見るために現状はすべて入れています。&lt;/p&gt;
+&lt;h2 id="ansible"&gt;ansible 側の準備&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;ansible-playbook -i sacloud_inventory.py site.yml --check&lt;/code&gt; をしたいのですが、しばしば check modeで実行できていないplaybookや、変更がないのにchangedにしているplaybookがあります。これを直しましょう。&lt;br/&gt;
+check modeで実行できていない、典型的なものとしては以下のようなものがあります。&lt;/p&gt;
+&lt;h3 id="task"&gt;別のtaskの実行結果を参照している&lt;/h3&gt;
+&lt;p&gt;register を使っているタスクAの結果を参照しているタスクBがある場合、check mode 中でAが実行されないため、タスクBのcheck実行時に変数が参照できないエラーが出ます。&lt;br/&gt;
+これを防ぐには、register を使っているタスクAに &lt;code&gt;check_mode: no&lt;/code&gt; をつけることです。&lt;br/&gt;
+check modeでも本当に実行されるようになるため、例えば、ファイルの存在だけを確認している場合など、副作用がない場合のみ、 &lt;code&gt;check_mode: no&lt;/code&gt; をつけましょう。&lt;/p&gt;
+&lt;h3 id="check-modeshell"&gt;check modeに対応していない(特にshellモジュール)&lt;/h3&gt;
+&lt;p&gt;実行する判断を行うようなタスクを作って、その結果次第で、タスクを実行するように書き換えます。&lt;br/&gt;
+新しく作成したタスクでは、上述の通り副作用がないようにし、 &lt;code&gt;check_mode: no&lt;/code&gt; をつけましょう。&lt;/p&gt;
+&lt;h3 id="dns"&gt;補足: DNSゾーンファイルの更新&lt;/h3&gt;
+&lt;p&gt;今回、check modeで実行可能にするためにplaybookをみなしていると、ansible で更新されていないものとして、template指定されたDNSゾーンファイルがありました。&lt;br/&gt;
+ゾーンファイルは、シリアルを増やしていく必要があるため、面倒だったのだと思います。&lt;/p&gt;
+&lt;p&gt;確かに、言われるとめんどくさいような気もしますが、やってみると以下のようにすれば良さそうです。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;現在のzone fileを見て、現在の serial を取り出し、registerで変数に入れる&lt;/li&gt;
+&lt;li&gt;template ファイルに、 1.で取ったserialを入れて、差分があるかどうかを確かめる&lt;/li&gt;
+&lt;li&gt;もし、2.で差分があったら serialをインクリメントした上で、template を実行する&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;実際に書いてみると以下のようになると思います。(NSDを利用した場合の例)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;server&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;port&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;10053&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;zonesdir&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"/etc/nsd/zones"&lt;/span&gt;
+
+&lt;span class="o"&gt;{%&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;zone&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;dns&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;zones&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;%}&lt;/span&gt;
+&lt;span class="n"&gt;zone&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"{{ zone }}"&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;zonefile&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"{{ zone }}"&lt;/span&gt;
+
+&lt;span class="o"&gt;{%&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;endfor&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;%}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;block&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;parse&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;serial&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;zone&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;shell&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;grep&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;";Serial"&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nsd&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;zones&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}}&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;awk&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;'{print $1}'&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;with_items&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"{{ dns.zones }}"&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;register&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;old_serials&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;check_mode&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;no&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;changed_when&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;no&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;tags&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;nsd&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;check&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;whether&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;zone&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;files&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;updated&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ow"&gt;or&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ow"&gt;not&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;template&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;zones&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;j2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nsd&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;zones&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}}&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;owner&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;group&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0644&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;vars&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="n"&gt;serial&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"{{ old_serials.results[item.0].stdout }}"&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;with_indexed_items&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"{{ dns.zones }}"&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;no&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;register&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;zonefiles_changed&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;tags&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;nsd&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;zonefile&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;when&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;changed&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;template&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;zones&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}}&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;j2&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;dest&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nsd&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;zones&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{{&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;}}&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;owner&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;group&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0644&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;vars&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="n"&gt;serial&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"{{ old_serials.results[item.0].stdout|int + 1 }}"&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;when&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;zonefiles_changed&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;results&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;item&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;changed&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;with_indexed_items&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s2"&gt;"{{ dns.zones }}"&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;notify&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;reload&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;nsd&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;tags&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;nsd&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id="_4"&gt;定期的な差分チェック&lt;/h2&gt;
+&lt;p&gt;ここまでくれば、あとはcronなりJenkinsで、&lt;code&gt;terraform plan&lt;/code&gt; と &lt;code&gt;ansible-playbook -i sacloud_inventory.py site.yml --check&lt;/code&gt; を定期的に走らせて、差分があったらslackなりに通知すればオッケーです。&lt;br/&gt;
+Jenkinsからapplyするようにしておけば、より良いと思います。&lt;/p&gt;
+&lt;h2 id="_5"&gt;感想と今後に向けて&lt;/h2&gt;
+&lt;p&gt;ここではインフラのデプロイをどのように改善してきたのかを書きました。&lt;br/&gt;
+usacloud や Terraform for さくらのクラウドがあるおかげで、規模が大きくなっても楽に管理できている実感があります。&lt;br/&gt;
+実際、雑に自前スクリプトを書いていたものも捨てていっているところです。&lt;/p&gt;
+&lt;p&gt;この記事で書いたようにインフラの整合性を確かめることができるようになったので、今後としては、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(ansibleの実行を &lt;a href="https://github.com/ansible/awx"&gt;AWX&lt;/a&gt; で行う(だいたいできた) )&lt;/li&gt;
+&lt;li&gt;インフラ/アプリケーションのCDを行うための監視改善。特に node/service discovery改善&lt;/li&gt;
+&lt;li&gt;アプリケーションのCD&lt;/li&gt;
+&lt;li&gt;terraform, ansible の自動適用&lt;br/&gt;
+などを目標に改善活動を行っていく予定です。&lt;/li&gt;
+&lt;/ul&gt;</content><category term="blog"></category><category term="sakrua"></category><category term="ansible"></category><category term="terraform"></category></entry><entry><title>Mesos の sandbox のログローテーションをする</title><link href="https://www.hitsumabushi.org/blog/2017/12/01/2001.html" rel="alternate"></link><published>2017-12-01T20:01:00+09:00</published><updated>2017-12-01T20:01:00+09:00</updated><author><name>hitsumabushi</name></author><id>tag:www.hitsumabushi.org,2017-12-01:/blog/2017/12/01/2001.html</id><summary type="html">
+&lt;h3 id="_1"&gt;結論&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;http://mesos.apache.org/documentation/latest/logging/#logrotatecontainerlogger&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;LogrotateContainerLogger&lt;/code&gt; を使って、 module parameter を設定する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="_2"&gt;概要&lt;/h3&gt;
+&lt;p&gt;Mesos + Marathon 環境でdockerを動かしている。&lt;br/&gt;
+基本的にコンテナのログは fluentd で飛ばしているのだけど、日に日に mesos slave のディスク容量が圧迫されていた。&lt;br/&gt;
+調べてみると、 &lt;code&gt;/var/lib/mesos-slave/slaves/&lt;/code&gt; 以下にあるフォルダのうち、sandbox のログが肥大化していた。&lt;br/&gt;
+sandbox には stdout, stderr があって、それぞれコンテナのstdout, stderrを記録しているファイルで、mesosか …&lt;/p&gt;</summary><content type="html">
+&lt;h3 id="_1"&gt;結論&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;http://mesos.apache.org/documentation/latest/logging/#logrotatecontainerlogger&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;LogrotateContainerLogger&lt;/code&gt; を使って、 module parameter を設定する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="_2"&gt;概要&lt;/h3&gt;
+&lt;p&gt;Mesos + Marathon 環境でdockerを動かしている。&lt;br/&gt;
+基本的にコンテナのログは fluentd で飛ばしているのだけど、日に日に mesos slave のディスク容量が圧迫されていた。&lt;br/&gt;
+調べてみると、 &lt;code&gt;/var/lib/mesos-slave/slaves/&lt;/code&gt; 以下にあるフォルダのうち、sandbox のログが肥大化していた。&lt;br/&gt;
+sandbox には stdout, stderr があって、それぞれコンテナのstdout, stderrを記録しているファイルで、mesosからファイルとして取得することができる。&lt;br/&gt;
+長期的なものは fluentd で飛ばしているので問題ないため、障害時や直近の確認のために sandbox を使うことにして、&lt;br/&gt;
+短期間でのログローテーションを行うことにした。&lt;/p&gt;
+&lt;h3 id="_3"&gt;設定方法&lt;/h3&gt;
+&lt;h4 id="logrotatecontainerlogger"&gt;LogrotateContainerLogger の利用が可能か調べる&lt;/h4&gt;
+&lt;p&gt;共有オブジェクト &lt;code&gt;/usr/lib/liblogrotate_container_logger.so&lt;/code&gt; にあることを確認する。&lt;br/&gt;
+パスが違っても良いが、その場合は以下で出てくるパスも変更する。&lt;/p&gt;
+&lt;h4 id="_4"&gt;モジュールの設定ファイルを書く&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;/etc/mesos_slave_modules.json&lt;/code&gt; として以下を書く。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;{
+  "libraries": [{
+    "file": "/usr/lib/liblogrotate_container_logger.so",
+    "modules": [{
+      "name": "org_apache_mesos_LogrotateContainerLogger"
+      # パラメータを指定するときはここに書く
+    }]
+  }]
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4 id="_5"&gt;モジュールの有効化&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;/etc/mesos-slave/modules&lt;/code&gt; として、以下が書かれたファイルを置く。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;file:///etc/mesos-slave-modules.json
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;/etc/mesos-slave/container_logger&lt;/code&gt; として、以下が書かれたファイルを置く。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;org_apache_mesos_LogrotateContainerLogger
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4 id="mesos-slave"&gt;mesos-slave の起動&lt;/h4&gt;
+&lt;p&gt;mesos-slave を起動する。&lt;/p&gt;
+&lt;h4 id="_6"&gt;動作確認&lt;/h4&gt;
+&lt;p&gt;sandbox を見ると、 stdout.logrotate.conf, stderr.logrotate.conf が出来ている。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="/images/2017/mesos/mesos_sandbox.png"/&gt;&lt;/p&gt;
+&lt;p&gt;ファイルの中身は&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nv"&gt;path&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nv"&gt;to&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nv"&gt;stdout&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;{
+##&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;logrotate&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;オプション:&lt;span class="w"&gt; &lt;/span&gt;パラメータで指定してない場合は&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;size&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;10481664&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;くらいしかない
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;となっている。&lt;/p&gt;</content><category term="blog"></category><category term="mesos"></category><category term="docker"></category></entry></feed>

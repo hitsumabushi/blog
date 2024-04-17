@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="2要素認証を必須にしたAWSのswitch roleで、temporary credentialsをCLIで取得したかった。 TOTPの数字を毎回調べるのが面倒で、簡単にできないか調べたところ、1Password CLIというのがあった。1Passwordユーザなので、これを利用する。 ただし、当然のことだが、2要素認証のデバイスとして、1Passwordが利用されている状況とする。 1Password CLIの初期設定 1Password CLI を利用できるようにする。 1Password CLIのGetting Startedを見て、初期設定 …" />
+<meta name="keywords" content="aws, 1password">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="1Password CLIを使ってTOTPを取得する"/>
+  <meta property="og:description" content="2要素認証を必須にしたAWSのswitch roleで、temporary credentialsをCLIで取得したかった。 TOTPの数字を毎回調べるのが面倒で、簡単にできないか調べたところ、1Password CLIというのがあった。1Passwordユーザなので、これを利用する。 ただし、当然のことだが、2要素認証のデバイスとして、1Passwordが利用されている状況とする。 1Password CLIの初期設定 1Password CLI を利用できるようにする。 1Password CLIのGetting Startedを見て、初期設定 …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2021/10/12/0100.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2021-10-12 01:00:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="aws"/>
+  <meta property="article:tag" content="1password"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; 1Password CLIを使ってTOTPを取得する</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="1password-cliwoshi-tsutetotpwoqu-de-suru">1Password CLIを使ってTOTPを取得する</h1>
+    <p>
+      Posted on Tue 12 October 2021 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#1password-cli">1Password CLIの初期設定</a></li>
+<li><a href="#totp">TOTPの取得</a></li>
+<li><a href="#_1">終わり</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<p>2要素認証を必須にしたAWSのswitch roleで、temporary credentialsをCLIで取得したかった。<br/>
+TOTPの数字を毎回調べるのが面倒で、簡単にできないか調べたところ、1Password CLIというのがあった。1Passwordユーザなので、これを利用する。<br/>
+ただし、当然のことだが、2要素認証のデバイスとして、1Passwordが利用されている状況とする。</p>
+<h2 id="1password-cli">1Password CLIの初期設定</h2>
+<p>1Password CLI を利用できるようにする。<br/>
+<a href="https://support.1password.com/command-line-getting-started/">1Password CLIのGetting Started</a>を見て、初期設定する。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>op<span class="w"> </span>signin<span class="w"> </span>_1password_url_<span class="w"> </span>_signin_address_
+...<span class="w"> </span><span class="c1"># Secret Key, Password, (設定していればTOTPの6-digit)を聞かれる</span>
+</code></pre></div>
+<p>短縮形が <code>_1password_url_</code> から自動的に決まるが、どうしても指定したい場合には、 <code>--shorthand</code>オプションで指定する。</p>
+<h2 id="totp">TOTPの取得</h2>
+<p>通常の1password appのように、30minアクセスがなければ、ロックされるため、パスワードの入力が必要。<br/>
+1passwordのURLが <code>example.1password.com</code> であれば、</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">eval</span><span class="w"> </span><span class="k">$(</span>op<span class="w"> </span>signin<span class="w"> </span>example<span class="k">)</span>
+</code></pre></div>
+<p>として、再認証する。<br/>
+環境変数 <code>OP_SESSION_example</code> に認証したときのsession情報が載る。(<code>--session</code> オプションで各コマンドごとに渡しても良い)</p>
+<p>TOTPを取得するには、以下のコマンドを実行する。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>op<span class="w"> </span>get<span class="w"> </span>totp<span class="w"> </span><span class="s2">"UUID or Name"</span>
+</code></pre></div>
+<p>UUIDで指定したい場合には、 <code>op list items --categories Login</code> の結果をjqなどで調べて、取得する。</p>
+<h2 id="_1">終わり</h2>
+<p>以上で概ねやりたかった、CLIでTOTPを取得することができるようになった。<br/>
+最近1PasswordはLinux Desktop向けのアプリを出していたりしているので、もう少し真面目に使っていきたい所存。</p>
+<p>ちなみに、複数のプロファイルの切り替えなどで便利なように、 <a href="https://github.com/99designs/aws-vault">99designs/aws-vault</a>というのもあるらしいが、特に使わずに自前シェルスクリプトで使っている。</p>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/aws.html">aws</a>
+      <a href="https://www.hitsumabushi.org/tag/1password.html">1password</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2019/02/12/1630.html" title="Python でコメント付きYAMLを扱う時には ruamel.yaml が便利だった">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2021/10/12/0200.html" title="CloudFormation Stackを安全に削除する">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2021/10/12/0200.html">CloudFormation Stackを安全に削除する</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2019/01/25/1454.html">CloudFormation の不満点</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2015/06/07/0331.html">VDI, DaaS市場を調べてみた</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="資料 terraform の公式ページ: https://www.terraform.io/ さくらのクラウド用terraform providerのドキュメント: https://yamamoto-febc.github.io/terraform-provider-sakuracloud/ best practice: https://github.com/hashicorp/best-practices 確認するシナリオ 新しくサーバー、ルーター、スイッチを作成する 3層構成 DNS 既存の3層構成のリソースをimportして サーバーをスケールアウトしてみる 別のゾーンに作ってみる 困った時は terraform で管理してるリソースをコンパネ/APIから直接削除してし …" />
+<meta name="keywords" content="sakura, terraform">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="さくらのクラウドでterraformを利用するメモ"/>
+  <meta property="og:description" content="資料 terraform の公式ページ: https://www.terraform.io/ さくらのクラウド用terraform providerのドキュメント: https://yamamoto-febc.github.io/terraform-provider-sakuracloud/ best practice: https://github.com/hashicorp/best-practices 確認するシナリオ 新しくサーバー、ルーター、スイッチを作成する 3層構成 DNS 既存の3層構成のリソースをimportして サーバーをスケールアウトしてみる 別のゾーンに作ってみる 困った時は terraform で管理してるリソースをコンパネ/APIから直接削除してし …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/drafts/sakuranokuraudodeterraformwoli-yong-surumemo.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2017-04-25 09:25:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="sakura"/>
+  <meta property="article:tag" content="terraform"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; さくらのクラウドでterraformを利用するメモ</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="sakuranokuraudodeterraformwoli-yong-surumemo">さくらのクラウドでterraformを利用するメモ</h1>
+    <p>
+      Posted on Tue 25 April 2017 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#_1">資料</a></li>
+<li><a href="#_2">確認するシナリオ</a></li>
+<li><a href="#_3">困った時は</a><ul>
+<li><a href="#terraform-api">terraform で管理してるリソースをコンパネ/APIから直接削除してしまった</a></li>
+<li><a href="#terraform-import-sakuracloud_diskdisk_import-terraform-plan">terraform import sakuracloud_disk.disk_import ... みたいなのをしたら、terraform planで差分が出る</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<h2 id="_1">資料</h2>
+<ul>
+<li>terraform の公式ページ: https://www.terraform.io/</li>
+<li>さくらのクラウド用terraform providerのドキュメント: https://yamamoto-febc.github.io/terraform-provider-sakuracloud/</li>
+<li>best practice: https://github.com/hashicorp/best-practices</li>
+</ul>
+<h2 id="_2">確認するシナリオ</h2>
+<ol>
+<li>新しくサーバー、ルーター、スイッチを作成する<ul>
+<li>3層構成</li>
+<li>DNS</li>
+</ul>
+</li>
+<li>既存の3層構成のリソースをimportして<ol>
+<li>サーバーをスケールアウトしてみる</li>
+<li>別のゾーンに作ってみる</li>
+</ol>
+</li>
+</ol>
+<h2 id="_3">困った時は</h2>
+<h3 id="terraform-api">terraform で管理してるリソースをコンパネ/APIから直接削除してしまった</h3>
+<p>terraform state rm ... とかで削除してしまうと良いと思う</p>
+<h3 id="terraform-import-sakuracloud_diskdisk_import-terraform-plan"><code>terraform import sakuracloud_disk.disk_import ...</code> みたいなのをしたら、terraform planで差分が出る</h3>
+<p>ディスク修正機能で実現されているものは、すべてAPIが返ってこないので、SSH key や source archive が差分になってしまう。<br/>
+どうしても設定したい場合には、 直接stateファイルに書くしかない。</p>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/sakura.html">sakura</a>
+      <a href="https://www.hitsumabushi.org/tag/terraform.html">terraform</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2017/07/10/1600.html">さくらのクラウドを便利に使うためのツールメモ</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2017/12/05/1748.html">さくらのクラウドでN百台を管理するためにterraformとansibleを使っている話</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,471 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+    <meta name="author" content="hitsumabushi" />
+    <meta name="description" content="" />
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:type" content="blog"/>
+  <meta property="og:title" content="ひつまぶし食べたい"/>
+  <meta property="og:description" content=""/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Tag vmware</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+
+
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2017/10/13/0106.html#intel-nuc-shang-ni-vsphere-65-novsanhuan-jing-wozuo-ru">Intel NUC 上に vSphere 6.5 のVSAN環境を作る</a></h2>
+    <p>
+      Posted on Fri 13 October 2017 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">vmware</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<p>あまりVMwareを触らなくなってきて、何も見ずにvCenterの設定とかMaximum configurationsとか言えなくなってきたので、VMware周りのことをメモに残しておくことにする。<br/>
+ひとまず、自宅のVSAN環境の構築メモ。</p>
+<h2 id="_1">環境</h2>
+<p>以下の構成のIntel NUC 3台にESXiをインストールして、その上にvCenterを立て、VSAN環境を作る。</p>
+<ul>
+<li>Machine: NUC6i3SYH <a href="https://www.amazon.com/gp/product/B018NSAPIM">https://www.amazon.com/gp/product/B018NSAPIM</a><ul>
+<li>Memory: 16GBx2 <a href="https://www.amazon.com/gp/product/B015YPB8ME">https://www.amazon.com/gp/product/B015YPB8ME</a></li>
+<li>Cache SSD: Intel 128GB <a href="https://www.amazon.co.jp/gp/product/B01JSJA1Z2">https://www.amazon.co.jp/gp/product/B01JSJA1Z2</a></li>
+<li>SSD: Crucial MX300 275GB <a href="https://www.amazon.com/gp/product/B01IAGSD5O">https://www.amazon.com …</a></li></ul></li></ul></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2017/10/13/0106.html#intel-nuc-shang-ni-vsphere-65-novsanhuan-jing-wozuo-ru">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html#vcp6-nv-qu-de-shita">VCP6-NV 取得した</a></h2>
+    <p>
+      Posted on Sat 09 July 2016 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/nsx.html">NSX</a>,              <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<h2 id="vcp6-nv">VCP6-NV 受験シリーズ</h2>
+<ul>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html">VCP6-NV 試験勉強メモ</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html">VCP6-NV 試験勉強メモ 2日目</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html">VCP6-NV 取得した</a></li>
+</ul>
+<h2 id="_1">結果</h2>
+<p>462 / 500 (合格点: 300)</p>
+<h2 id="_2">試験の内容について</h2>
+<p>割と事前に学習した内容が出ていたと感じる。<br/>
+VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違って、トレーニングの内容と試験内容がきちんと一致しているので、トレーニングのテキストを読 …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html#vcp6-nv-qu-de-shita">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html#vcp6-nv-shi-yan-mian-qiang-memo-2ri-mu">VCP6-NV 試験勉強メモ 2日目</a></h2>
+    <p>
+      Posted on Thu 07 July 2016 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/nsx.html">NSX</a>,              <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<h2 id="vcp6-nv">VCP6-NV 受験シリーズ</h2>
+<ul>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html">VCP6-NV 試験勉強メモ</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html">VCP6-NV 試験勉強メモ 2日目</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html">VCP6-NV 取得した</a></li>
+</ul>
+<h2 id="_1">資料</h2>
+<ul>
+<li><a href="http://blogs.vmware.com/jp-cim/2015/03/nwv01.html">ネットワーク仮想化をネットワークの基本から理解する　〜 第1回：理解するために必要なことを整理する</a></li>
+<li><a href="https://blogs.vmware.com/networkvirtualization/2015/12/2366.html?lang=ja#.V3ve2WiLSUk">NSX 6.2 新機能のご紹介 Part 1 〜 Cross vCenter NSX 〜</a></li>
+</ul>
+<h2 id="nsx-vxlan">NSX におけるVXLAN</h2>
+<h3 id="_2">関係する要素</h3>
+<ul>
+<li>論理スイッチ</li>
+<li>分散論理ルータ</li>
+<li>論理ルータコントロール …</li></ul></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html#vcp6-nv-shi-yan-mian-qiang-memo-2ri-mu">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html#vcp6-nv-shi-yan-mian-qiang-memo">VCP6-NV 試験勉強メモ</a></h2>
+    <p>
+      Posted on Tue 05 July 2016 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/nsx.html">NSX</a>,              <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<h2 id="vcp6-nv">VCP6-NV 受験シリーズ</h2>
+<ul>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html">VCP6-NV 試験勉強メモ</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html">VCP6-NV 試験勉強メモ 2日目</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html">VCP6-NV 取得した</a></li>
+</ul>
+<h2 id="_1">資料</h2>
+<h3 id="_2">最も公式っぽい資料</h3>
+<ul>
+<li><a href="https://mylearn.vmware.com/mgrReg/plan.cfm?plan=64297&amp;ui=www_cert">VMware Certified Professional 6 – Network Virtualization Exam</a> の "How to Prepare" に書いているもの。</li>
+<li><a href="https://www.vmware.com/files/pdf/products/nsx/vmw-nsx-network-virtualization-design-guide.pdf">Reference Design: VMware® NSX for vSphere (NSX) Network Virtualization Design Guide</a></li>
+<li><a href="http://mylearn.vmware.com/quiz.cfm?item=57466">VCP6-NV (2V0-641) Practice Exam</a></li>
+</ul>
+<h3 id="_3">ブログ : シリーズものは一通り目を通した方が良い</h3>
+<ul>
+<li><a href="http://blogs.vmware.com/jp-cim/2015/03/nwv01.html">ネットワーク仮想化をネットワークの基本から理解する　〜 第1回：理解す …</a></li></ul></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html#vcp6-nv-shi-yan-mian-qiang-memo">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html#vmware-vcp-nv-vcp6-nv-noshi-yan-wojin-zhou-shou-kerunode-shi-yan-nitsuitediao-beru">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></h2>
+    <p>
+      Posted on Tue 05 July 2016 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/nsx.html">NSX</a>,              <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<h2 id="vcp6-nv">VCP6-NV 受験シリーズ</h2>
+<ul>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html">VCP6-NV 試験勉強メモ</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html">VCP6-NV 試験勉強メモ 2日目</a></li>
+<li><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html">VCP6-NV 取得した</a></li>
+</ul>
+<h2 id="_1">この記事について</h2>
+<ol>
+<li>書くこと<ul>
+<li>VCP6-NV の試験要項</li>
+<li>VCP6-NV の受験方法</li>
+</ul>
+</li>
+<li>書かないこと<ul>
+<li>試験の勉強方法</li>
+<li>試験内容</li>
+</ul>
+</li>
+</ol>
+<h2 id="vcp6-nv_1">VCP6-NV について</h2>
+<p>VCP-NVは、VMwareのNSXを用いた仮想ネットワーク管理についての試験です。<br/>
+他のVCPと同様に、VCA-NV → VCP-NV → VCAP-NV {Design, Deploy} → VCIX-NV → VCDX-NV というような資格体系 …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html#vmware-vcp-nv-vcp6-nv-noshi-yan-wojin-zhou-shou-kerunode-shi-yan-nitsuitediao-beru">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/12/08/0551.html#vsphere-60-denohaji-neng-noenhansunoyao-dian">vSphere 6.0 でのHA機能のエンハンスの要点</a></h2>
+    <p>
+      Posted on Tue 08 December 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/vsphere.html">vSphere</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<h2 id="_1">まとめ</h2>
+<ol>
+<li>vSphere 6からは、ストレージパスが死んだ場合でもHAを設定できるようになった。</li>
+<li>vCenterは watchdogs によりプロセス落下時には再起動される</li>
+<li>vCenterの可用性をさらに高めるにはWindows版を利用し、MSCSクラスタを設定する必要がある</li>
+</ol>
+<h2 id="_2">資料</h2>
+<ol>
+<li><a href="http://www.vmware.com/jp/support/support-resources/pubs/vsphere-esxi-vcenter-server-6-pubs">VMware vSphere 6 のドキュメント<br/>
+</a></li>
+<li><a href="http://www.vmware.com/files/pdf/vsphere/VMW-WP-vSPHR-Whats-New-6-0-PLTFRM.pdf">http://www.vmware.com/files/pdf/vsphere/VMW-WP-vSPHR-Whats-New-6-0-PLTFRM.pdf</a></li>
+<li><a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=2081089">vSphere 5.x および 6.x での永続的なデバイスの損失 (PDL) と全パス ダウン (APD) (2081089)</a></li>
+</ol>
+<h2 id="vsphere-55-part-1">vSphere 5.5 までの …</h2></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/12/08/0551.html#vsphere-60-denohaji-neng-noenhansunoyao-dian">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/06/07/0331.html#vdi-daasshi-chang-wodiao-betemita">VDI, DaaS市場を調べてみた</a></h2>
+    <p>
+      Posted on Sun 07 June 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vdi.html">VDI</a>,              <a href="https://www.hitsumabushi.org/tag/daas.html">DaaS</a>,              <a href="https://www.hitsumabushi.org/tag/aws.html">AWS</a>,              <a href="https://www.hitsumabushi.org/tag/azure.html">Azure</a>,              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>
+    </p>
+  </header>
+  <div>
+      <div><p>最近、vCloud AirがDaaSを出すというのを聞いて、にわかに自分の中でDaaSに興味が出てきた。<br/>
+DaaSとかVDIは、必ずActive Directoryの話になるので、気後れしていたのだけど、会社ではWindows使っていることもあって、少しは抵抗もなくなってきたので、良いタイミングだったので、調べてみた。<br/>
+とは言っても、まずは世間にどんなものがあるかをしらべてみただけ。</p>
+
+<h2 id="_1">参考資料</h2>
+<ul>
+<li><a href="http://www.netone.co.jp/report/column/20120302.html">http://www.netone.co.jp/report …</a></li></ul></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/06/07/0331.html#vdi-daasshi-chang-wodiao-betemita">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/05/09/1822.html#ravellogabian-li">Ravelloが便利</a></h2>
+    <p>
+      Posted on Sat 09 May 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/ravello.html">ravello</a>,              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<h2 id="vmware">VMware環境のテストをしたい</h2>
+<p>会社でVMware使っているのもあって、外でAPI叩いたりツールのテストしたいということがよくある。<br/>
+今までは自宅でESXiとvCenter立ててやっていたんですが、やっぱりリソース的にVM数を増やしたりできないので、とても困っている。<br/>
+あと、PackerとかでVMware用のイメージ作るときに使えるESXiも欲しかったので、どうにかできないかなー、という …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/05/09/1822.html#ravellogabian-li">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/01/25/2101.html#vshere-beta-program-nozhu-yi-dian">vShere Beta Program の注意点</a></h2>
+    <p>
+      Posted on Sun 25 January 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>
+    </p>
+  </header>
+  <div>
+      <div><p>VMware のBetaプログラムの利用について、基本的なルールがあるので、忘れないようにまとめた。<br/>
+ここに書いてあることは、オレオレ要約なので、きちんと自分で確認してください。</p>
+<p>ざっくり言うと、「ここで知ったことは他で話すなよ」ってことでした。</p>
+
+<h2 id="_1">資料</h2>
+<ul>
+<li><a href="https://communities.vmware.com/community/vmtn/vsphere-beta">vSphere Beta Program</a></li>
+</ul>
+<h2 id="_2">利用方法</h2>
+<p>上記ページから"Join Now!"して、規約に同意すれば良い。<br/>
+規約は以下の2つあるので、それぞれ同意 …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/01/25/2101.html#vshere-beta-program-nozhu-yi-dian">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/01/16/2348.html#vcp5-dcvqu-de-shita">VCP5-DCV取得した</a></h2>
+    <p>
+      Posted on Fri 16 January 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>
+    </p>
+  </header>
+  <div>
+      <div><p>最近のブログはVMwareの話ばかりだったのですが、やっとVCPを取得してきました。<br/>
+VCP-DCVを取得している人はたくさんいるので、個人的に受験した所感を書いておきます。</p>
+
+<h2 id="vcp">VCPトレーニングと試験内容のギャップ</h2>
+<p>トレーニングを受講しても、おそらく言われると思いますが、<br/>
+VCP-DCVの試験はトレーニング内容と差が大きいと聞きます。(他のベンダー試験を受けたこと …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/01/16/2348.html#vcp5-dcvqu-de-shita">
+          Continue reading
+        </a>
+  </div>
+</article>
+
+  <div class="pagination">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/tag/vmware2.html">
+      <i class="fa fa-angle-left"></i> Older Posts
+    </a>
+  </div>
+
+
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

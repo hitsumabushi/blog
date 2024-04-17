@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="やりたいこと 最近、自分の興味のあるソフトウェアのIRCによく引きこもっています。 自宅のPCはつけっぱなしにしておけば、全部のログを見れるのですが、 会社やスマホで見るときには、接続している間のことしか確認できず、若干もどかしいです。 そういうわけで、ZNCサーバーを立てて、IRCのログを出先からでも確認できるようにしましょう。 実現するこ …" />
+<meta name="keywords" content="Debian">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="DebianでZNCを使って、快適なIRC生活を送る"/>
+  <meta property="og:description" content="やりたいこと 最近、自分の興味のあるソフトウェアのIRCによく引きこもっています。 自宅のPCはつけっぱなしにしておけば、全部のログを見れるのですが、 会社やスマホで見るときには、接続している間のことしか確認できず、若干もどかしいです。 そういうわけで、ZNCサーバーを立てて、IRCのログを出先からでも確認できるようにしましょう。 実現するこ …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2014/06/09/1634.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2014-06-09 16:34:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="Debian"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; DebianでZNCを使って、快適なIRC生活を送る</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="debiandezncwoshi-tsute-kuai-shi-naircsheng-huo-wosong-ru">DebianでZNCを使って、快適なIRC生活を送る</h1>
+    <p>
+      Posted on Mon 09 June 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+
+    <div class="content">
+      <h2 id="_1">やりたいこと</h2>
+<p>最近、自分の興味のあるソフトウェアのIRCによく引きこもっています。<br>
+自宅のPCはつけっぱなしにしておけば、全部のログを見れるのですが、<br>
+会社やスマホで見るときには、接続している間のことしか確認できず、若干もどかしいです。</p>
+<p>そういうわけで、ZNCサーバーを立てて、IRCのログを出先からでも確認できるようにしましょう。</p>
+<h2 id="_2">実現すること</h2>
+<ul>
+<li>スマホからIRCのログを見る</li>
+</ul>
+<h2 id="_3">作業環境</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># lsb_release  -a</span>
+No<span class="w"> </span>LSB<span class="w"> </span>modules<span class="w"> </span>are<span class="w"> </span>available.
+Distributor<span class="w"> </span>ID:<span class="w"> </span>Debian
+Description:<span class="w">  </span>Debian<span class="w"> </span>GNU/Linux<span class="w"> </span><span class="m">7</span>.5<span class="w"> </span><span class="o">(</span>wheezy<span class="o">)</span>
+Release:<span class="w">  </span><span class="m">7</span>.5
+Codename:<span class="w"> </span>wheezy
+</code></pre></div>
+
+<h2 id="_4">インストール</h2>
+<p>色んなブログでは、build-depして自前でビルドするように書かれているが、今はパッケージがあるので、それを使おう。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>znc
+</code></pre></div>
+
+<h2 id="_5">設定</h2>
+<ol>
+<li>
+<p>ユーザーの作成<br>
+  zncを動かすユーザーを作成しておく。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>useradd<span class="w"> </span>-d<span class="w"> </span>/home/znc<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>-m<span class="w"> </span>znc
+</code></pre></div>
+
+</li>
+<li>
+<p>設定ファイルの作成<br>
+  適当に答えるだけです。<br>
+  設定値もモジュールも後からどうにでもなると思うので、気にしない。<br>
+  webadminを入れて、webから設定をできるようにしておきます。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>znc<span class="w"> </span>--makeconf
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>new<span class="w"> </span>config
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span>.
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>First<span class="w"> </span>let<span class="s1">&#39;s start with some global settings...</span>
+<span class="s1">[ ** ].</span>
+<span class="s1">[ ?? ] What port would you like ZNC to listen on? (1025 to 65535): 6667</span>
+<span class="s1">[ ?? ] Would you like ZNC to listen using SSL? (yes/no) [no]:.</span>
+<span class="s1">[ ?? ] Would you like ZNC to listen using ipv6? (yes/no) [yes]: no</span>
+<span class="s1">[ ?? ] Listen Host (Blank for all ips):.</span>
+<span class="s1">[ ok ] Verifying the listener....</span>
+<span class="s1">[ ** ].</span>
+<span class="s1">[ ** ] -- Global Modules --</span>
+<span class="s1">[ ** ].</span>
+<span class="s1">[ ** ] +-----------+----------------------------------------------------------+</span>
+<span class="s1">[ ** ] | Name      | Description                                              |</span>
+<span class="s1">[ ** ] +-----------+----------------------------------------------------------+</span>
+<span class="s1">[ ** ] | partyline | Internal channels and queries for users connected to znc |</span>
+<span class="s1">[ ** ] | webadmin  | Web based administration module                          |</span>
+<span class="s1">[ ** ] +-----------+----------------------------------------------------------+</span>
+<span class="s1">[ ** ] And 13 other (uncommon) modules. You can enable those later.</span>
+<span class="s1">[ ** ].</span>
+<span class="s1">[ ?? ] Load global module &lt;partyline&gt;? (yes/no) [no]:.</span>
+<span class="s1">[ ?? ] Load global module &lt;webadmin&gt;? (yes/no) [no]: yes </span>
+<span class="s1">[ ** ].</span>
+<span class="s1">[ ** ] Now we need to set up a user...</span>
+<span class="s1">[ ** ] ZNC needs one user per IRC network.</span>
+<span class="s1">[ ** ].</span>
+<span class="s1">[ ?? ] Username (AlphaNumeric): hitsumabushi</span>
+<span class="s1">[ ?? ] Enter Password:.</span>
+<span class="s1">[ ?? ] Confirm Password:.</span>
+<span class="s1">[ ?? ] Would you like this user to be an admin? (yes/no) [yes]:.</span>
+<span class="s1">[ ?? ] Nick [hitsumabushi]:.</span>
+<span class="s1">[ ?? ] Alt Nick [hitsumabushi_]:.</span>
+<span class="s1">[ ?? ] Ident [hitsumabushi]:.</span>
+<span class="s1">[ ?? ] Real Name [Got ZNC?]: &lt;name&gt;</span>
+<span class="s1">[ ?? ] Bind Host (optional):.</span>
+<span class="s1">[ ?? ] Number of lines to buffer per channel [50]:.</span>
+<span class="s1">[ ?? ] Would you like to keep buffers after replay? (yes/no) [no]:.</span>
+<span class="s1">[ ?? ] Default channel modes [+stn]:.</span>
+<span class="s1">[ ** ].</span>
+<span class="s1">[ ** ] -- User Modules --</span>
+<span class="s1">[ ** ].</span>
+<span class="s1">[ ** ] +-------------+------------------------------------------------------------------------------------------------------------+</span>
+<span class="s1">[ ** ] | Name        | Description                                                                                                |</span>
+<span class="s1">[ ** ] +-------------+------------------------------------------------------------------------------------------------------------+</span>
+<span class="s1">[ ** ] | admin       | Dynamic configuration of users/settings through IRC. Allows editing only yourself if you&#39;</span>re<span class="w"> </span>not<span class="w"> </span>ZNC<span class="w"> </span>admin.<span class="w"> </span><span class="p">|</span>
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>chansaver<span class="w">   </span><span class="p">|</span><span class="w"> </span>Keep<span class="w"> </span>config<span class="w"> </span>up-to-date<span class="w"> </span>when<span class="w"> </span>user<span class="w"> </span>joins/parts<span class="w">                                                               </span><span class="p">|</span>
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>keepnick<span class="w">    </span><span class="p">|</span><span class="w"> </span>Keep<span class="w"> </span>trying<span class="w"> </span><span class="k">for</span><span class="w"> </span>your<span class="w"> </span>primary<span class="w"> </span>nick<span class="w">                                                                          </span><span class="p">|</span>
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>kickrejoin<span class="w">  </span><span class="p">|</span><span class="w"> </span>Autorejoin<span class="w"> </span>on<span class="w"> </span>kick<span class="w">                                                                                         </span><span class="p">|</span>
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>nickserv<span class="w">    </span><span class="p">|</span><span class="w"> </span>Auths<span class="w"> </span>you<span class="w"> </span>with<span class="w"> </span>NickServ<span class="w">                                                                                    </span><span class="p">|</span>
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>perform<span class="w">     </span><span class="p">|</span><span class="w"> </span>Keeps<span class="w"> </span>a<span class="w"> </span>list<span class="w"> </span>of<span class="w"> </span>commands<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>executed<span class="w"> </span>when<span class="w"> </span>ZNC<span class="w"> </span>connects<span class="w"> </span>to<span class="w"> </span>IRC.<span class="w">                                          </span><span class="p">|</span>
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>simple_away<span class="w"> </span><span class="p">|</span><span class="w"> </span>Auto<span class="w"> </span>away<span class="w"> </span>when<span class="w"> </span>last<span class="w"> </span>client<span class="w"> </span>disconnects<span class="w">                                                                     </span><span class="p">|</span>
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>+-------------+------------------------------------------------------------------------------------------------------------+
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>And<span class="w"> </span><span class="m">36</span><span class="w"> </span>other<span class="w"> </span><span class="o">(</span>uncommon<span class="o">)</span><span class="w"> </span>modules.<span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>those<span class="w"> </span>later.
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span>.
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span>Load<span class="w"> </span>module<span class="w"> </span>&lt;admin&gt;?<span class="w"> </span><span class="o">(</span>yes/no<span class="o">)</span><span class="w"> </span><span class="o">[</span>no<span class="o">]</span>:<span class="w"> </span>yes
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span>Load<span class="w"> </span>module<span class="w"> </span>&lt;chansaver&gt;?<span class="w"> </span><span class="o">(</span>yes/no<span class="o">)</span><span class="w"> </span><span class="o">[</span>no<span class="o">]</span>:.
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span>Load<span class="w"> </span>module<span class="w"> </span>&lt;keepnick&gt;?<span class="w"> </span><span class="o">(</span>yes/no<span class="o">)</span><span class="w"> </span><span class="o">[</span>no<span class="o">]</span>:.
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span>Load<span class="w"> </span>module<span class="w"> </span>&lt;kickrejoin&gt;?<span class="w"> </span><span class="o">(</span>yes/no<span class="o">)</span><span class="w"> </span><span class="o">[</span>no<span class="o">]</span>:.
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span>Load<span class="w"> </span>module<span class="w"> </span>&lt;nickserv&gt;?<span class="w"> </span><span class="o">(</span>yes/no<span class="o">)</span><span class="w"> </span><span class="o">[</span>no<span class="o">]</span>:<span class="w"> </span>yes
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span>Load<span class="w"> </span>module<span class="w"> </span>&lt;perform&gt;?<span class="w"> </span><span class="o">(</span>yes/no<span class="o">)</span><span class="w"> </span><span class="o">[</span>no<span class="o">]</span>:.
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span>Load<span class="w"> </span>module<span class="w"> </span>&lt;simple_away&gt;?<span class="w"> </span><span class="o">(</span>yes/no<span class="o">)</span><span class="w"> </span><span class="o">[</span>no<span class="o">]</span>:<span class="w"> </span>yes
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span>.
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>--<span class="w"> </span>IRC<span class="w"> </span>Servers<span class="w"> </span>--
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>Only<span class="w"> </span>add<span class="w"> </span>servers<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>same<span class="w"> </span>IRC<span class="w"> </span>network.
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>If<span class="w"> </span>a<span class="w"> </span>server<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>list<span class="w"> </span>can<span class="err">&#39;</span>t<span class="w"> </span>be<span class="w"> </span>reached,<span class="w"> </span>another<span class="w"> </span>server<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>used.
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span>.
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span>IRC<span class="w"> </span>server<span class="w"> </span><span class="o">(</span>host<span class="w"> </span>only<span class="o">)</span>:<span class="w"> </span>irc.freenode.net
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">[</span>irc.freenode.net<span class="o">]</span><span class="w"> </span>Port<span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="w"> </span>to<span class="w"> </span><span class="m">65535</span><span class="o">)</span><span class="w"> </span><span class="o">[</span><span class="m">6667</span><span class="o">]</span>:.
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">[</span>irc.freenode.net<span class="o">]</span><span class="w"> </span>Password<span class="w"> </span><span class="o">(</span>probably<span class="w"> </span>empty<span class="o">)</span>:....
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span>Does<span class="w"> </span>this<span class="w"> </span>server<span class="w"> </span>use<span class="w"> </span>SSL?<span class="w"> </span><span class="o">(</span>yes/no<span class="o">)</span><span class="w"> </span><span class="o">[</span>no<span class="o">]</span>:.
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span>.
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span>Would<span class="w"> </span>you<span class="w"> </span>like<span class="w"> </span>to<span class="w"> </span>add<span class="w"> </span>another<span class="w"> </span>server<span class="w"> </span><span class="k">for</span><span class="w"> </span>this<span class="w"> </span>IRC<span class="w"> </span>network?<span class="w"> </span><span class="o">(</span>yes/no<span class="o">)</span><span class="w"> </span><span class="o">[</span>no<span class="o">]</span>:.
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span>.
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>--<span class="w"> </span>Channels<span class="w"> </span>--
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span>.
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span>Would<span class="w"> </span>you<span class="w"> </span>like<span class="w"> </span>to<span class="w"> </span>add<span class="w"> </span>a<span class="w"> </span>channel<span class="w"> </span><span class="k">for</span><span class="w"> </span>ZNC<span class="w"> </span>to<span class="w"> </span>automatically<span class="w"> </span>join?<span class="w"> </span><span class="o">(</span>yes/no<span class="o">)</span><span class="w"> </span><span class="o">[</span>yes<span class="o">]</span>:.
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span>Channel<span class="w"> </span>name:<span class="w"> </span><span class="c1">#ceph</span>
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span>Would<span class="w"> </span>you<span class="w"> </span>like<span class="w"> </span>to<span class="w"> </span>add<span class="w"> </span>another<span class="w"> </span>channel?<span class="w"> </span><span class="o">(</span>yes/no<span class="o">)</span><span class="w"> </span><span class="o">[</span>no<span class="o">]</span>:.
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span>.
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span>Would<span class="w"> </span>you<span class="w"> </span>like<span class="w"> </span>to<span class="w"> </span><span class="nb">set</span><span class="w"> </span>up<span class="w"> </span>another<span class="w"> </span>user<span class="w"> </span><span class="o">(</span>e.g.<span class="w"> </span><span class="k">for</span><span class="w"> </span>connecting<span class="w"> </span>to<span class="w"> </span>another<span class="w"> </span>network<span class="o">)</span>?<span class="w"> </span><span class="o">(</span>yes/no<span class="o">)</span><span class="w"> </span><span class="o">[</span>no<span class="o">]</span>:.
+<span class="o">[</span><span class="w"> </span>ok<span class="w"> </span><span class="o">]</span><span class="w"> </span>Writing<span class="w"> </span>config<span class="w"> </span><span class="o">[</span>/home/znc/.znc/configs/znc.conf<span class="o">]</span>....
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span>.
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>To<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span>this<span class="w"> </span>ZNC<span class="w"> </span>you<span class="w"> </span>need<span class="w"> </span>to<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span>it<span class="w"> </span>as<span class="w"> </span>your<span class="w"> </span>IRC<span class="w"> </span>server
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>port<span class="w"> </span>that<span class="w"> </span>you<span class="w"> </span>supplied.<span class="w">  </span>You<span class="w"> </span>have<span class="w"> </span>to<span class="w"> </span>supply<span class="w"> </span>your<span class="w"> </span>login<span class="w"> </span>info
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>as<span class="w"> </span>the<span class="w"> </span>IRC<span class="w"> </span>server<span class="w"> </span>password<span class="w"> </span>like<span class="w"> </span>this:<span class="w"> </span>user:pass.
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span>.
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>Try<span class="w"> </span>something<span class="w"> </span>like<span class="w"> </span>this<span class="w"> </span><span class="k">in</span><span class="w"> </span>your<span class="w"> </span>IRC<span class="w"> </span>client...
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>/server<span class="w"> </span>&lt;znc_server_ip&gt;<span class="w"> </span><span class="m">6667</span><span class="w"> </span>hitsumabushi:&lt;pass&gt;
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>And<span class="w"> </span>this<span class="w"> </span><span class="k">in</span><span class="w"> </span>your<span class="w"> </span>browser...
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>http://&lt;znc_server_ip&gt;:6667/
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span>.
+<span class="o">[</span><span class="w"> </span>??<span class="w"> </span><span class="o">]</span><span class="w"> </span>Launch<span class="w"> </span>ZNC<span class="w"> </span>now?<span class="w"> </span><span class="o">(</span>yes/no<span class="o">)</span><span class="w"> </span><span class="o">[</span>yes<span class="o">]</span>:...
+<span class="o">[</span><span class="w"> </span>ok<span class="w"> </span><span class="o">]</span><span class="w"> </span>Opening<span class="w"> </span>Config<span class="w"> </span><span class="o">[</span>/home/znc/.znc/configs/znc.conf<span class="o">]</span>....
+<span class="o">[</span><span class="w"> </span>ok<span class="w"> </span><span class="o">]</span><span class="w"> </span>Loading<span class="w"> </span>Global<span class="w"> </span>Module<span class="w"> </span><span class="o">[</span>webadmin<span class="o">]</span>...<span class="w"> </span><span class="o">[</span>/usr/lib/znc/webadmin.so<span class="o">]</span>
+<span class="o">[</span><span class="w"> </span>ok<span class="w"> </span><span class="o">]</span><span class="w"> </span>Binding<span class="w"> </span>to<span class="w"> </span>port<span class="w"> </span><span class="o">[</span><span class="m">6667</span><span class="o">]</span>....
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>Loading<span class="w"> </span>user<span class="w"> </span><span class="o">[</span>hitsumabushi<span class="o">]</span>
+<span class="o">[</span><span class="w"> </span>ok<span class="w"> </span><span class="o">]</span><span class="w"> </span>Adding<span class="w"> </span>Server<span class="w"> </span><span class="o">[</span>irc.freenode.net<span class="w"> </span><span class="m">6667</span><span class="w"> </span><span class="o">]</span>....
+<span class="o">[</span><span class="w"> </span>ok<span class="w"> </span><span class="o">]</span><span class="w"> </span>Adding<span class="w"> </span>Server<span class="w"> </span><span class="o">[</span>irc.oftc.net<span class="w"> </span><span class="m">6667</span><span class="w"> </span><span class="o">]</span>....
+<span class="o">[</span><span class="w"> </span>ok<span class="w"> </span><span class="o">]</span><span class="w"> </span>Loading<span class="w"> </span>Module<span class="w"> </span><span class="o">[</span>admin<span class="o">]</span>...<span class="w"> </span><span class="o">[</span>/usr/lib/znc/admin.so<span class="o">]</span>
+<span class="o">[</span><span class="w"> </span>ok<span class="w"> </span><span class="o">]</span><span class="w"> </span>Loading<span class="w"> </span>Module<span class="w"> </span><span class="o">[</span>nickserv<span class="o">]</span>...<span class="w"> </span><span class="o">[</span>/usr/lib/znc/nickserv.so<span class="o">]</span>
+<span class="o">[</span><span class="w"> </span>ok<span class="w"> </span><span class="o">]</span><span class="w"> </span>Loading<span class="w"> </span>Module<span class="w"> </span><span class="o">[</span>simple_away<span class="o">]</span>...<span class="w"> </span><span class="o">[</span>/usr/lib/znc/simple_away.so<span class="o">]</span>
+<span class="o">[</span><span class="w"> </span>ok<span class="w"> </span><span class="o">]</span><span class="w"> </span>Forking<span class="w"> </span>into<span class="w"> </span>the<span class="w"> </span>background...<span class="w"> </span><span class="o">[</span>pid:<span class="w"> </span><span class="m">27494</span><span class="o">]</span>
+<span class="o">[</span><span class="w"> </span>**<span class="w"> </span><span class="o">]</span><span class="w"> </span>ZNC<span class="w"> </span><span class="m">0</span>.206+deb2<span class="w"> </span>-<span class="w"> </span>http://znc.in
+</code></pre></div>
+
+</li>
+<li>
+<p>Webからzncに接続する<br>
+  ブラウザから http(s)://hostname:6667 にアクセスする<br>
+  ログインして、List Users→Editを開いて、log モジュールにチェックを入れておくと、IRCのログを書いてくれる。</p>
+</li>
+<li>
+<p>クライアントから接続する<br>
+  xchatでやってみた。<br>
+  SSLで接続する場合には、ネットワーク一覧の設定から、SSLで接続するように設定をし、SSL不正な証明書を受け入れるようにしておく必要がある。 <br>
+  例として、zncサーバーが blog.hitsumabushi.org:6667, ユーザー名が oftc, パスワードが 123456 というユーザーで接続したことにすると、以下のようになる。<br>
+<img alt="XChat" src="/images/2014/XChat_201406061.jpg"></p>
+</li>
+</ol>
+<h2 id="_6">おわり</h2>
+<p>これで快適なIRC生活がおくれるぞ！</p>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/debian.html">Debian</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2014/06/08/1633.html" title="WebHDFSで詰まったこと">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2014/07/17/1635.html" title="[論文]Janus: Optimal Flash Provisioning for Cloud Storage Workloads">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2018/10/31/1901.html">DebianでLuaJITTeXを使いたい</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2018/04/11/1058.html">Debian でログインシェルをzshにしている人が snappy を使う場合の注意</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2017/11/10/1402.html">Ansible でバージョンチェックする</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/12/0742.html">GnuPGのメモ @ Debian Sid</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/11/0428.html">もともとgitで管理されているアプリケーションをdebパッケージにしたいというメモ</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

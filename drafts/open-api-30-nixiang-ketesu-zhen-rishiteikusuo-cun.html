@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="Open API Speciification(以下 OASと書く。) 3.0 がだいぶまとまってきているようなので、 そろそろ移行の準備をしようと、調べたことをメモしておきます。 資料 OAS 3.0。現状、 OpenAPI.next ブランチが 3.0 のためのブランチになっている。 https://github.com/OAI/OpenAPI-Specification/blob/OpenAPI.next/versions/3.0.md これを書いている時点では、 Version 3.0.0-rc2 になっている Open API Initiative のブログ https://www.openapis.org/uncategorized/2017/03/09/api-craft-sf-meetup-open-api-specification-3-0 https://www.openapis.org/blog/2017/03/01/openapi-spec-3-implementers-draft-released 日本語資 …" />
+<meta name="keywords" content="api, swagger, openapi">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="Open API 3.0 に向けて素振りしていく所存"/>
+  <meta property="og:description" content="Open API Speciification(以下 OASと書く。) 3.0 がだいぶまとまってきているようなので、 そろそろ移行の準備をしようと、調べたことをメモしておきます。 資料 OAS 3.0。現状、 OpenAPI.next ブランチが 3.0 のためのブランチになっている。 https://github.com/OAI/OpenAPI-Specification/blob/OpenAPI.next/versions/3.0.md これを書いている時点では、 Version 3.0.0-rc2 になっている Open API Initiative のブログ https://www.openapis.org/uncategorized/2017/03/09/api-craft-sf-meetup-open-api-specification-3-0 https://www.openapis.org/blog/2017/03/01/openapi-spec-3-implementers-draft-released 日本語資 …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/drafts/open-api-30-nixiang-ketesu-zhen-rishiteikusuo-cun.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2017-05-19 19:01:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="api"/>
+  <meta property="article:tag" content="swagger"/>
+  <meta property="article:tag" content="openapi"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Open API 3.0 に向けて素振りしていく所存</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="open-api-30-nixiang-ketesu-zhen-rishiteikusuo-cun">Open API 3.0 に向けて素振りしていく所存</h1>
+    <p>
+      Posted on Fri 19 May 2017 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#_1">資料</a></li>
+<li><a href="#swagger-20-oas-20-oas-300-rc2">Swagger 2.0 (=OAS 2.0) から OAS 3.0.0-rc2の変更点のサマリ</a></li>
+<li><a href="#oas-30">OAS 3.0書いてみる</a><ul>
+<li><a href="#swagger-20">Swagger 2.0 のサンプル</a></li>
+<li><a href="#swagger-300-rc2">Swagger 3.0.0-rc2 へ書き換えてみる</a></li>
+</ul>
+</li>
+<li><a href="#_2">メモ</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<p>Open API Speciification(以下 OASと書く。) 3.0 がだいぶまとまってきているようなので、<br/>
+そろそろ移行の準備をしようと、調べたことをメモしておきます。</p>
+<h2 id="_1">資料</h2>
+<ul>
+<li>OAS 3.0。現状、 OpenAPI.next ブランチが 3.0 のためのブランチになっている。</li>
+<li>https://github.com/OAI/OpenAPI-Specification/blob/OpenAPI.next/versions/3.0.md</li>
+<li>これを書いている時点では、 Version 3.0.0-rc2 になっている</li>
+<li>Open API Initiative のブログ</li>
+<li>https://www.openapis.org/uncategorized/2017/03/09/api-craft-sf-meetup-open-api-specification-3-0</li>
+<li>https://www.openapis.org/blog/2017/03/01/openapi-spec-3-implementers-draft-released</li>
+<li>日本語資料</li>
+<li>OpenAPI 3.0プレビュー: https://www.infoq.com/jp/news/2017/02/openapi-3</li>
+</ul>
+<h2 id="swagger-20-oas-20-oas-300-rc2">Swagger 2.0 (=OAS 2.0) から OAS 3.0.0-rc2の変更点のサマリ</h2>
+<p><img alt="全体の構造が大きく変更されて、components に色々突っ込まれた。" src="/images/2017/openapi/structure_2.0_3.0.png"/></p>
+<p>書き方として大きく変わったと感じるのは、 
+* request body に入れるparameter(これまで <code>in: body</code> と書いていたもの) が、 <code>requestBody</code> に入れることになっている
+* cookie に入れるパラメータも parameterに書くことになった</p>
+<p>それ以外の点として個人的に嬉しいのは、以下のあたり。
+* anyOf, oneOf, not が追加
+* nullable, deprecated, writeOnly が追加
+* セキュリティ定義まわりの拡張</p>
+<p>これまでswaggerで表現できなかったような既存のAPIもある程度サポートできるようになってきたように思います。</p>
+<h2 id="oas-30">OAS 3.0書いてみる</h2>
+<h3 id="swagger-20">Swagger 2.0 のサンプル</h3>
+<p>よくある petstore サンプルです。</p>
+<script src="https://gist.github.com/hitsumabushi/d12f98704507df2edbcb6a2bb58cbfe2.js?file=petstore_simple_2.0.yml"></script>
+<h3 id="swagger-300-rc2">Swagger 3.0.0-rc2 へ書き換えてみる</h3>
+<script src="https://gist.github.com/hitsumabushi/d12f98704507df2edbcb6a2bb58cbfe2.js?file=petstore_simple_3.0.0-rc2.yml"></script>
+<h2 id="_2">メモ</h2>
+<ul>
+<li>ファイル名は、 <code>openapi.json</code> か <code>openapi.yaml</code> というのが推奨<ul>
+<li><code>$ref</code> で参照する先のファイル名は特に推奨はなさそう</li>
+</ul>
+</li>
+<li>Description は CommonMark 0.27 のフォーマットに従う</li>
+</ul>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/api.html">api</a>
+      <a href="https://www.hitsumabushi.org/tag/swagger.html">swagger</a>
+      <a href="https://www.hitsumabushi.org/tag/openapi.html">openapi</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+  </div>
+
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

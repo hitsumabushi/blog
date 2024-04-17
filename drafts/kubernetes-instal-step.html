@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="kubectl をインストール kubernetes の管理に使うので、 kubectl をインストール $ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl &amp;&amp; chmod +x ./kubectl 実行できるか確認する。 $ kubectl version --client -o yaml clientVersion: buildDate: 2017-10-11T23:27:35Z compiler: gc gitCommit: f38e43b221d08850172a9a4ea785a86a3ffa3b3a gitTreeState: clean gitVersion: v1.8.1 goVersion: go1.8.3 major: &#34;1&#34; minor: &#34;8&#34; platform: linux/amd64 local で k8s を立てる minikube をインストール 最新バージョンを確認してダウンロードする $ curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.22.3/minikube-linux-amd64 &amp;&amp; chmod +x minikube 実行できるか確 …" />
+<meta name="keywords" content="kubernetes, docker, debian">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="kubernetes instal step"/>
+  <meta property="og:description" content="kubectl をインストール kubernetes の管理に使うので、 kubectl をインストール $ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl &amp;&amp; chmod +x ./kubectl 実行できるか確認する。 $ kubectl version --client -o yaml clientVersion: buildDate: 2017-10-11T23:27:35Z compiler: gc gitCommit: f38e43b221d08850172a9a4ea785a86a3ffa3b3a gitTreeState: clean gitVersion: v1.8.1 goVersion: go1.8.3 major: &#34;1&#34; minor: &#34;8&#34; platform: linux/amd64 local で k8s を立てる minikube をインストール 最新バージョンを確認してダウンロードする $ curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.22.3/minikube-linux-amd64 &amp;&amp; chmod +x minikube 実行できるか確 …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/drafts/kubernetes-instal-step.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2017-10-24 01:54:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="kubernetes"/>
+  <meta property="article:tag" content="docker"/>
+  <meta property="article:tag" content="debian"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; kubernetes instal step</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="kubernetes-instal-step">kubernetes instal step</h1>
+    <p>
+      Posted on Tue 24 October 2017 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#kubectl">kubectl をインストール</a></li>
+<li><a href="#local-k8s">local で k8s を立てる</a><ul>
+<li><a href="#minikube">minikube をインストール</a></li>
+<li><a href="#k8s-cluster">k8s cluster を作る</a></li>
+<li><a href="#minikube_1">minikube ちょっと触る</a></li>
+<li><a href="#_1"></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<h2 id="kubectl">kubectl をインストール</h2>
+<p>kubernetes の管理に使うので、 kubectl をインストール</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>-LO<span class="w"> </span>https://storage.googleapis.com/kubernetes-release/release/<span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>https://storage.googleapis.com/kubernetes-release/release/stable.txt<span class="k">)</span>/bin/linux/amd64/kubectl<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>./kubectl
+</code></pre></div>
+<p>実行できるか確認する。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>version<span class="w"> </span>--client<span class="w"> </span>-o<span class="w"> </span>yaml
+clientVersion:
+<span class="w">  </span>buildDate:<span class="w"> </span><span class="m">2017</span>-10-11T23:27:35Z
+<span class="w">  </span>compiler:<span class="w"> </span>gc
+<span class="w">  </span>gitCommit:<span class="w"> </span>f38e43b221d08850172a9a4ea785a86a3ffa3b3a
+<span class="w">  </span>gitTreeState:<span class="w"> </span>clean
+<span class="w">  </span>gitVersion:<span class="w"> </span>v1.8.1
+<span class="w">  </span>goVersion:<span class="w"> </span>go1.8.3
+<span class="w">  </span>major:<span class="w"> </span><span class="s2">"1"</span>
+<span class="w">  </span>minor:<span class="w"> </span><span class="s2">"8"</span>
+<span class="w">  </span>platform:<span class="w"> </span>linux/amd64
+</code></pre></div>
+<h2 id="local-k8s">local で k8s を立てる</h2>
+<h3 id="minikube">minikube をインストール</h3>
+<p>最新バージョンを確認してダウンロードする</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>-Lo<span class="w"> </span>minikube<span class="w"> </span>https://storage.googleapis.com/minikube/releases/v0.22.3/minikube-linux-amd64<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>minikube
+</code></pre></div>
+<p>実行できるか確認する。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>minikube<span class="w"> </span>version
+minikube<span class="w"> </span>version:<span class="w"> </span>v0.22.3
+</code></pre></div>
+<h3 id="k8s-cluster">k8s cluster を作る</h3>
+<div class="highlight"><pre><span></span><code><span class="o">$</span><span class="w"> </span><span class="n">minikube</span><span class="w"> </span><span class="n">start</span>
+<span class="n">Starting</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="n">Kubernetes</span><span class="w"> </span><span class="n">v1</span><span class="o">.</span><span class="mf">7.5</span><span class="w"> </span><span class="n">cluster</span><span class="o">...</span>
+<span class="n">Starting</span><span class="w"> </span><span class="n">VM</span><span class="o">...</span>
+<span class="n">Downloading</span><span class="w"> </span><span class="n">Minikube</span><span class="w"> </span><span class="n">ISO</span>
+<span class="w"> </span><span class="mf">139.09</span><span class="w"> </span><span class="n">MB</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">139.09</span><span class="w"> </span><span class="n">MB</span><span class="w"> </span><span class="p">[</span><span class="o">============================================</span><span class="p">]</span><span class="w"> </span><span class="mf">100.00</span><span class="o">%</span><span class="w"> </span><span class="mi">0</span><span class="n">s</span>
+<span class="n">Getting</span><span class="w"> </span><span class="n">VM</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="n">address</span><span class="o">...</span>
+<span class="n">Moving</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="n">cluster</span><span class="o">...</span>
+<span class="n">Setting</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="n">certs</span><span class="o">...</span>
+<span class="n">Connecting</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">cluster</span><span class="o">...</span>
+<span class="n">Setting</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="n">kubeconfig</span><span class="o">...</span>
+<span class="n">Starting</span><span class="w"> </span><span class="n">cluster</span><span class="w"> </span><span class="n">components</span><span class="o">...</span>
+<span class="n">Kubectl</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">configured</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">cluster</span><span class="o">.</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+NAME<span class="w">       </span>STATUS<span class="w">    </span>ROLES<span class="w">     </span>AGE<span class="w">       </span>VERSION
+minikube<span class="w">   </span>Ready<span class="w">     </span>&lt;none&gt;<span class="w">    </span>1m<span class="w">        </span>v1.7.5
+</code></pre></div>
+<h3 id="minikube_1">minikube ちょっと触る</h3>
+<ul>
+<li>minikube dashboard</li>
+<li>minikube status</li>
+<li>minikube ip</li>
+<li>minikube ssh</li>
+<li>minikube docker-env</li>
+</ul>
+<h3 id="_1"></h3>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>run<span class="w"> </span>ghost<span class="w"> </span>--image<span class="o">=</span>ghost:latest
+deployment<span class="w"> </span><span class="s2">"ghost"</span><span class="w"> </span>created
+$<span class="w"> </span>kubectl<span class="w"> </span>expose<span class="w"> </span>deployments<span class="w"> </span>ghost<span class="w"> </span>--port<span class="o">=</span><span class="m">2368</span><span class="w"> </span>--type<span class="o">=</span>NodePort
+service<span class="w"> </span><span class="s2">"ghost"</span><span class="w"> </span>exposed
+$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods
+NAME<span class="w">                     </span>READY<span class="w">     </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+ghost-1604807603-ttz54<span class="w">   </span><span class="m">1</span>/1<span class="w">       </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m
+</code></pre></div>
+<p>expose したサービスをブラウズで開くのは minikube でできる。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>minikube<span class="w"> </span>service<span class="w"> </span>ghost
+</code></pre></div>
+<p>状態を見る</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods,rs,deployments
+NAME<span class="w">                        </span>READY<span class="w">     </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+po/ghost-1604807603-ttz54<span class="w">   </span><span class="m">1</span>/1<span class="w">       </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>11m
+po/redis-2048254088-kmz83<span class="w">   </span><span class="m">1</span>/1<span class="w">       </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>3m
+
+NAME<span class="w">                  </span>DESIRED<span class="w">   </span>CURRENT<span class="w">   </span>READY<span class="w">     </span>AGE
+rs/ghost-1604807603<span class="w">   </span><span class="m">1</span><span class="w">         </span><span class="m">1</span><span class="w">         </span><span class="m">1</span><span class="w">         </span>11m
+rs/redis-2048254088<span class="w">   </span><span class="m">1</span><span class="w">         </span><span class="m">1</span><span class="w">         </span><span class="m">1</span><span class="w">         </span>3m
+
+NAME<span class="w">           </span>DESIRED<span class="w">   </span>CURRENT<span class="w">   </span>UP-TO-DATE<span class="w">   </span>AVAILABLE<span class="w">   </span>AGE
+deploy/ghost<span class="w">   </span><span class="m">1</span><span class="w">         </span><span class="m">1</span><span class="w">         </span><span class="m">1</span><span class="w">            </span><span class="m">1</span><span class="w">           </span>11m
+deploy/redis<span class="w">   </span><span class="m">1</span><span class="w">         </span><span class="m">1</span><span class="w">         </span><span class="m">1</span><span class="w">            </span><span class="m">1</span><span class="w">           </span>3m
+
+$<span class="w"> </span>kubectl<span class="w"> </span>logs<span class="w"> </span>redis-2048254088-kmz83
+<span class="m">1</span>:C<span class="w"> </span><span class="m">24</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">15</span>:53:00.672<span class="w"> </span><span class="c1"># oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo</span>
+<span class="m">1</span>:C<span class="w"> </span><span class="m">24</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">15</span>:53:00.672<span class="w"> </span><span class="c1"># Redis version=4.0.2, bits=64, commit=00000000, modified=0, pid=1, just started</span>
+<span class="m">1</span>:C<span class="w"> </span><span class="m">24</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">15</span>:53:00.672<span class="w"> </span><span class="c1"># Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf</span>
+<span class="m">1</span>:M<span class="w"> </span><span class="m">24</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">15</span>:53:00.675<span class="w"> </span>*<span class="w"> </span>Running<span class="w"> </span><span class="nv">mode</span><span class="o">=</span>standalone,<span class="w"> </span><span class="nv">port</span><span class="o">=</span><span class="m">6379</span>.
+<span class="m">1</span>:M<span class="w"> </span><span class="m">24</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">15</span>:53:00.675<span class="w"> </span><span class="c1"># WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.</span>
+<span class="m">1</span>:M<span class="w"> </span><span class="m">24</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">15</span>:53:00.675<span class="w"> </span><span class="c1"># Server initialized</span>
+<span class="m">1</span>:M<span class="w"> </span><span class="m">24</span><span class="w"> </span>Oct<span class="w"> </span><span class="m">15</span>:53:00.675<span class="w"> </span>*<span class="w"> </span>Ready<span class="w"> </span>to<span class="w"> </span>accept<span class="w"> </span>connections
+</code></pre></div>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/kubernetes.html">kubernetes</a>
+      <a href="https://www.hitsumabushi.org/tag/docker.html">docker</a>
+      <a href="https://www.hitsumabushi.org/tag/debian.html">debian</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2015/09/15/0421.html">Dockerの細々としたメモ</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2015/01/29/0754.html">Dockerのプロキシ設定</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2017/12/01/2001.html">Mesos の sandbox のログローテーションをする</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/09/27/1445.html">DockerHub で docker build のオプションを設定したい</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2018/10/31/1901.html">DebianでLuaJITTeXを使いたい</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

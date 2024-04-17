@@ -1,0 +1,896 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="マッチ演算子 評価の結果は真偽値としては、マッチすれば真、そうでなければ偽。 and, or, ! が役立つのは間違いない。 $_ にマッチさせる /regex/ m:regex: string にマッチさせる string =~ /regex/ string =~ m:regex: $_ の文字列置換 s/regex/new/ s:regex:new: string の文字列置換 string =~ s/regex/new/ string =~ s:regex:new: 特殊なメタキャラクタ ^, $ 行頭、末尾にマッチ . ニューライン以外の任意の文字にマッチ [chars] chars に含まれる任意の1文字にマッチ …" />
+<meta name="keywords" content="perl">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="Perl の正規表現"/>
+  <meta property="og:description" content="マッチ演算子 評価の結果は真偽値としては、マッチすれば真、そうでなければ偽。 and, or, ! が役立つのは間違いない。 $_ にマッチさせる /regex/ m:regex: string にマッチさせる string =~ /regex/ string =~ m:regex: $_ の文字列置換 s/regex/new/ s:regex:new: string の文字列置換 string =~ s/regex/new/ string =~ s:regex:new: 特殊なメタキャラクタ ^, $ 行頭、末尾にマッチ . ニューライン以外の任意の文字にマッチ [chars] chars に含まれる任意の1文字にマッチ …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2014/01/07/0239.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2014-01-07 02:39:20+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="perl"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Perl の正規表現</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="perl-nozheng-gui-biao-xian">Perl の正規表現</h1>
+    <p>
+      Posted on Tue 07 January 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+
+    <div class="content">
+      <div class="section" id="id1">
+<h2>マッチ演算子</h2>
+<p>評価の結果は真偽値としては、マッチすれば真、そうでなければ偽。
+and, or, ! が役立つのは間違いない。</p>
+<div class="section" id="id2">
+<h3>$_ にマッチさせる</h3>
+<div class="highlight"><pre><span></span><span class="sr">/regex/</span>
+<span class="n">m:regex:</span>
+</pre></div>
+</div>
+<div class="section" id="string">
+<h3><em>string</em> にマッチさせる</h3>
+<div class="highlight"><pre><span></span><span class="n">string</span><span class="w"> </span><span class="o">=~</span><span class="sr"> /regex/</span>
+<span class="n">string</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="n">m:regex:</span>
+</pre></div>
+</div>
+<div class="section" id="id3">
+<h3>$_ の文字列置換</h3>
+<div class="highlight"><pre><span></span><span class="sr">s/regex/new/</span>
+<span class="n">s:regex:new:</span>
+</pre></div>
+</div>
+<div class="section" id="id4">
+<h3><em>string</em> の文字列置換</h3>
+<div class="highlight"><pre><span></span><span class="n">string</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="sr">s/regex/new/</span>
+<span class="n">string</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="n">s:regex:new:</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>特殊なメタキャラクタ</h2>
+<div class="section" id="id6">
+<h3>^, $</h3>
+<ul class="simple">
+<li>行頭、末尾にマッチ</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3>.</h3>
+<ul class="simple">
+<li>ニューライン以外の任意の文字にマッチ</li>
+</ul>
+</div>
+<div class="section" id="chars">
+<h3>[<em>chars</em>]</h3>
+<ul class="simple">
+<li><em>chars</em> に含まれる任意の1文字にマッチ</li>
+<li><em>chars</em> 内のバックスラッシュ付き英数字以外のメタキャラクタは、リテラル扱い</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h3>[^ <em>chars</em>]</h3>
+<ul class="simple">
+<li><em>chars</em> に含まれない任意の1文字にマッチ</li>
+<li>メタキャラクタの扱いは [<em>chars</em>] と同様</li>
+</ul>
+</div>
+<div class="section" id="char1-char2">
+<h3>[<em>char1</em>-<em>char2</em>]</h3>
+<ul class="simple">
+<li><em>char1</em> の <em>char2</em> の間に入る任意の文字にマッチ</li>
+<li><em>char1</em>, <em>char2</em> を含む。</li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h3>$&amp;</h3>
+<ul class="simple">
+<li>最後にマッチした内容を保持</li>
+<li>'Foo' =~ /^[A-Z]/ なら $&amp; は F</li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h3>\</h3>
+<ul class="simple">
+<li>メタキャラクタに使ったり、エスケープに使う</li>
+</ul>
+</div>
+<div class="section" id="b">
+<h3>\b</h3>
+<ul class="simple">
+<li>単語の区切りにマッチする</li>
+<li>'abc def' にマッチさせたいときに、'Zabc def' にマッチしないよう、'babc def' と書いておく。</li>
+<li>アルファベットは、単語構成文字クラスなので、スペースや!は、b にマッチするが、Zはマッチしない。</li>
+</ul>
+</div>
+<div class="section" id="n">
+<h3>\n</h3>
+<ul class="simple">
+<li>ニューライン</li>
+</ul>
+</div>
+<div class="section" id="r">
+<h3>\r</h3>
+<ul class="simple">
+<li>キャリッジリターン文字</li>
+<li>カーソルを行頭に戻す</li>
+</ul>
+</div>
+<div class="section" id="t">
+<h3>\t</h3>
+<ul class="simple">
+<li>タブ</li>
+</ul>
+</div>
+<div class="section" id="f">
+<h3>\f</h3>
+<ul class="simple">
+<li>フォームフィード</li>
+<li>改ページ</li>
+</ul>
+</div>
+<div class="section" id="e">
+<h3>\e</h3>
+<ul class="simple">
+<li>エスケープ文字</li>
+</ul>
+</div>
+<div class="section" id="nnn">
+<h3>\NNN</h3>
+<ul class="simple">
+<li>8進数が NNN となる文字</li>
+<li>例えば、040 はスペース</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">備考</p>
+<p class="last">8進数や16進数を調べるには、man ascii</p>
+</div>
+</div>
+<div class="section" id="xnn">
+<h3>\xNN</h3>
+<ul class="simple">
+<li>16進数が NN となる文字</li>
+<li>例えば、x20 はスペース</li>
+</ul>
+</div>
+<div class="section" id="cx">
+<h3>\cX</h3>
+<ul class="simple">
+<li>X によって表される制御文字</li>
+<li>例えば、 cC はCtrl-C</li>
+</ul>
+</div>
+<div class="section" id="q-e">
+<h3>\Q, \E</h3>
+<ul class="simple">
+<li>メタキャラクタを文字として見せたい部分を、\Q ... \E で囲む</li>
+</ul>
+</div>
+</div>
+<div class="section" id="posix">
+<h2>POSIX の文字クラスとショートカットメタキャラクタ</h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="39%" />
+<col width="24%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">文字クラス</th>
+<th class="head">ショートカットメタキャラクタ</th>
+<th class="head">説明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>[a-zA-Z0-9_]</td>
+<td>\w</td>
+<td>単語構成文字</td>
+</tr>
+<tr><td>[^a-zA-Z0-9_]</td>
+<td>\W</td>
+<td>非単語構成文字</td>
+</tr>
+<tr><td>[\040\t\r\n\cJ\cL]</td>
+<td>\s</td>
+<td>空白文字</td>
+</tr>
+<tr><td>[^\040\t\r\n\cJ\cL]</td>
+<td>\S</td>
+<td>非空白文字</td>
+</tr>
+<tr><td>[0-9]</td>
+<td>\d</td>
+<td>数字</td>
+</tr>
+<tr><td>[^0-9]</td>
+<td>\D</td>
+<td>数字以外の文字</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id11">
+<h2>マッチ修飾子</h2>
+<p>/<em>RE</em>/i や m%RE%xs, s/<em>RE</em>/<em>new</em>/e など、最後に修飾子をいくつかつけて、マッチングの動作を変更させることができる。</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">マッチ修飾子</th>
+</tr>
+<tr><th class="head">修飾子</th>
+<th class="head">説明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>i</td>
+<td><div class="first last line-block">
+<div class="line">大文字小文字の違いを無視</div>
+</div>
+</td>
+</tr>
+<tr><td>x</td>
+<td><div class="first last line-block">
+<div class="line">拡張モード</div>
+<div class="line">REフィールドに空白文字とコメントを許す</div>
+</div>
+</td>
+</tr>
+<tr><td>s</td>
+<td><div class="first last line-block">
+<div class="line">シングルラインモード</div>
+<div class="line">. をニューラインにもマッチさせる</div>
+</div>
+</td>
+</tr>
+<tr><td>m</td>
+<td><div class="first last line-block">
+<div class="line">マルチラインモード</div>
+<div class="line">^, $ を文字列の絶対的な先頭、末尾でなく、ターゲット文字列中の行の先頭、末尾にマッチさせる</div>
+</div>
+</td>
+</tr>
+<tr><td>g</td>
+<td><div class="first last line-block">
+<div class="line">すべてのマッチを、スカラーコンテキストかリストコンテキストかによって、連続的もしくは集合的に返す</div>
+</div>
+</td>
+</tr>
+<tr><td>e</td>
+<td><div class="first last line-block">
+<div class="line">置換の時に使う。 <em>new</em> を Perl のコードとして評価して、<em>RE</em> にマッチしたものをその結果で置き換える。</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id12">
+<h2>その他の構文</h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">選択、グループ化、キャプチャ、後方参照</th>
+</tr>
+<tr><th class="head">構文</th>
+<th class="head">説明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>X|Y|Z</td>
+<td><div class="first last line-block">
+<div class="line">X, Y, Zのいずれかにまっち</div>
+</div>
+</td>
+</tr>
+<tr><td>(X)</td>
+<td><div class="first last line-block">
+<div class="line">グループ化とキャプチャ</div>
+<div class="line">a(X|Y)bc や (XY)+ といった感じで使う</div>
+</div>
+</td>
+</tr>
+<tr><td>\1, \2, ...</td>
+<td><div class="first last line-block">
+<div class="line">後方参照。検索文字列フィールドで使用</div>
+</div>
+</td>
+</tr>
+<tr><td>$1, $2, ...</td>
+<td><div class="first last line-block">
+<div class="line">後方参照。検索文字列フィールド以外で使用</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id13">
+<h2>量指定子</h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="67%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">量指定子</th>
+</tr>
+<tr><th class="head">構文</th>
+<th class="head">説明</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>X*</td>
+<td><div class="first last line-block">
+<div class="line">0回以上の繰り返し</div>
+</div>
+</td>
+</tr>
+<tr><td>X+</td>
+<td><div class="first last line-block">
+<div class="line">1回以上の繰り返し</div>
+</div>
+</td>
+</tr>
+<tr><td>X?</td>
+<td><div class="first last line-block">
+<div class="line">0 または 1回の出現</div>
+</div>
+</td>
+</tr>
+<tr><td>X{min, max}</td>
+<td><div class="first last line-block">
+<div class="line">min回以上max回以下の繰り返し</div>
+</div>
+</td>
+</tr>
+<tr><td>X{min, }</td>
+<td><div class="first last line-block">
+<div class="line">min回以上の繰り返し</div>
+</div>
+</td>
+</tr>
+<tr><td>X{count}</td>
+<td><div class="first last line-block">
+<div class="line">count回の繰り返し</div>
+</div>
+</td>
+</tr>
+<tr><td>X{, max}</td>
+<td><div class="first last line-block">
+<div class="line">max回以下の繰り返し</div>
+</div>
+</td>
+</tr>
+<tr><td>REP?</td>
+<td><div class="first last line-block">
+<div class="line">量指定子の直後に ? をつけると、最短マッチ</div>
+<div class="line">例えば、.*? という風な。</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>以下は、Perl で正規表現を扱うときのコツ</p>
+</div>
+<div class="section" id="grep">
+<h2>grep</h2>
+<div class="section" id="grep-v">
+<h3>grep -v</h3>
+<ul>
+<li><div class="first line-block">
+<div class="line">perl で grep -v のように、マッチしないものを表示させるのは、次のように行う。</div>
+</div>
+<div class="highlight"><pre><span></span><span class="c1"># 空行以外を表示</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">wnl</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;/^$/ or print;&#39;</span><span class="w"> </span><span class="n">file</span>
+</pre></div>
+<div class="line-block">
+<div class="line">このように or を使うと便利。</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="grep-l">
+<h3>grep -l</h3>
+<div class="highlight"><pre><span></span><span class="c1"># foo にマッチするもののファイル名を表示</span>
+<span class="c1"># close することで、マッチした後は探索しない。</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">wnl</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;/\bfoo\b/ and print $ARGV and close ARGV;&#39;</span><span class="w"> </span><span class="n">file</span>
+</pre></div>
+</div>
+<div class="section" id="id14">
+<h3>カスケードフィルタ</h3>
+<ul>
+<li><p class="first">シェルで grep &quot;regex1&quot; file | grep &quot;regex2&quot; とやることに相当</p>
+<blockquote>
+<div class="highlight"><pre><span></span><span class="c1"># foo という単語と bar という単語を含む行を見つける</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">wnl</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;/\bfoo\b/ and /\bbar\b/ and print;&#39;</span><span class="w"> </span><span class="n">file</span>
+</pre></div>
+</blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="id15">
+<h3>コンテキスト表示</h3>
+<ul>
+<li><p class="first">段落モード -00 と ファイルモード -0777 を上手く使う</p>
+</li>
+<li><p class="first">/regex/s も上手く使うと良い</p>
+</li>
+<li><p class="first">行をまたがるマッチングを行うとき、間にどんな文字を許すか考える必要がある。ニューラインについて言えば、</p>
+<blockquote>
+<ul class="simple">
+<li>マッチ修飾子の s を使って . をニューラインにマッチさせる</li>
+<li>[\t\n]+ や [_\s]+ というように、明示的に指定したり、[^aiueo]+ などを使う</li>
+<li>s を使う</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="sed">
+<h2>sed</h2>
+<div class="section" id="id16">
+<h3>置換のデリミタ</h3>
+<ul>
+<li><p class="first">対応する括弧も使用可能</p>
+<blockquote>
+<div class="highlight"><pre><span></span><span class="sr">s/.../.../</span>
+<span class="n">s</span><span class="o">|...|...|</span>
+<span class="sr">s{...}{...}</span><span class="p">,</span><span class="w"> </span><span class="sr">s(...)(...)</span>
+</pre></div>
+</blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="id17">
+<h3>行指定置換, コンテキストアドレス</h3>
+<ul>
+<li><p class="first">sed では、次のように、置換の構文の前に、アドレスを指定して、置換する場所を制限できる。</p>
+<blockquote>
+<div class="highlight"><pre><span></span><span class="c1"># 2行目のみ置換</span>
+2s/regex/new/g
+<span class="c1"># 2〜5行目のみ置換</span>
+<span class="m">2</span>,5s/regex/new/g
+<span class="c1"># 行頭が fff の行について置換</span>
+/^fff/s/regex/new/g
+</pre></div>
+</blockquote>
+</li>
+<li><p class="first">これを Perl では、行数に関する条件式で書く必要がある</p>
+<blockquote>
+<div class="highlight"><pre><span></span><span class="c1"># 2行目のみ置換</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">wpl</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;$. == 2 and s/regex/new/g;&#39;</span><span class="w"> </span><span class="n">file</span>
+<span class="c1"># 2〜5行目のみ置換</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">wpl</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;2 &lt;= $. and $. &lt;= 5 and s/regex/new/g;&#39;</span><span class="w"> </span><span class="n">file</span>
+<span class="c1"># 行頭が fff の行について置換</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">wpl</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;/^fff/ and s/regex/new/g;&#39;</span><span class="w"> </span><span class="n">file</span>
+</pre></div>
+</blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="id18">
+<h3>後方参照</h3>
+<ul>
+<li><p class="first">sed では、キャプチャするときに、 ? を使えなかった。 Perl では、? を使える。</p>
+</li>
+<li><p class="first">sed では、どこでも 1, 2, ...で参照したが、Perlでは 1, 2, ... と $1, $2, ... とどこから参照するかによって異なる。</p>
+<blockquote>
+<div class="highlight"><pre><span></span><span class="c1"># Mr か Mr. を見る</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">wnl</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;s/(Mr.?) (Fo[oa])/$1 Bar $2/g;&#39;</span><span class="w"> </span><span class="n">file</span>
+</pre></div>
+</blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="id19">
+<h3>計算結果で置換</h3>
+<ul>
+<li><p class="first">sed では、置換文字列フィールドに計算結果を入れることが難しかった。(できるか知らない。)</p>
+</li>
+<li><p class="first">perl では、簡単にできる。マッチ修飾子の e が必要。</p>
+<blockquote>
+<div class="highlight"><pre><span></span><span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">wnl</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;s/\d+/$&amp; * 2.1/ge;&#39;</span><span class="w"> </span><span class="n">file</span>
+</pre></div>
+</blockquote>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="awk">
+<h2>AWK</h2>
+<div class="section" id="id20">
+<h3>フィールドアクセス</h3>
+<ul>
+<li><p class="first">AWK では、フィールドアクセスが便利</p>
+<blockquote>
+<div class="highlight"><pre><span></span><span class="c1"># スペースorタブ区切りのフィールドの順番を入れ替える</span>
+<span class="nx">awk</span> <span class="s1">&#39;{ print $2, $1}&#39;</span> <span class="nx">file</span>
+</pre></div>
+</blockquote>
+</li>
+<li><p class="first">Perl で似たようなことをやるには、2つ方法がある。</p>
+<ol class="arabic">
+<li><p class="first">コマンドラインオプション -a (と合わせて、-F)を使う</p>
+</li>
+<li><p class="first">自分で各フィールドを変数に代入する</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="59%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">フィールドアクセス</th>
+</tr>
+<tr><th class="head">構文</th>
+<th class="head">コメント</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>($A, $B)=&#64;F;</td>
+<td>それぞれの変数にセット</td>
+</tr>
+<tr><td>($A, undef, $B)=&#64;F;</td>
+<td>第2フィールドは変数に入れない</td>
+</tr>
+<tr><td>$numfields=&#64;F;</td>
+<td>レコードのフィールド数を格納</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+</div>
+<div class="section" id="id21">
+<h3>パターン範囲</h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="19%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="3">パターン範囲</th>
+</tr>
+<tr><th class="head">演算子</th>
+<th class="head">構文</th>
+<th class="head">コメント</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>..</td>
+<td>regex1 .. regex2</td>
+<td><div class="first last line-block">
+<div class="line">regex1を含む最初のレコードからregex2を含む最初のレコードまでの範囲</div>
+<div class="line">一旦regex1とregex2の組が見つかると次のregex1を見つけるまで、無視</div>
+<div class="line">regex1とregex2が同じレコードにある場合もマッチ。</div>
+</div>
+</td>
+</tr>
+<tr><td>...</td>
+<td>regex1 ... regex2</td>
+<td><div class="first last line-block">
+<div class="line">.. とほぼ同じ。</div>
+<div class="line">ただし、regex2はregex1の次の行以降から探す。</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="find">
+<h2>find</h2>
+<div class="section" id="id22">
+<h3>ファイル属性テスト</h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">ファイル属性テスト (○ は属性に対応する文字)</th>
+</tr>
+<tr><th class="head">構文</th>
+<th class="head">コメント</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>-○ filename</td>
+<td>filename が○という属性を有していることをテスト</td>
+</tr>
+<tr><td>! -○ filename</td>
+<td>filename が○という属性を有していないことをテスト</td>
+</tr>
+<tr><td>-○</td>
+<td>$_ が○という属性を有していることをテスト</td>
+</tr>
+<tr><td>! -○</td>
+<td>$_ が○という属性を有していないことをテスト</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2">ファイル属性と対応する演算子</th>
+</tr>
+<tr><th class="head">ファイル属性</th>
+<th class="head">演算子</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>通常ファイル</td>
+<td>-f</td>
+</tr>
+<tr><td>ディレクトリ</td>
+<td>-d</td>
+</tr>
+<tr><td>シンボリックリンク</td>
+<td>-l</td>
+</tr>
+<tr><td>名前付きパイプ</td>
+<td>-p</td>
+</tr>
+<tr><td>キャラクタ</td>
+<td>-c</td>
+</tr>
+<tr><td>ブロック</td>
+<td>-b</td>
+</tr>
+<tr><td>ソケット</td>
+<td>-S</td>
+</tr>
+<tr><td>空</td>
+<td>-z</td>
+</tr>
+<tr><td>空でない</td>
+<td>-s</td>
+</tr>
+<tr><td>実UID/GIDで読取り可</td>
+<td>-R</td>
+</tr>
+<tr><td>実UID/GIDで書込み可</td>
+<td>-W</td>
+</tr>
+<tr><td>実UID/GIDで実行可</td>
+<td>-X</td>
+</tr>
+<tr><td>実UIDが所有</td>
+<td>-O</td>
+</tr>
+<tr><td>実効UID/GIDで読取り可</td>
+<td>-r</td>
+</tr>
+<tr><td>実効UID/GIDで書込み可</td>
+<td>-w</td>
+</tr>
+<tr><td>実効UID/GIDで実行可</td>
+<td>-x</td>
+</tr>
+<tr><td>実効UIDが所有</td>
+<td>-o</td>
+</tr>
+<tr><td>指定のUID/GIDが所有</td>
+<td>stat</td>
+</tr>
+<tr><td>setuid</td>
+<td>-u</td>
+</tr>
+<tr><td>setgid</td>
+<td>-g</td>
+</tr>
+<tr><td>sticky</td>
+<td>-k</td>
+</tr>
+<tr><td>テキスト</td>
+<td>-T</td>
+</tr>
+<tr><td>バイナリ</td>
+<td>-B</td>
+</tr>
+<tr><td>別のファイルより新しい</td>
+<td>stat</td>
+</tr>
+<tr><td>別のファイルより後にアクセスされた</td>
+<td>stat</td>
+</tr>
+<tr><td>リンクの数</td>
+<td>stat</td>
+</tr>
+<tr><td>inode番号</td>
+<td>stat</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/perl.html">perl</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2014/01/07/0238.html" title="Perlスクリプトメモ">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2014/06/02/1631.html" title="LEDバックライトの調整">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2014/01/07/0238.html">Perlスクリプトメモ</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2014/01/02/0240.html">便利なツール</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2014/01/01/0237.html">Perl のコンパイラオプション</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="参考ページ man perlrun DebugIto&#39;s - Perl/コマンドライン 基本的なオプション -e ワンライナーを書くために必須。 複数並べられるので、それなりに色々書ける 直後にperlプログラムを書ける。 perl -e &#39;print 11/2&#39; -l[8進数] 行末に指定された8進数に変える。-l のみの場合、改行になる。 perl -e &#39;print 22&#39; #=&gt; 22 perl -l -e &#39;print 22&#39; #=&gt; 22\n perl -l101 -e &#39;print 22&#39; #=&gt; 22A -0[digits] -l の入力セパレータバージョン -00 とすれば、空行を区切 …" />
+<meta name="keywords" content="perl">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="Perl のコンパイラオプション"/>
+  <meta property="og:description" content="参考ページ man perlrun DebugIto&#39;s - Perl/コマンドライン 基本的なオプション -e ワンライナーを書くために必須。 複数並べられるので、それなりに色々書ける 直後にperlプログラムを書ける。 perl -e &#39;print 11/2&#39; -l[8進数] 行末に指定された8進数に変える。-l のみの場合、改行になる。 perl -e &#39;print 22&#39; #=&gt; 22 perl -l -e &#39;print 22&#39; #=&gt; 22\n perl -l101 -e &#39;print 22&#39; #=&gt; 22A -0[digits] -l の入力セパレータバージョン -00 とすれば、空行を区切 …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2014/01/01/0237.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2014-01-01 02:37:20+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="perl"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Perl のコンパイラオプション</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="perl-nokonpairaopushiyon">Perl のコンパイラオプション</h1>
+    <p>
+      Posted on Wed 01 January 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+
+    <div class="content">
+      <div class="section" id="id1">
+<h2>参考ページ</h2>
+<ul class="simple">
+<li>man perlrun</li>
+<li><a class="reference external" href="http://debugitos.main.jp/index.php?Perl%2F%A5%B3%A5%DE%A5%F3%A5%C9%A5%E9%A5%A4%A5%F3">DebugIto's - Perl/コマンドライン</a></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>基本的なオプション</h2>
+<div class="section" id="e">
+<h3>-e</h3>
+<ul class="simple">
+<li>ワンライナーを書くために必須。</li>
+<li>複数並べられるので、それなりに色々書ける</li>
+<li>直後にperlプログラムを書ける。</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;print 11/2&#39;</span>
+</pre></div>
+</div>
+<div class="section" id="l-8">
+<h3>-l[8進数]</h3>
+<ul class="simple">
+<li>行末に指定された8進数に変える。-l のみの場合、改行になる。</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;print 22&#39;</span><span class="w">       </span><span class="c1">#=&gt; 22</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">l</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;print 22&#39;</span><span class="w">    </span><span class="c1">#=&gt; 22\n</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">l101</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;print 22&#39;</span><span class="w"> </span><span class="c1">#=&gt; 22A</span>
+</pre></div>
+</div>
+<div class="section" id="digits">
+<h3>-0[digits]</h3>
+<ul>
+<li><p class="first">-l の入力セパレータバージョン</p>
+</li>
+<li><p class="first">-00 とすれば、空行を区切り。段落モード。</p>
+<blockquote>
+<ul class="simple">
+<li>$/ = &quot;&quot;;</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">-777 とすればファイルごとの区切りになる。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>使い勝手の良いオプション</h2>
+<div class="section" id="n">
+<h3>-n</h3>
+<ul class="simple">
+<li>while (&lt;&gt;) { ...} の中にスクリプトを入れたと思って実行</li>
+</ul>
+</div>
+<div class="section" id="p">
+<h3>-p</h3>
+<ul class="simple">
+<li>-n みたいなもの。ただし、行($_)を出力する。</li>
+<li>sed に似たやつ。</li>
+</ul>
+</div>
+<div class="section" id="a">
+<h3>-a</h3>
+<ul class="simple">
+<li>-n, -p と一緒に使用</li>
+<li>$_ を自動的に改行で分割し、配列 &#64;F に入れる</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">ane</span><span class="w"> </span><span class="s">&#39;print $F[0], &quot;\n&quot;&#39;</span><span class="w"> </span><span class="sr">/etc/</span><span class="n">passwd</span>
+</pre></div>
+</div>
+<div class="section" id="f-pattern">
+<h3>-F/pattern/</h3>
+<ul class="simple">
+<li>-a の分割のデリミタを指定する</li>
+<li>パターンは複数文字でも良い。そのときは、' ' または / / で囲む</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">F</span><span class="s">&#39;:&#39;</span><span class="w"> </span><span class="o">-</span><span class="n">ane</span><span class="w"> </span><span class="s">&#39;print $F[0],&quot;:&quot;,$F[2] ,&quot;\n&quot;&#39;</span><span class="w"> </span><span class="sr">/etc/</span><span class="n">passwd</span>
+</pre></div>
+</div>
+<div class="section" id="i">
+<h3>-i[拡張子]</h3>
+<ul class="simple">
+<li>拡張子がないとき、&lt;&gt;のファイルを直接編集する</li>
+<li>拡張子があるとき、&lt;&gt;の元ファイルは、拡張子をつけたファイルにバックアップされる。</li>
+<li>$SECONDS を使うのがオススメ</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="o">.</span><span class="n">back</span><span class="w"> </span><span class="o">-</span><span class="n">pe</span><span class="w"> </span><span class="sb">`s/foo/bar/g&#39; sample.txt</span>
+<span class="sb">perl -i.$SECONDS -pe `</span><span class="sr">s/foo/bar/g</span><span class="err">&#39;</span><span class="w"> </span><span class="n">sample</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>デバッグに使えるオプション</h2>
+<div class="section" id="c">
+<h3>-c</h3>
+<ul class="simple">
+<li>スクリプトのシンタックスチェックのみ行う</li>
+</ul>
+</div>
+<div class="section" id="d-debugger">
+<h3>-d[:debugger]</h3>
+<ul class="simple">
+<li>debugger の下で走らせる</li>
+</ul>
+</div>
+<div class="section" id="w">
+<h3>-w</h3>
+<ul class="simple">
+<li>より多くの Warning を出す</li>
+</ul>
+</div>
+<div class="section" id="w-x">
+<h3>-W (-X)</h3>
+<ul class="simple">
+<li>すべての Warning を出す(出さない)</li>
+</ul>
+</div>
+</div>
+
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/perl.html">perl</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2014/01/01/0241.html" title="DNS サーバー">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2014/01/07/0239.html">Perl の正規表現</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2014/01/07/0238.html">Perlスクリプトメモ</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2014/01/02/0240.html">便利なツール</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>
