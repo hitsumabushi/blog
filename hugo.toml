@@ -55,7 +55,7 @@ enableInlineShortcodes = true # inline short code
   # algolia site search
   algolia_search = true
   algolia_appId = "QDYUDRXVCE"
-  algolia_indexName = "blog"
+  algolia_indexName = "blog-hugo"
   algolia_apiKey = "cbbbe16271381182bbac5e643c50d1d3"
 
   # Sidebar settings
