@@ -16,7 +16,7 @@ enableInlineShortcodes = true # inline short code
   home = ["HTML", "RSS", "Algolia"]
 
 [permalinks]
-  posts = "/blog/:year/:month/:day/:slug"
+  post = "/blog/:year/:month/:day/:slug"
 
   # [languages]
   #   [languages.ja]
