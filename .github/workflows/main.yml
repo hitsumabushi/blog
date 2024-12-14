@@ -7,26 +7,33 @@ on:
 jobs:
   build_job:
     name: deploy blog
+    env:
+      HUGO_VERSION: v0.139.4
+      HUGO_CACHEDIR: /tmp/hugo_cache
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
-          submodules: recursive
-      - uses: actions/setup-python@v2
+          submodules: true # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
         with:
-          python-version: '3.9'
-      # https://github.com/actions/cache/blob/master/examples.md#python---pip
-      - uses: actions/cache@v2
+          hugo-version: "0.119.0"
+      - uses: actions/cache@v4
         with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          path: ${{ env.HUGO_CACHEDIR }}
+          key: ${{ runner.os }}-hugomod-${{ hashFiles('**/go.sum') }}
           restore-keys: |
-            ${{ runner.os }}-pip-
-      - name: Install Dependencies
-        run: pip install -r requirements.txt
-      - name: run deploy.sh
-        run: script/deploy.sh
-        shell: bash
+            ${{ runner.os }}-hugomod-
+      - name: Build
+        run: hugo --minify
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
       # ビルドの実行結果を Slack に投稿する
       - name: Send notification to slack channel
         uses: rtCamp/action-slack-notify@v2

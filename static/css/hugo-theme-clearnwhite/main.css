@@ -1,0 +1,28 @@
+.sidebar-container {
+    color: #404040;
+    font-size: 14px;
+}
+
+.container p {
+    margin: 15px 0;
+}
+
+.container .post-preview>p.post-meta {
+    font-size: 14px;
+}
+
+.intro-header .site-heading,
+.intro-header .post-heading,
+.intro-header .page-heading {
+    padding-top: 80px;
+    padding-bottom: 40px;
+}
+
+.intro-header .post-heading h1 {
+    margin: 10px 0;
+}
+
+.intro-header .post-heading .subheading {
+    visibility: hidden;
+    margin: 0;
+}
