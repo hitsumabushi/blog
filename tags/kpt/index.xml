@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>KPT on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/kpt/</link><description>Recent content in KPT on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Wed, 31 Dec 2014 18:05:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/kpt/index.xml" rel="self" type="application/rss+xml"/><item><title>2014年のまとめをしておかねば</title><link>https://www.hitsumabushi.org/post/2014/1805/</link><pubDate>Wed, 31 Dec 2014 18:05:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/1805/</guid><description>&lt;p>今年1年は反省の多い年だったので、きちんと書いて残しておく。&lt;/p>
+&lt;h2 id="2014年面白かった技術触りたかったソフトウェア">2014年面白かった技術、触りたかったソフトウェア&lt;/h2>
+&lt;h3 id="新たに導入したもの">新たに導入したもの&lt;/h3>
+&lt;ol>
+&lt;li>Ansible&lt;/li>
+&lt;li>Ceph&lt;/li>
+&lt;li>Pelican(このブログを生成してるやつ)&lt;/li>
+&lt;li>Flask&lt;/li>
+&lt;/ol>
+&lt;h3 id="ちょっとしか触れず">ちょっとしか触れず&amp;hellip;&lt;/h3>
+&lt;ol start="0">
+&lt;li>VyOS&lt;/li>
+&lt;li>Consul&lt;/li>
+&lt;li>Fluentd&lt;/li>
+&lt;li>Golang&lt;/li>
+&lt;li>Docker&lt;/li>
+&lt;li>CoreOS&lt;/li>
+&lt;li>Hashicorpのツールその他&lt;/li>
+&lt;li>Hadoop&lt;/li>
+&lt;/ol>
+&lt;h3 id="触りたかったけど触らず">触りたかったけど、触らず&lt;/h3>
+&lt;ol>
+&lt;li>Strom&lt;/li>
+&lt;li>Rust&lt;/li>
+&lt;/ol>
+&lt;h2 id="2014年のトピックス">2014年のトピックス&lt;/h2>
+&lt;p>思い返すと1月のこととかは何年も前に感じるが、今年は割と色々あった。
+自分の中でトピックとして大きい出来事を中心に書いてみる&lt;/p></description></item></channel></rss>

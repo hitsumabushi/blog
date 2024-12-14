@@ -1,0 +1,90 @@
+<!doctype html><html lang=ja><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:site_name" content="ひつまぶし食べたい"><meta property="og:type" content="article"><meta property="og:image" content="https://www.hitsumabushi.org//img/home-bg-jeep.jpg"><meta property="twitter:image" content="https://www.hitsumabushi.org//img/home-bg-jeep.jpg"><meta name=title content="runCをDebianで実行する"><meta property="og:title" content="runCをDebianで実行する"><meta property="twitter:title" content="runCをDebianで実行する"><meta name=description content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="og:description" content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="twitter:description" content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="twitter:card" content="summary"><meta name=keyword content="hitsumabushi,SRE,Management,Cloud,Infrastructure,Software,Programming,Engineering"><link rel="shortcut icon" href=/img/favicon.ico><title>runCをDebianで実行する | ひつまぶし食べたい</title>
+<link rel=canonical href=/post/2015/2047/><link rel=stylesheet href=/css/bootstrap.min.css><link rel=stylesheet href=/css/hugo-theme-cleanwhite.min.css><link rel=stylesheet href=/css/zanshang.css><link rel=stylesheet href=/css/font-awesome.all.min.css><link rel=stylesheet href=https://www.hitsumabushi.org/css/hugo-theme-clearnwhite/custom-font.css><link rel=stylesheet href=https://www.hitsumabushi.org/css/hugo-theme-clearnwhite/main.css><script src=/js/jquery.min.js></script><script src=/js/bootstrap.min.js></script><script src=/js/hux-blog.min.js></script><script src=/js/lazysizes.min.js></script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script><script>var dnt,doNotTrack=!1;if(!1&&(dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes"),!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-JPYFS3RY30")}</script><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=/>ひつまぶし食べたい</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=/>All Posts</a></li><li><a href=/search><i class="fa fa-search"></i></a></li></ul></div></div></div></nav><script>var $body=document.body,$toggle=document.querySelector(".navbar-toggle"),$navbar=document.querySelector("#huxblog_navbar"),$collapse=document.querySelector(".navbar-collapse");$toggle.addEventListener("click",handleMagic);function handleMagic(){$navbar.className.indexOf("in")>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf("in")<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script><style type=text/css>header.intro-header{background-image:url(/img/home-bg-jeep.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/runc title=runc>runc
+</a><a class=tag href=/tags/debian title=debian>debian</a></div><h1>runCをDebianで実行する</h1><h2 class=subheading></h2><span class=meta>Posted by
+ひつまぶし食べたい
+on
+Tuesday, June 23, 2015</span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container"><p><a href=https://github.com/opencontainers/runc>opencontainers/runc</a> を実行してみようとしたところ、コンパイルまではすぐできるのに、実行するとエラーが出て困ったので、対処方法を書いておく。</p><h2 id=runcのインストール>runCのインストール</h2><p>golang的に普通の場所に置いてビルドすると良い。git clone の代わりに go getでも良い。</p><pre tabindex=0><code>git clone https://github.com/opencontainers/runc $GOPATH/src/github.com/opencontainers/runc
+cd $GOPATH/src/github.com/opencontainers/runc/
+make
+sudo make install
+</code></pre><h2 id=状況>状況</h2><h3 id=ディレクトリ構成>ディレクトリ構成</h3><pre tabindex=0><code>.
+├── container.json (とりあえず、runc spec で生成されるものでOK)
+└── rootfs (docker exportして、tarを展開したものを置いたディレクトリ)
+</code></pre><h3 id=利用中のカーネル>利用中のカーネル</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>% uname -a
+</span></span><span style=display:flex><span>Linux debian 4.0.0-2-amd64 <span style=color:#6272a4>#1 SMP Debian 4.0.5-1 (2015-06-16) x86_64 GNU/Linux</span>
+</span></span></code></pre></div><h2 id=問題>問題</h2><p>ここまで準備できるとruncが実行できるはずなのだけど、やってみるとエラーが出る。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>% sudo runc --debug
+</span></span><span style=display:flex><span>WARN<span style=color:#ff79c6>[</span>0000<span style=color:#ff79c6>]</span> signal: killed
+</span></span><span style=display:flex><span>Timestamp: 2015-06-23 20:50:18.148962383 +0900 JST
+</span></span><span style=display:flex><span>Code: System error
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Message: open /sys/fs/cgroup/cpu/user.slice/tmp/cpu.cfs_quota_us: permission denied
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Frames:
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>0: start
+</span></span><span style=display:flex><span>Package: github.com/opencontainers/runc/libcontainer.<span style=color:#ff79c6>(</span>*initProcess<span style=color:#ff79c6>)</span>
+</span></span><span style=display:flex><span>File: process_linux.go@197
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>1: Start
+</span></span><span style=display:flex><span>Package: github.com/opencontainers/runc/libcontainer.<span style=color:#ff79c6>(</span>*linuxContainer<span style=color:#ff79c6>)</span>
+</span></span><span style=display:flex><span>File: container_linux.go@107
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>2: execContainer
+</span></span><span style=display:flex><span>Package: main
+</span></span><span style=display:flex><span>File: run.go@41
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>3: func·006
+</span></span><span style=display:flex><span>Package: main
+</span></span><span style=display:flex><span>File: main.go@88
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>4: Run
+</span></span><span style=display:flex><span>Package: github.com/codegangsta/cli.<span style=color:#ff79c6>(</span>*App<span style=color:#ff79c6>)</span>
+</span></span><span style=display:flex><span>File: app.go@159
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>5: main
+</span></span><span style=display:flex><span>Package: main
+</span></span><span style=display:flex><span>File: main.go@96
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>6: main
+</span></span><span style=display:flex><span>Package: runtime
+</span></span><span style=display:flex><span>File: proc.go@63
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>7: goexit
+</span></span><span style=display:flex><span>Package: runtime
+</span></span><span style=display:flex><span>File: asm_amd64.s@2232
+</span></span></code></pre></div><h2 id=対処>対処</h2><h3 id=カーネルの再コンパイル>カーネルの再コンパイル</h3><p><code>cfs_quota_us</code> というのは、CFS Bandwidth Control というカーネルの機能らしく、cgroupなどと一緒に入ったものっぽい。</p><ul><li><a href=https://access.redhat.com/documentation/ja-JP/Red_Hat_Enterprise_Linux/6/html/Resource_Management_Guide/sec-cpu.html>Red Hat Customer Portal</a></li><li><a href=http://d.hatena.ne.jp/defiant/20120116/1326703352>Linux 3.2 の CFS bandwidth control (2) - TenForwardの日記</a></li></ul><p>とりあえず、カーネルコンパイルする必要がありそうなので、以下を参考に実施する。</p><ul><li><a href=http://kernel-handbook.alioth.debian.org/ch-common-tasks.html>Debian Linux Kernel Handbook - Common kernel-related tasks</a></li><li><a href=http://greenleaf.sakuraweb.com/index.php?%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB%20-Debian%20Linux->カーネルコンパイル -Debian Linux- - GreenLeaf</a></li><li><a href=http://www.foxking.org/oldsite/pc/kernel-deb.html>Debian流Linuxカーネル構築法</a></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>sudo apt-get install build-essential kernel-package libncurses5-dev bc
+</span></span><span style=display:flex><span>sudo apt-get install linux-source
+</span></span><span style=display:flex><span>sudo -s
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>cd</span> /usr/src
+</span></span><span style=display:flex><span>tar xvf linux-source-4.0.tar.xz
+</span></span><span style=display:flex><span><span style=color:#8be9fd;font-style:italic>cd</span> linux-source-4.0
+</span></span><span style=display:flex><span>cp /boot/config-4.0.0-2-amd64 .config
+</span></span><span style=display:flex><span>make oldconfig
+</span></span><span style=display:flex><span>make menuconfig
+</span></span></code></pre></div><p>ここで、 &lsquo;/&rsquo; を押し、&ldquo;CFS&rdquo; などを検索すると CFS Bandwidthの項目が見つかるので、チェックを入れる。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>make-kpkg clean
+</span></span><span style=display:flex><span>make-kpkg --revision 1.0 --initrd kernel-image 
+</span></span><span style=display:flex><span>sudo dpkg -i <span style=color:#ff79c6>(</span>できた debパッケージ<span style=color:#ff79c6>)</span>
+</span></span></code></pre></div><h3 id=ブート時のカーネルパラメータ>ブート時のカーネルパラメータ</h3><p>上記だけでは動かなかったので、さらに、GRUBでカーネルパラメータを追加した。</p><p>/etc/default/grub を開いて、</p><pre tabindex=0><code># GRUB_CMDLINE_LINUX=&#34;&#34; &lt;-コメントアウト
+GRUB_CMDLINE_LINUX=&#34;cgroup_enable=memory swapaccount=1&#34;
+</code></pre><p>編集した後、 <code>sudo update-grub</code> をして、reboot。
+これで、<code>sudo runc</code> で実行できるようになっている。</p><p>open container 自体は、まだspecも公開されていないし、特に遊べることはなさそうだ。</p><h2 id=その他の参考資料>その他の参考資料</h2><p>他にもカーネルコンフィグをいじった方が良いかもしれない。</p><ul><li><a href=https://gist.github.com/mapk0y/2d1b7537b6c6d1c8e7f9>Check Kernel Config Script for CRIU</a></li></ul><hr><ul class=pager><li class=previous><a href=/post/2015/4/ data-toggle=tooltip data-placement=top title=Windowsの勉強を始めた>&larr;
+Previous Post</a></li><li class=next><a href=/post/2015/1250/ data-toggle=tooltip data-placement=top title=Twitterからメールアドレス拾えるんじゃね?的な攻撃について>Next
+Post &rarr;</a></li></ul><div id=disqus-comment></div><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hitsumabushi.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div class="col-lg-2 col-lg-offset-0
+visible-lg-block
+sidebar-container
+catalog-container"><div class=side-catalog><hr class="hidden-sm hidden-xs"><h5><a class=catalog-toggle href=#>CATALOG</a></h5><ul class=catalog-body></ul></div></div><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/debian title=debian>debian
+</a><a href=/tags/vcp title=vcp>vcp
+</a><a href=/tags/vmware title=vmware>vmware</a></div></section></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href=https://x.com/_hitsumabushi_><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/hitsumabushi><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-github fa-stack-1x fa-inverse"></i></span></a></li><li><a href rel=alternate type=application/rss+xml title=ひつまぶし食べたい><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-rss fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; ひつまぶし食べたい 2024</p></div></div></div></footer><script>function loadAsync(e,t){var s=document,o="script",n=s.createElement(o),i=s.getElementsByTagName(o)[0];n.src=e,t&&n.addEventListener("load",function(e){t(null,e)},!1),i.parentNode.insertBefore(n,i)}</script><script>$("#tag_cloud").length!==0&&loadAsync("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:"#bbbbee",end:"#0085a1"}},$("#tag_cloud a").tagcloud()})</script><script>loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js",function(){var e=document.querySelector("nav");e&&FastClick.attach(e)})</script><script type=text/javascript>function generateCatalog(e){_containerSelector="div.post-container";var t,n,s,o,i,a=$(_containerSelector),r=a.find("h1,h2,h3,h4,h5,h6");return $(e).html(""),r.each(function(){t=$(this).prop("tagName").toLowerCase(),o="#"+$(this).prop("id"),n=$(this).text(),i=$('<a href="'+o+'" rel="nofollow">'+n+"</a>"),s=$('<li class="'+t+'_nav"></li>').append(i),$(e).append(s)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(e){e.preventDefault(),$(".side-catalog").toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$(".catalog-body").onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script></body></html>

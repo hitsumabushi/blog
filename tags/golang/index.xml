@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Golang on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/golang/</link><description>Recent content in Golang on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Mon, 05 Feb 2018 20:09:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Cloud Pub/Sub をGolangから使おうとしてハマったことまとめ</title><link>https://www.hitsumabushi.org/post/2018/2009/</link><pubDate>Mon, 05 Feb 2018 20:09:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2018/2009/</guid><description>&lt;h1 id="概要">概要&lt;/h1>
+&lt;p>&lt;a href="https://cloud.google.com/pubsub/overview?hl=ja">Google Pub/Sub&lt;/a> を &lt;a href="https://github.com/GoogleCloudPlatform/google-cloud-go">GoのSDK&lt;/a> から使おうとしていました。
+やっているといくつか詰まったので、メモしておきます。&lt;/p>
+&lt;ol>
+&lt;li>サービスアカウントを利用するためにCredentials JSONを指定する&lt;/li>
+&lt;li>サブスクリプションの &lt;code>Pub/Sub サブスクライバー権限&lt;/code> を与えても Permission Denied になる&lt;/li>
+&lt;/ol>
+&lt;h2 id="サービスアカウントを利用するためにcredentials-jsonを指定する">サービスアカウントを利用するためにCredentials JSONを指定する&lt;/h2>
+&lt;p>権限の都合上、サービスアカウントのCredentials JSONを利用して認証したい、という要件がありました。
+ドキュメントを見ていると、 &lt;a href="https://cloud.google.com/docs/authentication/production?hl=ja">ADC(Application Default Credentials)&lt;/a> を利用して認証している場合が多いです。
+これを使う場合、 &lt;code>GOOGLE_APPLICATION_CREDENTIALS&lt;/code> という環境変数が設定されていれば、そのファイルを読んでくれるのですが、今回の要件では複数の Credentials を利用したかったので、Go プログラム中で指定する必要がありました。&lt;/p></description></item></channel></rss>

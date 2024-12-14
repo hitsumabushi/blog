@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Package on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/package/</link><description>Recent content in Package on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Mon, 11 Jul 2016 04:28:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/package/index.xml" rel="self" type="application/rss+xml"/><item><title>もともとgitで管理されているアプリケーションをdebパッケージにしたいというメモ</title><link>https://www.hitsumabushi.org/post/2016/428/</link><pubDate>Mon, 11 Jul 2016 04:28:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/428/</guid><description>&lt;h2 id="はじめに">はじめに&lt;/h2>
+&lt;p>debパッケージを作る経験が少ないので、あまり良い方法ではないかもしれない。&lt;/p>
+&lt;h2 id="サンプル">サンプル&lt;/h2>
+&lt;p>&lt;a href="https://github.com/hitsumabushi/hub">https://github.com/hitsumabushi/hub&lt;/a>&lt;/p>
+&lt;h2 id="手順">手順&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># install&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt install fakeroot
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># tag, release をきれいにする&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git tag -l &amp;gt; tag_list
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">for&lt;/span> x in &lt;span style="color:#ff79c6">$(&lt;/span>cat tag_list&lt;span style="color:#ff79c6">)&lt;/span>; &lt;span style="color:#ff79c6">do&lt;/span> git push origin :&lt;span style="color:#8be9fd;font-style:italic">$x&lt;/span> ; &lt;span style="color:#ff79c6">done&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># 色々リポジトリを整理した後、空っぽの masterを作る&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git checkout --orphan master
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># 自前で control, copyright ファイルを書く&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># アップストリームのものを持ってくる&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># 参考: https://github.com/bcandrea/consul-deb/tree/debian/debian&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fakeroot dpkg-deb --build pkg tmp
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># 生成された deb ファイルの中身を確認し、install してみる&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ar x &amp;lt;deb file&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># ... check files&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo dpkg -i &amp;lt;deb file&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># ... check installation&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># dpkg -s &amp;lt;package&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># dpkg -L &amp;lt;package&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># 問題がなければ&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git commit -a
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git push origin master
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>

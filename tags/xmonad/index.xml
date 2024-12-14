@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Xmonad on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/xmonad/</link><description>Recent content in Xmonad on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Sun, 05 Apr 2015 01:38:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/xmonad/index.xml" rel="self" type="application/rss+xml"/><item><title>Xmonadの設定</title><link>https://www.hitsumabushi.org/post/2015/138/</link><pubDate>Sun, 05 Apr 2015 01:38:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/138/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
+&lt;ol>
+&lt;li>&lt;a href="http://xmonad.org/documentation.html">http://xmonad.org/documentation.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://archlinuxjp.kusakata.com/wiki/Xmonad?rdfrom=https%3A%2F%2Fwiki.archlinux.org%2Findex.php%3Ftitle%3DXmonad_%28%25E6%2597%25A5%25E6%259C%25AC%25E8%25AA%259E%29%26redirect%3Dno">Archlinux Wiki - Xmonad&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://wiki.haskell.org/Xmonad/Config_archive/John_Goerzen's_Configuration">Xmonad/Config archive/John Goerzen&amp;rsquo;s Configuration&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://blog.blueblack.net/item_424.html">Xmonadの設定 1/3 「基本」編 - ナレッジエース&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h2 id="環境">環境&lt;/h2>
+&lt;p>Debian Sid &amp;amp; Xfce4&lt;/p>
+&lt;h2 id="install-and-initial-configure">Install and Initial Configure&lt;/h2>
+&lt;h3 id="package-install">Package install&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># basic packages&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get install xmonad libghc-xmonad-dev libghc-xmonad-contrib-dev
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># for adding launcher&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get install dmenu
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># for status bar&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get install xmobar
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># tools&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo apt-get install suckless-tools scrot tilda trayer
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="xsession">Xsession&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>add &lt;code>/usr/share/xsessions/custom.desktop&lt;/code>&lt;/p></description></item></channel></rss>

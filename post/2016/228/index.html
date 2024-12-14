@@ -1,0 +1,72 @@
+<!doctype html><html lang=ja><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:site_name" content="ひつまぶし食べたい"><meta property="og:type" content="article"><meta property="og:image" content="https://www.hitsumabushi.org//img/home-bg-jeep.jpg"><meta property="twitter:image" content="https://www.hitsumabushi.org//img/home-bg-jeep.jpg"><meta name=title content="s3で自前 Debian Package リポジトリを作る"><meta property="og:title" content="s3で自前 Debian Package リポジトリを作る"><meta property="twitter:title" content="s3で自前 Debian Package リポジトリを作る"><meta name=description content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="og:description" content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="twitter:description" content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="twitter:card" content="summary"><meta name=keyword content="hitsumabushi,SRE,Management,Cloud,Infrastructure,Software,Programming,Engineering"><link rel="shortcut icon" href=/img/favicon.ico><title>s3で自前 Debian Package リポジトリを作る | ひつまぶし食べたい</title>
+<link rel=canonical href=/post/2016/228/><link rel=stylesheet href=/css/bootstrap.min.css><link rel=stylesheet href=/css/hugo-theme-cleanwhite.min.css><link rel=stylesheet href=/css/zanshang.css><link rel=stylesheet href=/css/font-awesome.all.min.css><link rel=stylesheet href=https://www.hitsumabushi.org/css/hugo-theme-clearnwhite/custom-font.css><link rel=stylesheet href=https://www.hitsumabushi.org/css/hugo-theme-clearnwhite/main.css><script src=/js/jquery.min.js></script><script src=/js/bootstrap.min.js></script><script src=/js/hux-blog.min.js></script><script src=/js/lazysizes.min.js></script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script><script>var dnt,doNotTrack=!1;if(!1&&(dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes"),!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-JPYFS3RY30")}</script><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=/>ひつまぶし食べたい</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=/>All Posts</a></li><li><a href=/search><i class="fa fa-search"></i></a></li></ul></div></div></div></nav><script>var $body=document.body,$toggle=document.querySelector(".navbar-toggle"),$navbar=document.querySelector("#huxblog_navbar"),$collapse=document.querySelector(".navbar-collapse");$toggle.addEventListener("click",handleMagic);function handleMagic(){$navbar.className.indexOf("in")>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf("in")<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script><style type=text/css>header.intro-header{background-image:url(/img/home-bg-jeep.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/debian title=debian>debian
+</a><a class=tag href=/tags/apt title=apt>apt
+</a><a class=tag href=/tags/s3 title=s3>s3</a></div><h1>s3で自前 Debian Package リポジトリを作る</h1><h2 class=subheading></h2><span class=meta>Posted by
+ひつまぶし食べたい
+on
+Sunday, July 10, 2016</span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container"><h2 id=この記事でやること>この記事でやること</h2><ul><li>aptly の初歩的な使い方</li><li>aptly を使ってs3へ自前リポジトリを公開する。</li></ul><p>自前パッケージの作成については、書かないです。</p><h2 id=自前-debian-package-リポジトリ>自前 Debian Package リポジトリ</h2><p>なぜ自前のリポジトリが欲しいかというと、個人的には以下の3つくらいかと思います。</p><ul><li>カジュアルにパッチを当てて、サーバに適用したい</li><li>必要なパッケージをフリーズしたいが全てのサーバーで Pin するのは面倒、などの理由で自分でバージョンをコントロールしたい</li><li>公式パッケージがない場合に、ビルド済みのものをインストールする形式にしたい</li></ul><p>ただし、リポジトリの構成を調べたり、一度手で作ってみるとわかるが、更新がとっても大変です。
+そのため、<code>aptly</code> や <code>reprepro</code> といったリポジトリを管理するためのツールがあります。</p><h2 id=aptly>aptly</h2><p><img src=/images/2016/aptly/aptly_log.png alt=aptly></p><p>リポジトリ管理を行うツールで、かなりリポジトリ管理のフローを考慮されたツールになっています。
+全く新しくリポジトリを作る場合や、リポジトリのミラーをしたりできます。
+特に個人的に便利に使えそうだと思っているのは、スナップショットの機能で、複数のリポジトリからスナップショットを作成できます。
+スナップショットを作成して、s3(やs3互換ストレージ)やswiftへアップロードすることができます。</p><p>注意点として、リポジトリのミラーをする場合、現状、自分のGPG keyになってしまうようで、ミラーのためにこのツールを使うのは難しいです。ミラーをしたいだけであれば、 rsync した方が良いです。
+リポジトリのミラーを resign なしで作成できるようにする機能は作成途中のようです。</p><p>また、今回はs3にアップロードする前提ですが、aptly自体は、自前サーバーで公開するためにも利用可能になっています。
+その場合にもほとんど同じフローでできます。</p><h2 id=インストール>インストール</h2><p><code>sudo apt-get install aptly</code> すれば良いです。</p><h2 id=自前のパッケージを含むリポジトリをs3へアップロードする手順>自前のパッケージを含むリポジトリをs3へアップロードする手順</h2><h3 id=事前作業>事前作業</h3><p>GPG keyの作成が必要です。</p><pre tabindex=0><code>gpg --gen-key
+</code></pre><h3 id=アップロードするリポジトリの作成>アップロードするリポジトリの作成</h3><p>まずは、空のリポジトリを作成します</p><pre tabindex=0><code>aptly repo create -distribution=wheezy -component=main &lt;repo_name&gt;
+</code></pre><p>次に、パッケージをリポジトリに追加します</p><pre tabindex=0><code>aptly repo add &lt;repo_name&gt; &lt;deb_packages&gt;
+</code></pre><p>現状、どんなパッケージが追加されているかは、 <code>aptly repo show -with-packages &lt;repo_name></code> で確認できます。</p><h3 id=スナップショットの作成>スナップショットの作成</h3><p>さて、必要なパッケージ追加でき、リポジトリをアップロードする準備ができたら、スナップショットを取得しておきます。
+最低限、publishする単位ごとにスナップショットを取っておけば良いと思います。
+アップロードするのも、このスナップショットをもとに行います。</p><pre tabindex=0><code>aptly snapshot create &lt;snapshot_name&gt; from repo &lt;repo_name&gt;
+</code></pre><p>スナップショットの一覧は、 <code>aptly snapshot list</code> です。 <code>aptly snapshot show -with-packages &lt;snapshot_name></code> とすれば各スナップショットの詳細を確認できます。</p><p>スナップショット名としては、サービスのバージョンと連携してパッケージをpublishするのであれば、そのバージョンをsuffixにつけるのが良いと思います。通常の運用時には、タイムスタンプをsuffixにつけましょう。</p><h3 id=aptlyのs3設定>aptlyのs3設定</h3><p>事前にs3のアクセスキーなどを取得している前提です。
+以下のように環境変数に設定します。(後述する、 aptly.confに書くこともできます)</p><pre tabindex=0><code>export AWS_SECRET_ACCESS_KEY=&#34;XXXXXXXXXXXXXXXXXXX&#34;
+export AWS_ACCESS_KEY_ID=&#34;YYYYYYYYYYYYYYYYYYYY&#34;
+</code></pre><p>次に、 <code>~/.aptly.conf</code> にバケットの情報を書きます。</p><pre tabindex=0><code>{
+  &#34;rootDir&#34;: &#34;/home/hitsu/.aptly&#34;,
+  &#34;downloadConcurrency&#34;: 4,
+  &#34;downloadSpeedLimit&#34;: 0,
+  &#34;architectures&#34;: [],
+  &#34;dependencyFollowSuggests&#34;: false,
+  &#34;dependencyFollowRecommends&#34;: false,
+  &#34;dependencyFollowAllVariants&#34;: false,
+  &#34;dependencyFollowSource&#34;: false,
+  &#34;gpgDisableSign&#34;: false,
+  &#34;gpgDisableVerify&#34;: false,
+  &#34;downloadSourcePackages&#34;: false,
+  &#34;ppaDistributorID&#34;: &#34;ubuntu&#34;,
+  &#34;ppaCodename&#34;: &#34;&#34;,
+  &#34;skipContentsPublishing&#34;: false,
+  &#34;S3PublishEndpoints&#34;: {},
+  &#34;SwiftPublishEndpoints&#34;: {},
+  &#34;S3PublishEndpoints&#34;:{
+    &#34;&lt;endpoint_name&gt;&#34; : {
+      &#34;region&#34;: &#34;ap-northeast-1&#34;,
+      &#34;bucket&#34;: &#34;&lt;バケット名&gt;&#34;,
+      &#34;prefix&#34;: &#34;debian&#34;,
+      &#34;acl&#34;: &#34;public-read&#34;
+    }
+  }
+}
+</code></pre><h3 id=スナップショットのアップロード>スナップショットのアップロード</h3><p>スナップショットをpublishします。
+このコマンドを打つと、s3へ自動でアップロードしてくれます。
+s3のWebサイトのホスティングを設定していれば、これでパッケージを公開できたことになります。</p><pre tabindex=0><code>aptly publish snapshot &lt;snapshot_name&gt; s3:&lt;endpoint_name&gt;:
+</code></pre><h3 id=リポジトリの更新について>リポジトリの更新について</h3><p>基本的には、<code>aptly repo add</code> → <code>aptly snapshot create</code> で良いのですが、アップロードについては、注意が必要です。</p><pre tabindex=0><code>aptly publish switch &lt;distribution_name&gt; s3:&lt;endpoint_name&gt;: &lt;new_snapshot_name&gt;
+</code></pre><hr><ul class=pager><li class=previous><a href=/post/2016/1232/ data-toggle=tooltip data-placement=top title="VCP6-NV 取得した">&larr;
+Previous Post</a></li><li class=next><a href=/post/2016/428/ data-toggle=tooltip data-placement=top title=もともとgitで管理されているアプリケーションをdebパッケージにしたいというメモ>Next
+Post &rarr;</a></li></ul><div id=disqus-comment></div><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hitsumabushi.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div class="col-lg-2 col-lg-offset-0
+visible-lg-block
+sidebar-container
+catalog-container"><div class=side-catalog><hr class="hidden-sm hidden-xs"><h5><a class=catalog-toggle href=#>CATALOG</a></h5><ul class=catalog-body></ul></div></div><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/debian title=debian>debian
+</a><a href=/tags/vcp title=vcp>vcp
+</a><a href=/tags/vmware title=vmware>vmware</a></div></section></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href=https://x.com/_hitsumabushi_><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/hitsumabushi><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-github fa-stack-1x fa-inverse"></i></span></a></li><li><a href rel=alternate type=application/rss+xml title=ひつまぶし食べたい><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-rss fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; ひつまぶし食べたい 2024</p></div></div></div></footer><script>function loadAsync(e,t){var s=document,o="script",n=s.createElement(o),i=s.getElementsByTagName(o)[0];n.src=e,t&&n.addEventListener("load",function(e){t(null,e)},!1),i.parentNode.insertBefore(n,i)}</script><script>$("#tag_cloud").length!==0&&loadAsync("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:"#bbbbee",end:"#0085a1"}},$("#tag_cloud a").tagcloud()})</script><script>loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js",function(){var e=document.querySelector("nav");e&&FastClick.attach(e)})</script><script type=text/javascript>function generateCatalog(e){_containerSelector="div.post-container";var t,n,s,o,i,a=$(_containerSelector),r=a.find("h1,h2,h3,h4,h5,h6");return $(e).html(""),r.each(function(){t=$(this).prop("tagName").toLowerCase(),o="#"+$(this).prop("id"),n=$(this).text(),i=$('<a href="'+o+'" rel="nofollow">'+n+"</a>"),s=$('<li class="'+t+'_nav"></li>').append(i),$(e).append(s)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(e){e.preventDefault(),$(".side-catalog").toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$(".catalog-body").onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script></body></html>

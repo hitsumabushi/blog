@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Fio on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/fio/</link><description>Recent content in Fio on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Mon, 09 Feb 2015 22:27:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/fio/index.xml" rel="self" type="application/rss+xml"/><item><title>fioを使ったベンチマーク</title><link>https://www.hitsumabushi.org/post/2015/2227/</link><pubDate>Mon, 09 Feb 2015 22:27:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2227/</guid><description>&lt;h2 id="intro">Intro&lt;/h2>
+&lt;p>ディスクベンチマークのツールとして、dbenchであるとか、もっと簡単にはhdparmなどがある。
+今回はfioという、単純なread/writeの計測には必要十分なツールを使おうと思う。
+ただ、ベンチマークツールはたいていオプションが多く、またアウトプットも複雑なので、一旦まとめてみる。&lt;/p></description></item></channel></rss>

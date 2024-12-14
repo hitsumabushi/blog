@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Paper on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/paper/</link><description>Recent content in Paper on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Thu, 17 Jul 2014 16:35:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/paper/index.xml" rel="self" type="application/rss+xml"/><item><title>論文 - Janus &amp;#58; Optimal Flash Provisioning for Cloud Storage Workloads</title><link>https://www.hitsumabushi.org/post/2014/1635/</link><pubDate>Thu, 17 Jul 2014 16:35:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/1635/</guid><description>&lt;h2 id="読んだもの">読んだもの&lt;/h2>
+&lt;p>&lt;a href="http://research.google.com/pubs/pub41179.html">http://research.google.com/pubs/pub41179.html&lt;/a>&lt;/p>
+&lt;h2 id="主な内容">主な内容&lt;/h2>
+&lt;ul>
+&lt;li>『2種類の異なるストレージ(フラッシュとディスク)を複数のワークロードで共用する』効率的な使い方を最適化問題への帰着
+使い方に2つの戦略があって、『FIFO or LRU』。&lt;/li>
+&lt;li>LRUの方がキャッシュヒットレート的には良いけど、メトリクスを取るのが複雑になりがちなので、FIFOで良いのでは。&lt;/li>
+&lt;li>実システムでの計測結果&lt;/li>
+&lt;/ul>
+&lt;h3 id="使われているシステム-技術要素">使われているシステム, 技術要素&lt;/h3>
+&lt;ul>
+&lt;li>Clossus (GFSの改良版)&lt;/li>
+&lt;li>アルゴリズム: 貪欲法&lt;/li>
+&lt;/ul>
+&lt;h3 id="大事なこと">大事なこと&lt;/h3>
+&lt;ul>
+&lt;li>最適化問題を特にあたって、ワークロード特性を表す関数を、convexで近似したことにすることがアイディアの1つ。&lt;/li>
+&lt;li>理論としては、piecewise-linearでなくても良いが、実測では有限個の点しか取れないので、piecewise-linearとしておくと計算が楽になる。&lt;/li>
+&lt;li>運用中もワークロード特性を測定してフィードバックすることで、特性の変化に対応することができる。&lt;/li>
+&lt;/ul>
+&lt;h2 id="所感">所感&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>よくまとまっているので、とても良い。&lt;/p></description></item></channel></rss>

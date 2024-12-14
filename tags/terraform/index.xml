@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Terraform on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/terraform/</link><description>Recent content in Terraform on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Tue, 05 Dec 2017 17:48:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/terraform/index.xml" rel="self" type="application/rss+xml"/><item><title>さくらのクラウドでN百台を管理するためにterraformとansibleを使っている話</title><link>https://www.hitsumabushi.org/post/2017/1748/</link><pubDate>Tue, 05 Dec 2017 17:48:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/1748/</guid><description>&lt;hr>
+&lt;p>これは、&lt;a href="https://qiita.com/advent-calendar/2017/sakura">さくらインターネット Advent Calendar 2017&lt;/a> として書いた&lt;a href="https://qiita.com/hitsumabushi/items/e89b763dd4fc41e15136">記事&lt;/a> です。&lt;/p>
+&lt;hr>
+&lt;p>さくらインターネットでは、今年4月からIoTプラットフォームの sakura.io をサービス提供しています。
+sakura.io は、さくらのクラウド上で本番・検証環境を構築しており、数百台のサーバーを利用しています。&lt;/p></description></item><item><title>さくらのクラウドを便利に使うためのツールメモ</title><link>https://www.hitsumabushi.org/post/2017/1600/</link><pubDate>Mon, 10 Jul 2017 16:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/1600/</guid><description>&lt;h2 id="1-cliで操作したい">1. CLIで操作したい&lt;/h2>
+&lt;p>usacloud が今一番良い。
+非公式と書かれているが、サポートされている機能、更新頻度、使い勝手、導入のしやすさ、などどれをとっても usacloud を使うべき。&lt;/p></description></item></channel></rss>

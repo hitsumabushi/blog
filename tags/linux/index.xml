@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/linux/</link><description>Recent content in Linux on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Mon, 02 Jun 2014 16:31:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>LEDバックライトの調整</title><link>https://www.hitsumabushi.org/post/2014/1631/</link><pubDate>Mon, 02 Jun 2014 16:31:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/1631/</guid><description>&lt;p>ディスプレイの輝度が高すぎて目が痛いので、輝度を下げたい。
+GUIでやっても良いけど、CLIの方が簡単そうだったので、CLIでやってみることにした。&lt;/p></description></item><item><title>実UID,実行UID</title><link>https://www.hitsumabushi.org/post/old_rst_files/163/</link><pubDate>Wed, 01 Jan 2014 02:43:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/163/</guid><description>&lt;p>プロセスはいくつかのIDを持っている。
+あまり深く考えず、実UIDと実行UIDについて考える。&lt;/p>
+&lt;h2 id="実uiduid">実UID(UID)&lt;/h2>
+&lt;ul>
+&lt;li>呼び出し元のプロセス(親プロセス)の実ユーザーID。&lt;/li>
+&lt;li>普通にログインして、何かプロセスをシェルから走らせる場合、ログインシェルのUIDがログインユーザーIDなので、ログインユーザーIDになる。&lt;/li>
+&lt;/ul>
+&lt;h2 id="実効uid">実効UID&lt;/h2>
+&lt;ul>
+&lt;li>呼び出し元のプロセス(親プロセス)の実効ユーザーID。&lt;/li>
+&lt;li>ファイルアクセスに影響。&lt;/li>
+&lt;li>普通にログインして、何かプロセスをシェルから走らせる場合、ログインシェルのUIDがログインユーザーIDなので、ログインユーザーIDになる。&lt;/li>
+&lt;li>ただし、SUID ビットがあるときは、それに従う。&lt;/li>
+&lt;/ul>
+&lt;h3 id="suid-sgid-スティッキービット">SUID, SGID, スティッキービット&lt;/h3>
+&lt;h2 id="suid-sgid">SUID, SGID&lt;/h2>
+&lt;p>| それぞれ setuid, setgidのこと。
+| まず、 SUID(SGID) ビットが立っているファイルについて見る。&lt;/p></description></item></channel></rss>

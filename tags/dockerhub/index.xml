@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dockerhub on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/dockerhub/</link><description>Recent content in Dockerhub on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Tue, 27 Sep 2016 14:45:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/dockerhub/index.xml" rel="self" type="application/rss+xml"/><item><title>DockerHub で docker build のオプションを設定したい</title><link>https://www.hitsumabushi.org/post/2016/1445/</link><pubDate>Tue, 27 Sep 2016 14:45:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/1445/</guid><description>&lt;h2 id="参考リポジトリ">参考リポジトリ&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/hitsumabushi/docker-phpipam">https://github.com/hitsumabushi/docker-phpipam&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="目的">目的&lt;/h2>
+&lt;ul>
+&lt;li>Dockerfile の中で、 ARGを使いたい。
+&lt;ul>
+&lt;li>LABEL としてビルドした日付や、 VCSのリビジョンを入れたい&lt;/li>
+&lt;li>ソフトウェアのバージョンをARGで指定したい&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="やること">やること&lt;/h2>
+&lt;ol>
+&lt;li>Dockerfile と同じ場所に、 &lt;code>hook&lt;/code> ディレクトリを作成する。&lt;/li>
+&lt;li>&lt;code>hook&lt;/code> ディレクトリ以下に、 &lt;code>build&lt;/code> というファイルを作成する。
+&lt;ul>
+&lt;li>&lt;code>build&lt;/code> には、 build時に実行したいシェルスクリプトを書くと、build 時に実行される。&lt;/li>
+&lt;li>自分で docker build &amp;hellip; というコマンドを書く&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="tips">TIPS&lt;/h2>
+&lt;h3 id="dockerfileを別の場所に置く場合">Dockerfileを別の場所に置く場合&lt;/h3>
+&lt;p>&lt;a href="https://github.com/hitsumabushi/docker-phpipam">https://github.com/hitsumabushi/docker-phpipam&lt;/a> では、 Dockerfile を、&lt;code>/dockerimages/phpipam/&lt;/code> 以下に置いている。
+その場合であっても、 Dockerfileと同じディレクトリに、 &lt;code>hook&lt;/code> ディレクトリを作成すれば良い。
+その上で、 DockerHub の Build Settings の Dockerfile Location にて、 &lt;code>/dockerimages/phpipam/Dockerfile&lt;/code> とすれば良い。&lt;/p></description></item></channel></rss>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>S3 on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/s3/</link><description>Recent content in S3 on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Sun, 10 Jul 2016 03:44:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/s3/index.xml" rel="self" type="application/rss+xml"/><item><title>s3で自前 Debian Package リポジトリを作る</title><link>https://www.hitsumabushi.org/post/2016/228/</link><pubDate>Sun, 10 Jul 2016 03:44:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/228/</guid><description>&lt;h2 id="この記事でやること">この記事でやること&lt;/h2>
+&lt;ul>
+&lt;li>aptly の初歩的な使い方&lt;/li>
+&lt;li>aptly を使ってs3へ自前リポジトリを公開する。&lt;/li>
+&lt;/ul>
+&lt;p>自前パッケージの作成については、書かないです。&lt;/p>
+&lt;h2 id="自前-debian-package-リポジトリ">自前 Debian Package リポジトリ&lt;/h2>
+&lt;p>なぜ自前のリポジトリが欲しいかというと、個人的には以下の3つくらいかと思います。&lt;/p></description></item></channel></rss>

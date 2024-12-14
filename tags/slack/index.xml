@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Slack on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/slack/</link><description>Recent content in Slack on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Thu, 16 Jun 2016 14:45:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/slack/index.xml" rel="self" type="application/rss+xml"/><item><title>会社にslack入ったので、色々やってた</title><link>https://www.hitsumabushi.org/post/2016/1445/</link><pubDate>Thu, 16 Jun 2016 14:45:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/1445/</guid><description>&lt;p>勤務先の会社に今日(2016/06/16)から真面目にSlackが導入されたので、やった設定をメモしておく。&lt;/p>
+&lt;h1 id="現在のチャンネル構成">現在のチャンネル構成&lt;/h1>
+&lt;ul>
+&lt;li>定常系
+&lt;ul>
+&lt;li>分報用のチャンネル。個々人が作る&lt;/li>
+&lt;li>部署用&lt;/li>
+&lt;li>チーム用&lt;/li>
+&lt;li>プロジェクト用&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>雑多な情報共有用
+&lt;ul>
+&lt;li>ニュース用&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>トラブル用&lt;/li>
+&lt;li>その他
+&lt;ul>
+&lt;li>臨時に必要になるとか&lt;/li>
+&lt;li>テストとか&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="やったことメモ">やったことメモ&lt;/h1>
+&lt;h2 id="rss-を-slack-に移行">RSS を Slack に移行&lt;/h2>
+&lt;p>live dwango reader をずっと使っていたのだけど、更新頻度がそこそこで、重要度の高いRSSを Slack で追いかけることにした。&lt;/p></description></item></channel></rss>

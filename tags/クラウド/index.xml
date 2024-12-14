@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>クラウド on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89/</link><description>Recent content in クラウド on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Mon, 05 Jan 2015 17:35:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89/index.xml" rel="self" type="application/rss+xml"/><item><title>vCloud Airの価格感を調べる</title><link>https://www.hitsumabushi.org/post/2015/1735/</link><pubDate>Mon, 05 Jan 2015 17:35:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/1735/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="http://www.vmware.com/jp/products/vcloud-air">VMware vCloud Air&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://vcloud.vmware.com/jp/service-offering/pricing-guide">VMware vCloud Air 価格ガイド&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="vcloud-airとは">vCloud Airとは&lt;/h2>
+&lt;p>VMwareが提供している、ハイブリッドクラウドのサービス。&lt;/p>
+&lt;p>特徴として、オンプレでVMware環境を稼働させている場合に、vCloud Connectorを利用することで、
+vSphere Clientのプラグインと統合して操作ができることが挙げられる。&lt;/p></description></item></channel></rss>

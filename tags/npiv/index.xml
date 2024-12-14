@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>NPIV on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/npiv/</link><description>Recent content in NPIV on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Tue, 30 Dec 2014 02:57:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/npiv/index.xml" rel="self" type="application/rss+xml"/><item><title>VMware環境でのNPIVについて</title><link>https://www.hitsumabushi.org/post/2014/175/</link><pubDate>Tue, 30 Dec 2014 02:57:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/175/</guid><description>&lt;p>VCP-DCV取得のために勉強していたところ、NPIVという用語が出てきたので、調べてみたことを書いておきます。&lt;/p>
+&lt;h2 id="資料">資料&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://pubs.vmware.com/vsphere-50/index.jsp?topic=/com.vmware.vsphere.vm_admin.doc_50/GUID-C713BCA5-71B4-4539-A4AE-8E781330755C.html">vSphere ドキュメント センター&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://www.itmedia.co.jp/enterprise/articles/0903/23/news002.html">サーバ仮想化のカギはストレージ・ネットワークにあり：基幹系サーバ統合に適したストレージ・ネットワーク要件を探れ！ - ITmedia エンタープライズ&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://itpro.nikkeibp.co.jp/article/COLUMN/20090417/328662/">ブレードサーバーで始めるSAN - 第4回 ブレードサーバー特有のSAN設計：ITpro&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="まとめ">まとめ&lt;/h2>
+&lt;ol>
+&lt;li>NPIV = N_Port ID Virtualization&lt;/li>
+&lt;li>NPIVとは、1つのHBAに対して複数のID(WWPN)を割り当てることで、&lt;strong>1つのHBAポートを複数のHBAポートに見せる&lt;/strong> ための技術&lt;/li>
+&lt;li>VMware的には、RDMのディスクを持つ仮想マシンについて、 アクセス制御, QoSなどのために使われる&lt;/li>
+&lt;li>NPIVのしようとして、1ポートあたり255WWPNしか割り当てられない&lt;/li>
+&lt;/ol>
+&lt;h2 id="npivとは">NPIVとは&lt;/h2>
+&lt;h3 id="fc環境の基本">FC環境の基本&lt;/h3>
+&lt;p>FC環境では、各ノードはWWN(&lt;em>World Wide Name&lt;/em>)を用いて識別されています。
+IPプロトコルで言うところの、IPアドレスと同様に、アクセス先を表したり、アクセス制限を行ったりする対象が、WWNになります。&lt;/p></description></item></channel></rss>

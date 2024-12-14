@@ -1,0 +1,54 @@
+<!doctype html><html lang=ja><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:site_name" content="ひつまぶし食べたい"><meta property="og:type" content="article"><meta property="og:image" content="https://www.hitsumabushi.org//img/home-bg-jeep.jpg"><meta property="twitter:image" content="https://www.hitsumabushi.org//img/home-bg-jeep.jpg"><meta name=title content="もともとgitで管理されているアプリケーションをdebパッケージにしたいというメモ"><meta property="og:title" content="もともとgitで管理されているアプリケーションをdebパッケージにしたいというメモ"><meta property="twitter:title" content="もともとgitで管理されているアプリケーションをdebパッケージにしたいというメモ"><meta name=description content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="og:description" content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="twitter:description" content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="twitter:card" content="summary"><meta name=keyword content="hitsumabushi,SRE,Management,Cloud,Infrastructure,Software,Programming,Engineering"><link rel="shortcut icon" href=/img/favicon.ico><title>もともとgitで管理されているアプリケーションをdebパッケージにしたいというメモ | ひつまぶし食べたい</title>
+<link rel=canonical href=/post/2016/428/><link rel=stylesheet href=/css/bootstrap.min.css><link rel=stylesheet href=/css/hugo-theme-cleanwhite.min.css><link rel=stylesheet href=/css/zanshang.css><link rel=stylesheet href=/css/font-awesome.all.min.css><link rel=stylesheet href=https://www.hitsumabushi.org/css/hugo-theme-clearnwhite/custom-font.css><link rel=stylesheet href=https://www.hitsumabushi.org/css/hugo-theme-clearnwhite/main.css><script src=/js/jquery.min.js></script><script src=/js/bootstrap.min.js></script><script src=/js/hux-blog.min.js></script><script src=/js/lazysizes.min.js></script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script><script>var dnt,doNotTrack=!1;if(!1&&(dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes"),!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-JPYFS3RY30")}</script><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=/>ひつまぶし食べたい</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=/>All Posts</a></li><li><a href=/search><i class="fa fa-search"></i></a></li></ul></div></div></div></nav><script>var $body=document.body,$toggle=document.querySelector(".navbar-toggle"),$navbar=document.querySelector("#huxblog_navbar"),$collapse=document.querySelector(".navbar-collapse");$toggle.addEventListener("click",handleMagic);function handleMagic(){$navbar.className.indexOf("in")>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf("in")<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script><style type=text/css>header.intro-header{background-image:url(/img/home-bg-jeep.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/debian title=debian>debian
+</a><a class=tag href=/tags/deb title=deb>deb
+</a><a class=tag href=/tags/package title=package>package
+</a><a class=tag href=/tags/apt title=apt>apt</a></div><h1>もともとgitで管理されているアプリケーションをdebパッケージにしたいというメモ</h1><h2 class=subheading></h2><span class=meta>Posted by
+ひつまぶし食べたい
+on
+Monday, July 11, 2016</span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container"><h2 id=はじめに>はじめに</h2><p>debパッケージを作る経験が少ないので、あまり良い方法ではないかもしれない。</p><h2 id=サンプル>サンプル</h2><p><a href=https://github.com/hitsumabushi/hub>https://github.com/hitsumabushi/hub</a></p><h2 id=手順>手順</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#6272a4># install</span>
+</span></span><span style=display:flex><span>sudo apt install fakeroot
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># tag, release をきれいにする</span>
+</span></span><span style=display:flex><span>git tag -l &gt; tag_list
+</span></span><span style=display:flex><span><span style=color:#ff79c6>for</span> x in <span style=color:#ff79c6>$(</span>cat tag_list<span style=color:#ff79c6>)</span>; <span style=color:#ff79c6>do</span> git push origin :<span style=color:#8be9fd;font-style:italic>$x</span> ; <span style=color:#ff79c6>done</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># 色々リポジトリを整理した後、空っぽの masterを作る</span>
+</span></span><span style=display:flex><span>git checkout --orphan master
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># 自前で control, copyright ファイルを書く</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># アップストリームのものを持ってくる</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># 参考: https://github.com/bcandrea/consul-deb/tree/debian/debian</span>
+</span></span><span style=display:flex><span>fakeroot dpkg-deb --build pkg tmp
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># 生成された deb ファイルの中身を確認し、install してみる</span>
+</span></span><span style=display:flex><span>ar x &lt;deb file&gt;
+</span></span><span style=display:flex><span><span style=color:#6272a4># ... check files</span>
+</span></span><span style=display:flex><span>sudo dpkg -i &lt;deb file&gt;
+</span></span><span style=display:flex><span><span style=color:#6272a4># ... check installation</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># dpkg -s &lt;package&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># dpkg -L &lt;package&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># 問題がなければ</span>
+</span></span><span style=display:flex><span>git commit -a
+</span></span><span style=display:flex><span>git push origin master
+</span></span></code></pre></div><hr><ul class=pager><li class=previous><a href=/post/2016/228/ data-toggle=tooltip data-placement=top title="s3で自前 Debian Package リポジトリを作る">&larr;
+Previous Post</a></li><li class=next><a href=/post/2016/482/ data-toggle=tooltip data-placement=top title="GnuPGのメモ @ Debian Sid">Next
+Post &rarr;</a></li></ul><div id=disqus-comment></div><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hitsumabushi.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div class="col-lg-2 col-lg-offset-0
+visible-lg-block
+sidebar-container
+catalog-container"><div class=side-catalog><hr class="hidden-sm hidden-xs"><h5><a class=catalog-toggle href=#>CATALOG</a></h5><ul class=catalog-body></ul></div></div><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/debian title=debian>debian
+</a><a href=/tags/vcp title=vcp>vcp
+</a><a href=/tags/vmware title=vmware>vmware</a></div></section></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href=https://x.com/_hitsumabushi_><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/hitsumabushi><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-github fa-stack-1x fa-inverse"></i></span></a></li><li><a href rel=alternate type=application/rss+xml title=ひつまぶし食べたい><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-rss fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; ひつまぶし食べたい 2024</p></div></div></div></footer><script>function loadAsync(e,t){var s=document,o="script",n=s.createElement(o),i=s.getElementsByTagName(o)[0];n.src=e,t&&n.addEventListener("load",function(e){t(null,e)},!1),i.parentNode.insertBefore(n,i)}</script><script>$("#tag_cloud").length!==0&&loadAsync("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:"#bbbbee",end:"#0085a1"}},$("#tag_cloud a").tagcloud()})</script><script>loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js",function(){var e=document.querySelector("nav");e&&FastClick.attach(e)})</script><script type=text/javascript>function generateCatalog(e){_containerSelector="div.post-container";var t,n,s,o,i,a=$(_containerSelector),r=a.find("h1,h2,h3,h4,h5,h6");return $(e).html(""),r.each(function(){t=$(this).prop("tagName").toLowerCase(),o="#"+$(this).prop("id"),n=$(this).text(),i=$('<a href="'+o+'" rel="nofollow">'+n+"</a>"),s=$('<li class="'+t+'_nav"></li>').append(i),$(e).append(s)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(e){e.preventDefault(),$(".side-catalog").toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$(".catalog-body").onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script></body></html>

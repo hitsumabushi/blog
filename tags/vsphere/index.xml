@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>VSphere on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/vsphere/</link><description>Recent content in VSphere on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Tue, 08 Dec 2015 05:51:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/vsphere/index.xml" rel="self" type="application/rss+xml"/><item><title>vSphere 6.0 でのHA機能のエンハンスの要点</title><link>https://www.hitsumabushi.org/post/2015/361/</link><pubDate>Tue, 08 Dec 2015 05:51:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/361/</guid><description>&lt;h2 id="まとめ">まとめ&lt;/h2>
+&lt;ol>
+&lt;li>vSphere 6からは、ストレージパスが死んだ場合でもHAを設定できるようになった。&lt;/li>
+&lt;li>vCenterは watchdogs によりプロセス落下時には再起動される&lt;/li>
+&lt;li>vCenterの可用性をさらに高めるにはWindows版を利用し、MSCSクラスタを設定する必要がある&lt;/li>
+&lt;/ol>
+&lt;h2 id="資料">資料&lt;/h2>
+&lt;ol>
+&lt;li>&lt;a href="http://www.vmware.com/jp/support/support-resources/pubs/vsphere-esxi-vcenter-server-6-pubs">VMware vSphere 6 のドキュメント
+&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://www.vmware.com/files/pdf/vsphere/VMW-WP-vSPHR-Whats-New-6-0-PLTFRM.pdf">http://www.vmware.com/files/pdf/vsphere/VMW-WP-vSPHR-Whats-New-6-0-PLTFRM.pdf&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;amp;cmd=displayKC&amp;amp;externalId=2081089">vSphere 5.x および 6.x での永続的なデバイスの損失 (PDL) と全パス ダウン (APD) (2081089)&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h2 id="vsphere-55-までの障害あるあるpart-1">vSphere 5.5 までの障害あるある(Part 1)&lt;/h2>
+&lt;p>物理ホストのHBAが死んだり経路上の問題で、特定のホスト群のみストレージへのパスが切れた。
+vSphere 5.5 までは、ストレージへのパスが死んだ場合、HAによる保護ができない障害パターンで、IOが止まっているが、管理者が別のホストに移してから再起動するまでアプリケーションは死んでいた。&lt;/p></description></item></channel></rss>

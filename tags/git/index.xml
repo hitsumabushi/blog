@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/git/</link><description>Recent content in Git on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Tue, 17 Oct 2017 03:36:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Travis CIで git submodule update --init --recursive を止める</title><link>https://www.hitsumabushi.org/post/2017/222/</link><pubDate>Tue, 17 Oct 2017 03:36:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/222/</guid><description>&lt;h2 id="結論">結論&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.travis-ci.com/user/common-build-problems/#Git-Submodules-are-not-updated-correctly">https://docs.travis-ci.com/user/common-build-problems/#Git-Submodules-are-not-updated-correctly&lt;/a> に書かれている通り、 .travis.yml に以下の行を付け加えれば良い。&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>git:
+ submodule: false
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>個別に &lt;code>git submodule update --init hoge&lt;/code> していくとき、ビルドのトップディレクトリに戻りたくなることがある。この場合には、 &lt;code>$TRAVIS_BUILD_DIR&lt;/code> を使えば良い。&lt;/li>
+&lt;/ul>
+&lt;h2 id="経緯">経緯&lt;/h2>
+&lt;p>久しぶりにこのブログを書いたらビルドに失敗していた。
+原因としては、このブログで利用している &lt;a href="https://github.com/getpelican/pelican-plugins">getpelican/pelican-plugins&lt;/a> のsubmoduleの設定によって、
+取得できないsubmoduleがあり、 &lt;code>git submodule update --init --recursive&lt;/code> に失敗しているという感じだった。&lt;/p></description></item><item><title>git bisect でバグ/仕様変更のコミットを探す</title><link>https://www.hitsumabushi.org/post/2016/234/</link><pubDate>Thu, 10 Nov 2016 03:52:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/234/</guid><description>&lt;h2 id="まとめ">まとめ&lt;/h2>
+&lt;ul>
+&lt;li>git bisect が便利&lt;/li>
+&lt;li>ansible 2.1.0 -&amp;gt; 2.1.1 で group名に &lt;code>/&lt;/code> を入れるとうまく動かないケースが存在する
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/ansible/ansible">ansible&lt;/a> リポジトリでbisect すると対象のコミットは &lt;code>7287effb5ce241ce645d61e55e981edc73fa382a&lt;/code>&lt;/li>
+&lt;li>group名には &lt;code>/&lt;/code> を入れないように、 &lt;code>group_vars&lt;/code> 以下はフラットな構成にしよう&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="遭遇した問題">遭遇した問題&lt;/h2>
+&lt;p>ansible で構成/コンフィグ管理やプロビジョニングをしているのだけど、
+複数のリージョンやゾーンにまたがるシステムのため、うまく設定を見やすくするために、
+以下のように &lt;code>group_vars&lt;/code> 配下にディレクトリ構造を作っていた。&lt;/p></description></item></channel></rss>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Consul on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/consul/</link><description>Recent content in Consul on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Sat, 01 Nov 2014 02:39:20 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/consul/index.xml" rel="self" type="application/rss+xml"/><item><title>Consul 使ってみる</title><link>https://www.hitsumabushi.org/post/old_rst_files/239/</link><pubDate>Sat, 01 Nov 2014 02:39:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/239/</guid><description>&lt;h2 id="consul-とは">Consul とは&lt;/h2>
+&lt;h3 id="特徴">特徴&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>Service Discovery&lt;/p>
+&lt;blockquote>
+&lt;ul>
+&lt;li>Consulのクライアントは、&amp;quot;api&amp;quot;や&amp;quot;mysql&amp;quot;といった与えられた名前を持つサービスを提供&lt;/li>
+&lt;li>他のクライアントは、Consulを使ってサービスを検出&lt;/li>
+&lt;li>アプリケーションはConsulが検出したサービスを、DNSやHTTP経由で検出&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Health Check&lt;/p></description></item></channel></rss>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Microsoft on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/microsoft/</link><description>Recent content in Microsoft on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Wed, 07 Jan 2015 20:29:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/microsoft/index.xml" rel="self" type="application/rss+xml"/><item><title>vSphere 5.5環境でMSCSクラスタを組むときの制約</title><link>https://www.hitsumabushi.org/post/2015/2029/</link><pubDate>Wed, 07 Jan 2015 20:29:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2029/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
+&lt;p>MSCSのサポート状況&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;amp;cmd=displayKC&amp;amp;externalId=1004617">VMware KB: Microsoft Cluster Service (MSCS) support on ESXi/ESX&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://kb.vmware.com/selfservice/search.do?cmd=displayKC&amp;amp;docType=kc&amp;amp;docTypeID=DT_KB_1_1&amp;amp;externalId=2052238">VMware KB: MSCS support enhancements in vSphere 5.5&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>MSCSとは&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="http://www.atmarkit.co.jp/ait/articles/0812/03/news138_5.html">http://www.atmarkit.co.jp/ait/articles/0812/03/news138_5.html&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="mscs">MSCS&lt;/h2>
+&lt;p>Microsoft Cluster Serviceのこと。
+MSFC(Microsoft Failover Cluster)と名称が変わっているけど、未だにMSCSと呼ばれる場合もある。&lt;/p></description></item></channel></rss>

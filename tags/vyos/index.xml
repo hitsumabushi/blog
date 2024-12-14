@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vyos on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/vyos/</link><description>Recent content in Vyos on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Tue, 03 May 2016 06:24:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/vyos/index.xml" rel="self" type="application/rss+xml"/><item><title>YAMAHAのネットボランチDNSを使って、ニフティクラウドとVPN接続する</title><link>https://www.hitsumabushi.org/post/2016/404/</link><pubDate>Tue, 03 May 2016 06:24:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/404/</guid><description>&lt;h2 id="やりたいこと">やりたいこと&lt;/h2>
+&lt;p>いろいろあって、自宅のグローバルIPv4アドレスが変更される機会があった。
+ニフティクラウド上のルーターとVPN接続しているため、グローバルIPが変更されると、
+いちいち変更されたタイミングでVPN設定を変更する必要があり、非常に面倒くさい。
+そういうわけで、DDNSを使って設定することで、グローバルIPが変更された場合でも設定変更の必要がないようにしようと思う。&lt;/p></description></item></channel></rss>

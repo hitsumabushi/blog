@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Windows on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/windows/</link><description>Recent content in Windows on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Thu, 16 Jun 2016 06:02:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>Anisble for Windows</title><link>https://www.hitsumabushi.org/post/2016/386/</link><pubDate>Thu, 16 Jun 2016 06:02:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/386/</guid><description>&lt;p>久しぶりに ansible で windows を操作するので、メモ。
+実行側は Debian Sid でやっているので、apt-get しているところについては、適宜置き換えて欲しい。
+ansibleは2.1.0を使っている。&lt;/p></description></item><item><title>Windowsの勉強を始めた</title><link>https://www.hitsumabushi.org/post/2015/4/</link><pubDate>Mon, 15 Jun 2015 00:04:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/4/</guid><description>&lt;p>人生で初めて、Windowsの勉強を始めた。
+進捗は以下のgithub pagesから確認できる。
+とりあえず、章立てを書いて、内容を徐々に埋めているところ。&lt;/p></description></item><item><title>WindowsをAnsibleで設定する</title><link>https://www.hitsumabushi.org/post/2015/391/</link><pubDate>Thu, 28 May 2015 06:07:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/391/</guid><description>&lt;h1 id="資料">資料&lt;/h1>
+&lt;p>&lt;a href="http://docs.ansible.com/intro_windows.html">Windows Support — Ansible Documentation&lt;/a>&lt;/p>
+&lt;h1 id="マシンの準備">マシンの準備&lt;/h1>
+&lt;h2 id="ansibleコマンドを実行するマシン">ansibleコマンドを実行するマシン&lt;/h2>
+&lt;p>ansibleがすでに実行できる状況であれば、&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>pip install http://github.com/diyan/pywinrm/archive/master.zip#egg&lt;span style="color:#ff79c6">=&lt;/span>pywinrm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pip install kerberos &lt;span style="color:#6272a4"># AD accountを使う場合&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>とすればOK。&lt;/p>
+&lt;h2 id="windowsマシン">Windowsマシン&lt;/h2>
+&lt;h3 id="要件">要件&lt;/h3>
+&lt;ol>
+&lt;li>WinRM がインストール済み&lt;/li>
+&lt;li>PowerShell version &amp;gt; 3.0&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>自動的に、Windows 7SP1, Windows Server2008 SP1以降になる&lt;/li>
+&lt;li>Windows Server 2012ははじめからPowershell 4.0がインストールされている&lt;/li>
+&lt;/ul>
+&lt;h3 id="セットアップ方法">セットアップ方法&lt;/h3>
+&lt;ol>
+&lt;li>&lt;a href="https://github.com/cchurch/ansible/blob/devel/examples/scripts/upgrade_to_ps3.ps1">Powershell 3.0にアップデートが必要な場合&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/ansible/ansible/blob/devel/examples/scripts/ConfigureRemotingForAnsible.ps1">WinRMのインストール&lt;/a>&lt;/li>
+&lt;li>&lt;code>Configure-SMRemoting.exe -get&lt;/code> で有効になっていることを確認&lt;/li>
+&lt;li>&lt;code>WinRM get WinRM/config&lt;/code> でWinRMのポートを確認&lt;/li>
+&lt;/ol>
+&lt;h1 id="ansibleの実行方法">ansibleの実行方法&lt;/h1>
+&lt;h2 id="inventory">Inventory&lt;/h2>
+&lt;p>最小構成は以下の通り。 以降は、hostsという名前で呼ぶ。&lt;/p></description></item></channel></rss>

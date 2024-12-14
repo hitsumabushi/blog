@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>NSX on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/nsx/</link><description>Recent content in NSX on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Sat, 09 Jul 2016 12:32:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/nsx/index.xml" rel="self" type="application/rss+xml"/><item><title>VCP6-NV 取得した</title><link>https://www.hitsumabushi.org/post/2016/1232/</link><pubDate>Sat, 09 Jul 2016 12:32:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/1232/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study_2.md">VCP6-NV 試験勉強メモ 2日目&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study_result.md">VCP6-NV 取得した&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="結果">結果&lt;/h2>
+&lt;p>462 / 500 (合格点: 300)&lt;/p>
+&lt;h2 id="試験の内容について">試験の内容について&lt;/h2>
+&lt;p>割と事前に学習した内容が出ていたと感じる。
+VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違って、トレーニングの内容と試験内容がきちんと一致しているので、トレーニングのテキストを読み返すだけでも、かなり点は取れる気がする。&lt;/p></description></item><item><title>VCP6-NV 試験勉強メモ 2日目</title><link>https://www.hitsumabushi.org/post/2016/482/</link><pubDate>Thu, 07 Jul 2016 07:42:46 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/482/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study_2.md">VCP6-NV 試験勉強メモ 2日目&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study_result.md">VCP6-NV 取得した&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="資料">資料&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="http://blogs.vmware.com/jp-cim/2015/03/nwv01.html">ネットワーク仮想化をネットワークの基本から理解する　〜 第1回：理解するために必要なことを整理する&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://blogs.vmware.com/networkvirtualization/2015/12/2366.html?lang=ja#.V3ve2WiLSUk">NSX 6.2 新機能のご紹介 Part 1 〜 Cross vCenter NSX 〜&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="nsx-におけるvxlan">NSX におけるVXLAN&lt;/h2>
+&lt;h3 id="関係する要素">関係する要素&lt;/h3>
+&lt;ul>
+&lt;li>論理スイッチ&lt;/li>
+&lt;li>分散論理ルータ&lt;/li>
+&lt;li>論理ルータコントロール VM&lt;/li>
+&lt;li>Edge&lt;/li>
+&lt;/ul>
+&lt;h3 id="分散論理ルータ">分散論理ルータ&lt;/h3>
+&lt;p>カーネルモジュール内で動作するルーター。
+各ESXiに分散して存在していて、ヘアピントラフィックを防ぐことができる。&lt;/p></description></item><item><title>VCP6-NV 試験勉強メモ</title><link>https://www.hitsumabushi.org/post/2016/2121/</link><pubDate>Tue, 05 Jul 2016 21:21:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/2121/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study_2.md">VCP6-NV 試験勉強メモ 2日目&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study_result.md">VCP6-NV 取得した&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="資料">資料&lt;/h2>
+&lt;h3 id="最も公式っぽい資料">最も公式っぽい資料&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://mylearn.vmware.com/mgrReg/plan.cfm?plan=64297&amp;amp;ui=www_cert">VMware Certified Professional 6 – Network Virtualization Exam&lt;/a> の &amp;ldquo;How to Prepare&amp;rdquo; に書いているもの。&lt;/li>
+&lt;li>&lt;a href="https://www.vmware.com/files/pdf/products/nsx/vmw-nsx-network-virtualization-design-guide.pdf">Reference Design: VMware® NSX for vSphere (NSX) Network Virtualization Design Guide&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://mylearn.vmware.com/quiz.cfm?item=57466">VCP6-NV (2V0-641) Practice Exam&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="ブログ--シリーズものは一通り目を通した方が良い">ブログ : シリーズものは一通り目を通した方が良い&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="http://blogs.vmware.com/jp-cim/2015/03/nwv01.html">ネットワーク仮想化をネットワークの基本から理解する　〜 第1回：理解するために必要なことを整理する&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://blogs.vmware.com/networkvirtualization/2015/12/2366.html?lang=ja#.V3ve2WiLSUk">NSX 6.2 新機能のご紹介 Part 1 〜 Cross vCenter NSX 〜&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="nsxの-configuration-maximums">NSXの configuration maximums&lt;/h2>
+&lt;p>&lt;a href="https://www.vmware.com/pdf/vsphere6/r60/vsphere-60-configuration-maximums.pdf">vSphere 製品のように&lt;/a> 公開されているわけではない。
+でも、以下のサイトのように、情報を公開している人はいる。&lt;/p></description></item><item><title>VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</title><link>https://www.hitsumabushi.org/post/2016/2040/</link><pubDate>Tue, 05 Jul 2016 20:40:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/2040/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study_2.md">VCP6-NV 試験勉強メモ 2日目&lt;/a>&lt;/li>
+&lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study_result.md">VCP6-NV 取得した&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="この記事について">この記事について&lt;/h2>
+&lt;ol>
+&lt;li>書くこと
+&lt;ul>
+&lt;li>VCP6-NV の試験要項&lt;/li>
+&lt;li>VCP6-NV の受験方法&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>書かないこと
+&lt;ul>
+&lt;li>試験の勉強方法&lt;/li>
+&lt;li>試験内容&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="vcp6-nv-について">VCP6-NV について&lt;/h2>
+&lt;p>VCP-NVは、VMwareのNSXを用いた仮想ネットワーク管理についての試験です。
+他のVCPと同様に、VCA-NV → VCP-NV → VCAP-NV {Design, Deploy} → VCIX-NV → VCDX-NV というような資格体系です。&lt;/p></description></item></channel></rss>

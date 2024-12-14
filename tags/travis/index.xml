@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Travis on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/travis/</link><description>Recent content in Travis on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Sat, 02 Jan 2016 15:13:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/travis/index.xml" rel="self" type="application/rss+xml"/><item><title>Travis コマンドでのエラー</title><link>https://www.hitsumabushi.org/post/2016/1513/</link><pubDate>Sat, 02 Jan 2016 15:13:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/1513/</guid><description>&lt;p>Travis CIでCIする素振りをしていたら、最新版のtravisコマンドでエラーが出るようになった。&lt;/p>
+&lt;h2 id="発生した問題">発生した問題&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>$ travis setup releases
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Invalid scheme format: git@github.com
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">for&lt;/span> a full error report, run travis report
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="問題の解析">問題の解析&lt;/h2>
+&lt;p>こういう時には、&lt;/p></description></item></channel></rss>

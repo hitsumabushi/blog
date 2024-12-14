@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ansible on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/ansible/</link><description>Recent content in Ansible on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Tue, 05 Dec 2017 17:48:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/ansible/index.xml" rel="self" type="application/rss+xml"/><item><title>さくらのクラウドでN百台を管理するためにterraformとansibleを使っている話</title><link>https://www.hitsumabushi.org/post/2017/1748/</link><pubDate>Tue, 05 Dec 2017 17:48:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/1748/</guid><description>&lt;hr>
+&lt;p>これは、&lt;a href="https://qiita.com/advent-calendar/2017/sakura">さくらインターネット Advent Calendar 2017&lt;/a> として書いた&lt;a href="https://qiita.com/hitsumabushi/items/e89b763dd4fc41e15136">記事&lt;/a> です。&lt;/p>
+&lt;hr>
+&lt;p>さくらインターネットでは、今年4月からIoTプラットフォームの sakura.io をサービス提供しています。
+sakura.io は、さくらのクラウド上で本番・検証環境を構築しており、数百台のサーバーを利用しています。&lt;/p></description></item><item><title>Ansible でバージョンチェックする</title><link>https://www.hitsumabushi.org/post/2017/1402/</link><pubDate>Fri, 10 Nov 2017 14:02:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/1402/</guid><description>&lt;h2 id="やりたいこと">やりたいこと&lt;/h2>
+&lt;p>サーバー管理には ansible を使っていますが、apt で入れているパッケージに対して、以下をやりたい状況がありました。&lt;/p>
+&lt;ul>
+&lt;li>インストールされていなかったらインストール&lt;/li>
+&lt;li>あるバージョン未満だったらアップデート&lt;/li>
+&lt;/ul>
+&lt;p>pipやgemといった言語のパッケージマネージャと違って、apt ではバージョンの制約を書くことが面倒です。
+いい感じに playbook の中でバージョン比較をして、インストール/アップデートすべきかを判定したいと考えました。&lt;/p></description></item><item><title>git bisect でバグ/仕様変更のコミットを探す</title><link>https://www.hitsumabushi.org/post/2016/234/</link><pubDate>Thu, 10 Nov 2016 03:52:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/234/</guid><description>&lt;h2 id="まとめ">まとめ&lt;/h2>
+&lt;ul>
+&lt;li>git bisect が便利&lt;/li>
+&lt;li>ansible 2.1.0 -&amp;gt; 2.1.1 で group名に &lt;code>/&lt;/code> を入れるとうまく動かないケースが存在する
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/ansible/ansible">ansible&lt;/a> リポジトリでbisect すると対象のコミットは &lt;code>7287effb5ce241ce645d61e55e981edc73fa382a&lt;/code>&lt;/li>
+&lt;li>group名には &lt;code>/&lt;/code> を入れないように、 &lt;code>group_vars&lt;/code> 以下はフラットな構成にしよう&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="遭遇した問題">遭遇した問題&lt;/h2>
+&lt;p>ansible で構成/コンフィグ管理やプロビジョニングをしているのだけど、
+複数のリージョンやゾーンにまたがるシステムのため、うまく設定を見やすくするために、
+以下のように &lt;code>group_vars&lt;/code> 配下にディレクトリ構造を作っていた。&lt;/p></description></item><item><title>Anisble for Windows</title><link>https://www.hitsumabushi.org/post/2016/386/</link><pubDate>Thu, 16 Jun 2016 06:02:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/386/</guid><description>&lt;p>久しぶりに ansible で windows を操作するので、メモ。
+実行側は Debian Sid でやっているので、apt-get しているところについては、適宜置き換えて欲しい。
+ansibleは2.1.0を使っている。&lt;/p></description></item><item><title>WindowsをAnsibleで設定する</title><link>https://www.hitsumabushi.org/post/2015/391/</link><pubDate>Thu, 28 May 2015 06:07:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/391/</guid><description>&lt;h1 id="資料">資料&lt;/h1>
+&lt;p>&lt;a href="http://docs.ansible.com/intro_windows.html">Windows Support — Ansible Documentation&lt;/a>&lt;/p>
+&lt;h1 id="マシンの準備">マシンの準備&lt;/h1>
+&lt;h2 id="ansibleコマンドを実行するマシン">ansibleコマンドを実行するマシン&lt;/h2>
+&lt;p>ansibleがすでに実行できる状況であれば、&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>pip install http://github.com/diyan/pywinrm/archive/master.zip#egg&lt;span style="color:#ff79c6">=&lt;/span>pywinrm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>pip install kerberos &lt;span style="color:#6272a4"># AD accountを使う場合&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>とすればOK。&lt;/p>
+&lt;h2 id="windowsマシン">Windowsマシン&lt;/h2>
+&lt;h3 id="要件">要件&lt;/h3>
+&lt;ol>
+&lt;li>WinRM がインストール済み&lt;/li>
+&lt;li>PowerShell version &amp;gt; 3.0&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>自動的に、Windows 7SP1, Windows Server2008 SP1以降になる&lt;/li>
+&lt;li>Windows Server 2012ははじめからPowershell 4.0がインストールされている&lt;/li>
+&lt;/ul>
+&lt;h3 id="セットアップ方法">セットアップ方法&lt;/h3>
+&lt;ol>
+&lt;li>&lt;a href="https://github.com/cchurch/ansible/blob/devel/examples/scripts/upgrade_to_ps3.ps1">Powershell 3.0にアップデートが必要な場合&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/ansible/ansible/blob/devel/examples/scripts/ConfigureRemotingForAnsible.ps1">WinRMのインストール&lt;/a>&lt;/li>
+&lt;li>&lt;code>Configure-SMRemoting.exe -get&lt;/code> で有効になっていることを確認&lt;/li>
+&lt;li>&lt;code>WinRM get WinRM/config&lt;/code> でWinRMのポートを確認&lt;/li>
+&lt;/ol>
+&lt;h1 id="ansibleの実行方法">ansibleの実行方法&lt;/h1>
+&lt;h2 id="inventory">Inventory&lt;/h2>
+&lt;p>最小構成は以下の通り。 以降は、hostsという名前で呼ぶ。&lt;/p></description></item></channel></rss>

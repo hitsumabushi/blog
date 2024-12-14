@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Aws on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/aws/</link><description>Recent content in Aws on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Tue, 12 Oct 2021 02:00:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/aws/index.xml" rel="self" type="application/rss+xml"/><item><title>CloudFormation Stackを安全に削除する</title><link>https://www.hitsumabushi.org/post/2021/128/</link><pubDate>Tue, 12 Oct 2021 02:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2021/128/</guid><description>&lt;p>以前、&lt;a href="%7Bfilename%7D/diary/2019/20190125_cloudformation_drift.md">CloudFormation の不満点&lt;/a> というのを書いたが、諦めて大半のCfnをterraformに移行した。
+その際、cfn リソースをきれいにするために、cfn stackを安全に削除する必要があり、その方法をメモしておく。&lt;/p></description></item><item><title>1Password CLIを使ってTOTPを取得する</title><link>https://www.hitsumabushi.org/post/2021/64/</link><pubDate>Tue, 12 Oct 2021 01:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2021/64/</guid><description>&lt;p>2要素認証を必須にしたAWSのswitch roleで、temporary credentialsをCLIで取得したかった。
+TOTPの数字を毎回調べるのが面倒で、簡単にできないか調べたところ、1Password CLIというのがあった。1Passwordユーザなので、これを利用する。
+ただし、当然のことだが、2要素認証のデバイスとして、1Passwordが利用されている状況とする。&lt;/p></description></item><item><title>CloudFormation の不満点</title><link>https://www.hitsumabushi.org/post/2019/1454/</link><pubDate>Fri, 25 Jan 2019 14:54:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2019/1454/</guid><description>&lt;p>以下では「手作業で」というのは、「CloudFormation管理外で」という意味で使う。&lt;/p>
+&lt;h2 id="要点">要点&lt;/h2>
+&lt;ul>
+&lt;li>CloudFormation は、リソースが何かの理由で手作業で変更されていた場合に安全に操作できない&lt;/li>
+&lt;li>Drift 検出は誤検出が多すぎて使いづらい&lt;/li>
+&lt;li>Change Set は動いている状態との差分を見ていないので、信用できない&lt;/li>
+&lt;/ul>
+&lt;h2 id="経緯">経緯&lt;/h2>
+&lt;p>CloudFormation で管理されているリソースすべてについて、新しいタグをつけたくなった。
+ただ、各サービスの担当者ごとにある程度自由にオペレーションできるため、手動で変更されていないか、一応調べておこうと思い、
+&lt;a href="https://aws.amazon.com/jp/blogs/news/new-cloudformation-drift-detection/">2018-11 にリリースされたドリフト検出&lt;/a> を使って、
+手作業で実施された変更点もCloudFormationに取り込みつつ、対応しようとした。&lt;/p></description></item><item><title>VDI, DaaS市場を調べてみた</title><link>https://www.hitsumabushi.org/post/2015/217/</link><pubDate>Sun, 07 Jun 2015 03:31:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/217/</guid><description>&lt;p>最近、vCloud AirがDaaSを出すというのを聞いて、にわかに自分の中でDaaSに興味が出てきた。
+DaaSとかVDIは、必ずActive Directoryの話になるので、気後れしていたのだけど、会社ではWindows使っていることもあって、少しは抵抗もなくなってきたので、良いタイミングだったので、調べてみた。
+とは言っても、まずは世間にどんなものがあるかをしらべてみただけ。&lt;/p></description></item></channel></rss>

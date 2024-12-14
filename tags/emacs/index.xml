@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Emacs on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/emacs/</link><description>Recent content in Emacs on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Tue, 16 Dec 2014 20:00:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/emacs/index.xml" rel="self" type="application/rss+xml"/><item><title>ソースコードリーディングをするときにctagsを使いたい</title><link>https://www.hitsumabushi.org/post/2014/2000/</link><pubDate>Tue, 16 Dec 2014 20:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/2000/</guid><description>&lt;h2 id="きっかけ">きっかけ&lt;/h2>
+&lt;p>とある事情によって、Fluentdプラグインを自作する or 世間の良い実装のプラグインを見つける必要がありました。
+でも、Fluentdを真面目に使ったことがないので、いまいち眺めていても難しいなー、と思っていました。
+そもそも、Rubyもまともに書いていないため、ソースを見ても、Rubyのものなのか、Fluentdで定義されているのかが、
+ぱっと見でわからず、いちいち時間がかかっていた感じです。&lt;/p></description></item></channel></rss>

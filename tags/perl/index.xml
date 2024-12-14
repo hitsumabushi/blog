@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Perl on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/perl/</link><description>Recent content in Perl on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Tue, 07 Jan 2014 02:39:20 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/perl/index.xml" rel="self" type="application/rss+xml"/><item><title>Perl の正規表現</title><link>https://www.hitsumabushi.org/post/old_rst_files/239/</link><pubDate>Tue, 07 Jan 2014 02:39:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/239/</guid><description>&lt;h2 id="マッチ演算子">マッチ演算子&lt;/h2>
+&lt;p>評価の結果は真偽値としては、マッチすれば真、そうでなければ偽。 and, or,
+! が役立つのは間違いない。&lt;/p>
+&lt;h3 id="_-にマッチさせる">$_ にマッチさせる&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-perl" data-lang="perl">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f1fa8c">/regex/&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>m:regex:
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="string-にマッチさせる">&lt;em>string&lt;/em> にマッチさせる&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-perl" data-lang="perl">&lt;span style="display:flex;">&lt;span>string &lt;span style="color:#ff79c6">=~&lt;/span>&lt;span style="color:#f1fa8c"> /regex/&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>string &lt;span style="color:#ff79c6">=~&lt;/span> m:regex:
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="_-の文字列置換">$_ の文字列置換&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-perl" data-lang="perl">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f1fa8c">s/regex/new/&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>s:regex:new:
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="string-の文字列置換">&lt;em>string&lt;/em> の文字列置換&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-perl" data-lang="perl">&lt;span style="display:flex;">&lt;span>string &lt;span style="color:#ff79c6">=~&lt;/span> &lt;span style="color:#f1fa8c">s/regex/new/&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>string &lt;span style="color:#ff79c6">=~&lt;/span> s:regex:new:
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="特殊なメタキャラクタ">特殊なメタキャラクタ&lt;/h2>
+&lt;h3 id="-">^, $&lt;/h3>
+&lt;ul>
+&lt;li>行頭、末尾にマッチ&lt;/li>
+&lt;/ul>
+&lt;h3 id="heading">.&lt;/h3>
+&lt;ul>
+&lt;li>ニューライン以外の任意の文字にマッチ&lt;/li>
+&lt;/ul>
+&lt;h3 id="chars">[&lt;em>chars&lt;/em>]&lt;/h3>
+&lt;ul>
+&lt;li>&lt;em>chars&lt;/em> に含まれる任意の1文字にマッチ&lt;/li>
+&lt;li>&lt;em>chars&lt;/em>
+内のバックスラッシュ付き英数字以外のメタキャラクタは、リテラル扱い&lt;/li>
+&lt;/ul>
+&lt;h3 id="-chars">[^ &lt;em>chars&lt;/em>]&lt;/h3>
+&lt;ul>
+&lt;li>&lt;em>chars&lt;/em> に含まれない任意の1文字にマッチ&lt;/li>
+&lt;li>メタキャラクタの扱いは [&lt;em>chars&lt;/em>] と同様&lt;/li>
+&lt;/ul>
+&lt;h3 id="char1-char2">[&lt;em>char1&lt;/em>-&lt;em>char2&lt;/em>]&lt;/h3>
+&lt;ul>
+&lt;li>&lt;em>char1&lt;/em> の &lt;em>char2&lt;/em> の間に入る任意の文字にマッチ&lt;/li>
+&lt;li>&lt;em>char1&lt;/em>, &lt;em>char2&lt;/em> を含む。&lt;/li>
+&lt;/ul>
+&lt;h3 id="heading-1">$&amp;amp;&lt;/h3>
+&lt;ul>
+&lt;li>最後にマッチした内容を保持&lt;/li>
+&lt;li>'Foo' =~ /^[A-Z]/ なら $&amp;amp; は F&lt;/li>
+&lt;/ul>
+&lt;h3 id="heading-2">\&lt;/h3>
+&lt;ul>
+&lt;li>メタキャラクタに使ったり、エスケープに使う&lt;/li>
+&lt;/ul>
+&lt;h3 id="b">\b&lt;/h3>
+&lt;ul>
+&lt;li>単語の区切りにマッチする&lt;/li>
+&lt;li>'abc def' にマッチさせたいときに、'Zabc def'
+にマッチしないよう、'babc def' と書いておく。&lt;/li>
+&lt;li>アルファベットは、単語構成文字クラスなので、スペースや!は、b
+にマッチするが、Zはマッチしない。&lt;/li>
+&lt;/ul>
+&lt;h3 id="n">\n&lt;/h3>
+&lt;ul>
+&lt;li>ニューライン&lt;/li>
+&lt;/ul>
+&lt;h3 id="r">\r&lt;/h3>
+&lt;ul>
+&lt;li>キャリッジリターン文字&lt;/li>
+&lt;li>カーソルを行頭に戻す&lt;/li>
+&lt;/ul>
+&lt;h3 id="t">\t&lt;/h3>
+&lt;ul>
+&lt;li>タブ&lt;/li>
+&lt;/ul>
+&lt;h3 id="f">\f&lt;/h3>
+&lt;ul>
+&lt;li>フォームフィード&lt;/li>
+&lt;li>改ページ&lt;/li>
+&lt;/ul>
+&lt;h3 id="e">\e&lt;/h3>
+&lt;ul>
+&lt;li>エスケープ文字&lt;/li>
+&lt;/ul>
+&lt;h3 id="nnn">\NNN&lt;/h3>
+&lt;ul>
+&lt;li>8進数が NNN となる文字&lt;/li>
+&lt;li>例えば、040 はスペース&lt;/li>
+&lt;/ul>
+&lt;p>::: note
+::: title
+Note
+:::&lt;/p></description></item><item><title>Perlスクリプトメモ</title><link>https://www.hitsumabushi.org/post/old_rst_files/238/</link><pubDate>Tue, 07 Jan 2014 02:38:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/238/</guid><description>&lt;h2 id="参考文献">参考文献&lt;/h2>
+&lt;ol>
+&lt;li>&lt;a href="http://d.hatena.ne.jp/perlcodesample/20091226/1264257759">Perl基礎文法最速マスター&lt;/a>&lt;/li>
+&lt;li>ミニマル perl&lt;/li>
+&lt;/ol>
+&lt;h2 id="スクリプトを書く時">スクリプトを書く時&lt;/h2>
+&lt;ul>
+&lt;li>プラグマ
+&lt;ul>
+&lt;li>&lt;a href="http://perldoc.jp/func/use">perldoc.jp&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>推奨 : スクリプト先頭に書く&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-perl" data-lang="perl">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">use&lt;/span> strict;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">use&lt;/span> warnings;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>1文字でも減らしたい&lt;/p>
+&lt;blockquote>
+&lt;ul>
+&lt;li>print のデフォルト引数は、 $_&lt;/li>
+&lt;li>print $_; したいだけなら書く必要ない。&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="用語">用語&lt;/h2>
+&lt;h3 id="レコード">レコード&lt;/h3>
+&lt;ul>
+&lt;li>1つのまとまりとして読み書きされる文字の集合&lt;/li>
+&lt;li>入出力の際、ファイルはレコードの集まりと見ることができる。
+この時、デフォルトでは、1行がレコード。&lt;/li>
+&lt;/ul>
+&lt;h3 id="入力レコードセパレータ">入力レコードセパレータ&lt;/h3>
+&lt;ul>
+&lt;li>入力レコードの終端区切りを表す文字、または文字シーケンス（文字の並び）。&lt;/li>
+&lt;li>Linuxとかでは、デフォルトではラインフィード。&lt;/li>
+&lt;li>Perl ではOS固有の入力レコードセパレータを n として、参照できる。&lt;/li>
+&lt;/ul>
+&lt;h3 id="ニューライン">ニューライン&lt;/h3>
+&lt;ul>
+&lt;li>n のこと。&lt;/li>
+&lt;li>OS固有の入力レコードセパレータ。&lt;/li>
+&lt;/ul>
+&lt;h3 id="スイッチ引数">スイッチ引数&lt;/h3>
+&lt;ul>
+&lt;li>-s オプション&lt;/li>
+&lt;li>良い感じのコマンドラインオプションを取ることができる。&lt;/li>
+&lt;li>引数の与え方で2つの方法がある。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-perl" data-lang="perl">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">-&lt;/span>foo&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#39;test&amp;#39;&lt;/span> &lt;span style="color:#6272a4">#=&amp;gt; $foo == &amp;#39;test&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">-&lt;/span>foo &lt;span style="color:#6272a4">#=&amp;gt; $foo == true : -debugで、デバッグ用、みたい使う。&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>スイッチ引数を任意にしているスクリプトでは、冒頭にour関数を使うのが良い。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-perl" data-lang="perl">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">our&lt;/span>(&lt;span style="color:#8be9fd;font-style:italic">$foo&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">our&lt;/span>(&lt;span style="color:#8be9fd;font-style:italic">$foo&lt;/span>, &lt;span style="color:#8be9fd;font-style:italic">$bar&lt;/span>, &lt;span style="color:#ff79c6">...&lt;/span>);
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="真偽値">真偽値&lt;/h2>
+&lt;p>偽になるのは、次の3パターンある。&lt;/p></description></item><item><title>便利なツール</title><link>https://www.hitsumabushi.org/post/old_rst_files/160/</link><pubDate>Thu, 02 Jan 2014 02:40:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/160/</guid><description>&lt;h2 id="pod">POD&lt;/h2>
+&lt;ul>
+&lt;li>Plain Old Documentation&lt;/li>
+&lt;li>man perldoc を参照&lt;/li>
+&lt;/ul>
+&lt;h2 id="lwp-request">lwp-request&lt;/h2>
+&lt;ul>
+&lt;li>Webサーバーにリクエストを送って、適当な形式に変換してくれる&lt;/li>
+&lt;li>GET, POST, PUT も選べる。&lt;/li>
+&lt;li>出力形式としては、 text, ps, links, html, dump&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-perl" data-lang="perl">&lt;span style="display:flex;">&lt;span>lwp&lt;span style="color:#ff79c6">-&lt;/span>request &lt;span style="color:#ff79c6">-&lt;/span>o text www&lt;span style="color:#ff79c6">.&lt;/span>example&lt;span style="color:#ff79c6">.&lt;/span>com
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="textautoformat">Text::Autoformat&lt;/h2>
+&lt;h2 id="texttabs">Text::Tabs&lt;/h2>
+&lt;ul>
+&lt;li>タブをスペースに変換&lt;/li>
+&lt;/ul>
+&lt;h2 id="stringapprox">String::Approx&lt;/h2>
+&lt;ul>
+&lt;li>あいまいなマッチをする&lt;/li>
+&lt;/ul>
+&lt;h2 id="template-toolkit">Template-Toolkit&lt;/h2>
+&lt;h2 id="linguaeninflect-pl_n">Lingua::En::Inflect 'PL_N'&lt;/h2>
+&lt;ul>
+&lt;li>単数形と複数形を変換してくれる&lt;/li>
+&lt;/ul></description></item><item><title>Perl のコンパイラオプション</title><link>https://www.hitsumabushi.org/post/old_rst_files/159/</link><pubDate>Wed, 01 Jan 2014 02:37:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/159/</guid><description>&lt;h2 id="参考ページ">参考ページ&lt;/h2>
+&lt;ul>
+&lt;li>man perlrun&lt;/li>
+&lt;li>&lt;a href="http://debugitos.main.jp/index.php?Perl%2F%A5%B3%A5%DE%A5%F3%A5%C9%A5%E9%A5%A4%A5%F3">DebugIto's - Perl/コマンドライン&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="基本的なオプション">基本的なオプション&lt;/h2>
+&lt;h3 id="-e">-e&lt;/h3>
+&lt;ul>
+&lt;li>ワンライナーを書くために必須。&lt;/li>
+&lt;li>複数並べられるので、それなりに色々書ける&lt;/li>
+&lt;li>直後にperlプログラムを書ける。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-perl" data-lang="perl">&lt;span style="display:flex;">&lt;span>perl &lt;span style="color:#ff79c6">-&lt;/span>e &lt;span style="color:#f1fa8c">&amp;#39;print 11/2&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="-l8進数">-l[8進数]&lt;/h3>
+&lt;ul>
+&lt;li>行末に指定された8進数に変える。-l のみの場合、改行になる。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-perl" data-lang="perl">&lt;span style="display:flex;">&lt;span>perl &lt;span style="color:#ff79c6">-&lt;/span>e &lt;span style="color:#f1fa8c">&amp;#39;print 22&amp;#39;&lt;/span> &lt;span style="color:#6272a4">#=&amp;gt; 22&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>perl &lt;span style="color:#ff79c6">-&lt;/span>l &lt;span style="color:#ff79c6">-&lt;/span>e &lt;span style="color:#f1fa8c">&amp;#39;print 22&amp;#39;&lt;/span> &lt;span style="color:#6272a4">#=&amp;gt; 22\n&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>perl &lt;span style="color:#ff79c6">-&lt;/span>l101 &lt;span style="color:#ff79c6">-&lt;/span>e &lt;span style="color:#f1fa8c">&amp;#39;print 22&amp;#39;&lt;/span> &lt;span style="color:#6272a4">#=&amp;gt; 22A&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="-0digits">-0[digits]&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>-l の入力セパレータバージョン&lt;/p></description></item></channel></rss>

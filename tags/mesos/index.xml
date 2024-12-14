@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mesos on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/mesos/</link><description>Recent content in Mesos on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Fri, 01 Dec 2017 20:01:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/mesos/index.xml" rel="self" type="application/rss+xml"/><item><title>Mesos の sandbox のログローテーションをする</title><link>https://www.hitsumabushi.org/post/2017/2001/</link><pubDate>Fri, 01 Dec 2017 20:01:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/2001/</guid><description>&lt;h3 id="結論">結論&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="http://mesos.apache.org/documentation/latest/logging/#logrotatecontainerlogger">http://mesos.apache.org/documentation/latest/logging/#logrotatecontainerlogger&lt;/a>&lt;/li>
+&lt;li>&lt;code>LogrotateContainerLogger&lt;/code> を使って、 module parameter を設定する&lt;/li>
+&lt;/ul>
+&lt;h3 id="概要">概要&lt;/h3>
+&lt;p>Mesos + Marathon 環境でdockerを動かしている。
+基本的にコンテナのログは fluentd で飛ばしているのだけど、日に日に mesos slave のディスク容量が圧迫されていた。
+調べてみると、 &lt;code>/var/lib/mesos-slave/slaves/&lt;/code> 以下にあるフォルダのうち、sandbox のログが肥大化していた。
+sandbox には stdout, stderr があって、それぞれコンテナのstdout, stderrを記録しているファイルで、mesosからファイルとして取得することができる。
+長期的なものは fluentd で飛ばしているので問題ないため、障害時や直近の確認のために sandbox を使うことにして、
+短期間でのログローテーションを行うことにした。&lt;/p></description></item></channel></rss>

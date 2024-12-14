@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Gpg on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/gpg/</link><description>Recent content in Gpg on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Tue, 12 Jul 2016 07:42:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/gpg/index.xml" rel="self" type="application/rss+xml"/><item><title>GnuPGのメモ @ Debian Sid</title><link>https://www.hitsumabushi.org/post/2016/482/</link><pubDate>Tue, 12 Jul 2016 07:42:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/482/</guid><description>&lt;h2 id="debain-での-gnupg">Debain での GnuPG&lt;/h2>
+&lt;p>GnuPG は OpenPGPの実装の一つで、GPGと呼ばれることもあります。
+Debian では、2016/07/12現在、gpg コマンドは 1.4系で、 gpg2 パッケージで 2.1系を提供しています。
+普段使いでgpg 1.4系をわざわざ使う必要はないとは思うので、以下ではgpg2 を利用することにしています。
+以下では、gpg と gpg2 の違いに触れることはありませんが、例えば、RSAではなく楕円暗号を使おうと思ったら、gpg2 を使うしかありません。&lt;/p></description></item></channel></rss>

@@ -1,0 +1,128 @@
+<!doctype html><html lang=ja><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:site_name" content="ひつまぶし食べたい"><meta property="og:type" content="article"><meta property="og:image" content="https://www.hitsumabushi.org//img/home-bg-jeep.jpg"><meta property="twitter:image" content="https://www.hitsumabushi.org//img/home-bg-jeep.jpg"><meta name=title content="PXEブートでインストーラを起動する"><meta property="og:title" content="PXEブートでインストーラを起動する"><meta property="twitter:title" content="PXEブートでインストーラを起動する"><meta name=description content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="og:description" content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="twitter:description" content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="twitter:card" content="summary"><meta name=keyword content="hitsumabushi,SRE,Management,Cloud,Infrastructure,Software,Programming,Engineering"><link rel="shortcut icon" href=/img/favicon.ico><title>PXEブートでインストーラを起動する | ひつまぶし食べたい</title>
+<link rel=canonical href=/post/old_rst_files/164/><link rel=stylesheet href=/css/bootstrap.min.css><link rel=stylesheet href=/css/hugo-theme-cleanwhite.min.css><link rel=stylesheet href=/css/zanshang.css><link rel=stylesheet href=/css/font-awesome.all.min.css><link rel=stylesheet href=https://www.hitsumabushi.org/css/hugo-theme-clearnwhite/custom-font.css><link rel=stylesheet href=https://www.hitsumabushi.org/css/hugo-theme-clearnwhite/main.css><script src=/js/jquery.min.js></script><script src=/js/bootstrap.min.js></script><script src=/js/hux-blog.min.js></script><script src=/js/lazysizes.min.js></script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script><script>var dnt,doNotTrack=!1;if(!1&&(dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes"),!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-JPYFS3RY30")}</script><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=/>ひつまぶし食べたい</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=/>All Posts</a></li><li><a href=/search><i class="fa fa-search"></i></a></li></ul></div></div></div></nav><script>var $body=document.body,$toggle=document.querySelector(".navbar-toggle"),$navbar=document.querySelector("#huxblog_navbar"),$collapse=document.querySelector(".navbar-collapse");$toggle.addEventListener("click",handleMagic);function handleMagic(){$navbar.className.indexOf("in")>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf("in")<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script><style type=text/css>header.intro-header{background-image:url(/img/home-bg-jeep.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/pxe title=pxe>pxe
+</a><a class=tag href=/tags/preseed title=preseed>preseed
+</a><a class=tag href=/tags/kickstart title=kickstart>kickstart</a></div><h1>PXEブートでインストーラを起動する</h1><h2 class=subheading></h2><span class=meta>Posted by
+ひつまぶし食べたい
+on
+Wednesday, January 1, 2014</span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container"><p>最近、VMwareのESXiで仮想環境を作っています。
+触っていて気づいたのですが、空の仮想マシンを起動するとPXEブートを試みてくれます。
+この仕様をうまく使いたいなーと思って、PXEブートでインストールを自動化する方法を調べました。</p><p>PXEブートしてインストールを自動化するまでの手順を簡単に書いていきます。
+Debianをインストールサーバーとして予め立てておき、DebianまたはCentOSをインストールすることにします。</p><h2 id=1-debian-install>1. Debian Install</h2><p>最初のDebianはCDやらで手動でインストールしてください。
+Debianのインストール手順は省略します。</p><h2 id=2-dhcpサーバーを立てる>2. DHCPサーバーを立てる</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#6272a4># Install DHCP Server</span>
+</span></span><span style=display:flex><span>apt-get install isc-dhcp-server
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># Config DHCP : INTERFACES</span>
+</span></span><span style=display:flex><span>vi /etc/default/isc-dhcp-server
+</span></span><span style=display:flex><span><span style=color:#6272a4># Modify INTERFACES=&#34;&#34; to INTERFACES &#34;eth1&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># Config DHCP : Server setting</span>
+</span></span><span style=display:flex><span>vi /etc/dhcp/dhcpd.conf
+</span></span></code></pre></div><p>編集する箇所は以下の通りです。</p><p><a href=https://gist.github.com/10664868>https://gist.github.com/10664868</a></p><p>DHCPサーバーを再起動して設定を反映させます。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#6272a4># Restart DHCP Server</span>
+</span></span><span style=display:flex><span>/etc/init.d/isc-dhcp-server restart
+</span></span></code></pre></div><h2 id=3-tftpサーバーを立てる>3. TFTPサーバーを立てる</h2><p>デフォルトで大丈夫でした。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#6272a4># Install TFTP Server</span>
+</span></span><span style=display:flex><span>apt-get install tftpd-hpa
+</span></span></code></pre></div><h2 id=4-pxeブート用のイメージを準備する>4. PXEブート用のイメージを準備する</h2><p>以下のページから適当にnetbootイメージを選んで、netboot/netboot.tar.gzを取って来ます。</p><ul><li><a href=http://www.debian.org/distrib/netinst#netboot>http://www.debian.org/distrib/netinst#netboot</a></li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#6272a4># 展開する</span>
+</span></span><span style=display:flex><span>tar xvf netboot.tar.gz
+</span></span><span style=display:flex><span><span style=color:#6272a4># move files to root dir of TFTP</span>
+</span></span><span style=display:flex><span>mv ./* /srv/tftp
+</span></span></code></pre></div><h2 id=5-中間チェック>5. 中間チェック</h2><p>この段階でPXEブートしてみると、Debianのインストーラが立ち上がるようになります。</p><h3 id=ブート画面でosを選択できるようにする>ブート画面でOSを選択できるようにする</h3><h2 id=6-centosのインストーラを準備>6. CentOSのインストーラを準備</h2><ol><li><p>mkdir -p /srv/tftp/centos/6.5/x86_64</p></li><li><p>CentOSのインストールDVDを持って来る</p></li><li><p>mount -o loop &lt;CentOS install ISO> /media</p></li><li></li></ol><pre><code>/media/images/pxeboot/にある次の2つのファイルを/srv/tftp/centos/6.5/x86_64/以下にコピーしてくる
+
+:   -   initrd.img
+    -   vmlinuz
+</code></pre><ol start=5><li>umount /media</li></ol><p>ここで、Debianのインストーラたちも整理して、 /srv/tftp/debian/7.4/amd64
+以下にあるとします。:</p><pre><code>/srv/tftp/
+    |
+    |-debian/7.4/amd64/
+    |   |
+    |   |-boot-screens
+    |   |
+    |   |-initrd.gz
+    |   |
+    |   |-linux
+    |   |
+    |   |-pxelinux.0
+    |   |
+    |   |-pxelinux.cfg/default
+    |
+    |-centos/6.5/x86_64
+    |   |
+    |   |-initrd.img
+    |   |
+    |   |-vmlinuz
+    |
+    |-pxelinux.0 -(シンボリックリンク)-&gt; debian/7.4/amd64/pxelinux.0
+    |
+    |-pxelinux.cfg -(シンボリックリンク)-&gt; debian/7.4/amd64/pxelinux.cfg
+</code></pre><h2 id=7-メニューの作成>7. メニューの作成</h2><p>pxelinux.cfg/defaultの内容を以下のように編集します。
+後でもう少し修正します。
+<a href=https://gist.github.com/10663699>最終形はGistにあがっているので</a>、
+そちらを見てください。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#6272a4># D-I config version 2.0</span>
+</span></span><span style=display:flex><span>default debian/7.4/amd64/boot-screens/vesamenu.c32
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># Boot Menuに入りたい</span>
+</span></span><span style=display:flex><span>prompt <span style=color:#bd93f9>1</span>
+</span></span><span style=display:flex><span>timeout <span style=color:#bd93f9>300</span>
+</span></span><span style=display:flex><span>menu title - Boop Options Menu -
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>label Debian-7.4
+</span></span><span style=display:flex><span>    menu label ^0 Debian 7.4
+</span></span><span style=display:flex><span>    <span style=color:#6272a4>#include debian/7.4/amd64/boot-screens/menu.cfg</span>
+</span></span><span style=display:flex><span>    kernel debian/7.4/amd64/linux
+</span></span><span style=display:flex><span>    append <span style=color:#8be9fd;font-style:italic>priority</span><span style=color:#ff79c6>=</span>critical <span style=color:#8be9fd;font-style:italic>vga</span><span style=color:#ff79c6>=</span><span style=color:#bd93f9>788</span> <span style=color:#8be9fd;font-style:italic>initrd</span><span style=color:#ff79c6>=</span>debian/7.4/amd64/initrd.gz
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>label CentOS-6.5
+</span></span><span style=display:flex><span>    menu label ^1 CentOS 6.5
+</span></span><span style=display:flex><span>    kernel centos/6.5/x86_64/vmlinuz
+</span></span><span style=display:flex><span>    append <span style=color:#8be9fd;font-style:italic>initrd</span><span style=color:#ff79c6>=</span>centos/6.5/x86_64/initrd.img
+</span></span></code></pre></div><h3 id=debianインストールの自動化>Debianインストールの自動化</h3><p>| ここまでで、PXEブートさえしていれば、複数のOSを選んでインストールできるようになりました。
+| いまのところの問題点としては、結局インストーラを起動した後は手作業になっていることです。
+| 次は、PXEブートした後、放っておくと勝手にインストールが終わっているようにしましょう。</p><p>| Debianの場合にこれを実現するには、preseedと呼ばれる設定ファイルを書けば良いです。
+| 普通にインストールするときに色々な質問に答える必要があると思いますが、その答えを事前に書いておくものです。
+| ただ、preseedが読まれる前に、インストーラから質問される(インストールのタイプなど)ことがあるので、そのあたりはブート時のパラメータとして渡しましょう。</p><h2 id=8-preseed-ファイル作成>8. preseed ファイル作成</h2><p>| preseedファイルはかなり長いです。
+| 昔はpreseedのドキュメントを読んでも、作るの大変だった印象があったのですが、<a href=https://www.debian.org/releases/wheezy/example-preseed.txt>コメント付きのpreseedの例がある</a>
+ので、これを元に書いて行けば特に大きくは困らないです。
+| ただ、例に書かれていないのですが、GRUBの設定を追加しないといけないのはわかりづらいかも知れません。
+| preseedで細かく設定しようとすると大変なので、それはAnsibleなどインストール終わってからの自動化に入れる方針です。</p><p>| 今回はパーティションなどは全部インストーラに任せています。
+| パーティションを変える場合などは、コメントアウトされているところを変更してください。</p><p><a href=https://gist.github.com/10664868>https://gist.github.com/10664868</a> の preseed.cfgを参照。</p><h2 id=9-pxelinuxcfgdefault-書き換え>9. pxelinux.cfg/default 書き換え</h2><p>| 今書いたpreseedファイルを debian/7.4/preseed.cfg
+として配置したことにします。
+| ブートオプションなどを追加した pxelinux.cfg/default
+ファイルは以下のようになります。</p><p>| あとでどうせCentOSも自動化するので、そちらもあわせてオプションをつけておきます。</p><p><a href=https://gist.github.com/10664868>https://gist.github.com/10664868</a> の defaultを参照。</p><h2 id=10-debianインストールのチェック>10. Debianインストールのチェック</h2><p>| また実際にPXEブートしてみましょう。
+| Debianをメニューで選択すると、今度は勝手に画面が進んで行くと思います。
+| 最後までインストールが終わり、勝手にリブートされてこれば、成功です。s</p><h3 id=cent-osインストールの自動化>Cent OSインストールの自動化</h3><h2 id=11-httpサーバー作成>11. httpサーバー作成</h2><p>| 後でやるように、kickstartファイルはhttp経由で配ろうと思います。(TFTPでできないっぽかった)
+| なので、httpサーバーを予め立てておくことにします。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#6272a4># apache install</span>
+</span></span><span style=display:flex><span>apt-get install apache2
+</span></span></code></pre></div><h2 id=12-centosイメージのマウント>12. CentOSイメージのマウント</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>mkdir -p /var/www/images/centos
+</span></span><span style=display:flex><span>mount -o loop &lt;CentOS install ISO&gt; /var/www/images/centos
+</span></span></code></pre></div><h2 id=13-kickstartファイルの準備>13. kickstartファイルの準備</h2><p>kickstartファイルの詳細については、
+<a href=https://access.redhat.com/site/documentation/ja-JP/Red_Hat_Enterprise_Linux/6/html/Installation_Guide/s1-kickstart2-options.html>redhatのページ</a>
+が参考になります。というか、コレ見たら大体で書ける。</p><p>今回使っているkickstartfileは以下の通りです。</p><p><a href=https://gist.github.com/10664868>https://gist.github.com/10664868</a> の kickstart.cfgを参照。</p><h2 id=14-kickstartファイルの配置>14. kickstartファイルの配置</h2><p>| pxelinux.cfg/defaultファイルの内容に合わせて、kickstart.cfgを配置します。
+| 今回は、apacheのドキュメントルート直下に置けば良いようにしました。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>mv kickstart.cfg /var/www/
+</span></span></code></pre></div><h2 id=15-centosインストールのチェック>15. CentOSインストールのチェック</h2><p>| 最後に、CentOSのインストールを確かめます。
+| 実際にPXEブートして、CentOSをメニューで選択すると、勝手に画面が進んで行くと思います。
+| 最後までインストールが終わり、勝手にリブートされてこれば、成功です。</p><h3 id=もっと自動化できるけど>もっと自動化できるけど...</h3><p>| 今回は、インストールの自動化を行いました。
+| 一応、インストールするOSの種類を選ぶところを手でやることにしましたが、普通はOSは一種類で良いか、MACアドレスでインストールするOSを分けてしまうのだと思います。
+| そうしておけば、OSの種類を選ぶところも自動化することができます。
+| 自分としては、基本はDebianをインストールしたくて、たまにCentOSも選びたいという程度なので、ここまでで止めておきます。</p><p>| 機会があれば、preseedやkickstartでホスト依存な部分(例えば固定IPとか)を都度生成してインストールする方法も考えたいですね。</p><h3 id=さらに読もうと思ってるサイト>さらに読もうと思ってるサイト</h3><ul><li></li></ul><pre><code>&lt;http://d.hatena.ne.jp/fujisan3776/20100630/1277861431&gt;
+
+:   インストール中は別の作業をしているので、インストールが終わったことも知らせて欲しい
+</code></pre><hr><ul class=pager><li class=previous><a href=/post/old_rst_files/163/ data-toggle=tooltip data-placement=top title=実UID,実行UID>&larr;
+Previous Post</a></li><li class=next><a href=/post/old_rst_files/160/ data-toggle=tooltip data-placement=top title=便利なツール>Next
+Post &rarr;</a></li></ul><div id=disqus-comment></div><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hitsumabushi.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div class="col-lg-2 col-lg-offset-0
+visible-lg-block
+sidebar-container
+catalog-container"><div class=side-catalog><hr class="hidden-sm hidden-xs"><h5><a class=catalog-toggle href=#>CATALOG</a></h5><ul class=catalog-body></ul></div></div><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/debian title=debian>debian
+</a><a href=/tags/vcp title=vcp>vcp
+</a><a href=/tags/vmware title=vmware>vmware</a></div></section></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href=https://x.com/_hitsumabushi_><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/hitsumabushi><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-github fa-stack-1x fa-inverse"></i></span></a></li><li><a href rel=alternate type=application/rss+xml title=ひつまぶし食べたい><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-rss fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; ひつまぶし食べたい 2024</p></div></div></div></footer><script>function loadAsync(e,t){var s=document,o="script",n=s.createElement(o),i=s.getElementsByTagName(o)[0];n.src=e,t&&n.addEventListener("load",function(e){t(null,e)},!1),i.parentNode.insertBefore(n,i)}</script><script>$("#tag_cloud").length!==0&&loadAsync("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:"#bbbbee",end:"#0085a1"}},$("#tag_cloud a").tagcloud()})</script><script>loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js",function(){var e=document.querySelector("nav");e&&FastClick.attach(e)})</script><script type=text/javascript>function generateCatalog(e){_containerSelector="div.post-container";var t,n,s,o,i,a=$(_containerSelector),r=a.find("h1,h2,h3,h4,h5,h6");return $(e).html(""),r.each(function(){t=$(this).prop("tagName").toLowerCase(),o="#"+$(this).prop("id"),n=$(this).text(),i=$('<a href="'+o+'" rel="nofollow">'+n+"</a>"),s=$('<li class="'+t+'_nav"></li>').append(i),$(e).append(s)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(e){e.preventDefault(),$(".side-catalog").toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$(".catalog-body").onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script></body></html>

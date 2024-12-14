@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Dns on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/dns/</link><description>Recent content in Dns on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Mon, 26 Jan 2015 03:12:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/dns/index.xml" rel="self" type="application/rss+xml"/><item><title>DNS サーバーの比較資料集め</title><link>https://www.hitsumabushi.org/post/2015/202/</link><pubDate>Mon, 26 Jan 2015 03:12:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/202/</guid><description>&lt;p>自宅開発環境を一新するついでに、真面目にサーバー構成を見直すことにした。
+DNSサーバーは今までbind+dnsmasqでやっていたが、改めてパフォーマンスの観点から選定したい。
+以下に、参考ページを列挙する。&lt;/p></description></item><item><title>DNS サーバー</title><link>https://www.hitsumabushi.org/post/old_rst_files/161/</link><pubDate>Wed, 01 Jan 2014 02:41:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/161/</guid><description>&lt;p>ニフティクラウド上でサーバーを立てた。
+いろいろと設定していこうかと思っているが、まずはDNSから始める。&lt;/p>
+&lt;h2 id="作業内容">作業内容&lt;/h2>
+&lt;p>1. /etc/bind/named.conf.options 以下のように書き換える:&lt;/p>
+&lt;pre>&lt;code>// v6の設定： v6は応答しない
+// listen-on-v6 { any; };
+listen-on-v6 { none; };
+
+// transfer を許すIPを制限
+allow-transfer &amp;quot;192.168.100.1&amp;quot;;
+&lt;/code>&lt;/pre>
+&lt;p>2. /etc/bind/named.conf.local ゾーンの設定:&lt;/p></description></item></channel></rss>
