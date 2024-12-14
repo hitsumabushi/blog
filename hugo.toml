@@ -54,9 +54,9 @@ enableInlineShortcodes = true # inline short code
 
   # algolia site search
   algolia_search = true
-  algolia_appId = ""
-  algolia_indexName = ""
-  algolia_apiKey = ""
+  algolia_appId = "QDYUDRXVCE"
+  algolia_indexName = "blog"
+  algolia_apiKey = "cbbbe16271381182bbac5e643c50d1d3"
 
   # Sidebar settings
   sidebar_about_description = "SRE Engineering Manager in Tokyo, Japan"
@@ -111,13 +111,12 @@ enableInlineShortcodes = true # inline short code
     #   title = "ABOUT"
     #   href = "/about/"
 
+[outputFormats.Algolia]
+  baseName = "algolia"
+  isPlainText = true
+  mediaType = "application/json"
+  notAlternative = true
 
-    # [outputFormats.Algolia]
-    # baseName = "algolia"
-    # isPlainText = true
-    # mediaType = "application/json"
-    # notAlternative = true
-
-    # [params.algolia]
-    # vars = ["title", "summary", "date", "publishdate", "expirydate", "permalink"]
-    # params = ["categories", "tags"]
+[params.algolia]
+  vars = ["title", "summary", "date", "publishdate", "expirydate", "permalink"]
+  params = ["categories", "tags", "keywords"]

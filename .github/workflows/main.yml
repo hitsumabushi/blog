@@ -35,6 +35,14 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
+      - name: upload to algolia index
+        uses: wangchucheng/algolia-uploader@master
+        with:
+          app_id: ${{ secrets.ALGOLIA_APP_ID }}
+          # You can store token in your project's 'Setting > Secrets' and reference the name here. Such as ${{ secrets.ALGOLIA_ADMIN_KEY }}
+          admin_key: ${{ secrets.ALGOLIA_WRITE_API_KEY }}
+          index_name: blog
+          index_file_path: public/algolia.json
       # ビルドの実行結果を Slack に投稿する
       - name: Send notification to slack channel
         uses: rtCamp/action-slack-notify@v2
