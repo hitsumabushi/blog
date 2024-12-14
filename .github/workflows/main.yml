@@ -40,6 +40,7 @@ jobs:
       - name: upload to algolia index
         run: |
           curl -L -o algolia.tar.gz https://github.com/algolia/cli/releases/download/v${{ env.ALGOLIA_CLI_VERSION }}/algolia_${{ env.ALGOLIA_CLI_VERSION }}_linux_amd64.tar.gz
+          tar xvf algolia.tar.gz
           ./algolia_${{ env.ALGOLIA_CLI_VERSION }}_linux_amd64/algolia \
             objects import ${{ env.ALGOLIA_INDEX_NAME }} \
             --api-key ${{ secrets.ALGOLIA_WRITE_API_KEY }} \
