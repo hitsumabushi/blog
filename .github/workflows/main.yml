@@ -44,7 +44,8 @@ jobs:
           jq -c '.[]' ./public/algolia.json | ./algolia_${{ env.ALGOLIA_CLI_VERSION }}_linux_amd64/algolia \
             objects import ${{ env.ALGOLIA_INDEX_NAME }} \
             --api-key ${{ secrets.ALGOLIA_WRITE_API_KEY }} \
-            --application-id ${{ secrets.ALGOLIA_APP_ID }}
+            --application-id ${{ secrets.ALGOLIA_APP_ID }} \
+            -F -
       # ビルドの実行結果を Slack に投稿する
       - name: Send notification to slack channel
         uses: rtCamp/action-slack-notify@v2
