@@ -1,7 +1,7 @@
 ---
 title: 会社にslack入ったので、色々やってた
 date: 2016-06-16T14:45:00+09:00
-slug: 1445
+slug: '1445'
 categories:
   - blog
 tags:

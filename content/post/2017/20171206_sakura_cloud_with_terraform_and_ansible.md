@@ -1,7 +1,7 @@
 ---
 title: さくらのクラウドでN百台を管理するためにterraformとansibleを使っている話
 date: 2017-12-05T17:48:00+09:00
-slug: 1748
+slug: '1748'
 markup.goldmark.renderer.unsafe: true
 categories:
   - blog

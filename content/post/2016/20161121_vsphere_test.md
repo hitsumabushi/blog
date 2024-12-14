@@ -1,7 +1,7 @@
 ---
 title: VMware Product ごとのtest 方法について
 date: 2016-11-21T14:14:00+09:00
-slug: 1414
+slug: '1414'
 categories:
   - blog
 tags:

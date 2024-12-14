@@ -1,7 +1,7 @@
 ---
 title: Anisble for Windows
 date: 2016-06-16T06:02:00+09:00
-slug: 0602
+slug: '0602'
 categories:
   - blog
 tags:

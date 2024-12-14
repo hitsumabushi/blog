@@ -1,7 +1,7 @@
 ---
 title: Easter Egg Collections
 date: 2015-02-07T21:44:00+09:00
-slug: 2144
+slug: '2144'
 categories:
   - blog
 tags:

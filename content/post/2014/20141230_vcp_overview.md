@@ -1,7 +1,7 @@
 ---
 title: VCP-DCVの概要 &#58; VCP550
 date: 2014-12-30T01:30:00+09:00
-slug: 0130
+slug: '0130'
 categories:
   - blog
 tags:

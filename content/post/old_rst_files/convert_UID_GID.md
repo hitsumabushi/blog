@@ -1,7 +1,7 @@
 ---
 title: 実UID,実行UID
 date: 2014-01-01T02:43:20+09:00
-slug: 0243
+slug: '0243'
 tags:
   - linux
 categories:

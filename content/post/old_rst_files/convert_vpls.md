@@ -1,7 +1,7 @@
 ---
 title: VPLSについてのメモ
 date: 2014-01-06T02:43:20+09:00
-slug: 0245
+slug: '0245'
 tags:
   - vpls
 categories:

@@ -1,7 +1,7 @@
 ---
 title: Windowsのsysprepが正常に完了しないときに調べること
 date: 2016-09-09T14:29:00+09:00
-slug: 1429
+slug: '1429'
 categories:
   - blog
 tags:

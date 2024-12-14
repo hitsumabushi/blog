@@ -1,7 +1,7 @@
 ---
 title: test-kitchen のメモ
 date: 2016-10-05T00:28:00+09:00
-slug: 0028
+slug: '0028'
 categories:
   - blog
 tags:

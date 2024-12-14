@@ -1,7 +1,7 @@
 ---
 title: さくらのクラウドでterraformを利用するメモ
 date: 2017-04-25T09:25:00+09:00
-slug: 0925
+slug: '0925'
 categories:
   - blog
 tags:

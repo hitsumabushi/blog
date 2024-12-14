@@ -1,7 +1,7 @@
 ---
 title: s3で自前 Debian Package リポジトリを作る
 date: 2016-07-10T03:44:00+09:00
-slug: 0344
+slug: '0344'
 categories:
   - blog
 tags:

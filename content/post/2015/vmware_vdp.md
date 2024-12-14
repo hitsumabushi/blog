@@ -1,7 +1,7 @@
 ---
 title: VMware VDP, VDPA
 date: 2015-01-07T19:24:00+09:00
-slug: 1924
+slug: '1924'
 categories:
   - blog
 tags:

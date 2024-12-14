@@ -1,7 +1,7 @@
 ---
 title: CloudFormation の不満点
 date: 2019-01-25T14:54:00+09:00
-slug: 1454
+slug: '1454'
 categories:
   - blog
 tags:

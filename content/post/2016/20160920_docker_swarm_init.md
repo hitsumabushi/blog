@@ -1,7 +1,7 @@
 ---
 title: docker swarm init on Debian Sid
 date: 2016-09-20T15:07:00+09:00
-slug: 1507
+slug: '1507'
 categories:
   - blog
 tags:

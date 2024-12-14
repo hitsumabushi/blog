@@ -1,7 +1,7 @@
 ---
 title: docker &#58; メモ
 date: 2017-01-30T18:12:00+09:00
-slug: 1812
+slug: '1812'
 categories:
   - blog
 tags:

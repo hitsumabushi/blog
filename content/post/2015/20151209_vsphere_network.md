@@ -1,7 +1,7 @@
 ---
 title: vSphere環境でのQoS
 date: 2015-12-09T10:05:00+09:00
-slug: 1005
+slug: '1005'
 categories:
   - blog
 tags:

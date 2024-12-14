@@ -1,7 +1,7 @@
 ---
 title: YAMAHAのネットボランチDNSを使って、ニフティクラウドとVPN接続する
 date: 2016-05-03T06:24:00+09:00
-slug: 0624
+slug: '0624'
 categories:
   - blog
 tags:

@@ -1,7 +1,7 @@
 ---
 title: DNS サーバー
 date: 2014-01-01T02:41:20+09:00
-slug: 0241
+slug: '0241'
 tags:
   - dns
 categories:

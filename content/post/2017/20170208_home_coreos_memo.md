@@ -1,7 +1,7 @@
 ---
 title: 自宅 vSphere 上の CoreOS (Container Linux) のデプロイメモ
 date: 2017-02-08T22:31:00+09:00
-slug: 2231
+slug: '2231'
 categories:
   - blog
 tags:

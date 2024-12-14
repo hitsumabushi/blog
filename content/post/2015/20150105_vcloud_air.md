@@ -1,7 +1,7 @@
 ---
 title: vCloud Airの価格感を調べる
 date: 2015-01-05T17:35:00+09:00
-slug: 1735
+slug: '1735'
 categories:
   - blog
 tags:

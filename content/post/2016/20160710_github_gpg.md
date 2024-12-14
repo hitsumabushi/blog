@@ -1,7 +1,7 @@
 ---
 title: GnuPG 2.xでgit commitに署名をしようとするとエラーが出るメモ
 date: 2016-07-10T01:46:00+09:00
-slug: 0146
+slug: '0146'
 categories:
   - blog
 tags:

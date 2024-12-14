@@ -1,7 +1,7 @@
 ---
 title: Dockerの細々としたメモ
 date: 2015-09-15T04:21:00+09:00
-slug: 0421
+slug: '0421'
 categories:
   - blog
 tags:

@@ -1,7 +1,7 @@
 ---
 title: ソースコードリーディングをするときにctagsを使いたい
 date: 2014-12-16T20:00:00+09:00
-slug: 2000
+slug: '2000'
 categories:
   - blog
 tags:

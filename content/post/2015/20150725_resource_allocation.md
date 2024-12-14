@@ -1,7 +1,7 @@
 ---
 title: VM Resource Allocation
 date: 2015-07-26T20:30:00+09:00
-slug: 2030
+slug: '2030'
 categories:
   - blog
 tags:

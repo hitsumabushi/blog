@@ -1,7 +1,7 @@
 ---
 title: さくらのクラウドを便利に使うためのツールメモ
 date: 2017-07-10T16:00:00+09:00
-slug: 1600
+slug: '1600'
 markup.goldmark.renderer.unsafe: true
 categories:
   - blog

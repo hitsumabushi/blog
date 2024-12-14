@@ -1,7 +1,7 @@
 ---
 title: Mesos の sandbox のログローテーションをする
 date: 2017-12-01T20:01:00+09:00
-slug: 2001
+slug: '2001'
 categories:
   - blog
 tags:

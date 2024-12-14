@@ -1,7 +1,7 @@
 ---
 title: ESXiをkickstartでインストールする
 date: 2015-01-06T23:38:00+09:00
-slug: 2338
+slug: '2338'
 categories:
   - blog
 tags:

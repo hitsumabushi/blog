@@ -1,7 +1,7 @@
 ---
 title: kubernetes instal step
 date: 2017-10-24T01:54:00+09:00
-slug: 0154
+slug: '0154'
 categories:
   - blog
 tags:

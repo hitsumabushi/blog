@@ -1,7 +1,7 @@
 ---
 title: DockerHub で docker build のオプションを設定したい
 date: 2016-09-27T14:45:00+09:00
-slug: 1445
+slug: '1445'
 categories:
   - blog
 tags:

@@ -1,7 +1,7 @@
 ---
 title: VMware NSX
 date: 2015-03-16T09:58:00+09:00
-slug: 0958
+slug: '0958'
 categories:
   - blog
 tags:

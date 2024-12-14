@@ -1,7 +1,7 @@
 ---
 title: Travis コマンドでのエラー
 date: 2016-01-02T15:13:00+09:00
-slug: 1513
+slug: '1513'
 categories:
   - blog
 tags:

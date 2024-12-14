@@ -1,7 +1,7 @@
 ---
 title: Perl の正規表現
 date: 2014-01-07T02:39:20+09:00
-slug: 0239
+slug: '0239'
 tags:
   - perl
 categories:

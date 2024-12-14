@@ -1,7 +1,7 @@
 ---
 title: Perl のコンパイラオプション
 date: 2014-01-01T02:37:20+09:00
-slug: 0237
+slug: '0237'
 tags:
   - perl
 categories:

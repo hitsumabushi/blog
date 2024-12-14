@@ -1,7 +1,7 @@
 ---
 title: 便利なツール
 date: 2014-01-02T02:40:20+09:00
-slug: 0240
+slug: '0240'
 tags:
   - perl
 categories:

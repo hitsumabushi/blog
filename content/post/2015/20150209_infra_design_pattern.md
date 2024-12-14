@@ -1,7 +1,7 @@
 ---
 title: インフラデザインパターン
 date: 2015-02-09T12:52:00+09:00
-slug: 1252
+slug: '1252'
 categories:
   - blog
 tags:

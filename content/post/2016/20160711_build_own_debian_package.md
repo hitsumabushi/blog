@@ -1,7 +1,7 @@
 ---
 title: もともとgitで管理されているアプリケーションをdebパッケージにしたいというメモ
 date: 2016-07-11T04:28:00+09:00
-slug: 0428
+slug: '0428'
 categories:
   - blog
 tags:

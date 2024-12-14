@@ -1,7 +1,7 @@
 ---
 title: Travis CIで git submodule update --init --recursive を止める
 date: 2017-10-17T03:36:00+09:00
-slug: 0336
+slug: '0336'
 categories:
   - blog
 tags:

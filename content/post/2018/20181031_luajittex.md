@@ -1,7 +1,7 @@
 ---
 title: DebianでLuaJITTeXを使いたい
 date: 2018-10-31T19:01:00+09:00
-slug: 1901
+slug: '1901'
 categories:
   - blog
 tags:

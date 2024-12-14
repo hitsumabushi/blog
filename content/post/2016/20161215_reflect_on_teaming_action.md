@@ -1,7 +1,7 @@
 ---
 title: チーム活動で失敗したことの振り返り
 date: 2016-12-15T00:00:00+09:00
-slug: 0000
+slug: '0000'
 markup.goldmark.renderer.unsafe: true
 categories:
   - blog

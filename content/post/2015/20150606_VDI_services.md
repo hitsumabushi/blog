@@ -1,7 +1,7 @@
 ---
 title: VDI, DaaS市場を調べてみた
 date: 2015-06-07T03:31:00+09:00
-slug: 0331
+slug: '0331'
 categories:
   - blog
 tags:

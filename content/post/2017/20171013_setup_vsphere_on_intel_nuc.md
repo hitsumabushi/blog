@@ -1,7 +1,7 @@
 ---
 title: Intel NUC 上に vSphere 6.5 のVSAN環境を作る
 date: 2017-10-13T01:06:00+09:00
-slug: 0106
+slug: '0106'
 categories:
   - blog
 tags:

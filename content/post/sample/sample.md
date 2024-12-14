@@ -1,7 +1,7 @@
 ---
 title: Sample docs
 date: 2016-12-14T04:35:00+09:00
-slug: 0435
+slug: '0435'
 categories:
   - blog
 tags:

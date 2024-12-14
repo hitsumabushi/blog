@@ -1,7 +1,7 @@
 ---
 title: GolangでLinuxコマンドを書いた時のメモ
 date: 2015-03-22T11:38:00+09:00
-slug: 1138
+slug: '1138'
 categories:
   - blog
 tags:

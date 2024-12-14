@@ -1,7 +1,7 @@
 ---
 title: Consistent Algorithm
 date: 2015-02-01T00:33:00+09:00
-slug: 0033
+slug: '0033'
 markup.goldmark.renderer.unsafe: true
 categories:
   - blog

@@ -1,7 +1,7 @@
 ---
 title: VCP6-NV 試験勉強メモ
 date: 2016-07-05T21:21:00+09:00
-slug: 2121
+slug: '2121'
 categories:
   - blog
 tags:

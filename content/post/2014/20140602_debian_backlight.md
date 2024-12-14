@@ -1,7 +1,7 @@
 ---
 title: LEDバックライトの調整
 date: 2014-06-02T16:31:00+09:00
-slug: 1631
+slug: '1631'
 categories:
   - blog
 tags:
