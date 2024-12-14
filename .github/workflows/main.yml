@@ -10,6 +10,8 @@ jobs:
     env:
       HUGO_VERSION: "0.139.4"
       HUGO_CACHEDIR: /tmp/hugo_cache
+      ALGOLIA_CLI_VERSION: "1.6.11"
+      ALGOLIA_INDEX_NAME: "blog"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,13 +38,13 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
       - name: upload to algolia index
-        uses: wangchucheng/algolia-uploader@master
-        with:
-          app_id: ${{ secrets.ALGOLIA_APP_ID }}
-          # You can store token in your project's 'Setting > Secrets' and reference the name here. Such as ${{ secrets.ALGOLIA_ADMIN_KEY }}
-          admin_key: ${{ secrets.ALGOLIA_WRITE_API_KEY }}
-          index_name: blog
-          index_file_path: public/algolia.json
+        run: |
+          curl -L -o algolia.tar.gz https://github.com/algolia/cli/releases/download/v${{ env.ALGOLIA_CLI_VERSION }}/algolia_${{ env.ALGOLIA_CLI_VERSION }}_linux_amd64.tar.gz
+          ./algolia_${{ env.ALGOLIA_CLI_VERSION }}_linux_amd64/algolia \
+            objects import ${{ env.ALGOLIA_INDEX_NAME }} \
+            --api-key ${{ secrets.ALGOLIA_WRITE_API_KEY }} \
+            --application-id ${{ secrets.ALGOLIA_APP_ID }} \
+            -F ./public/algolia.json
       # ビルドの実行結果を Slack に投稿する
       - name: Send notification to slack channel
         uses: rtCamp/action-slack-notify@v2
