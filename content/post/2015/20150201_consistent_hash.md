@@ -2,6 +2,8 @@
 title: Consistent Algorithm
 date: 2015-02-01T00:33:00+09:00
 slug: '0033'
+aliases:
+  - 0033.html
 markup.goldmark.renderer.unsafe: true
 categories:
   - blog

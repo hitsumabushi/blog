@@ -2,6 +2,8 @@
 title: vSphere 5.5環境でMSCSクラスタを組むときの制約
 date: 2015-01-07T20:29:00+09:00
 slug: '2029'
+aliases:
+  - 2029.html
 categories:
   - blog
 tags:

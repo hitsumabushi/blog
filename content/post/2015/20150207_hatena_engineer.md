@@ -2,6 +2,8 @@
 title: Hatena Engineer Seminar #4に行ってきました
 date: 2015-02-09T22:45:00+09:00
 slug: '2245'
+aliases:
+  - 2245.html
 markup.goldmark.renderer.unsafe: true
 categories:
   - blog

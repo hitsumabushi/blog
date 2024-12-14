@@ -2,6 +2,8 @@
 title: Travis コマンドでのエラー
 date: 2016-01-02T15:13:00+09:00
 slug: '1513'
+aliases:
+  - 1513.html
 categories:
   - blog
 tags:

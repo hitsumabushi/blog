@@ -2,6 +2,8 @@
 title: DNS サーバーの比較資料集め
 date: 2015-01-26T03:12:00+09:00
 slug: '0312'
+aliases:
+  - 0312.html
 categories:
   - blog
 tags:

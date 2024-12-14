@@ -2,6 +2,8 @@
 title: ESXiのインストールをPXE bootせずに自動化したい
 date: 2015-09-17T09:10:00+09:00
 slug: '0910'
+aliases:
+  - 0910.html
 categories:
   - blog
 tags:

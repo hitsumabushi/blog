@@ -2,6 +2,8 @@
 title: Linux を安心して運用するために(Debianを例に)
 date: 2017-06-01T11:33:00+09:00
 slug: '1133'
+aliases:
+  - 1133.html
 categories:
   - blog
 tags:

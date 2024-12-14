@@ -2,6 +2,8 @@
 title: ソースコードリーディングをするときにctagsを使いたい
 date: 2014-12-16T20:00:00+09:00
 slug: '2000'
+aliases:
+  - 2000.html
 categories:
   - blog
 tags:

@@ -2,6 +2,8 @@
 title: vShere Beta Program の注意点
 date: 2015-01-25T21:01:00+09:00
 slug: '2101'
+aliases:
+  - 2101.html
 categories:
   - blog
 tags:

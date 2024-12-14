@@ -2,6 +2,8 @@
 title: Perlスクリプトメモ
 date: 2014-01-07T02:38:20+09:00
 slug: '0238'
+aliases:
+  - 0238.html
 tags:
   - perl
 categories:

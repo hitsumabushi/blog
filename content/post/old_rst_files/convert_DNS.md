@@ -2,6 +2,8 @@
 title: DNS サーバー
 date: 2014-01-01T02:41:20+09:00
 slug: '0241'
+aliases:
+  - 0241.html
 tags:
   - dns
 categories:

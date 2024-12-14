@@ -2,6 +2,8 @@
 title: 1Password CLIを使ってTOTPを取得する
 date: 2021-10-12T01:00:00+09:00
 slug: '0100'
+aliases:
+  - 0100.html
 categories:
   - blog
 tags:

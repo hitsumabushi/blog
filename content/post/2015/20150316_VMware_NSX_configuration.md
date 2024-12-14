@@ -2,6 +2,8 @@
 title: VMware NSX Configuration
 date: 2015-03-16T13:45:00+09:00
 slug: '1345'
+aliases:
+  - 1345.html
 categories:
   - blog
 tags:

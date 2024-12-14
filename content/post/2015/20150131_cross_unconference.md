@@ -2,6 +2,8 @@
 title: CROSS 2015のアンカンファレンスで話しました
 date: 2015-01-31T03:20:00+09:00
 slug: '0320'
+aliases:
+  - 0320.html
 markup.goldmark.renderer.unsafe: true
 categories:
   - blog

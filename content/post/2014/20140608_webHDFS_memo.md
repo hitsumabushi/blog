@@ -2,6 +2,8 @@
 title: WebHDFSで詰まったこと
 date: 2014-06-08T16:33:00+09:00
 slug: '1633'
+aliases:
+  - 1633.html
 categories:
   - blog
 tags:

@@ -2,6 +2,8 @@
 title: 読書メモ &#58; いちばんやさしいグロースハックの教本
 date: 2017-08-26T16:27:00+09:00
 slug: '1627'
+aliases:
+  - 1627.html
 categories:
   - blog
 tags:

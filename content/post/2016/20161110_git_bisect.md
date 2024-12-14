@@ -2,6 +2,8 @@
 title: git bisect でバグ/仕様変更のコミットを探す
 date: 2016-11-10T03:52:00+09:00
 slug: '0352'
+aliases:
+  - 0352.html
 markup.goldmark.renderer.unsafe: true
 categories:
   - blog

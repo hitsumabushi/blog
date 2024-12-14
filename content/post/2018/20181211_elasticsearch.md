@@ -2,6 +2,8 @@
 title: Elasticsearch のメモ
 date: 2018-12-11T09:13:00+09:00
 slug: '0913'
+aliases:
+  - 0913.html
 categories:
   - blog
 tags:

@@ -2,6 +2,8 @@
 title: docker &#58; メモ
 date: 2017-01-30T18:12:00+09:00
 slug: '1812'
+aliases:
+  - 1812.html
 categories:
   - blog
 tags:

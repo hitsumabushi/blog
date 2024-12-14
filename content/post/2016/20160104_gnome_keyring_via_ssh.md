@@ -2,6 +2,8 @@
 title: WIP - GitをHTTPSで利用するときに、パスワードを記憶させておく via SSH
 date: 2016-01-04T14:37:00+09:00
 slug: '1437'
+aliases:
+  - 1437.html
 categories:
   - blog
 tags:

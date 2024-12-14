@@ -2,6 +2,8 @@
 title: 手で書かれたswagger fileを元にAPIをテストする
 date: 2017-05-15T15:08:00+09:00
 slug: '1508'
+aliases:
+  - 1508.html
 categories:
   - blog
 tags:

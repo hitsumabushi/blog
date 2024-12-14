@@ -2,6 +2,8 @@
 title: VCP6-NV 取得した
 date: 2016-07-09T12:32:00+09:00
 slug: '1232'
+aliases:
+  - 1232.html
 categories:
   - blog
 tags:

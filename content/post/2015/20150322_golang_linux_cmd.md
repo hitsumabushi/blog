@@ -2,6 +2,8 @@
 title: GolangでLinuxコマンドを書いた時のメモ
 date: 2015-03-22T11:38:00+09:00
 slug: '1138'
+aliases:
+  - 1138.html
 categories:
   - blog
 tags:

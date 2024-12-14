@@ -2,6 +2,8 @@
 title: Fluentd Pluginを作成するときのメモ
 date: 2014-12-19T11:11:00+09:00
 slug: '1111'
+aliases:
+  - 1111.html
 categories:
   - blog
 tags:

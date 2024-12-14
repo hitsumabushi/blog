@@ -2,6 +2,8 @@
 title: CloudFormation Stackを安全に削除する
 date: 2021-10-12T02:00:00+09:00
 slug: '0200'
+aliases:
+  - 0200.html
 categories:
   - blog
 tags:

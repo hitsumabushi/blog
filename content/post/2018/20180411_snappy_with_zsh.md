@@ -2,6 +2,8 @@
 title: Debian でログインシェルをzshにしている人が snappy を使う場合の注意
 date: 2018-04-11T10:58:00+09:00
 slug: '1058'
+aliases:
+  - 1058.html
 categories:
   - blog
 tags:

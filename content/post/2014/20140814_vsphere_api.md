@@ -2,6 +2,8 @@
 title: vSphere API事始め
 date: 2014-08-14T16:39:00+09:00
 slug: '1639'
+aliases:
+  - 1639.html
 categories:
   - blog
 tags:

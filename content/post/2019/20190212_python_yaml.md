@@ -2,6 +2,8 @@
 title: Python でコメント付きYAMLを扱う時には ruamel.yaml が便利だった
 date: 2019-02-12T16:30:00+09:00
 slug: '1630'
+aliases:
+  - 1630.html
 categories:
   - blog
 tags:

@@ -2,6 +2,8 @@
 title: vDSのポートバインドタイプ
 date: 2015-01-10T23:49:00+09:00
 slug: '2349'
+aliases:
+  - 2349.html
 categories:
   - blog
 tags:

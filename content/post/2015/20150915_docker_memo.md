@@ -2,6 +2,8 @@
 title: Dockerの細々としたメモ
 date: 2015-09-15T04:21:00+09:00
 slug: '0421'
+aliases:
+  - 0421.html
 categories:
   - blog
 tags:

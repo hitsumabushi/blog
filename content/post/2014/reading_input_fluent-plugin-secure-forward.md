@@ -2,6 +2,8 @@
 title: fluentd-plugin-secure-forward のソースを読んでみる(Input プラグイン編)
 date: 2014-12-17T23:45:00+09:00
 slug: '2345'
+aliases:
+  - 2345.html
 markup.goldmark.renderer.unsafe: true
 categories:
   - blog

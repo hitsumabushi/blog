@@ -2,6 +2,8 @@
 title: vSphere 6.0 でのHA機能のエンハンスの要点
 date: 2015-12-08T05:51:00+09:00
 slug: '0551'
+aliases:
+  - 0551.html
 categories:
   - blog
 tags:

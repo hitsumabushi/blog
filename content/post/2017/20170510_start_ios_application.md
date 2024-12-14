@@ -2,6 +2,8 @@
 title: アプリ開発初心者がiOSアプリをリリースするまでの履歴
 date: 2017-05-10T01:43:00+09:00
 slug: '0143'
+aliases:
+  - 0143.html
 categories:
   - blog
 tags:

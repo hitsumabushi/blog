@@ -2,6 +2,8 @@
 title: Rust の学習メモ
 date: 2017-02-08T00:42:00+09:00
 slug: '0042'
+aliases:
+  - 0042.html
 categories:
   - blog
 tags:

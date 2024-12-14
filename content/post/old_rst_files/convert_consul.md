@@ -2,6 +2,8 @@
 title: Consul 使ってみる
 date: 2014-11-01T02:39:20+09:00
 slug: '0239'
+aliases:
+  - 0239.html
 tags:
   - consul
 categories:

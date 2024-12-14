@@ -2,6 +2,8 @@
 title: Google Cloud Pub/Sub をGolangから使おうとしてハマったことまとめ
 date: 2018-02-05T20:09:00+09:00
 slug: '2009'
+aliases:
+  - 2009.html
 markup.goldmark.renderer.unsafe: true
 categories:
   - blog

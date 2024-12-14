@@ -2,6 +2,8 @@
 title: VMware 環境でのMACアドレス割当て
 date: 2014-12-17T14:40:00+09:00
 slug: '1440'
+aliases:
+  - 1440.html
 categories:
   - blog
 tags:

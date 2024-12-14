@@ -2,6 +2,8 @@
 title: Ansible でバージョンチェックする
 date: 2017-11-10T14:02:00+09:00
 slug: '1402'
+aliases:
+  - 1402.html
 categories:
   - blog
 tags:

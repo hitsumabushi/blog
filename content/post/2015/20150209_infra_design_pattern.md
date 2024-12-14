@@ -2,6 +2,8 @@
 title: インフラデザインパターン
 date: 2015-02-09T12:52:00+09:00
 slug: '1252'
+aliases:
+  - 1252.html
 categories:
   - blog
 tags:

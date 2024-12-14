@@ -2,6 +2,8 @@
 title: WindowsをAnsibleで設定する
 date: 2015-05-28T06:07:00+09:00
 slug: '0607'
+aliases:
+  - 0607.html
 categories:
   - blog
 tags:

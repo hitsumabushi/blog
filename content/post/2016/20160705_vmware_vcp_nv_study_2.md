@@ -2,6 +2,8 @@
 title: VCP6-NV 試験勉強メモ 2日目
 date: 2016-07-07T07:42:46+09:00
 slug: '0742'
+aliases:
+  - 0742.html
 categories:
   - blog
 tags:

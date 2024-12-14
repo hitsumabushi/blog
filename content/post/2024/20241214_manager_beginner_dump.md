@@ -2,6 +2,8 @@
 title: マネジメント1年目振り返り on 2024-12
 date: 2024-12-14T02:00:00+09:00
 slug: '0200'
+aliases:
+  - 0200.html
 categories:
   - blog
 tags:

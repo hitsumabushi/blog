@@ -2,6 +2,8 @@
 title: Dataflow を使うときのメモ
 date: 2018-06-08T15:49:00+09:00
 slug: '1549'
+aliases:
+  - 1549.html
 categories:
   - blog
 tags:

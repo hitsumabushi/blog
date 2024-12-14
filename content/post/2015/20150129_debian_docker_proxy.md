@@ -2,6 +2,8 @@
 title: Dockerのプロキシ設定
 date: 2015-01-29T07:54:00+09:00
 slug: '0754'
+aliases:
+  - 0754.html
 categories:
   - blog
 tags:

@@ -2,6 +2,8 @@
 title: VCP5-DCV取得した
 date: 2015-01-16T23:48:00+09:00
 slug: '2348'
+aliases:
+  - 2348.html
 categories:
   - blog
 tags:

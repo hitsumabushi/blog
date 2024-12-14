@@ -2,6 +2,8 @@
 title: 便利なツール
 date: 2014-01-02T02:40:20+09:00
 slug: '0240'
+aliases:
+  - 0240.html
 tags:
   - perl
 categories:

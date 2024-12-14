@@ -2,6 +2,8 @@
 title: PXEブートでインストーラを起動する
 date: 2014-01-01T02:44:20+09:00
 slug: '0244'
+aliases:
+  - 0244.html
 tags:
   - pxe
   - preseed

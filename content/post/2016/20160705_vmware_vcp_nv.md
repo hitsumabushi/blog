@@ -2,6 +2,8 @@
 title: VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる
 date: 2016-07-05T20:40:00+09:00
 slug: '2040'
+aliases:
+  - 2040.html
 categories:
   - blog
 tags:

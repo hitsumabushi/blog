@@ -2,6 +2,8 @@
 title: PyPIへパッケージをアップロードする
 date: 2018-04-05T14:20:00+09:00
 slug: '1420'
+aliases:
+  - 1420.html
 categories:
   - blog
 tags:

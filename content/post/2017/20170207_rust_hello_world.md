@@ -2,6 +2,8 @@
 title: Rust を始めるための設定
 date: 2017-02-07T23:55:00+09:00
 slug: '2355'
+aliases:
+  - 2355.html
 categories:
   - blog
 tags:

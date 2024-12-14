@@ -2,6 +2,8 @@
 title: fluentd-plugin-secure-forward のソースを読んでみる(Output プラグイン編)
 date: 2014-12-18T10:03:00+09:00
 slug: '1003'
+aliases:
+  - 1003.html
 categories:
   - blog
 tags:
