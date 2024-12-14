@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="資料 Fluentd - Writing plugins fluentdのためのプラグインをイチから書く手順(bundler版) - tagomorisのメモ置き場 fluentdプラグイン講座 参考にしたプラグイン fluentd/in_tail.rb at master · fluent/fluentd fluentd-plugin-secure-forward fluentd-plugin-dstat 作るもの 設定された文字列を設定ファイルに設定された時間感覚で、outputする。 設定ファイルのイメージは以下。 &lt;source&gt; type practice loopstr &#34;foobar&#34; &lt;/source&gt; 準備 (gemにするとき、)bundle gem fluent-plugin-hogehoge でgemを作成。 gemにしなくても、fluentdのplugins以下に直接おけば使え …" />
+<meta name="keywords" content="Fluentd, Ruby">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="Fluentd Pluginを作成するときのメモ"/>
+  <meta property="og:description" content="資料 Fluentd - Writing plugins fluentdのためのプラグインをイチから書く手順(bundler版) - tagomorisのメモ置き場 fluentdプラグイン講座 参考にしたプラグイン fluentd/in_tail.rb at master · fluent/fluentd fluentd-plugin-secure-forward fluentd-plugin-dstat 作るもの 設定された文字列を設定ファイルに設定された時間感覚で、outputする。 設定ファイルのイメージは以下。 &lt;source&gt; type practice loopstr &#34;foobar&#34; &lt;/source&gt; 準備 (gemにするとき、)bundle gem fluent-plugin-hogehoge でgemを作成。 gemにしなくても、fluentdのplugins以下に直接おけば使え …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/drafts/fluentd-pluginwozuo-cheng-surutokinomemo.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2014-12-19 11:11:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="Fluentd"/>
+  <meta property="article:tag" content="Ruby"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Fluentd Pluginを作成するときのメモ</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="fluentd-pluginwozuo-cheng-surutokinomemo">Fluentd Pluginを作成するときのメモ</h1>
+    <p>
+      Posted on Fri 19 December 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#_1">資料</a><ul>
+<li><a href="#_2">参考にしたプラグイン</a></li>
+</ul>
+</li>
+<li><a href="#_3">作るもの</a></li>
+<li><a href="#_4">準備</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<h2 id="_1">資料</h2>
+<ul>
+<li><a href="http://docs.fluentd.org/articles/plugin-development#writing-input-plugins">Fluentd - Writing plugins</a></li>
+<li><a href="http://d.hatena.ne.jp/tagomoris/20120221/1329815126">fluentdのためのプラグインをイチから書く手順(bundler版) - tagomorisのメモ置き場</a></li>
+<li><a href="http://toyama0919.bitbucket.org/fluentd_plugin_how_to.html#/37">fluentdプラグイン講座</a></li>
+</ul>
+<h3 id="_2">参考にしたプラグイン</h3>
+<ol>
+<li><a href="https://github.com/fluent/fluentd/blob/master/lib/fluent/plugin/in_tail.rb">fluentd/in_tail.rb at master · fluent/fluentd</a></li>
+<li><a href="https://github.com/tagomoris/fluent-plugin-secure-forward">fluentd-plugin-secure-forward</a></li>
+<li><a href="https://github.com/shun0102/fluent-plugin-dstat">fluentd-plugin-dstat</a></li>
+</ol>
+<h2 id="_3">作るもの</h2>
+<p>設定された文字列を設定ファイルに設定された時間感覚で、outputする。<br/>
+設定ファイルのイメージは以下。</p>
+<pre>
+  &lt;source&gt;
+    type practice
+    loopstr "foobar"
+  &lt;/source&gt;
+</pre>
+<h2 id="_4">準備</h2>
+<ol>
+<li>(gemにするとき、)<code>bundle gem fluent-plugin-hogehoge</code> でgemを作成。<br/>
+    gemにしなくても、fluentdのplugins以下に直接おけば使える。</li>
+<li>実際のfluentdで実験できるように、fluentdをインストールして用意しておく。<br/>
+    手元でvagrantやdockerを上げておくと便利。</li>
+</ol>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/fluentd.html">Fluentd</a>
+      <a href="https://www.hitsumabushi.org/tag/ruby.html">Ruby</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2014/12/17/2345.html">fluentd-plugin-secure-forward のソースを読んでみる(Input プラグイン編)</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2014/12/16/2000.html">ソースコードリーディングをするときにctagsを使いたい</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

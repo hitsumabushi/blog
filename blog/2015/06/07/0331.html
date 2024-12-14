@@ -1,0 +1,510 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="最近、vCloud AirがDaaSを出すというのを聞いて、にわかに自分の中でDaaSに興味が出てきた。 DaaSとかVDIは、必ずActive Directoryの話になるので、気後れしていたのだけど、会社ではWindows使っていることもあって、少しは抵抗もなくなってきたので、良いタイミングだったので、調べてみた。 とは言っても、まずは世間にどんなものがあるかをしらべてみただけ。 参考資料 http://www.netone.co.jp/report …" />
+<meta name="keywords" content="VDI, DaaS, AWS, Azure, VMware">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="VDI, DaaS市場を調べてみた"/>
+  <meta property="og:description" content="最近、vCloud AirがDaaSを出すというのを聞いて、にわかに自分の中でDaaSに興味が出てきた。 DaaSとかVDIは、必ずActive Directoryの話になるので、気後れしていたのだけど、会社ではWindows使っていることもあって、少しは抵抗もなくなってきたので、良いタイミングだったので、調べてみた。 とは言っても、まずは世間にどんなものがあるかをしらべてみただけ。 参考資料 http://www.netone.co.jp/report …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2015/06/07/0331.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2015-06-07 03:31:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="VDI"/>
+  <meta property="article:tag" content="DaaS"/>
+  <meta property="article:tag" content="AWS"/>
+  <meta property="article:tag" content="Azure"/>
+  <meta property="article:tag" content="VMware"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; VDI, DaaS市場を調べてみた</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="vdi-daasshi-chang-wodiao-betemita">VDI, DaaS市場を調べてみた</h1>
+    <p>
+      Posted on Sun 07 June 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#_1">参考資料</a></li>
+<li><a href="#_2">利用シーン</a><ul>
+<li><a href="#_3">世の中の利用シーン</a></li>
+</ul>
+</li>
+<li><a href="#vdi">VDIまわりとは一体何か?</a><ul>
+<li><a href="#vdi_1">VDIの特徴</a></li>
+<li><a href="#_4">検討ポイント</a></li>
+</ul>
+</li>
+<li><a href="#_5">なぜ使うのか、何が課題か</a></li>
+<li><a href="#_6">オンプレでやるとすると</a><ul>
+<li><a href="#_7">キャパシティプランニング</a></li>
+<li><a href="#_8">性能検証</a></li>
+</ul>
+</li>
+<li><a href="#_9">現状のサービス</a><ul>
+<li><a href="#amazon">Amazon</a></li>
+<li><a href="#vmware">VMware</a></li>
+<li><a href="#azure">Azure</a></li>
+<li><a href="#_10">富士通</a></li>
+<li><a href="#_11">新日鉄ソリューションズ</a></li>
+</ul>
+</li>
+<li><a href="#_12">まとめ</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      <p>最近、vCloud AirがDaaSを出すというのを聞いて、にわかに自分の中でDaaSに興味が出てきた。<br/>
+DaaSとかVDIは、必ずActive Directoryの話になるので、気後れしていたのだけど、会社ではWindows使っていることもあって、少しは抵抗もなくなってきたので、良いタイミングだったので、調べてみた。<br/>
+とは言っても、まずは世間にどんなものがあるかをしらべてみただけ。</p>
+
+<h2 id="_1">参考資料</h2>
+<ul>
+<li><a href="http://www.netone.co.jp/report/column/20120302.html">http://www.netone.co.jp/report/column/20120302.html</a></li>
+<li><a href="http://www.netone.co.jp/wp-content/uploads/2012/04/7b40e88a83e27031958fd41b697e679d.pdf">VSANでの検証</a></li>
+<li><a href="http://www.dell.com/downloads/jp/solutions/whitepaper/solution/Application_Virtualization_Comparison.pdf">アプリケーション仮想化の概説</a></li>
+</ul>
+<h2 id="_2">利用シーン</h2>
+<h3 id="_3">世の中の利用シーン</h3>
+<ol>
+<li>オフィス内からの利用<ul>
+<li><a href="http://www.cisco.com/web/JP/news/cisco_news_letter/tech/waas2/index.html">Cisco WAASなどのTCP圧縮・冗長排除・キャッシュ</a></li>
+</ul>
+</li>
+<li>出先での利用<ul>
+<li>オフィス?</li>
+<li>映像系の人は?</li>
+</ul>
+</li>
+</ol>
+<h2 id="vdi">VDIまわりとは一体何か?</h2>
+<ul>
+<li>オフラインVDI: ユーザーデータのみロードパターンもある</li>
+<li>VDI: VDI, DaaS</li>
+<li>アプリケーション仮想化: アプリケーションごとの配信。thinappとか</li>
+</ul>
+<h3 id="vdi_1">VDIの特徴</h3>
+<ol>
+<li>ユーザーごとにデスクトップを割り当て</li>
+<li>クライアント集中管理</li>
+<li>可用性向上</li>
+</ol>
+<h3 id="_4">検討ポイント</h3>
+<ol>
+<li>動画/Flash利用ユーザーへの配慮</li>
+<li>回線の悪い状況(帯域が狭い場合 / レイテンシが悪い)のユーザー</li>
+<li>GPUの利用は?</li>
+<li>マルチデバイスで利用可能か?<ul>
+<li>Zero Client みたいなものもある</li>
+<li>Chrome book</li>
+</ul>
+</li>
+</ol>
+<h2 id="_5">なぜ使うのか、何が課題か</h2>
+<p>よく書かれているのは、以下の通り。</p>
+<ol>
+<li>運用コスト<ul>
+<li>パッチ当て</li>
+</ul>
+</li>
+<li>セキュリティ<ul>
+<li>端末紛失<ul>
+<li>ユーザーのデータを端末に残さない</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>災害対策・BCP<ul>
+<li>安全なDCを使う</li>
+</ul>
+</li>
+<li>ワークスタイル変革</li>
+</ol>
+<h2 id="_6">オンプレでやるとすると</h2>
+<h3 id="_7">キャパシティプランニング</h3>
+<p>ブートに必要な領域。さらにメールデータも注意。<br/>
+個別のプロファイルを持たせている場合は、そのデータストア、フォルダリダイレクトを行う場合、ファイルサーバーに負担がかかる。</p>
+<ol>
+<li>ストレージ<ul>
+<li>IOPS<ul>
+<li>1ユーザーあたりの性能データ取得<ul>
+<li>ユーザー分布を調査</li>
+</ul>
+</li>
+<li>同時接続数の測定</li>
+</ul>
+</li>
+<li>バースト時IOPS<ul>
+<li>最大ユーザー数</li>
+<li>フラッシュストレージの検討</li>
+</ul>
+</li>
+<li>容量</li>
+</ul>
+</li>
+<li>ネットワーク<ul>
+<li>CIFSのパケットのやりとりが非常に多い</li>
+</ul>
+</li>
+<li>ファイルサーバー<ul>
+<li>CIFSで死ぬ</li>
+</ul>
+</li>
+</ol>
+<h3 id="_8">性能検証</h3>
+<ol>
+<li>ストレージ<ul>
+<li>ストレージシステムコントローラ性能<ul>
+<li>SPECやSPCのベンチマーク結果</li>
+<li>縮退時のこともあるので、結局N-1~N-2程度での性能</li>
+</ul>
+</li>
+<li>ディスクIO性能</li>
+</ul>
+</li>
+</ol>
+<h2 id="_9">現状のサービス</h2>
+<h3 id="amazon">Amazon</h3>
+<ul>
+<li>
+<p>Amazon Workspace</p>
+<ul>
+<li>vCPU, mem, storage, office, ...を選択可</li>
+<li>$35/month~</li>
+<li>1ユーザー1台</li>
+<li>Windows Server 2008R2のみ</li>
+<li>ユーザー領域はS3<ul>
+<li>12hourごとのバックアップ</li>
+</ul>
+</li>
+<li>VDIの動的割り当てみたいなものはない</li>
+<li>いつも通りβ版っぽい<ul>
+<li>毎週日曜日 0:00-4:00までは利用不可</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Amazon Workspace Application Manager(Amazon WAM)</p>
+<ul>
+<li>アプリケーション仮想化</li>
+<li>普通のやつ</li>
+<li>ライセンス管理とかできる??<ul>
+<li>使用頻度が取れる</li>
+</ul>
+</li>
+<li>割とお高い。$5/user</li>
+</ul>
+</li>
+<li>
+<p>Amazon WorkDocs Sync</p>
+<ul>
+<li>ドキュメントストアみたいなやつ</li>
+</ul>
+</li>
+</ul>
+<h3 id="vmware">VMware</h3>
+<ul>
+<li>Horizon Air<ul>
+<li>http://www.atmarkit.co.jp/ait/articles/1505/21/news054.html</li>
+<li>4300円/month~ , 50台以上</li>
+<li>Desktop DRという安価サービスもある。ただ、復帰が24hour以内はつらい...<ul>
+<li>とはいえ、事前にセットアップしておける、というのは便利なのかも?</li>
+<li>700円/month + (起動してる間)300円/日</li>
+<li>起動は最低7日なので、起動するには、2100円/月以上</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="azure">Azure</h3>
+<h3 id="_10">富士通</h3>
+<ul>
+<li>V-DaaS<ul>
+<li>http://fenics.fujitsu.com/outsourcingservice/lcm/workplacelcm/virtualdesktop.html</li>
+<li>VMware Horizon DaaSベース</li>
+<li>価格は顧客ID数/構成によって異なるが、参考価格はある<ul>
+<li>小規模だと1名あたり5000円/month前後~。大規模だと3000円/month強くらいまでいける。</li>
+<li>同時接続数での課金ではなさそう?</li>
+</ul>
+</li>
+<li>デフォルトだと1台、420MHz/2GB Mem/40GB disk</li>
+<li>3ヶ月/20ID以上~</li>
+<li>いろんなオプションはありそうだし、さすがに富士通って感がある<ul>
+<li>SIベースなのかな?</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_11">新日鉄ソリューションズ</h3>
+<ul>
+<li><span class="math">\(M^3\)</span> DaaS@absonne<ul>
+<li>http://www.absonne.jp/service/m3daas/menu3.php</li>
+<li>画面転送、仮想デスクトップ型の2タイプ</li>
+<li>XenApp, XenDesktopベース</li>
+<li>標準メニューではスペックが低め<ul>
+<li>オプションで増やせそうだけど、価格不明</li>
+</ul>
+</li>
+<li>オプションはたくさん(書いてある): すべて価格不明<ul>
+<li>スナップショット、定期バックアップ</li>
+<li>ウイルススキャン</li>
+<li>2要素認証とか、インターネットGW</li>
+<li>MDM</li>
+<li>ストレージサービス</li>
+<li>ADサービス</li>
+</ul>
+</li>
+<li>新日鉄という名前が私に、このサービスはSI前提だと囁いている<ul>
+<li>本当のところ、どんなサービスなんだろうか</li>
+<li>DaaSの国内シェアNo.1らしいし、利用者の話を聞いてみたい</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="_12">まとめ</h2>
+<p>とりとめもなく、ggったことを書いてみたけど、やはりWindows連携が大事にされているっぽい。<br/>
+Windowsのことはよくわからないけど、少しオンプレVDIのネットワーク特性については、興味が湧いてきた。<br/>
+特性として、概ねブートストームと、CIFSの特性の2つで決まりそうだけど、機会があれば実験したい。(機会はたぶんない。)</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/vdi.html">VDI</a>
+      <a href="https://www.hitsumabushi.org/tag/daas.html">DaaS</a>
+      <a href="https://www.hitsumabushi.org/tag/aws.html">AWS</a>
+      <a href="https://www.hitsumabushi.org/tag/azure.html">Azure</a>
+      <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2015/05/28/0607.html" title="WindowsをAnsibleで設定する">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2015/06/15/0004.html" title="Windowsの勉強を始めた">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2021/10/12/0200.html">CloudFormation Stackを安全に削除する</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2021/10/12/0100.html">1Password CLIを使ってTOTPを取得する</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2019/01/25/1454.html">CloudFormation の不満点</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2017/10/13/0106.html">Intel NUC 上に vSphere 6.5 のVSAN環境を作る</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html">VCP6-NV 取得した</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

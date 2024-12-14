@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="やり始めて困ったこと ディレクトリ構成をどうすべきか? loggerなど、共通のモジュールをどう配置するべきか迷った。 - src |-- foo | - foo.go |-- bar | - bar.go L-- util : 共通モジュールはこのディレクトリ以下に - hogeee.go packageの名前分割単位 ディレクトリ構成から決める。foo以下なら、fooパッケージ。 コメントの書き方 関数のコメント : funcの上に書く package のコメント: packageの上に書く。(同じパッケー …" />
+<meta name="keywords" content="golang">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="GolangでLinuxコマンドを書いた時のメモ"/>
+  <meta property="og:description" content="やり始めて困ったこと ディレクトリ構成をどうすべきか? loggerなど、共通のモジュールをどう配置するべきか迷った。 - src |-- foo | - foo.go |-- bar | - bar.go L-- util : 共通モジュールはこのディレクトリ以下に - hogeee.go packageの名前分割単位 ディレクトリ構成から決める。foo以下なら、fooパッケージ。 コメントの書き方 関数のコメント : funcの上に書く package のコメント: packageの上に書く。(同じパッケー …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/drafts/golangdelinuxkomandowoshu-itashi-nomemo.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2015-03-22 11:38:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="golang"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; GolangでLinuxコマンドを書いた時のメモ</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="golangdelinuxkomandowoshu-itashi-nomemo">GolangでLinuxコマンドを書いた時のメモ</h1>
+    <p>
+      Posted on Sun 22 March 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#_1">やり始めて困ったこと</a></li>
+<li><a href="#_2">テスト</a></li>
+<li><a href="#_3">実装</a></li>
+<li><a href="#_4">最低限やること</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<h2 id="_1">やり始めて困ったこと</h2>
+<ol>
+<li>
+<p>ディレクトリ構成をどうすべきか?<br/>
+  loggerなど、共通のモジュールをどう配置するべきか迷った。</p>
+<p><code>- src
+      |-- foo
+      |   - foo.go
+      |-- bar
+      |   - bar.go
+      L-- util : 共通モジュールはこのディレクトリ以下に
+          - hogeee.go</code></p>
+</li>
+<li>
+<p>packageの名前分割単位<br/>
+  ディレクトリ構成から決める。foo以下なら、fooパッケージ。</p>
+</li>
+<li>
+<p>コメントの書き方</p>
+</li>
+<li>関数のコメント : funcの上に書く</li>
+<li>package のコメント: packageの上に書く。(同じパッケージに複数書くと、多分ソートされて最初のやつ。)</li>
+</ol>
+<h2 id="_2">テスト</h2>
+<ol>
+<li>
+<p>テストの仕方<br/>
+  foo/foo_test.goというファイルで書く。</p>
+<p>```<br/>
+  package foo</p>
+<p>import (<br/>
+    "testing"<br/>
+  )</p>
+<p>func TestSetLogger(t *testing.T) {<br/>
+    if logging := SetLogger(); logging == nil {<br/>
+    &gt;-t.Errorf("Cannot Get Logger")<br/>
+    }<br/>
+  }<br/>
+  ```</p>
+</li>
+<li>
+<p>型情報をどうやって取得するのか<br/>
+  reflectパッケージを使う。</p>
+<p><code>reflect.TypeOf(0) // =&gt; reflect.Type オブジェクトが返る
+  reflect.TypeOf(0).Kind()
+  reflect.TypeOf(0).Name()
+  reflect.TypeOf(0).NumMethod() // メソッドの数がわかる
+  reflect.TypeOf(0).Method(0) // reflect.TypeOf(0)(=int)をレシーバとする0番目のメソッド</code></p>
+</li>
+</ol>
+<h2 id="_3">実装</h2>
+<ol>
+<li>
+<p>引数の扱い</p>
+</li>
+<li>
+<p>os.Argsを使う (全部自分でやるとき)</p>
+</li>
+<li>
+<p>flag パッケージを使う (ちょっと凝ったことをやるとき)</p>
+</li>
+<li>
+<p>ファイルの情報を取得</p>
+</li>
+<li>
+<p>os.Stat</p>
+</li>
+<li>io.Ioutil</li>
+<li>filepath.Walk</li>
+</ol>
+<h2 id="_4">最低限やること</h2>
+<ol>
+<li>引数を見て処理をする</li>
+<li>正規表現でやる</li>
+<li>オプションの実装</li>
+<li>2, 3のオプションの実装</li>
+</ol>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/golang.html">golang</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2018/02/05/2009.html">Google Cloud Pub/Sub をGolangから使おうとしてハマったことまとめ</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

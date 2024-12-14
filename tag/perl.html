@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+    <meta name="author" content="hitsumabushi" />
+    <meta name="description" content="" />
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:type" content="blog"/>
+  <meta property="og:title" content="ひつまぶし食べたい"/>
+  <meta property="og:description" content=""/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Tag perl</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+
+
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/01/07/0239.html#perl-nozheng-gui-biao-xian">Perl の正規表現</a></h2>
+    <p>
+      Posted on Tue 07 January 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/perl.html">perl</a>
+    </p>
+  </header>
+  <div>
+      <div><div class="section" id="id1">
+<h2>マッチ演算子</h2>
+<p>評価の結果は真偽値としては、マッチすれば真、そうでなければ偽。
+and, or, ! が役立つのは間違いない。</p>
+<div class="section" id="id2">
+<h3>$_ にマッチさせる</h3>
+<div class="highlight"><pre><span></span><span class="sr">/regex/</span>
+<span class="n">m:regex:</span>
+</pre></div>
+</div>
+<div class="section" id="string">
+<h3><em>string</em> にマッチさせる</h3>
+<div class="highlight"><pre><span></span><span class="n">string</span><span class="w"> </span><span class="o">=~</span><span class="sr"> /regex/</span>
+<span class="n">string</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="n">m:regex:</span>
+</pre></div>
+</div>
+<div class="section" id="id3">
+<h3>$_ の文字列置換</h3>
+<div class="highlight"><pre><span></span><span class="sr">s/regex/new/</span>
+<span class="n">s:regex:new:</span>
+</pre></div>
+</div>
+<div class="section" id="id4">
+<h3><em>string</em> の文字列置換</h3>
+<div class="highlight"><pre><span></span><span class="n">string</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="sr">s/regex/new/</span>
+<span class="n">string</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="n">s:regex:new:</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>特殊なメタキャラクタ</h2>
+<div class="section" id="id6">
+<h3>^, $</h3>
+<ul class="simple">
+<li>行頭、末尾にマッチ</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3>.</h3>
+<ul class="simple">
+<li>ニューライン以外の任意の文字にマッチ</li>
+</ul>
+</div>
+<div class="section" id="chars">
+<h3>[<em>chars</em>]</h3>
+<ul class="simple">
+<li><em>chars</em> に含まれる任意の1文字にマッチ …</li></ul></div></div></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/01/07/0239.html#perl-nozheng-gui-biao-xian">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/01/07/0238.html#perlsukuriputomemo">Perlスクリプトメモ</a></h2>
+    <p>
+      Posted on Tue 07 January 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/perl.html">perl</a>
+    </p>
+  </header>
+  <div>
+      <div><div class="section" id="id1">
+<h2>参考文献</h2>
+<ol class="arabic simple">
+<li><a class="reference external" href="http://d.hatena.ne.jp/perlcodesample/20091226/1264257759">Perl基礎文法最速マスター</a></li>
+<li>ミニマル perl</li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h2>スクリプトを書く時</h2>
+<ul class="simple">
+<li>プラグマ<ul>
+<li><a class="reference external" href="http://perldoc.jp/func/use">perldoc.jp</a></li>
+</ul>
+</li>
+<li>推奨 : スクリプト先頭に書く</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="nn">strict</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="nn">warnings</span><span class="p">;</span>
+</pre></div>
+<ul>
+<li><p class="first">1文字でも減らしたい</p>
+<blockquote>
+<ul class="simple">
+<li>print のデフォルト引数は、 $_</li>
+<li>print $_; したいだけなら書く必要ない。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>用語</h2>
+<div class="section" id="id5">
+<h3>レコード</h3>
+<ul class="simple">
+<li>1つのまとまりとして読み書きされる文字の集合</li>
+<li>入出力の際、ファイルはレコードの集まりと見ることができる。
+この時、デフォルトでは …</li></ul></div></div></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/01/07/0238.html#perlsukuriputomemo">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/01/02/0240.html#bian-li-natsuru">便利なツール</a></h2>
+    <p>
+      Posted on Thu 02 January 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/perl.html">perl</a>
+    </p>
+  </header>
+  <div>
+      <div><div class="section" id="pod">
+<h2>POD</h2>
+<ul class="simple">
+<li>Plain Old Documentation</li>
+<li>man perldoc を参照</li>
+</ul>
+</div>
+<div class="section" id="lwp-request">
+<h2>lwp-request</h2>
+<ul class="simple">
+<li>Webサーバーにリクエストを送って、適当な形式に変換してくれる</li>
+<li>GET, POST, PUT も選べる。</li>
+<li>出力形式としては、 text, ps, links, html, dump</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">lwp</span><span class="o">-</span><span class="n">request</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="n">www</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<div class="section" id="text-autoformat">
+<h2>Text::Autoformat</h2>
+</div>
+<div class="section" id="text-tabs">
+<h2>Text::Tabs</h2>
+<ul class="simple">
+<li>タブをスペースに変換</li>
+</ul>
+</div>
+<div class="section" id="string-approx">
+<h2>String::Approx</h2>
+<ul class="simple">
+<li>あいまいなマッチをする</li>
+</ul>
+</div>
+<div class="section" id="template-toolkit">
+<h2>Template-Toolkit</h2>
+</div>
+<div class="section" id="lingua-en-inflect-pl-n">
+<h2>Lingua::En::Inflect 'PL_N'</h2>
+<ul class="simple">
+<li>単数形と複数形を変換してくれる</li>
+</ul>
+</div>
+</div>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/01/01/0237.html#perl-nokonpairaopushiyon">Perl のコンパイラオプション</a></h2>
+    <p>
+      Posted on Wed 01 January 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/perl.html">perl</a>
+    </p>
+  </header>
+  <div>
+      <div><div class="section" id="id1">
+<h2>参考ページ</h2>
+<ul class="simple">
+<li>man perlrun</li>
+<li><a class="reference external" href="http://debugitos.main.jp/index.php?Perl%2F%A5%B3%A5%DE%A5%F3%A5%C9%A5%E9%A5%A4%A5%F3">DebugIto's - Perl/コマンドライン</a></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>基本的なオプション</h2>
+<div class="section" id="e">
+<h3>-e</h3>
+<ul class="simple">
+<li>ワンライナーを書くために必須。</li>
+<li>複数並べられるので、それなりに色々書ける</li>
+<li>直後にperlプログラムを書ける。</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;print 11/2&#39;</span>
+</pre></div>
+</div>
+<div class="section" id="l-8">
+<h3>-l[8進数]</h3>
+<ul class="simple">
+<li>行末に指定された8進数に変える。-l のみの場合、改行になる。</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;print 22&#39;</span><span class="w">       </span><span class="c1">#=&gt; 22</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">l</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;print 22&#39;</span><span class="w">    </span><span class="c1">#=&gt; 22\n</span>
+<span class="n">perl</span><span class="w"> </span><span class="o">-</span><span class="n">l101</span><span class="w"> </span><span class="o">-</span><span class="n">e</span><span class="w"> </span><span class="s">&#39;print 22&#39;</span><span class="w"> </span><span class="c1">#=&gt; 22A</span>
+</pre></div>
+</div>
+<div class="section" id="digits">
+<h3>-0[digits]</h3>
+<ul>
+<li><p class="first">-l の入力セパレータバージョン</p>
+</li>
+<li><p class="first">-00 とすれば、空行を区切 …</p></li></ul></div></div></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/01/01/0237.html#perl-nokonpairaopushiyon">
+          Continue reading
+        </a>
+  </div>
+</article>
+
+  <div class="pagination">
+  </div>
+
+
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

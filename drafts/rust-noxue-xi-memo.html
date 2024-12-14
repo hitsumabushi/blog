@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="資料 https://doc.rust-lang.org/book/ 日本語訳(バージョンが違うかも) : https://rust-lang-ja.github.io/the-rust-programming-language-ja/1.6/book/ getting started println と println! は違う ! があるとマクロ呼び出し Rust の特徴 Rustは expression-oriented で 末尾に ; が入る 式なので、返値を持つということだと思う コンパイル rustc でコンパイルすると、 実行ファイルはデフォルトでは、 xxx.rs なら xxx になるっぽい Cargo コードのビルド、ライブラリのダウンロード、ライブラリのビルドが …" />
+<meta name="keywords" content="rust">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="Rust の学習メモ"/>
+  <meta property="og:description" content="資料 https://doc.rust-lang.org/book/ 日本語訳(バージョンが違うかも) : https://rust-lang-ja.github.io/the-rust-programming-language-ja/1.6/book/ getting started println と println! は違う ! があるとマクロ呼び出し Rust の特徴 Rustは expression-oriented で 末尾に ; が入る 式なので、返値を持つということだと思う コンパイル rustc でコンパイルすると、 実行ファイルはデフォルトでは、 xxx.rs なら xxx になるっぽい Cargo コードのビルド、ライブラリのダウンロード、ライブラリのビルドが …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/drafts/rust-noxue-xi-memo.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2017-02-08 00:42:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="rust"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Rust の学習メモ</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="rust-noxue-xi-memo">Rust の学習メモ</h1>
+    <p>
+      Posted on Wed 08 February 2017 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#_1">資料</a></li>
+<li><a href="#getting-started">getting started</a></li>
+<li><a href="#syntax-and-semantics">Syntax and Semantics</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<h2 id="_1">資料</h2>
+<ul>
+<li>https://doc.rust-lang.org/book/<ul>
+<li>日本語訳(バージョンが違うかも) : https://rust-lang-ja.github.io/the-rust-programming-language-ja/1.6/book/</li>
+</ul>
+</li>
+</ul>
+<h2 id="getting-started">getting started</h2>
+<ul>
+<li><code>println</code> と <code>println!</code> は違う<ul>
+<li><code>!</code> があるとマクロ呼び出し</li>
+</ul>
+</li>
+<li>Rust の特徴<ul>
+<li>Rustは <code>expression-oriented</code> で 末尾に <code>;</code> が入る</li>
+<li>式なので、返値を持つということだと思う</li>
+</ul>
+</li>
+<li>コンパイル<ul>
+<li>rustc でコンパイルすると、 実行ファイルはデフォルトでは、 xxx.rs なら xxx になるっぽい</li>
+</ul>
+</li>
+<li>Cargo<ul>
+<li>コードのビルド、ライブラリのダウンロード、ライブラリのビルドが管理できる</li>
+<li>ディレクトリ構成の制約がつく。<ul>
+<li>直下に <code>Cargo.toml</code> や README.md, LICENCEなどのファイル</li>
+<li><code>src/</code> 以下にソースコード</li>
+</ul>
+</li>
+<li>Cargo.toml : プロジェクト設定ファイル<ul>
+<li><code>packages</code> に name, version, authors などを記載</li>
+</ul>
+</li>
+<li><code>cargo build</code> すると、 <code>target/debug/_name_</code> としてバイナリが作成される<ul>
+<li>直接実行しても良いが、 <code>cargo run</code> すれば良い</li>
+<li>リリースビルドのためには、 <code>cargo build --release</code></li>
+</ul>
+</li>
+<li>リリースビルドは、実行速度は速くなるが、コンパイル時間が長くなる<ul>
+<li>さらに、 <code>Cargo.lock</code> ファイルが作成される</li>
+<li>依存関係の追跡をするために必要</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Cargo を使って、新しいプロジェクトを作成することもできる<ul>
+<li>実行ファイルを作成したい場合、 <code>cargo new _name_ --bin</code></li>
+<li>ライブラリの場合には、 <code>cargo new _name_</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="syntax-and-semantics">Syntax and Semantics</h2>
+<ul>
+<li>"1つの値に対して、複数の名前が対応することはない" っぽいことが書いてあったけど良くわかっていない<ul>
+<li>http://qiita.com/cactaceae/items/2c70a9947364c60ec100 この辺を読めば例が書かれていそう</li>
+</ul>
+</li>
+<li>型アノテーション を最低限入れておけば型推論してくれる<ul>
+<li>整数型として可能なサイズは、8, 16, 32, 64bitで、最初に iがついていれば符号付き、そうでない場合には u をつける。</li>
+</ul>
+</li>
+<li>束縛はデフォルトで immutable<ul>
+<li>もし mutable にしたいのであれば、 <code>let mut x=5; x=10;</code> など、<code>mut</code> をつける</li>
+<li><code>let x=100; let x=10;</code> みたいなのは書けるけど、どう考えれば良い?<ul>
+<li>shadowing というらしい。全然違う型でも被せられる</li>
+<li>良いことなのか...?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>変数を初期化せずに宣言できるが、それを初期化しないまま使うことは許されていない</li>
+<li>文字列フォーマット: <a href="https://doc.rust-lang.org/std/fmt/">https://doc.rust-lang.org/std/fmt/</a></li>
+<li><code>ブロック</code> というもの ( <code>{</code> と <code>}</code> で囲まれた範囲 ) があって、 変数のスコープになる</li>
+</ul>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/rust.html">rust</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2017/02/07/2355.html">Rust を始めるための設定</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

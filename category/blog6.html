@@ -1,0 +1,496 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+    <meta name="author" content="hitsumabushi" />
+    <meta name="description" content="" />
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:type" content="blog"/>
+  <meta property="og:title" content="ひつまぶし食べたい"/>
+  <meta property="og:description" content=""/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Category blog</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+
+
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/01/29/0754.html#dockernopurokishishe-ding">Dockerのプロキシ設定</a></h2>
+    <p>
+      Posted on Thu 29 January 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/docker.html">Docker</a>,              <a href="https://www.hitsumabushi.org/tag/debian.html">Debian</a>
+    </p>
+  </header>
+  <div>
+      <div><p>自宅ではプロキシを立てていないので問題なかったが、会社でDockerをいじろうとするとプロキシに阻まれてうまくいかず困っていた。<br>
+bashの環境変数を設定するのはうまくいかなくて、しばらく手元ではdockerをやらず、作業用マシンをクラウドに立ててどうにかごまかしていたのだけど、<br>
+あらためて考えると解決できた。</p>
+<p>結論は、dockerのデーモンが起動すると …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/01/29/0754.html#dockernopurokishishe-ding">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/01/26/0312.html#dns-sabanobi-jiao-zi-liao-ji-me">DNS サーバーの比較資料集め</a></h2>
+    <p>
+      Posted on Mon 26 January 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/dns.html">DNS</a>,              <a href="https://www.hitsumabushi.org/tag/debian.html">Debian</a>
+    </p>
+  </header>
+  <div>
+      <div><p>自宅開発環境を一新するついでに、真面目にサーバー構成を見直すことにした。<br/>
+DNSサーバーは今までbind+dnsmasqでやっていたが、改めてパフォーマンスの観点から選定したい。<br/>
+以下に、参考ページを列挙する。</p>
+
+<h2 id="_1">参考になるページ</h2>
+<h3 id="_2">権威サーバ</h3>
+<ul>
+<li><a href="http://jprs.co.jp/enum/enum_jprs/activity/pdf/N+I-20050610-C24.pdf">DNSサーバパフォーマンス評価</a></li>
+<li><a href="https://github.com/msimerson/NicTool/wiki/Install-Nameserver">NicTool</a></li>
+<li><a href="http://blog.akagi.jp/archives/4072.html">PowerDNS + NSD で DNS を構築する</a></li>
+</ul>
+<h3 id="_3">キャッシュサーバ</h3>
+<ul>
+<li><a href="http://dnsops.jp/event/20140626/DNS-design-operation-higashi.pdf">DNSキャッシュサーバ 設計と運用のノウハウ</a></li>
+<li><a href="http://www.slideshare.net/hdais/dns-32071366">DNSキ …</a></li></ul></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/01/26/0312.html#dns-sabanobi-jiao-zi-liao-ji-me">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/01/25/2101.html#vshere-beta-program-nozhu-yi-dian">vShere Beta Program の注意点</a></h2>
+    <p>
+      Posted on Sun 25 January 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>
+    </p>
+  </header>
+  <div>
+      <div><p>VMware のBetaプログラムの利用について、基本的なルールがあるので、忘れないようにまとめた。<br/>
+ここに書いてあることは、オレオレ要約なので、きちんと自分で確認してください。</p>
+<p>ざっくり言うと、「ここで知ったことは他で話すなよ」ってことでした。</p>
+
+<h2 id="_1">資料</h2>
+<ul>
+<li><a href="https://communities.vmware.com/community/vmtn/vsphere-beta">vSphere Beta Program</a></li>
+</ul>
+<h2 id="_2">利用方法</h2>
+<p>上記ページから"Join Now!"して、規約に同意すれば良い。<br/>
+規約は以下の2つあるので、それぞれ同意 …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/01/25/2101.html#vshere-beta-program-nozhu-yi-dian">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/01/16/2348.html#vcp5-dcvqu-de-shita">VCP5-DCV取得した</a></h2>
+    <p>
+      Posted on Fri 16 January 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>
+    </p>
+  </header>
+  <div>
+      <div><p>最近のブログはVMwareの話ばかりだったのですが、やっとVCPを取得してきました。<br/>
+VCP-DCVを取得している人はたくさんいるので、個人的に受験した所感を書いておきます。</p>
+
+<h2 id="vcp">VCPトレーニングと試験内容のギャップ</h2>
+<p>トレーニングを受講しても、おそらく言われると思いますが、<br/>
+VCP-DCVの試験はトレーニング内容と差が大きいと聞きます。(他のベンダー試験を受けたこと …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/01/16/2348.html#vcp5-dcvqu-de-shita">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/01/10/2349.html#vdsnopotobaindotaipu">vDSのポートバインドタイプ</a></h2>
+    <p>
+      Posted on Sat 10 January 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>,              <a href="https://www.hitsumabushi.org/tag/vds.html">vDS</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<h2 id="_1">資料</h2>
+<p><a href="http://kb.vmware.com/selfservice/search.do?cmd=displayKC&amp;docType=kc&amp;docTypeID=DT_KB_1_1&amp;externalId=2086886">VMware KB: ESX/ESXi でのポート バインド タイプの選択</a></p>
+<h2 id="_2">ポートバインドタイプとは</h2>
+<p>vNICをvDSに接続するとき、ポートグループのポートがどのようにVMに割り当てられるかを、ポートバインドタイプとして、設定できます。<br/>
+バインドのタイプは以下の3つから選択できました。(2つめの動的バインドは、ESXi5.0で廃止。)</p>
+<ol>
+<li>静的バインド (Static Binding)</li>
+<li>動的バインド (Dynamic Binding)</li>
+<li>短期バイン …</li></ol></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/01/10/2349.html#vdsnopotobaindotaipu">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/01/07/2029.html#vsphere-55huan-jing-demscskurasutawozu-mutokinozhi-yue">vSphere 5.5環境でMSCSクラスタを組むときの制約</a></h2>
+    <p>
+      Posted on Wed 07 January 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>,              <a href="https://www.hitsumabushi.org/tag/microsoft.html">Microsoft</a>,              <a href="https://www.hitsumabushi.org/tag/mscs.html">MSCS</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<h2 id="_1">資料</h2>
+<p>MSCSのサポート状況</p>
+<ul>
+<li><a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=1004617">VMware KB: Microsoft Cluster Service (MSCS) support on ESXi/ESX</a></li>
+<li><a href="http://kb.vmware.com/selfservice/search.do?cmd=displayKC&amp;docType=kc&amp;docTypeID=DT_KB_1_1&amp;externalId=2052238">VMware KB: MSCS support enhancements in vSphere 5.5</a></li>
+</ul>
+<p>MSCSとは</p>
+<ul>
+<li><a href="http://www.atmarkit.co.jp/ait/articles/0812/03/news138_5.html">http://www.atmarkit.co.jp/ait/articles/0812/03/news138_5.html</a></li>
+</ul>
+<h2 id="mscs">MSCS</h2>
+<p>Microsoft Cluster Serviceのこと。<br/>
+MSFC(Microsoft Failover Cluster)と名称が変わっているけど、未だにMSCSと呼ばれる場合もある。</p>
+<p>複数台について、フェイルオーバー型のクラスタを組める。<br/>
+1台だけをマスターにして、他は待機系として構成する。</p>
+<h2 id="vmware">VMware環境での利用</h2>
+<h3 id="_2">クラスタリング一般の注意</h3>
+<p>ク …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/01/07/2029.html#vsphere-55huan-jing-demscskurasutawozu-mutokinozhi-yue">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/01/07/1924.html#vmware-vdp-vdpa">VMware VDP, VDPA</a></h2>
+    <p>
+      Posted on Wed 07 January 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>,              <a href="https://www.hitsumabushi.org/tag/vdp.html">VDP</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<h2 id="vmware-data-protection">VMware Data Protection</h2>
+<h3 id="_1">資料</h3>
+<ul>
+<li><a href="http://blogs.vmware.com/jp-cim/2013/12/vsphere-55-vdpa.html">vSphere 5.5 の新機能紹介 - VMware Blogs</a></li>
+<li><a href="http://www.vmware.com/jp/support/support-resources/pubs/vdr_pubs">VMware vSphere Data Protection のドキュメント</a></li>
+</ul>
+<h3 id="_2">概要</h3>
+<p>VMware Data Recoveryの後継みたいなものっぽい。</p>
+<p>VDRから発展した点としては、以下があある。</p>
+<ol>
+<li>FLR(File Level Restore) をサポート</li>
+<li>サポート台数の増加</li>
+</ol>
+<h3 id="_3">ライセンス体系</h3>
+<ul>
+<li>VMware Data Protection</li>
+<li>VMware Data Protection Advanced<br/>
+の2つあって、いくつか違いがあります。特に、容量について、VMware Data Protectionは2TBまで。</li>
+</ul>
+<h4 id="vdpvdpa">VDPとVDPAの違い</h4>
+<ol>
+<li>dedupストレージの上限拡大(2TBから8TBになる …</li></ol></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/01/07/1924.html#vmware-vdp-vdpa">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/01/06/2338.html#esxiwokickstartdeinsutorusuru">ESXiをkickstartでインストールする</a></h2>
+    <p>
+      Posted on Tue 06 January 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/esxi.html">ESXi</a>
+    </p>
+  </header>
+  <div>
+      <div><p>ESXiをPXEブートして自動インストールする方法について、日本語での説明があまりなかったので、メモとして残しておく。</p>
+
+<h2 id="os">利用OS</h2>
+<ul>
+<li>ESXi 5.5</li>
+<li>Debian 7.7 (DHCPサーバー, HTTPサーバーを兼務させる)</li>
+</ul>
+<h2 id="dhcp-tftp-http">DHCP, TFTP, HTTPサーバーの準備</h2>
+<h3 id="_1">必要なソフトウェアのインストール</h3>
+<div class="highlight"><pre><span></span><code>apt-get<span class="w"> </span>install<span class="w"> </span>tftpd-hpa<span class="w"> </span>isc-dhcp-server<span class="w"> </span>xinetd<span class="w"> </span>apache2
+</code></pre></div>
+<h3 id="dhcp">DHCPサーバーの設定</h3>
+<p>BOOTPでインストールするため、あまり自由度がない。</p>
+<div class="gist">
+    <script src='https://gist.github.com/b4e9a0e8e0ef68af1d6f.js?file=dhcpd.conf'></script>
+    <noscript>
+        <pre><code>ddns-update-sytle none;
+option domain-name "example.org";
+option domain-name-servers 192.168.0.10;
+
+default-lease-time …</code></pre></noscript></div></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/01/06/2338.html#esxiwokickstartdeinsutorusuru">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/01/05/1735.html#vcloud-airnojia-ge-gan-wodiao-beru">vCloud Airの価格感を調べる</a></h2>
+    <p>
+      Posted on Mon 05 January 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/kuraudo.html">クラウド</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<h2 id="_1">資料</h2>
+<ul>
+<li><a href="http://www.vmware.com/jp/products/vcloud-air">VMware vCloud Air</a></li>
+<li><a href="http://vcloud.vmware.com/jp/service-offering/pricing-guide">VMware vCloud Air 価格ガイド</a></li>
+</ul>
+<h2 id="vcloud-air">vCloud Airとは</h2>
+<p>VMwareが提供している、ハイブリッドクラウドのサービス。</p>
+<p>特徴として、オンプレでVMware環境を稼働させている場合に、vCloud Connectorを利用することで、<br/>
+vSphere Clientのプラグインと統合して操作ができることが挙げられる。</p>
+<p>日本では、<a href="http://www.atmarkit.co.jp/ait/articles/1407/17/news039.html">ソフトバンクと提携しているようだ</a>。</p>
+<h2 id="vcloud-air_1">vCloud Air の価格感を調べる</h2>
+<p>大前提として、一般的なクラウドサービスと …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/01/05/1735.html#vcloud-airnojia-ge-gan-wodiao-beru">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/12/31/1805.html#2014nian-nomatomewoshiteokaneba">2014年のまとめをしておかねば</a></h2>
+    <p>
+      Posted on Wed 31 December 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/kpt.html">KPT</a>
+    </p>
+  </header>
+  <div>
+      <div><p>今年1年は反省の多い年だったので、きちんと書いて残しておく。</p>
+
+<h2 id="2014">2014年面白かった技術、触りたかったソフトウェア</h2>
+<h3 id="_1">新たに導入したもの</h3>
+<ol>
+<li>Ansible</li>
+<li>Ceph</li>
+<li>Pelican(このブログを生成してるやつ)</li>
+<li>Flask</li>
+</ol>
+<h3 id="_2">ちょっとしか触れず...</h3>
+<ol>
+<li>VyOS</li>
+<li>Consul</li>
+<li>Fluentd</li>
+<li>Golang</li>
+<li>Docker</li>
+<li>CoreOS</li>
+<li>Hashicorpのツールその他</li>
+<li>Hadoop</li>
+</ol>
+<h3 id="_3">触りたかったけど、触らず</h3>
+<ol>
+<li>Strom</li>
+<li>Rust</li>
+</ol>
+<h2 id="2014_1">2014年のトピックス</h2>
+<p>思い返すと1月のこととかは何年も前に感じるが、今年は割と色々あっ …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/12/31/1805.html#2014nian-nomatomewoshiteokaneba">
+          Continue reading
+        </a>
+  </div>
+</article>
+
+  <div class="pagination">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/category/blog7.html">
+      <i class="fa fa-angle-left"></i> Older Posts
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/category/blog5.html">
+      Newer Posts <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

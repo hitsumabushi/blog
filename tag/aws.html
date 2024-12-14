@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+    <meta name="author" content="hitsumabushi" />
+    <meta name="description" content="" />
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:type" content="blog"/>
+  <meta property="og:title" content="ひつまぶし食べたい"/>
+  <meta property="og:description" content=""/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Tag aws</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+
+
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2021/10/12/0200.html#cloudformation-stackwoan-quan-nixue-chu-suru">CloudFormation Stackを安全に削除する</a></h2>
+    <p>
+      Posted on Tue 12 October 2021 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/aws.html">aws</a>,              <a href="https://www.hitsumabushi.org/tag/cloudformation.html">cloudformation</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<p>以前、<a href="https://www.hitsumabushi.org/blog/2019/01/25/1454.html">CloudFormation の不満点</a> というのを書いたが、諦めて大半のCfnをterraformに移行した。<br/>
+その際、cfn リソースをきれいにするために、cfn stackを安全に削除する必要があり、その方法をメモしておく。</p>
+<h2 id="_1">概要</h2>
+<p>アイデアは簡単で以下の通り。</p>
+<ol>
+<li>cfn の操作のみが許可されているIAM roleを作成する</li>
+<li>上記roleを指定して cfn stackをdeleteする</li>
+</ol>
+<h2 id="_2">モチベーション</h2>
+<p>そもそも以前の記事でも、予期せぬ手作業の …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2021/10/12/0200.html#cloudformation-stackwoan-quan-nixue-chu-suru">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2021/10/12/0100.html#1password-cliwoshi-tsutetotpwoqu-de-suru">1Password CLIを使ってTOTPを取得する</a></h2>
+    <p>
+      Posted on Tue 12 October 2021 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/aws.html">aws</a>,              <a href="https://www.hitsumabushi.org/tag/1password.html">1password</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<p>2要素認証を必須にしたAWSのswitch roleで、temporary credentialsをCLIで取得したかった。<br/>
+TOTPの数字を毎回調べるのが面倒で、簡単にできないか調べたところ、1Password CLIというのがあった。1Passwordユーザなので、これを利用する。<br/>
+ただし、当然のことだが、2要素認証のデバイスとして、1Passwordが利用されている状況とする。</p>
+<h2 id="1password-cli">1Password CLIの初期設定</h2>
+<p>1Password CLI を利用できるようにする。<br/>
+<a href="https://support.1password.com/command-line-getting-started/">1Password CLIのGetting Started</a>を見て、初期設定 …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2021/10/12/0100.html#1password-cliwoshi-tsutetotpwoqu-de-suru">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2019/01/25/1454.html#cloudformation-nobu-man-dian">CloudFormation の不満点</a></h2>
+    <p>
+      Posted on Fri 25 January 2019 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/aws.html">aws</a>,              <a href="https://www.hitsumabushi.org/tag/cloudformation.html">cloudformation</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<p>以下では「手作業で」というのは、「CloudFormation管理外で」という意味で使う。</p>
+<h2 id="_1">要点</h2>
+<ul>
+<li>CloudFormation は、リソースが何かの理由で手作業で変更されていた場合に安全に操作できない</li>
+<li>Drift 検出は誤検出が多すぎて使いづらい</li>
+<li>Change Set は動いている状態との差分を見ていないので、信用できない</li>
+</ul>
+<h2 id="_2">経緯</h2>
+<p>CloudFormation で管理されているリソースすべてについて、新しいタグをつけたくなった。<br/>
+ただ、各サービ …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2019/01/25/1454.html#cloudformation-nobu-man-dian">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/06/07/0331.html#vdi-daasshi-chang-wodiao-betemita">VDI, DaaS市場を調べてみた</a></h2>
+    <p>
+      Posted on Sun 07 June 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vdi.html">VDI</a>,              <a href="https://www.hitsumabushi.org/tag/daas.html">DaaS</a>,              <a href="https://www.hitsumabushi.org/tag/aws.html">AWS</a>,              <a href="https://www.hitsumabushi.org/tag/azure.html">Azure</a>,              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>
+    </p>
+  </header>
+  <div>
+      <div><p>最近、vCloud AirがDaaSを出すというのを聞いて、にわかに自分の中でDaaSに興味が出てきた。<br/>
+DaaSとかVDIは、必ずActive Directoryの話になるので、気後れしていたのだけど、会社ではWindows使っていることもあって、少しは抵抗もなくなってきたので、良いタイミングだったので、調べてみた。<br/>
+とは言っても、まずは世間にどんなものがあるかをしらべてみただけ。</p>
+
+<h2 id="_1">参考資料</h2>
+<ul>
+<li><a href="http://www.netone.co.jp/report/column/20120302.html">http://www.netone.co.jp/report …</a></li></ul></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/06/07/0331.html#vdi-daasshi-chang-wodiao-betemita">
+          Continue reading
+        </a>
+  </div>
+</article>
+
+  <div class="pagination">
+  </div>
+
+
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

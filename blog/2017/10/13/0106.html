@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="あまりVMwareを触らなくなってきて、何も見ずにvCenterの設定とかMaximum configurationsとか言えなくなってきたので、VMware周りのことをメモに残しておくことにする。 ひとまず、自宅のVSAN環境の構築メモ。 環境 以下の構成のIntel NUC 3台にESXiをインストールして、その上にvCenterを立て、VSAN環境を作る。 Machine: NUC6i3SYH https://www.amazon.com/gp/product/B018NSAPIM Memory: 16GBx2 https://www.amazon.com/gp/product/B015YPB8ME Cache SSD: Intel 128GB https://www.amazon.co.jp/gp/product/B01JSJA1Z2 SSD: Crucial MX300 275GB https://www.amazon.com …" />
+<meta name="keywords" content="vmware">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="Intel NUC 上に vSphere 6.5 のVSAN環境を作る"/>
+  <meta property="og:description" content="あまりVMwareを触らなくなってきて、何も見ずにvCenterの設定とかMaximum configurationsとか言えなくなってきたので、VMware周りのことをメモに残しておくことにする。 ひとまず、自宅のVSAN環境の構築メモ。 環境 以下の構成のIntel NUC 3台にESXiをインストールして、その上にvCenterを立て、VSAN環境を作る。 Machine: NUC6i3SYH https://www.amazon.com/gp/product/B018NSAPIM Memory: 16GBx2 https://www.amazon.com/gp/product/B015YPB8ME Cache SSD: Intel 128GB https://www.amazon.co.jp/gp/product/B01JSJA1Z2 SSD: Crucial MX300 275GB https://www.amazon.com …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2017/10/13/0106.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2017-10-13 01:06:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="vmware"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Intel NUC 上に vSphere 6.5 のVSAN環境を作る</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="intel-nuc-shang-ni-vsphere-65-novsanhuan-jing-wozuo-ru">Intel NUC 上に vSphere 6.5 のVSAN環境を作る</h1>
+    <p>
+      Posted on Fri 13 October 2017 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#_1">環境</a></li>
+<li><a href="#_2">手順</a><ul>
+<li><a href="#esxi">ESXi用のバンドルファイルのダウンロード</a></li>
+<li><a href="#esxi_1">ESXi イメージの準備</a></li>
+<li><a href="#usb">オプション: USBでブートしてインストールできるようにする</a></li>
+<li><a href="#esxi_2">ESXi インストール</a></li>
+<li><a href="#_3">インストール後の追加の初期設定</a></li>
+<li><a href="#nfs">NFS のマウント</a></li>
+<li><a href="#vcenter-vsan">vCenter のデプロイ &amp;&amp; VSANの設定</a></li>
+</ul>
+</li>
+<li><a href="#_4">参考</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<p>あまりVMwareを触らなくなってきて、何も見ずにvCenterの設定とかMaximum configurationsとか言えなくなってきたので、VMware周りのことをメモに残しておくことにする。<br/>
+ひとまず、自宅のVSAN環境の構築メモ。</p>
+<h2 id="_1">環境</h2>
+<p>以下の構成のIntel NUC 3台にESXiをインストールして、その上にvCenterを立て、VSAN環境を作る。</p>
+<ul>
+<li>Machine: NUC6i3SYH <a href="https://www.amazon.com/gp/product/B018NSAPIM">https://www.amazon.com/gp/product/B018NSAPIM</a><ul>
+<li>Memory: 16GBx2 <a href="https://www.amazon.com/gp/product/B015YPB8ME">https://www.amazon.com/gp/product/B015YPB8ME</a></li>
+<li>Cache SSD: Intel 128GB <a href="https://www.amazon.co.jp/gp/product/B01JSJA1Z2">https://www.amazon.co.jp/gp/product/B01JSJA1Z2</a></li>
+<li>SSD: Crucial MX300 275GB <a href="https://www.amazon.com/gp/product/B01IAGSD5O">https://www.amazon.com/gp/product/B01IAGSD5O</a></li>
+<li>USB storage: SanDisk USB Flash Drive 8GB <a href="https://www.amazon.co.jp/gp/product/B005FYNSUA">https://www.amazon.co.jp/gp/product/B005FYNSUA</a><ul>
+<li>ESXi インストール用</li>
+<li>あんまり良くはないけど、省スペースのために妥協</li>
+</ul>
+</li>
+<li>USB NIC: StarTech.com USB32000SPT <a href="https://www.amazon.com/dp/B00D8XTOD0">https://www.amazon.com/dp/B00D8XTOD0</a><ul>
+<li>一時期、管理ネットワークとVSANネットワークを兼用していたが、すぐにぶっ壊れるので、NICを追加するために購入した</li>
+<li>4K までだけどJumbo frame がサポートされているので、まあ良さそう。もちろん本当は9K欲しい。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>NFS サーバー<ul>
+<li>vCenter をデプロイしたいだけなので、データストアがVSANと別に作成できれば何でも良い。</li>
+<li>外付けHDDとかでもたぶんできるし、vCenterを作成するESXi上ではない場所にデプロイできるならそれでも良い。</li>
+<li>あと、vCenterデプロイ時にSingle host VSANを構成することができるようになっているみたいだけど、今回はライセンスの適用順とかの問題を考えたくなかったので、使わなかった</li>
+</ul>
+</li>
+</ul>
+<p>ESXi Customizer を利用する都合上、作業マシンはWindowsである必要がある(と思う)。</p>
+<h2 id="_2">手順</h2>
+<p>ここでは、最初に StartechのUSB Ethernet adapterをインストール時点で使うために、ESXiのイメージカスタマイズから行う。<br/>
+通常のESXiインストール後にvibでドライバを入れる場合には、 <a href="http://www.virtuallyghetto.com/2016/11/usb-3-0-ethernet-adapter-nic-driver-for-esxi-6-5.html">このブログ</a> を参照すれば良い。</p>
+<h3 id="esxi">ESXi用のバンドルファイルのダウンロード</h3>
+<p><a href="http://www.virtuallyghetto.com/2016/11/usb-3-0-ethernet-adapter-nic-driver-for-esxi-6-5.html">このブログ</a> のStep 0 にある、 <code>ESXi 6.5 USB Ethernet Adapter Driver Offline Bundle</code> をダウンロードする。<br/>
+これを新しくディレクトリを作って(ここでは、 <code>C:\path\to\pkg</code> とする)保存しておく。</p>
+<h3 id="esxi_1">ESXi イメージの準備</h3>
+<p>普通のESXi イメージを使っても良い。</p>
+<p><a href="https://www.v-front.de/p/esxi-customizer-ps.html">ESXi Customizer</a> を使う。<br/>
+事前に、 VMware PowerCLI をインストールしておく。<br/>
+(VMware PowerCLI の最新版の場所はわかりづらい。たぶん https://www.vmware.com/support/developer/PowerCLI/ あたりに飛んで、新しそうなバージョンのリンクを踏めば良い。)</p>
+<p>ESXi Customizer をインストールした場所で、以下のコマンドを実行する。<br/>
+(<code>C:\path\to\pkg</code> は、先の手順で作成したディレクトリ)</p>
+<div class="highlight"><pre><span></span><code>.\ESXi-Customizer-PS-v2.5.1.ps1 -pkgDir C:\path\to\pkg -nsc
+</code></pre></div>
+<p>すると、 <code>ESXi-6.5.0-20171004001-standard-customized.iso</code> のような名前のISOファイルができる。</p>
+<h3 id="usb">オプション: USBでブートしてインストールできるようにする</h3>
+<p>今回は、CDに焼くのが面倒だったのでUSBからブートしてインストールする。<br/>
+何かしらのUSBドライブを用意する。<br/>
+<a href="http://unetbootin.github.io/">UNetbootin</a> を利用して、用意したUSBドライブにイメージを書く。<br/>
+見たままだけど、ディスクイメージの項目からISOファイルを選んで、USBドライブを選べび、OKを押せば良い。間違って変なドライブを選択しない限りは特に問題はない。</p>
+<p>以下のインストールでは、このUSBドライブをIntel NUCに挿して行う。</p>
+<h3 id="esxi_2">ESXi インストール</h3>
+<p>普通にインストールする。<br/>
+boot時はF10連打してbootしたいドライブを選ぶ。<br/>
+install先はインストール用のUSB(私の構成ではSanDiskのUSBドライブ)を選ぶ。</p>
+<h3 id="_3">インストール後の追加の初期設定</h3>
+<p>通常通り、管理ネットワークの設定やホスト名の設定を行う他に、NICを有効にする必要がある。<br/>
+手順としては以下の通り。</p>
+<ul>
+<li>DCUI(もしくはSSH)に入れるようにして、DCUIに入る</li>
+<li><code>esxcli software vib list</code> して、<code>vghetto-ax88179-esxi65</code> というvibが入っていることを確認する</li>
+<li>以下を実行する</li>
+</ul>
+<div class="highlight"><pre><span></span><code>esxcli system module set -m=vmkusb -e=FALSE
+</code></pre></div>
+<ul>
+<li>reboot</li>
+<li>以下をDCUIで実行して、NICが見えていることを確認する</li>
+</ul>
+<div class="highlight"><pre><span></span><code>esxcli network nic list
+</code></pre></div>
+<p>自分の環境では以下のように見える。</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">root@esxi-01:~</span><span class="o">]</span><span class="w"> </span><span class="n">esxcli</span><span class="w"> </span><span class="n">network</span><span class="w"> </span><span class="n">nic</span><span class="w"> </span><span class="n">list</span>
+<span class="n">Name</span><span class="w">    </span><span class="n">PCI</span><span class="w"> </span><span class="n">Device</span><span class="w">    </span><span class="n">Driver</span><span class="w">        </span><span class="k">Admin</span><span class="w"> </span><span class="n">Status</span><span class="w">  </span><span class="n">Link</span><span class="w"> </span><span class="n">Status</span><span class="w">  </span><span class="n">Speed</span><span class="w">  </span><span class="n">Duplex</span><span class="w">  </span><span class="n">MAC</span><span class="w"> </span><span class="n">Address</span><span class="w">         </span><span class="n">MTU</span><span class="w">  </span><span class="n">Description</span>
+<span class="o">------</span><span class="w">  </span><span class="o">------------</span><span class="w">  </span><span class="o">------------</span><span class="w">  </span><span class="o">------------</span><span class="w">  </span><span class="o">-----------</span><span class="w">  </span><span class="o">-----</span><span class="w">  </span><span class="o">------</span><span class="w">  </span><span class="o">-----------------</span><span class="w">  </span><span class="o">----</span><span class="w">  </span><span class="o">--------------------------------------------</span>
+<span class="n">vmnic0</span><span class="w">  </span><span class="mi">0000</span><span class="err">:</span><span class="mi">00</span><span class="err">:</span><span class="mi">1</span><span class="n">f</span><span class="mf">.6</span><span class="w">  </span><span class="n">ne1000</span><span class="w">        </span><span class="n">Up</span><span class="w">            </span><span class="n">Up</span><span class="w">            </span><span class="mi">1000</span><span class="w">  </span><span class="k">Full</span><span class="w">    </span><span class="nl">b8</span><span class="p">:</span><span class="nl">ae</span><span class="p">:</span><span class="nl">ed</span><span class="p">:</span><span class="nl">eb</span><span class="p">:</span><span class="mi">0</span><span class="nl">c</span><span class="p">:</span><span class="mi">11</span><span class="w">  </span><span class="mi">1500</span><span class="w">  </span><span class="n">Intel</span><span class="w"> </span><span class="n">Corporation</span><span class="w"> </span><span class="n">Ethernet</span><span class="w"> </span><span class="k">Connection</span><span class="w"> </span><span class="n">I219</span><span class="o">-</span><span class="n">V</span>
+<span class="n">vusb0</span><span class="w">   </span><span class="n">Pseudo</span><span class="w">        </span><span class="n">ax88179_178a</span><span class="w">  </span><span class="n">Up</span><span class="w">            </span><span class="n">Up</span><span class="w">            </span><span class="mi">1000</span><span class="w">  </span><span class="k">Full</span><span class="w">    </span><span class="mi">00</span><span class="err">:</span><span class="mi">0</span><span class="nl">a</span><span class="p">:</span><span class="nl">cd</span><span class="p">:</span><span class="mi">2</span><span class="nl">f</span><span class="p">:</span><span class="mi">23</span><span class="err">:</span><span class="mi">6</span><span class="n">a</span><span class="w">  </span><span class="mi">1500</span><span class="w">  </span><span class="k">Unknown</span><span class="w"> </span><span class="k">Unknown</span>
+<span class="n">vusb1</span><span class="w">   </span><span class="n">Pseudo</span><span class="w">        </span><span class="n">ax88179_178a</span><span class="w">  </span><span class="n">Up</span><span class="w">            </span><span class="n">Down</span><span class="w">             </span><span class="mi">0</span><span class="w">  </span><span class="n">Half</span><span class="w">    </span><span class="mi">00</span><span class="err">:</span><span class="mi">0</span><span class="nl">a</span><span class="p">:</span><span class="nl">cd</span><span class="p">:</span><span class="mi">2</span><span class="nl">f</span><span class="p">:</span><span class="mi">23</span><span class="err">:</span><span class="mi">6</span><span class="n">b</span><span class="w">  </span><span class="mi">1500</span><span class="w">  </span><span class="k">Unknown</span><span class="w"> </span><span class="k">Unknown</span>
+</code></pre></div>
+<p>これを3台とも行う。</p>
+<h3 id="nfs">NFS のマウント</h3>
+<p>vCenter をデプロイする先のデータストアが必要なので、どれか1台でNFSをマウントする。</p>
+<h3 id="vcenter-vsan">vCenter のデプロイ &amp;&amp; VSANの設定</h3>
+<ul>
+<li>vCenter は通常どおりデプロイする。CLIからデプロイした。</li>
+<li>VSANの設定も通常どおり行えば良い。<ul>
+<li>vDSを作って、VSAN用のportgroupを作る。今回の vusb0/1 はMTU4000までいけるので、必要に応じて、MTU4000にしておく</li>
+<li>その後各ホストで、vmkアダプタを作って、VSAN用ポートグループにアサインして、VSANネットワークとして設定する</li>
+<li>HAを有効化するのはVSAN有効化後に行う</li>
+</ul>
+</li>
+</ul>
+<h2 id="_4">参考</h2>
+<ul>
+<li>ESXi Customizer: <a href="https://www.v-front.de/p/esxi-customizer-ps.html">https://www.v-front.de/p/esxi-customizer-ps.html</a></li>
+<li>UNetbootin: <a href="http://unetbootin.github.io/">http://unetbootin.github.io/</a></li>
+<li>virtuallyGhetto: <a href="http://www.virtuallyghetto.com/2016/11/usb-3-0-ethernet-adapter-nic-driver-for-esxi-6-5.html">http://www.virtuallyghetto.com/2016/11/usb-3-0-ethernet-adapter-nic-driver-for-esxi-6-5.html</a></li>
+</ul>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/vmware.html">vmware</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2017/07/10/1600.html" title="さくらのクラウドを便利に使うためのツールメモ">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2017/10/17/0336.html" title="Travis CIで git submodule update --init --recursive を止める">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html">VCP6-NV 取得した</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html">VCP6-NV 試験勉強メモ 2日目</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html">VCP6-NV 試験勉強メモ</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2015/12/08/0551.html">vSphere 6.0 でのHA機能のエンハンスの要点</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

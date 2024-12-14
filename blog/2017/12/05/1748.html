@@ -1,0 +1,415 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="これは、さくらインターネット Advent Calendar 2017 として書いた記事 です。 さくらインターネットでは、今年4月からIoTプラットフォームの sakura.io をサービス提供しています。 sakura.io は、さくらのクラウド上で本番・検証環境を構築しており、数百台のサーバーを利用しています。 私はリリース直前にチームに参加し、開発の傍ら運用改善活動をしていました。 その結果と …" />
+<meta name="keywords" content="sakrua, ansible, terraform">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="さくらのクラウドでN百台を管理するためにterraformとansibleを使っている話"/>
+  <meta property="og:description" content="これは、さくらインターネット Advent Calendar 2017 として書いた記事 です。 さくらインターネットでは、今年4月からIoTプラットフォームの sakura.io をサービス提供しています。 sakura.io は、さくらのクラウド上で本番・検証環境を構築しており、数百台のサーバーを利用しています。 私はリリース直前にチームに参加し、開発の傍ら運用改善活動をしていました。 その結果と …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2017/12/05/1748.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2017-12-05 17:48:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="sakrua"/>
+  <meta property="article:tag" content="ansible"/>
+  <meta property="article:tag" content="terraform"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; さくらのクラウドでN百台を管理するためにterraformとansibleを使っている話</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="sakuranokuraudodenbai-tai-woguan-li-surutameniterraformtoansiblewoshi-tsuteiruhua">さくらのクラウドでN百台を管理するためにterraformとansibleを使っている話</h1>
+    <p>
+      Posted on Tue 05 December 2017 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#_1">運用の課題</a><ul>
+<li><a href="#_2">検証環境と本番環境で構成に差分があり、それに気づきづらい</a></li>
+<li><a href="#ansible-playbook">Ansible Playbook の内容と現実に差分がある</a></li>
+</ul>
+</li>
+<li><a href="#_3">方針</a></li>
+<li><a href="#terraform">terraform 導入のために</a><ul>
+<li><a href="#terraform_1">terraform のフォルダ構成</a></li>
+<li><a href="#terraformimport">既存リソースをterraformにimport</a></li>
+<li><a href="#ansible-dynamic-inventory">ansible の dynamic inventory のスクリプト作成</a></li>
+</ul>
+</li>
+<li><a href="#ansible">ansible 側の準備</a><ul>
+<li><a href="#task">別のtaskの実行結果を参照している</a></li>
+<li><a href="#check-modeshell">check modeに対応していない(特にshellモジュール)</a></li>
+<li><a href="#dns">補足: DNSゾーンファイルの更新</a></li>
+</ul>
+</li>
+<li><a href="#_4">定期的な差分チェック</a></li>
+<li><a href="#_5">感想と今後に向けて</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<hr/>
+<p>これは、<a href="https://qiita.com/advent-calendar/2017/sakura">さくらインターネット Advent Calendar 2017</a> として書いた<a href="https://qiita.com/hitsumabushi/items/e89b763dd4fc41e15136">記事</a> です。</p>
+<hr/>
+<p>さくらインターネットでは、今年4月からIoTプラットフォームの sakura.io をサービス提供しています。<br/>
+sakura.io は、さくらのクラウド上で本番・検証環境を構築しており、数百台のサーバーを利用しています。</p>
+<p>私はリリース直前にチームに参加し、開発の傍ら運用改善活動をしていました。<br/>
+その結果としてTerraform を導入し、Terraform (+ Terraform for さくらのクラウド) + Ansible で運用することになりました。<br/>
+導入までの課題と、どのように導入・利用しているのか、について書きたいと思います。</p>
+<h2 id="_1">運用の課題</h2>
+<h3 id="_2">検証環境と本番環境で構成に差分があり、それに気づきづらい</h3>
+<p>mesos+marathon を利用したコンテナ実行環境を使ったマイクロサービスアーキテクチャになっていて、それ以外にも、redis, memcached, メッセージキューなどいろいろなコンポーネントがあります。<br/>
+そのため、個別の開発者がクリーンな環境を気軽に用意しづらいです。</p>
+<p>インフラの構成を変更したいと思ったとき、個別の開発者がクリーンな環境を個別に作るのは手間がかかってしまうため、直接検証環境でテストしがちです。その際に、行われた変更がそのまま残ってしまい、本番環境との差が残ってしまっているケースがありました。</p>
+<h3 id="ansible-playbook">Ansible Playbook の内容と現実に差分がある</h3>
+<p>もともとOS内の設定はansibleで管理していたのですが、対象ホストの増加、ansible playbookの肥大化に伴い、実行時間が増えてしまいました。<br/>
+それに伴い、<code>--limit</code>,  <code>--tags</code> をつけて部分的に実行するようになり、playbook と差分が散見されるようになりました。</p>
+<h2 id="_3">方針</h2>
+<p>ansible は全部実行しろ、などとルールを作ることは簡単なのですが、上記に書いたとおり、心理的なハードルによって発生している問題だと思いました。そこでルール化することはエンジニアリングの敗北という感じがしたので、差分がわかるように構成管理することと、差分を定期的にチェックして通知することに集中することにしました。</p>
+<p>構成管理として、OS内の部分はansibleを利用していたためそのまま利用し、インフラの構成管理としては、ちょうど <a href="https://sacloud.github.io/terraform-provider-sakuracloud/">Terraform for さくらのクラウド</a> もあったため、terraformを利用することにしました。</p>
+<p>差分の検知としては、terraform plan, ansible check mode を定期的に実行することにしました。</p>
+<h2 id="terraform">terraform 導入のために</h2>
+<h3 id="terraform_1">terraform のフォルダ構成</h3>
+<p><a href="https://github.com/hashicorp/best-practices/tree/master/terraform">他のクラウドでのベストプラクティス</a> を参考に、フォルダ構成は以下のようにしています。<br/>
+terraform plan, apply などする場合には、 <code>pod-xxx</code> ディレクトリ配下で実行します。</p>
+<div class="highlight"><pre><span></span><code>.
+├── module
+│   └── sakuracloud
+│       ├── compute
+│       │   ├── compute.tf          // compute のエントリーポイント。各roleのモジュールへ変数を渡す
+│       │   ├── role-hoge           // role ごとに作成
+│       │   │   └── role-hoge.tf    // util の base-wrapperへ変数を渡す。role固有の変数変換はここでやる
+│       │   └── util                // 他のroleから読まれる
+│       │       ├── base-wrapper    // instance と service-dns を呼ぶためのやつ。他のroleからはこいつを見る
+│       │       ├── instance        // 個別のサーバーの、サーバー/ディスク/DNSレコードの作成
+│       │       └── service-dns     // roleごとに、DNSレコードがある場合(VIPに紐づくレコードなど)
+│       ├── dns                     // さくらのクラウドのドメイン/DNSレコードを管理するために利用
+│       │   ├── dns.tf
+│       │   └── example
+│       │       ├── example.tf
+│       │       └── output.tf
+│       ├── gslb                    // さくらのクラウドのGSLBを管理するために利用
+│       │   ├── api
+│       │   │   └── api.tf
+│       │   └── gslb.tf
+│       ├── network                 // さくらのクラウドのスイッチ/ルーターを管理するために利用
+│       │   ├── internal
+│       │   │   ├── internal.tf
+│       │   │   └── output.tf
+│       │   ├── network.tf
+│       │   └── output.tf
+│       └── simple-monitor          // さくらのクラウドのシンプル監視を管理するために利用
+│           └── simple_monitor.tf
+└── providers
+    └── sakuracloud
+        └── pod-xxx                 // システム単位ごとに作る
+            ├── pod-xxx.tf          // compute.tf, dns.tf, ... などのモジュールごとのエントリーポイントへ変数を渡す
+            ├── terraform.tfstate.d // tfstate。env (今で言うworkspace) で本番と検証環境をわけてる。
+            │   ├── dev
+            │   └── ...
+            └── terraform.tfvars    // 変数をひたすら書く。具体的な値は全てここに書かれているはず。
+</code></pre></div>
+<p>大体はさくらのクラウドのコンポーネントごとに、moduleを作っているのですが、compute のところは大きく変更しています。<br/>
+サーバー作成と同時に、ディスクの作成や、DNSレコードの作成を行うためです。</p>
+<p>例えば、role-hoge というロールが2台あるとき、tfvar中では以下のような変数を作っています。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">sakuracloud_dns_foo</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">dev</span><span class="p">.</span><span class="nx">zone</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"dev.example.com"</span>
+<span class="w">  </span><span class="nx">staging</span><span class="p">.</span><span class="nx">zone</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">"staging.example.com"</span>
+<span class="p">}</span>
+
+<span class="nx">sakuracloud_role_hoge</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">dev</span><span class="p">.</span><span class="nx">ipaddresses</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s">"192.168.0.10"</span><span class="p">,</span><span class="w"> </span><span class="s">"192.168.0.11"</span><span class="p">]</span>
+<span class="w">  </span><span class="nx">dev</span><span class="p">.</span><span class="nx">server_tags</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s">"hoge"</span><span class="p">,</span><span class="w"> </span><span class="s">"develop"</span><span class="p">,</span><span class="w"> </span><span class="s">"__with_sacloud_inventory"</span><span class="p">,</span><span class="w"> </span><span class="s">"starred"</span><span class="p">]</span>
+<span class="w">  </span><span class="nx">dev</span><span class="p">.</span><span class="nx">disk_tags</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s">"hoge"</span><span class="p">]</span>
+<span class="w">  </span><span class="nx">staging</span><span class="p">.</span><span class="nx">ipaddresses</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s">"192.168.1.10"</span><span class="p">,</span><span class="w"> </span><span class="s">"192.168.1.11"</span><span class="p">]</span>
+<span class="w">  </span><span class="nx">staging</span><span class="p">.</span><span class="nx">server_tags</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s">"hoge"</span><span class="p">,</span><span class="w"> </span><span class="s">"staging"</span><span class="p">,</span><span class="w"> </span><span class="s">"__with_sacloud_inventory"</span><span class="p">,</span><span class="w"> </span><span class="s">"starred"</span><span class="p">]</span>
+<span class="w">  </span><span class="nx">staging</span><span class="p">.</span><span class="nx">disk_tags</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s">"hoge"</span><span class="p">]</span>
+</code></pre></div>
+<p>これを使って、dev環境でサーバー作成したとき</p>
+<ul>
+<li>サーバー名をFQDNに一致させる<ul>
+<li><code>hoge-01.dev.example.com</code>, <code>hoge-02.dev.example.com</code> </li>
+</ul>
+</li>
+<li>DNSレコードも合わせて作成する<ul>
+<li>Aレコードとして <code>hoge-01.dev.example.com</code> は192.168.0.10, <code>hoge-02.dev.example.com</code> は192.168.0.11 に対応させる</li>
+</ul>
+</li>
+<li>サーバータグとして、ansibleのroleをつける<ul>
+<li><code>hoge</code>, <code>develop</code>, <code>staging</code> がansible側で利用しているロール名です</li>
+</ul>
+</li>
+<li>サーバータグとして、 <code>__with_sacloud_inventory</code> をつける<ul>
+<li>一応、terraform 管理外のリソースを許すためにつけています</li>
+</ul>
+</li>
+<li>サーバータグとして、 <code>@group=a</code> などのグループタグをつける<ul>
+<li>1つ目のサーバーはa、2つ目はb、...4つ目はd、5つ目はaなどとしています</li>
+</ul>
+</li>
+</ul>
+<h3 id="terraformimport">既存リソースをterraformにimport</h3>
+<p>既存のリソースをインポートします。形式としては、以下のような形式です。</p>
+<div class="highlight"><pre><span></span><code><span class="n">terraform</span> <span class="kn">import</span> <span class="s1">'module.hoge.module.base-instance.sakuracloud_server.base[0]'</span> <span class="n">_リソースID_</span>
+</code></pre></div>
+<p>注意点としては、tfファイルを書いたあと、terraform planすれば、何をインポートしないといけないかわかるのですが、<br/>
+その表示では、<code>module.hoge.base-instance.sakuracloud_server.base[0]</code> というように、途中にmoduleがない形式で表示されます。 import するには都度moduleを書く必要があります。</p>
+<p>また、さくらのクラウドにはリソースIDがないけど、terraform で管理できるものがあります。例えばDNSレコードがそうです。<br/>
+この場合、リソースIDに当たるものを自分で作成する必要があります。<br/>
+どのように生成するかは、 terraform for さくらのクラウドのソースを見ればよいのですが、参考までにgolangで生成する例を載せておきます。<br/>
+https://play.golang.org/p/OvQw6BdxVf</p>
+<h3 id="ansible-dynamic-inventory">ansible の dynamic inventory のスクリプト作成</h3>
+<script src="https://gist.github.com/hitsumabushi/73411a6bcb900a05c027ae0c8a39a9b3.js"></script>
+<p>上記のような<code>sacloud_inventory.py</code>スクリプトをansibleのリポジトリに実行権限をつけて用意しています。<br/>
+それにより、 <code>ansible-playbook -i sacloud_inventory.py ...</code> とすることで、インベントリファイルを書くことなくansibleを実行できます。</p>
+<p>このスクリプトで、さくらのクラウドのAPIを叩くところはすべて、 <a href="https://github.com/sacloud/usacloud">usacloud</a> におまかせしています。<br/>
+先程の terraform の例であったように、 <code>__with_sacloud_inventory</code> が入っていないものは全部無視し、タグは全てグループ名にすることにしています。<br/>
+(13-22行目は、<a href="https://github.com/ansible/awx">Ansible TowerのOSS版であるAWX</a> を試しているために入れています。)</p>
+<p>もしかしたら、さくらのクラウドの特殊タグである <code>@group=a</code> などは除いた方が使いやすいかもしれませんが、監視側からも見るために現状はすべて入れています。</p>
+<h2 id="ansible">ansible 側の準備</h2>
+<p><code>ansible-playbook -i sacloud_inventory.py site.yml --check</code> をしたいのですが、しばしば check modeで実行できていないplaybookや、変更がないのにchangedにしているplaybookがあります。これを直しましょう。<br/>
+check modeで実行できていない、典型的なものとしては以下のようなものがあります。</p>
+<h3 id="task">別のtaskの実行結果を参照している</h3>
+<p>register を使っているタスクAの結果を参照しているタスクBがある場合、check mode 中でAが実行されないため、タスクBのcheck実行時に変数が参照できないエラーが出ます。<br/>
+これを防ぐには、register を使っているタスクAに <code>check_mode: no</code> をつけることです。<br/>
+check modeでも本当に実行されるようになるため、例えば、ファイルの存在だけを確認している場合など、副作用がない場合のみ、 <code>check_mode: no</code> をつけましょう。</p>
+<h3 id="check-modeshell">check modeに対応していない(特にshellモジュール)</h3>
+<p>実行する判断を行うようなタスクを作って、その結果次第で、タスクを実行するように書き換えます。<br/>
+新しく作成したタスクでは、上述の通り副作用がないようにし、 <code>check_mode: no</code> をつけましょう。</p>
+<h3 id="dns">補足: DNSゾーンファイルの更新</h3>
+<p>今回、check modeで実行可能にするためにplaybookをみなしていると、ansible で更新されていないものとして、template指定されたDNSゾーンファイルがありました。<br/>
+ゾーンファイルは、シリアルを増やしていく必要があるため、面倒だったのだと思います。</p>
+<p>確かに、言われるとめんどくさいような気もしますが、やってみると以下のようにすれば良さそうです。</p>
+<ol>
+<li>現在のzone fileを見て、現在の serial を取り出し、registerで変数に入れる</li>
+<li>template ファイルに、 1.で取ったserialを入れて、差分があるかどうかを確かめる</li>
+<li>もし、2.で差分があったら serialをインクリメントした上で、template を実行する</li>
+</ol>
+<p>実際に書いてみると以下のようになると思います。(NSDを利用した場合の例)</p>
+<div class="highlight"><pre><span></span><code><span class="n">server</span><span class="o">:</span>
+<span class="w">    </span><span class="n">port</span><span class="o">:</span><span class="w"> </span><span class="mi">10053</span>
+<span class="w">    </span><span class="n">zonesdir</span><span class="o">:</span><span class="w"> </span><span class="s2">"/etc/nsd/zones"</span>
+
+<span class="o">{%</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">zone</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">dns</span><span class="o">.</span><span class="na">zones</span><span class="w"> </span><span class="o">%}</span>
+<span class="n">zone</span><span class="o">:</span>
+<span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="s2">"{{ zone }}"</span>
+<span class="w">    </span><span class="n">zonefile</span><span class="o">:</span><span class="w"> </span><span class="s2">"{{ zone }}"</span>
+
+<span class="o">{%</span><span class="w"> </span><span class="n">endfor</span><span class="w"> </span><span class="o">%}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="o">-</span><span class="w"> </span><span class="n">block</span><span class="p">:</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">parse</span><span class="w"> </span><span class="n">serial</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">zone</span><span class="w"> </span><span class="n">file</span>
+<span class="w">    </span><span class="n">shell</span><span class="p">:</span><span class="w"> </span><span class="n">grep</span><span class="w"> </span><span class="s2">";Serial"</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nsd</span><span class="o">/</span><span class="n">zones</span><span class="o">/</span><span class="p">{{</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="p">}}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">awk</span><span class="w"> </span><span class="s1">'{print $1}'</span>
+<span class="w">    </span><span class="n">with_items</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{ dns.zones }}"</span>
+<span class="w">    </span><span class="n">register</span><span class="p">:</span><span class="w"> </span><span class="n">old_serials</span>
+<span class="w">    </span><span class="n">check_mode</span><span class="p">:</span><span class="w"> </span><span class="n">no</span>
+<span class="w">    </span><span class="n">changed_when</span><span class="p">:</span><span class="w"> </span><span class="n">no</span>
+<span class="w">    </span><span class="n">tags</span><span class="p">:</span><span class="w"> </span><span class="n">nsd</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">whether</span><span class="w"> </span><span class="n">zone</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="n">updated</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="ow">not</span>
+<span class="w">    </span><span class="n">template</span><span class="p">:</span><span class="w"> </span><span class="n">src</span><span class="o">=</span><span class="n">zones</span><span class="o">/</span><span class="p">{{</span><span class="w"> </span><span class="n">item</span><span class="o">.</span><span class="mi">1</span><span class="w"> </span><span class="p">}}</span><span class="o">.</span><span class="n">j2</span><span class="w"> </span><span class="n">dest</span><span class="o">=/</span><span class="n">etc</span><span class="o">/</span><span class="n">nsd</span><span class="o">/</span><span class="n">zones</span><span class="o">/</span><span class="p">{{</span><span class="w"> </span><span class="n">item</span><span class="o">.</span><span class="mi">1</span><span class="w"> </span><span class="p">}}</span><span class="w"> </span><span class="n">owner</span><span class="o">=</span><span class="n">root</span><span class="w"> </span><span class="n">group</span><span class="o">=</span><span class="n">root</span><span class="w"> </span><span class="n">mode</span><span class="o">=</span><span class="mi">0644</span>
+<span class="w">    </span><span class="n">vars</span><span class="p">:</span>
+<span class="w">      </span><span class="n">serial</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{ old_serials.results[item.0].stdout }}"</span>
+<span class="w">    </span><span class="n">with_indexed_items</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{ dns.zones }}"</span>
+<span class="w">    </span><span class="n">diff</span><span class="p">:</span><span class="w"> </span><span class="n">no</span>
+<span class="w">    </span><span class="n">register</span><span class="p">:</span><span class="w"> </span><span class="n">zonefiles_changed</span>
+<span class="w">    </span><span class="n">tags</span><span class="p">:</span><span class="w"> </span><span class="n">nsd</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="n">zonefile</span><span class="w"> </span><span class="n">when</span><span class="w"> </span><span class="n">changed</span>
+<span class="w">    </span><span class="n">template</span><span class="p">:</span><span class="w"> </span><span class="n">src</span><span class="o">=</span><span class="n">zones</span><span class="o">/</span><span class="p">{{</span><span class="w"> </span><span class="n">item</span><span class="o">.</span><span class="mi">1</span><span class="w"> </span><span class="p">}}</span><span class="o">.</span><span class="n">j2</span><span class="w"> </span><span class="n">dest</span><span class="o">=/</span><span class="n">etc</span><span class="o">/</span><span class="n">nsd</span><span class="o">/</span><span class="n">zones</span><span class="o">/</span><span class="p">{{</span><span class="w"> </span><span class="n">item</span><span class="o">.</span><span class="mi">1</span><span class="w"> </span><span class="p">}}</span><span class="w"> </span><span class="n">owner</span><span class="o">=</span><span class="n">root</span><span class="w"> </span><span class="n">group</span><span class="o">=</span><span class="n">root</span><span class="w"> </span><span class="n">mode</span><span class="o">=</span><span class="mi">0644</span>
+<span class="w">    </span><span class="n">vars</span><span class="p">:</span>
+<span class="w">      </span><span class="n">serial</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{ old_serials.results[item.0].stdout|int + 1 }}"</span>
+<span class="w">    </span><span class="n">when</span><span class="p">:</span><span class="w"> </span><span class="n">zonefiles_changed</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">changed</span>
+<span class="w">    </span><span class="n">with_indexed_items</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{ dns.zones }}"</span>
+<span class="w">    </span><span class="n">notify</span><span class="p">:</span><span class="w"> </span><span class="n">reload</span><span class="w"> </span><span class="n">nsd</span>
+<span class="w">    </span><span class="n">tags</span><span class="p">:</span><span class="w"> </span><span class="n">nsd</span>
+</code></pre></div>
+<h2 id="_4">定期的な差分チェック</h2>
+<p>ここまでくれば、あとはcronなりJenkinsで、<code>terraform plan</code> と <code>ansible-playbook -i sacloud_inventory.py site.yml --check</code> を定期的に走らせて、差分があったらslackなりに通知すればオッケーです。<br/>
+Jenkinsからapplyするようにしておけば、より良いと思います。</p>
+<h2 id="_5">感想と今後に向けて</h2>
+<p>ここではインフラのデプロイをどのように改善してきたのかを書きました。<br/>
+usacloud や Terraform for さくらのクラウドがあるおかげで、規模が大きくなっても楽に管理できている実感があります。<br/>
+実際、雑に自前スクリプトを書いていたものも捨てていっているところです。</p>
+<p>この記事で書いたようにインフラの整合性を確かめることができるようになったので、今後としては、</p>
+<ul>
+<li>(ansibleの実行を <a href="https://github.com/ansible/awx">AWX</a> で行う(だいたいできた) )</li>
+<li>インフラ/アプリケーションのCDを行うための監視改善。特に node/service discovery改善</li>
+<li>アプリケーションのCD</li>
+<li>terraform, ansible の自動適用<br/>
+などを目標に改善活動を行っていく予定です。</li>
+</ul>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/sakrua.html">sakrua</a>
+      <a href="https://www.hitsumabushi.org/tag/ansible.html">ansible</a>
+      <a href="https://www.hitsumabushi.org/tag/terraform.html">terraform</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2017/12/01/2001.html" title="Mesos の sandbox のログローテーションをする">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2018/02/05/2009.html" title="Google Cloud Pub/Sub をGolangから使おうとしてハマったことまとめ">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2017/11/10/1402.html">Ansible でバージョンチェックする</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/11/10/0352.html">git bisect でバグ/仕様変更のコミットを探す</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/06/16/0602.html">Anisble for Windows</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2015/05/28/0607.html">WindowsをAnsibleで設定する</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2017/07/10/1600.html">さくらのクラウドを便利に使うためのツールメモ</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

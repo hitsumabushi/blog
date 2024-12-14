@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="ESXiをPXEブートして自動インストールする方法について、日本語での説明があまりなかったので、メモとして残しておく。 利用OS ESXi 5.5 Debian 7.7 (DHCPサーバー, HTTPサーバーを兼務させる) DHCP, TFTP, HTTPサーバーの準備 必要なソフトウェアのインストール apt-get install tftpd-hpa isc-dhcp-server xinetd apache2 DHCPサーバーの設定 BOOTPでインストールするため、あまり自由度がない。 ddns-update-sytle none; option domain-name &#34;example.org&#34;; option domain-name-servers 192.168.0.10; default-lease-time …" />
+<meta name="keywords" content="VMware, ESXi">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="ESXiをkickstartでインストールする"/>
+  <meta property="og:description" content="ESXiをPXEブートして自動インストールする方法について、日本語での説明があまりなかったので、メモとして残しておく。 利用OS ESXi 5.5 Debian 7.7 (DHCPサーバー, HTTPサーバーを兼務させる) DHCP, TFTP, HTTPサーバーの準備 必要なソフトウェアのインストール apt-get install tftpd-hpa isc-dhcp-server xinetd apache2 DHCPサーバーの設定 BOOTPでインストールするため、あまり自由度がない。 ddns-update-sytle none; option domain-name &#34;example.org&#34;; option domain-name-servers 192.168.0.10; default-lease-time …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2015/01/06/2338.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2015-01-06 23:38:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="VMware"/>
+  <meta property="article:tag" content="ESXi"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; ESXiをkickstartでインストールする</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="esxiwokickstartdeinsutorusuru">ESXiをkickstartでインストールする</h1>
+    <p>
+      Posted on Tue 06 January 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#os">利用OS</a></li>
+<li><a href="#dhcp-tftp-http">DHCP, TFTP, HTTPサーバーの準備</a><ul>
+<li><a href="#_1">必要なソフトウェアのインストール</a></li>
+<li><a href="#dhcp">DHCPサーバーの設定</a></li>
+<li><a href="#tftp">TFTPサーバーの設定</a></li>
+<li><a href="#kickstart">kickstartイメージの準備</a></li>
+<li><a href="#pxe">PXEブートの設定ファイル</a></li>
+<li><a href="#kickstart-file">kickstart file</a></li>
+</ul>
+</li>
+<li><a href="#_2">考えること</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      <p>ESXiをPXEブートして自動インストールする方法について、日本語での説明があまりなかったので、メモとして残しておく。</p>
+
+<h2 id="os">利用OS</h2>
+<ul>
+<li>ESXi 5.5</li>
+<li>Debian 7.7 (DHCPサーバー, HTTPサーバーを兼務させる)</li>
+</ul>
+<h2 id="dhcp-tftp-http">DHCP, TFTP, HTTPサーバーの準備</h2>
+<h3 id="_1">必要なソフトウェアのインストール</h3>
+<div class="highlight"><pre><span></span><code>apt-get<span class="w"> </span>install<span class="w"> </span>tftpd-hpa<span class="w"> </span>isc-dhcp-server<span class="w"> </span>xinetd<span class="w"> </span>apache2
+</code></pre></div>
+<h3 id="dhcp">DHCPサーバーの設定</h3>
+<p>BOOTPでインストールするため、あまり自由度がない。</p>
+<div class="gist">
+    <script src='https://gist.github.com/b4e9a0e8e0ef68af1d6f.js?file=dhcpd.conf'></script>
+    <noscript>
+        <pre><code>ddns-update-sytle none;
+option domain-name "example.org";
+option domain-name-servers 192.168.0.10;
+
+default-lease-time 600;
+max-lease-time 7200;
+
+log-facility local7;
+
+subnet 192.168.0.0 netmask 255.255.255.0 {
+    option routers 192.168.0.1;
+    option subnet-mask 255.255.255.0;
+    # 日本時間
+    #option time-offset 32400;
+
+    range 192.168.0.30 192.168.0.240;
+    next-server 192.168.0.10;
+    filename = "pxelinux.0";
+}
+</code></pre>
+    </noscript>
+</div>
+<h3 id="tftp">TFTPサーバーの設定</h3>
+<p>適当なディレクトリ以下を公開する。<br/>
+ここでは、/srv/tftp とする。</p>
+<h3 id="kickstart">kickstartイメージの準備</h3>
+<p>まずESXiのイメージの内容をもらってくる</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/tftp/
+mkdir<span class="w"> </span>esxi
+mount<span class="w"> </span>-o<span class="w"> </span>loop<span class="w"> </span>&lt;ESXiのISO&gt;.iso
+rsync<span class="w"> </span>-a<span class="w"> </span>/mnt/esxi/
+</code></pre></div>
+<p>次に、pxe boot用のイメージを準備する。<br/>
+必要なのは、pxelinux.o, pxelinux.cfg/</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>http://ftp.nl.debian.org/debian/dists/wheezy/main/installer-amd64/current/images/netboot/netboot.tar.gz
+tar<span class="w"> </span>xvf<span class="w"> </span>netboot.tar.gz
+</code></pre></div>
+<h3 id="pxe">PXEブートの設定ファイル</h3>
+<ul>
+<li>pxelinux.cfg/default</li>
+</ul>
+<div class="gist">
+    <script src='https://gist.github.com/b4e9a0e8e0ef68af1d6f.js?file=default in pxelinux.cfg'></script>
+    <noscript>
+        <pre><code>default esxi
+
+label esxi
+kernel /esxi/mboot.c32
+append -c /esxi/boot.cfg ks=http://192.168.0.10/servers/ks.cfg
+</code></pre>
+    </noscript>
+</div>
+<ul>
+<li>esxi/boot.cfg<br/>
+        * もともとあるファイルの / を除去していく<br/>
+        * prefixを代わりに設定</li>
+</ul>
+<div class="gist">
+    <script src='https://gist.github.com/b4e9a0e8e0ef68af1d6f.js?file=boot.cfg'></script>
+    <noscript>
+        <pre><code>bootstate=0
+title=Loading ESXi installer
+prefix=/esxi50/
+kernel=tboot.b00
+#kernelopt=runweasel
+modules=b.b00 --- useropts.gz --- k.b00 --- a.b00 --- ata-pata.v00 --- ata-pata.v01 --- ata-pata.v02 --- ata-pata.v03 --- ata-pata.v04 --- ata-pata.v05 --- ata-pata.v06 --- ata-pata.v07 --- block-cc.v00 --- ehci-ehc.v00 --- s.v00 --- weaselin.i00 --- ima-qla4.v00 --- ipmi-ipm.v00 --- ipmi-ipm.v01 --- ipmi-ipm.v02 --- misc-cni.v00 --- misc-dri.v00 --- net-be2n.v00 --- net-bnx2.v00 --- net-bnx2.v01 --- net-cnic.v00 --- net-e100.v00 --- net-e100.v01 --- net-enic.v00 --- net-forc.v00 --- net-igb.v00 --- net-ixgb.v00 --- net-nx-n.v00 --- net-r816.v00 --- net-r816.v01 --- net-s2io.v00 --- net-sky2.v00 --- net-tg3.v00 --- ohci-usb.v00 --- sata-ahc.v00 --- sata-ata.v00 --- sata-sat.v00 --- sata-sat.v01 --- sata-sat.v02 --- sata-sat.v03 --- scsi-aac.v00 --- scsi-adp.v00 --- scsi-aic.v00 --- scsi-bnx.v00 --- scsi-fni.v00 --- scsi-hps.v00 --- scsi-ips.v00 --- scsi-lpf.v00 --- scsi-meg.v00 --- scsi-meg.v01 --- scsi-meg.v02 --- scsi-mpt.v00 --- scsi-mpt.v01 --- scsi-mpt.v02 --- scsi-qla.v00 --- scsi-qla.v01 --- uhci-usb.v00 --- tools.t00 --- imgdb.tgz --- imgpayld.tgz
+build=
+updated=0
+</code></pre>
+    </noscript>
+</div>
+<h3 id="kickstart-file">kickstart file</h3>
+<p>以下のファイルを /var/www/servers/ks.cfg として保存。<br/>
+(ここでは、httpでやっているが、tftpでやっても良い。)</p>
+<div class="gist">
+    <script src='https://gist.github.com/b4e9a0e8e0ef68af1d6f.js?file=ks.cfg'></script>
+    <noscript>
+        <pre><code># accept VMware EULA
+vmaccepteula
+
+# Setting rootpw
+# for generating encrypted pasword : Use openssl passwd -1 (rootpw)
+rootpw --iscrypted ....
+
+# install target
+install --firstdisk --preservevmfs
+
+# network setting
+network --bootproto=static --ip=172.22.159.146 --gateway=172.22.158.1 --netmask=255.255.254.0 --vlanid=19 --hostname=hoge.example.com --addvmportgroup=1
+
+# reboot after install
+reboot
+
+%post --interpreter=python --ignorefailure=true
+import time
+stampFile = open('/finished.stamp', mode='w')
+stampFile.write(time.asctime())
+
+$1$nz6kimqN$gSlFdxZnUncPbAxaFeKaC1
+
+%firstboot --interpreter=busybox
+vim-cmd hostsvc/enable_ssh
+vim-cmd hostsvc/start_ssh
+
+vim-cmd hostsvc/enable_esx_shell
+vim-cmd hostsvc/start_esx_shell
+
+# enable password login (SSH)
+sed -i "s/PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_confg
+</code></pre>
+    </noscript>
+</div>
+<p>以上で、キックスタートの準備が終わる。</p>
+<h2 id="_2">考えること</h2>
+<ul>
+<li>サーバーごとの個別設定の渡し方<br/>
+  事前にMACアドレスがわかっている場合にはできるけど、そうでない場合には、難しい。</li>
+</ul>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>
+      <a href="https://www.hitsumabushi.org/tag/esxi.html">ESXi</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2015/01/05/1735.html" title="vCloud Airの価格感を調べる">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2015/01/07/1924.html" title="VMware VDP, VDPA">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2017/10/13/0106.html">Intel NUC 上に vSphere 6.5 のVSAN環境を作る</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html">VCP6-NV 取得した</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html">VCP6-NV 試験勉強メモ 2日目</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html">VCP6-NV 試験勉強メモ</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

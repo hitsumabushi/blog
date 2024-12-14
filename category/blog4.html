@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+    <meta name="author" content="hitsumabushi" />
+    <meta name="description" content="" />
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:type" content="blog"/>
+  <meta property="og:title" content="ひつまぶし食べたい"/>
+  <meta property="og:description" content=""/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Category blog</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+
+
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2016/05/03/0624.html#yamahanonetsutoboranchidnswoshi-tsute-nihuteikuraudotovpnjie-sok-suru">YAMAHAのネットボランチDNSを使って、ニフティクラウドとVPN接続する</a></h2>
+    <p>
+      Posted on Tue 03 May 2016 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vyos.html">vyos</a>,              <a href="https://www.hitsumabushi.org/tag/yamaha.html">YAMAHA</a>,              <a href="https://www.hitsumabushi.org/tag/nifty.html">NIFTY</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<h2 id="_1">やりたいこと</h2>
+<p>いろいろあって、自宅のグローバルIPv4アドレスが変更される機会があった。<br/>
+ニフティクラウド上のルーターとVPN接続しているため、グローバルIPが変更されると、<br/>
+いちいち変更されたタイミングでVPN設定を変更する必要があり、非常に面倒くさい。<br/>
+そういうわけで、DDNSを使って設定することで、グローバルIPが変更された場合でも設定変更 …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2016/05/03/0624.html#yamahanonetsutoboranchidnswoshi-tsute-nihuteikuraudotovpnjie-sok-suru">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2016/03/25/0306.html#jiu-shiburinigithub-pagesnojekyllhong-tsutanode-memo">久しぶりにGitHub Pagesのjekyll触ったので、メモ</a></h2>
+    <p>
+      Posted on Fri 25 March 2016 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/jekyll.html">jekyll</a>,              <a href="https://www.hitsumabushi.org/tag/github.html">github</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<p>このブログは、pelicanを使っているのだけど、久しぶりにGitHub Pagesのjekyllを触ることがあって、<br/>
+昔とだいぶ状況も変わっていそうだったので、メモをしておく。</p>
+<h2 id="gem">gem</h2>
+<p>とりあえず、Gemfileを用意して、以下の2行を書く</p>
+<div class="highlight"><pre><span></span><code>source 'https://rubygems.org'
+gem 'github-pages'
+</code></pre></div>
+<h2 id="config">全体的なconfig</h2>
+<h3 id="gfm">GFMを使う</h3>
+<p>ローカルでのテストと、GitHub Pages上のテストを同じにするためにも、<code>_config.yml</code>に以下を追加しておいた方が良さそう。</p>
+<div class="highlight"><pre><span></span><code><span class="n">markdown</span><span class="o">:</span><span class="w"> </span><span class="n">kramdown</span>
+<span class="n">kramdown</span><span class="o">:</span>
+<span class="w">  </span><span class="n">input</span><span class="o">:</span><span class="w"> </span><span class="n">GFM</span>
+</code></pre></div>
+<h3 id="related-post">related post …</h3></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2016/03/25/0306.html#jiu-shiburinigithub-pagesnojekyllhong-tsutanode-memo">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2016/01/02/1513.html#travis-komandodenoera">Travis コマンドでのエラー</a></h2>
+    <p>
+      Posted on Sat 02 January 2016 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/travis.html">travis</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<p>Travis CIでCIする素振りをしていたら、最新版のtravisコマンドでエラーが出るようになった。</p>
+<h2 id="_1">発生した問題</h2>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>travis<span class="w"> </span>setup<span class="w"> </span>releases
+Invalid<span class="w"> </span>scheme<span class="w"> </span>format:<span class="w"> </span>git@github.com
+<span class="k">for</span><span class="w"> </span>a<span class="w"> </span>full<span class="w"> </span>error<span class="w"> </span>report,<span class="w"> </span>run<span class="w"> </span>travis<span class="w"> </span>report
+</code></pre></div>
+<h2 id="_2">問題の解析</h2>
+<p>こういう時には、</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>travis<span class="w"> </span>report
+</code></pre></div>
+<p>をして、スタックトレースを見るものらしい。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>travis<span class="w"> </span>report
+System
+Ruby:<span class="w">                     </span>Ruby<span class="w"> </span><span class="m">2</span>.3.0-p0
+Operating<span class="w"> </span>System:<span class="w">         </span>Mac<span class="w"> </span>OS<span class="w"> </span>X<span class="w"> </span><span class="m">10</span>.11.2
+RubyGems:<span class="w">                 </span>RubyGems<span class="w"> </span><span class="m">2</span>.5.1
+
+CLI
+Version:<span class="w">                  </span><span class="m">1</span>.8.0
+Plugins:<span class="w">                  </span>none
+Auto-Completion:<span class="w">          </span>yes
+Last<span class="w"> </span>Version<span class="w"> </span>Check:<span class="w">       </span><span class="m">2016</span>-01-02<span class="w"> </span><span class="m">14</span>:54:05<span class="w"> </span>+0900
+
+Session
+API<span class="w"> </span>Endpoint:<span class="w">             </span>https://api.travis-ci.org/
+Logged<span class="w"> </span>In:<span class="w">                </span>as<span class="w"> </span><span class="s2">"&lt;username&gt;"</span>
+Verify<span class="w"> </span>SSL:<span class="w">               </span>yes
+Enterprise:<span class="w">               </span>no
+
+Endpoints
+org …</code></pre></div></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2016/01/02/1513.html#travis-komandodenoera">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/12/08/0551.html#vsphere-60-denohaji-neng-noenhansunoyao-dian">vSphere 6.0 でのHA機能のエンハンスの要点</a></h2>
+    <p>
+      Posted on Tue 08 December 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/vsphere.html">vSphere</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<h2 id="_1">まとめ</h2>
+<ol>
+<li>vSphere 6からは、ストレージパスが死んだ場合でもHAを設定できるようになった。</li>
+<li>vCenterは watchdogs によりプロセス落下時には再起動される</li>
+<li>vCenterの可用性をさらに高めるにはWindows版を利用し、MSCSクラスタを設定する必要がある</li>
+</ol>
+<h2 id="_2">資料</h2>
+<ol>
+<li><a href="http://www.vmware.com/jp/support/support-resources/pubs/vsphere-esxi-vcenter-server-6-pubs">VMware vSphere 6 のドキュメント<br/>
+</a></li>
+<li><a href="http://www.vmware.com/files/pdf/vsphere/VMW-WP-vSPHR-Whats-New-6-0-PLTFRM.pdf">http://www.vmware.com/files/pdf/vsphere/VMW-WP-vSPHR-Whats-New-6-0-PLTFRM.pdf</a></li>
+<li><a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=2081089">vSphere 5.x および 6.x での永続的なデバイスの損失 (PDL) と全パス ダウン (APD) (2081089)</a></li>
+</ol>
+<h2 id="vsphere-55-part-1">vSphere 5.5 までの …</h2></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/12/08/0551.html#vsphere-60-denohaji-neng-noenhansunoyao-dian">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/10/31/1350.html#zui-jin-noshi-shi-nozhen-rifan-ri">最近の仕事の振り返り</a></h2>
+    <p>
+      Posted on Sat 31 October 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+
+    </p>
+  </header>
+  <div>
+      <div><p>最近、仕事のやり方について考えている(悩んでいるに近いかも)ことが多いので、<br/>
+頭の中を整理するために、文章にしてみようと思う。</p>
+<p>なので、技術的な内容は一切ない。</p>
+
+<h2 id="_1">目次</h2>
+<ol>
+<li>スケジュール調整と突発案件</li>
+<li>エンジニアの成長パス</li>
+<li>愚痴とポエム</li>
+</ol>
+<h2 id="_2">スケジュール調整と突発案件</h2>
+<h3 id="_3">前置き</h3>
+<p>どんな仕事にも突発的な仕事は大なり小なりあると思う。<br/>
+自分としては精神 …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/10/31/1350.html#zui-jin-noshi-shi-nozhen-rifan-ri">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/09/15/0421.html#dockernoxi-toshitamemo">Dockerの細々としたメモ</a></h2>
+    <p>
+      Posted on Tue 15 September 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/docker.html">docker</a>,              <a href="https://www.hitsumabushi.org/tag/debian.html">debian</a>
+    </p>
+  </header>
+  <div>
+      <div><p>Debian で利用する際のメモを書いておく。</p>
+
+<h2 id="grub">grub でのカーネルパラメータ</h2>
+<ol>
+<li>systemd を利用する設定</li>
+<li>cgroups で、メモリに制限をかけるための設定</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># quiet はあってもなくても良い</span>
+<span class="nv">GRUB_CMDLINE_LINUX_DEFAULT</span><span class="o">=</span><span class="s2">"quiet init=/bin/systemd"</span>
+<span class="nv">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s2">"cgroup_enable=memory swapaccount=1"</span>
+</code></pre></div>
+<h2 id="cgroups">cgroups まわり</h2>
+<p>cgroups のディレクトリ配下に設定がある</p>
+<div class="highlight"><pre><span></span><code>/sys/fs/cgroup/cpu,cpuacct/docker/
+</code></pre></div>
+<h2 id="network">network</h2>
+<p><a href="http://enakai00.hatenablog.com/entries/2014/04/24">参考: Dockerのネットワーク管理とnetnsの関係</a></p>
+<p>docker コンテナを1つ立ち上げるごとに、vethデバイスができる …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/09/15/0421.html#dockernoxi-toshitamemo">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/07/26/2030.html#vm-resource-allocation">VM Resource Allocation</a></h2>
+    <p>
+      Posted on Sun 26 July 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/math.html">math</a>,              <a href="https://www.hitsumabushi.org/tag/papers.html">papers</a>,              <a href="https://www.hitsumabushi.org/tag/lun-wen.html">論文</a>
+    </p>
+  </header>
+  <div>
+      <div><h2 id="_1">資料</h2>
+<ul>
+<li><a href="http://henricasanova.github.io/papers/stillwell_ipdps12.pdf">stillwell_ipdps12.pdf</a></li>
+<li><a href="http://research.microsoft.com/en-us/um/people/saikat/paper-socc12-rai-wrasse.html">Generalized Resource Allocation for the Cloud</a></li>
+<li><a href="http://www.ijera.com/papers/Vol4_issue11/Part%20-%205/J0411055155.pdf">J0411055155.pdf</a></li>
+<li><a href="http://www.ce.uniroma2.it/~lopresti/Articoli/icas_camera_ready.pdf">Ghostscript wrapper for C:\Documents and Settings\Paolo\Desktop\icas2.pdf - icas_camera_ready.pdf</a></li>
+<li><a href="http://graal.ens-lyon.fr/~prenaud/Publis/resilience">resilience</a></li>
+<li><a href="http://www.cse.iitb.ac.in/synerg/lib/exe/fetch.php?media=public:resources:stage0_5ppt_dhaval.pdf">fetch.php</a></li>
+</ul></div>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/06/26/1250.html#twitterkarameruadoresushi-erunziyanede-nagong-ji-nitsuite">Twitterからメールアドレス拾えるんじゃね?的な攻撃について</a></h2>
+    <p>
+      Posted on Fri 26 June 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/security.html">security</a>
+    </p>
+  </header>
+  <div>
+      <div><p><a href="http://did2memo.net/2015/06/24/twitter-one-click-login-attack/">任意のTwitterアカウントの登録メールアドレス（伏せ字含）を表示させる攻撃が急増中（対策設定有り）</a> というエントリが盛り上がっていたらしい。(とてもシェアされている)<br/>
+ただ、自分には有用な攻撃シナリオには見えなかったので、考えを整理するために書いておきます。<br/>
+自分はセキュリティ素人なので、間違った考察かもしれません。</p>
+
+<h2 id="_1">リンク先ブログの主張 …</h2></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/06/26/1250.html#twitterkarameruadoresushi-erunziyanede-nagong-ji-nitsuite">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/06/23/2047.html#runcwodebiandeshi-xing-suru">runCをDebianで実行する</a></h2>
+    <p>
+      Posted on Tue 23 June 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/runc.html">runc</a>,              <a href="https://www.hitsumabushi.org/tag/debian.html">debian</a>
+    </p>
+  </header>
+  <div>
+      <div><p><a href="https://github.com/opencontainers/runc">opencontainers/runc</a> を実行してみようとしたところ、コンパイルまではすぐできるのに、実行するとエラーが出て困ったので、対処方法を書いておく。</p>
+
+<h2 id="runc">runCのインストール</h2>
+<p>golang的に普通の場所に置いてビルドすると良い。git clone の代わりに go getでも良い。</p>
+<div class="highlight"><pre><span></span><code>git clone https://github.com/opencontainers/runc $GOPATH/src/github.com/opencontainers/runc
+cd $GOPATH/src/github.com/opencontainers/runc/
+make
+sudo make install
+</code></pre></div>
+<h2 id="_1">状況</h2>
+<h3 id="_2">ディレクトリ構成</h3>
+<div class="highlight"><pre><span></span><code><span class="o">.</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">container</span><span class="o">.</span><span class="n">json</span><span class="w"> </span><span class="p">(</span><span class="err">とりあえず、</span><span class="n">runc</span><span class="w"> </span><span class="n">spec</span><span class="w"> </span><span class="err">で生成されるもので …</span></code></pre></div></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2015/06/23/2047.html#runcwodebiandeshi-xing-suru">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2015/06/15/0004.html#windowsnomian-qiang-woshi-meta">Windowsの勉強を始めた</a></h2>
+    <p>
+      Posted on Mon 15 June 2015 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/windows.html">Windows</a>
+    </p>
+  </header>
+  <div>
+      <div><p>人生で初めて、Windowsの勉強を始めた。<br>
+進捗は以下のgithub pagesから確認できる。<br>
+とりあえず、章立てを書いて、内容を徐々に埋めているところ。</p>
+<ul>
+<li><a href="http://hitsumabushi.github.io/windows_start_guide/">Windows Server スタートガイド</a></li>
+</ul>
+<p>内容の誤りやコメントなどあれば、githubのissueで欲しい。</p></div>
+  </div>
+</article>
+
+  <div class="pagination">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/category/blog5.html">
+      <i class="fa fa-angle-left"></i> Older Posts
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/category/blog3.html">
+      Newer Posts <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

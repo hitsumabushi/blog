@@ -1,0 +1,529 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+    <meta name="author" content="hitsumabushi" />
+    <meta name="description" content="" />
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:type" content="blog"/>
+  <meta property="og:title" content="ひつまぶし食べたい"/>
+  <meta property="og:description" content=""/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; Category blog</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+
+
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/12/30/0548.html#vcpnoxue-xi-zhong-nomemo">VCPの学習中のメモ</a></h2>
+    <p>
+      Posted on Tue 30 December 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>,              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>
+    </p>
+  </header>
+  <div>
+      <div><p>項目分けするほどでもないが、知っておくとVCP受講時に役にたつことをメモしていきます。<br/>
+特に、あまり使われていない機能については、調べてないとわからないことが多いと思うので、参考になればと思います。</p>
+
+<h2 id="vmware-data-recovery">VMware Data Recovery</h2>
+<h3 id="_1">資料</h3>
+<ul>
+<li><a href="http://www.vmware.com/files/jp/pdf/VMware-Data-Recovery-AG-JA.pdf">VMware Data Recovery 管理ガイド</a></li>
+<li><a href="http://www.vmware.com/files/jp/pdf/data_recovery_datasheet.pdf">VMware Data Recovery Datasheet</a></li>
+</ul>
+<h3 id="_2">概要</h3>
+<h4 id="_3">デプロイ</h4>
+<p>OVF形式で提供されているので、OVF deployします。</p>
+<h4 id="_4">動作</h4>
+<p>VMware vStorage API for Data Protectionを使って、バックアップを …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/12/30/0548.html#vcpnoxue-xi-zhong-nomemo">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/12/30/0257.html#vmwarehuan-jing-denonpivnitsuite">VMware環境でのNPIVについて</a></h2>
+    <p>
+      Posted on Tue 30 December 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>,              <a href="https://www.hitsumabushi.org/tag/npiv.html">NPIV</a>,              <a href="https://www.hitsumabushi.org/tag/storage.html">Storage</a>
+    </p>
+  </header>
+  <div>
+      <div><p>VCP-DCV取得のために勉強していたところ、NPIVという用語が出てきたので、調べてみたことを書いておきます。</p>
+
+<h2 id="_1">資料</h2>
+<ul>
+<li><a href="https://pubs.vmware.com/vsphere-50/index.jsp?topic=/com.vmware.vsphere.vm_admin.doc_50/GUID-C713BCA5-71B4-4539-A4AE-8E781330755C.html">vSphere ドキュメント センター</a></li>
+<li><a href="http://www.itmedia.co.jp/enterprise/articles/0903/23/news002.html">サーバ仮想化のカギはストレージ・ネットワークにあり：基幹系サーバ統合に適したストレージ・ネットワーク要件を探れ！ - ITmedia エンタープライズ</a></li>
+<li><a href="http://itpro.nikkeibp.co.jp/article/COLUMN/20090417/328662/">ブレードサーバーで始めるSAN - 第4回 ブレードサーバー特有のSAN設計 …</a></li></ul></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/12/30/0257.html#vmwarehuan-jing-denonpivnitsuite">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/12/30/0130.html#vcp-dcvnogai-yao-vcp550">VCP-DCVの概要 : VCP550</a></h2>
+    <p>
+      Posted on Tue 30 December 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<h2 id="_1">資料</h2>
+<p><a href="https://mylearn.vmware.com/mgrReg/plan.cfm?plan=12457">VCP-Data Center Virtualization</a><br/>
+受験を計画されている方は、Exam Blueprints というPDFを一読されることをお勧めします。</p>
+<h2 id="vcp-dcv">VCP-DCVの概要</h2>
+<h3 id="_2">バージョン</h3>
+<p>VCP-DCVという資格は、VMwareの製品バージョンに合わせて区別されています。<br/>
+例えば、現在のvSphereのバージョンは、5.5が最新バージョンであるため、VCP5-DCV呼ばれています。</p>
+<p>さらに、試験については注意が必要で、VCP5-DCVという1つの資格に対して、2つのマイナーバ …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/12/30/0130.html#vcp-dcvnogai-yao-vcp550">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/12/17/2345.html#fluentd-plugin-secure-forward-nososuwodu-ndemiruinput-puraguinbian">fluentd-plugin-secure-forward のソースを読んでみる(Input プラグイン編)</a></h2>
+    <p>
+      Posted on Wed 17 December 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/ruby.html">Ruby</a>,              <a href="https://www.hitsumabushi.org/tag/fluentd.html">Fluentd</a>
+    </p>
+  </header>
+  <div>
+      <div><p>本当は全部読もうと思っていたけど、想像以上に疲れたので、Inputだけにしました。<br/>
+ただ、整理されているコードなので、Ruby知らなくても読みやすいのは読みやすいと思います。</p>
+
+<h2 id="_1">基本情報</h2>
+<ol>
+<li>
+<p>lib/fluent/plugin/{TYPE}_{NAME}.rb 以下がプラグインの本体。</p>
+<ul>
+<li>TYPE : in, out, buf,... etc</li>
+<li>NAME : プラグインの名前</li>
+</ul>
+</li>
+<li>
+<p>pluginを書く時のお約束</p>
+<ul>
+<li>Input(Output)プラグインは、module Fluentd内でInput(Output)プラグインを継承してクラスを定義する</li>
+<li>設 …</li></ul></li></ol></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/12/17/2345.html#fluentd-plugin-secure-forward-nososuwodu-ndemiruinput-puraguinbian">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/12/17/1440.html#vmware-huan-jing-denomacadoresuge-dang-te">VMware 環境でのMACアドレス割当て</a></h2>
+    <p>
+      Posted on Wed 17 December 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>,              <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>
+    </p>
+  </header>
+  <div>
+      <div>
+<h2 id="1">1. まとめ</h2>
+<p>vSphere環境上のMACアドレス割当の方式は、複数あります。自分のOUIを割当てたい!!、という場合には、</p>
+<ol>
+<li>vCenter環境でプレフィックス指定</li>
+<li>固定割当て</li>
+</ol>
+<p>といった方法を使いましょう</p>
+<h2 id="2-mac">2. MACアドレスの割当て方式</h2>
+<ol>
+<li>vCenterによる自動割当て<ol>
+<li>VMware OUI</li>
+<li>プレフィックスベース</li>
+<li>範囲ベース</li>
+</ol>
+</li>
+<li>vCenterに接続されていないESXiによる自動割当て</li>
+<li>手動での割当て</li>
+</ol>
+<h3 id="vcenter">vCenterによる自動割当て</h3>
+<p>設定の …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/12/17/1440.html#vmware-huan-jing-denomacadoresuge-dang-te">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/12/16/2000.html#sosukodorideinguwosurutokinictagswoshi-itai">ソースコードリーディングをするときにctagsを使いたい</a></h2>
+    <p>
+      Posted on Tue 16 December 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/emacs.html">Emacs</a>,              <a href="https://www.hitsumabushi.org/tag/ruby.html">Ruby</a>
+    </p>
+  </header>
+  <div>
+      <div><h2 id="_1">きっかけ</h2>
+<p>とある事情によって、Fluentdプラグインを自作する or 世間の良い実装のプラグインを見つける必要がありました。<br>
+でも、Fluentdを真面目に使ったことがないので、いまいち眺めていても難しいなー、と思っていました。<br>
+そもそも、Rubyもまともに書いていないため、ソースを見ても、Rubyのものなのか、Fluentdで定義されているのかが、<br>
+ぱっと見でわからず、いちいち時 …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/12/16/2000.html#sosukodorideinguwosurutokinictagswoshi-itai">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/12/15/2300.html#droneiowoshi-tsute-pelicanwobirudosuru">drone.ioを使って、pelicanをビルドする</a></h2>
+    <p>
+      Posted on Mon 15 December 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/ci.html">CI</a>,              <a href="https://www.hitsumabushi.org/tag/droneio.html">drone.io</a>,              <a href="https://www.hitsumabushi.org/tag/pelican.html">pelican</a>
+    </p>
+  </header>
+  <div>
+      <div><h2 id="_1">動機</h2>
+<p>最近はWordpressでブログをやっていたけど、<br>
+あくまで Wordpressを使う人の気持ちがわかりたかったので、使ってたのでした。<br>
+そろそろ、Wordpressの便利さもわかってきたし、vimとかemacsから書きやすいものを使いたいなー、と思ってました。</p>
+<p>そこで<a href="http://docs.getpelican.com/en/3.5.0/index.html">pelican</a>ですよ。</p>
+<p>OctpressとかSphinxとかで書いても良いんですが、なんとなく微妙な修正だったり、追加のプラグインが必要だったので、気分が …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/12/15/2300.html#droneiowoshi-tsute-pelicanwobirudosuru">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/11/01/0243.html#consul-shi-tsutemiru">Consul 使ってみる</a></h2>
+    <p>
+      Posted on Sat 01 November 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/consul.html">consul</a>,              <a href="https://www.hitsumabushi.org/tag/provisioning.html">provisioning</a>,              <a href="https://www.hitsumabushi.org/tag/cluster.html">cluster</a>
+    </p>
+  </header>
+  <div>
+      <div><div class="section" id="id1">
+<h2>Consul とは</h2>
+<div class="section" id="id2">
+<h3>特徴</h3>
+<ul>
+<li><p class="first">Service Discovery</p>
+<blockquote>
+<ul class="simple">
+<li>Consulのクライアントは、&quot;api&quot;や&quot;mysql&quot;といった与えられた名前を持つサービスを提供</li>
+<li>他のクライアントは、Consulを使ってサービスを検出</li>
+<li>アプリケーションはConsulが検出したサービスを、DNSやHTTP経由で検出</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">Health Check</p>
+<blockquote>
+<ul class="simple">
+<li>多くのヘルスチェックの提供</li>
+<li>実行されているサービスやノード上の情報などと連携</li>
+<li>この情報を元に、クラスターの状態を監視</li>
+<li>サービス …</li></ul></blockquote></li></ul></div></div></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/11/01/0243.html#consul-shi-tsutemiru">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/08/14/1639.html#vsphere-apishi-shi-me">vSphere API事始め</a></h2>
+    <p>
+      Posted on Thu 14 August 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>
+    </p>
+  </header>
+  <div>
+      <div><h2 id="_1">リファレンス</h2>
+<ul>
+<li>https://www.vmware.com/support/developer/vc-sdk/</li>
+<li>https:// "vcenter_ip" /mob/</li>
+</ul>
+<h2 id="_2">参考サイト</h2>
+<ul>
+<li>http://thinkit.co.jp/story/2010/06/23/1617</li>
+</ul>
+<h1 id="overview">Overview</h1>
+<h2 id="types">Types</h2>
+<p>4つのタイプがある。</p>
+<table>
+<thead>
+<tr>
+<th>vSphere APIの型</th>
+<th>普通のプログラミングとの類推</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>managed object type</td>
+<td>プリミティブ型、複合型</td>
+</tr>
+<tr>
+<td>data object type</td>
+<td>抽象データ型</td>
+</tr>
+<tr>
+<td>enumerated type</td>
+<td>定数</td>
+</tr>
+<tr>
+<td>Fault type</td>
+<td>例外型</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1-managed-object-types">1. Managed object types</h3>
+<h4 id="managed-object-type">Managed object typeとは</h4>
+<p>(サーバーサイドのオブジェクトモデルの基本的なデータを担っている。data objectも同じく。)<br>
+managed objectには、大きく2つの種類が …</p></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/08/14/1639.html#vsphere-apishi-shi-me">
+          Continue reading
+        </a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="https://www.hitsumabushi.org/blog/2014/08/12/1638.html#ipv6nokotowodiao-beshi-meta">IPv6のことを調べ始めた</a></h2>
+    <p>
+      Posted on Tue 12 August 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+          &#8226; Tagged with
+              <a href="https://www.hitsumabushi.org/tag/ipv6.html">IPv6</a>
+    </p>
+  </header>
+  <div>
+      <div><h2 id="ipv6">IPv6 環境構築</h2>
+<h3 id="rfc">ひとまず参照すべきRFC</h3>
+<ul>
+<li>RFC3315(DHCPv6) とそれをupdateしているやつ</li>
+<li>RFC4861(Neighbor DiscoveryのIPv6バージョン)</li>
+<li>RFC5942(IPv6のsubnet model)</li>
+</ul>
+<h3 id="ipv6_1">IPv6 アドレス配布方式について</h3>
+<p>全体としては、下記の4パターンある。</p>
+<table>
+<thead>
+<tr>
+<th>アドレス配布方式</th>
+<th>RAは必要?</th>
+<th>RAにプレフィックス情報は必要?</th>
+<th>m-flag</th>
+<th>o-flag</th>
+<th>配布できるもの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>手動</td>
+<td>x</td>
+<td>x</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>ステートレスアドレス自動設定(SLAAC)</td>
+<td>o</td>
+<td>o</td>
+<td>off</td>
+<td>off</td>
+<td>プレフィックスのみ</td>
+</tr>
+<tr>
+<td>ステートフルDHCPv6</td>
+<td>o</td>
+<td>o(たぶ …</td></tr></tbody></table></div>
+        <br>
+        <a class="btn"
+           href="https://www.hitsumabushi.org/blog/2014/08/12/1638.html#ipv6nokotowodiao-beshi-meta">
+          Continue reading
+        </a>
+  </div>
+</article>
+
+  <div class="pagination">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/category/blog8.html">
+      <i class="fa fa-angle-left"></i> Older Posts
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/category/blog6.html">
+      Newer Posts <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="項目分けするほどでもないが、知っておくとVCP受講時に役にたつことをメモしていきます。 特に、あまり使われていない機能については、調べてないとわからないことが多いと思うので、参考になればと思います。 VMware Data Recovery 資料 VMware Data Recovery 管理ガイド VMware Data Recovery Datasheet 概要 デプロイ OVF形式で提供されているので、OVF deployします。 動作 VMware vStorage API for Data Protectionを使って、バックアップを …" />
+<meta name="keywords" content="VCP, VMware">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="VCPの学習中のメモ"/>
+  <meta property="og:description" content="項目分けするほどでもないが、知っておくとVCP受講時に役にたつことをメモしていきます。 特に、あまり使われていない機能については、調べてないとわからないことが多いと思うので、参考になればと思います。 VMware Data Recovery 資料 VMware Data Recovery 管理ガイド VMware Data Recovery Datasheet 概要 デプロイ OVF形式で提供されているので、OVF deployします。 動作 VMware vStorage API for Data Protectionを使って、バックアップを …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2014/12/30/0548.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2014-12-30 05:48:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="VCP"/>
+  <meta property="article:tag" content="VMware"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; VCPの学習中のメモ</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="vcpnoxue-xi-zhong-nomemo">VCPの学習中のメモ</h1>
+    <p>
+      Posted on Tue 30 December 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#vmware-data-recovery">VMware Data Recovery</a><ul>
+<li><a href="#_1">資料</a></li>
+<li><a href="#_2">概要</a><ul>
+<li><a href="#_3">デプロイ</a></li>
+<li><a href="#_4">動作</a></li>
+<li><a href="#_5">上限</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_6">メモリ</a><ul>
+<li><a href="#_7">資料</a></li>
+<li><a href="#esxi">ESXiメモリ使用方法順</a></li>
+<li><a href="#_8">リソース管理/パフォーマンスに関係する機能</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+    <div class="content">
+      <p>項目分けするほどでもないが、知っておくとVCP受講時に役にたつことをメモしていきます。<br/>
+特に、あまり使われていない機能については、調べてないとわからないことが多いと思うので、参考になればと思います。</p>
+
+<h2 id="vmware-data-recovery">VMware Data Recovery</h2>
+<h3 id="_1">資料</h3>
+<ul>
+<li><a href="http://www.vmware.com/files/jp/pdf/VMware-Data-Recovery-AG-JA.pdf">VMware Data Recovery 管理ガイド</a></li>
+<li><a href="http://www.vmware.com/files/jp/pdf/data_recovery_datasheet.pdf">VMware Data Recovery Datasheet</a></li>
+</ul>
+<h3 id="_2">概要</h3>
+<h4 id="_3">デプロイ</h4>
+<p>OVF形式で提供されているので、OVF deployします。</p>
+<h4 id="_4">動作</h4>
+<p>VMware vStorage API for Data Protectionを使って、バックアップを取得します。<br/>
+そのためVSSが利用でき、Windows 2003以降であれば、ファイルシステムの整合性を保つレベルでのスナップショットが取得できます。</p>
+<p>また、データの重複排除(デデュープ)を行うため、そこそこのデータ削減が見込めます。</p>
+<h4 id="_5">上限</h4>
+<ul>
+<li>保護VMは、100VM/1アプライアンス</li>
+<li>10アプライアンス/1vCenter</li>
+<li>デデュープ ストアは、最大1TB<ul>
+<li>CIFSのとき、500GB</li>
+<li>VMDK, RDMのとき、1TB</li>
+</ul>
+</li>
+</ul>
+<h2 id="_6">メモリ</h2>
+<h3 id="_7">資料</h3>
+<p>以下のブログ記事を見ておけば、万事解決です。</p>
+<ul>
+<li><a href="http://d.hatena.ne.jp/takaochan/20110111/1294755765">VMware ESXにおけるメモリ管理(10) - メモリ圧縮 (1) - Simple is Beautiful</a></li>
+<li><a href="http://d.hatena.ne.jp/takaochan/20110321/1300718342">VMware ESXにおけるメモリ管理(12) - いつ、どのタイミングで、どの機能が使用されるのか - Simple is Beautiful</a></li>
+</ul>
+<p>実際のメモリ情報の見方について、参考になります。</p>
+<ul>
+<li><a href="http://blogs.vmware.com/jp-cim/2014/04/vcenter_memory.html">vCenterで確認できるメモリ情報の見方について | Japan Cloud Infrastructure Blog - VMware Blogs</a></li>
+</ul>
+<h3 id="esxi">ESXiメモリ使用方法順</h3>
+<p>メモリの不足状況に応じて、以下の順番で各機能が利用されます。<br/>
+後のものほど、VMのパフォーマンスへの影響が大きいです。</p>
+<ol>
+<li>TPS</li>
+<li>バルーニング</li>
+<li>メモリ圧縮</li>
+<li>SSDホストキャッシュ</li>
+<li>VMkernelスワッピング</li>
+</ol>
+<h3 id="_8">リソース管理/パフォーマンスに関係する機能</h3>
+<ol>
+<li>
+<p>TPS</p>
+<p>透過的メモリ共有の機能。セキュリティ上の理由により、デフォルトでオフになります。<br/>
+ホストマシンにおいて、仮想マシン間のメモリ内容が同じ時には、共通の物理メモリアドレスを参照させ、変更時にはCoWで行います。<br/>
+これにより、物理メモリを節約することができます。ただ、ラージページが一般的になってきた最近のOSでは、それほど効果はありません。</p>
+<p>TPSの設定は、ホスト単位で設定できますが、全VMで共有する以外にも、VMごとにシードを与えることで、同じシードを持つVMだけでTPSを有効にすることが可能です。</p>
+</li>
+<li>
+<p>バルーニング</p>
+<p>ESXiがVMに割り当てているメモリを回収するための技術です。<br/>
+ESXiはVMにメモリを割り当てることはできますが、回収する方法があまりないため、ホストメモリが不足がちになってきたときにバルーニングを使います。</p>
+<p>バルーニングのために使われるバルーンドライバ(vmmemctlドライバ)は、VMware Toolsに含まれており、ゲストOS内のプロセスとして常駐しています。</p>
+<p>動作としては、ESXiから指示があった時、vmmemctlはゲストOS内でメモリを確保しようとします。<br/>
+そうすると、ゲストOSはメモリをスワップアウトするなどして、vmmemctlへメモリを割り当てるので、割り当てられたメモリをESXiに渡すことができます。</p>
+</li>
+<li>
+<p>メモリ圧縮</p>
+<p>VMメモリ領域の一部を圧縮し、物理メモリの節約をする技術です。</p>
+<p>圧縮前に圧縮率を計算し、50%以上であれば実施します。<br/>
+圧縮したメモリ領域を使用する場合、解凍処理を行う必要があります。</p>
+</li>
+<li>
+<p>SSDホストキャッシュ</p>
+<p>vswapファイルをSSD上に作成して、ESXiのメモリが不足した時にSSD上にスワップアウトする機能です。<br/>
+後述するスワッピング処理を高速にするための技術です。<br/>
+通常は、vswapファイルはVMのディレクトリと同じディレクトリに作られ、高速でないこともありますが、<br/>
+この機能を使うことで、スワップアウトを高速にすることができます。</p>
+</li>
+<li>
+<p>VMkernelスワッピング</p>
+<p>ESXiの物理メモリが不足した時に、各VMのメモリ(の一部または全て)を vswapファイルにスワップする機能です。</p>
+<p>とにかくパフォーマンスが低下するため、パフォーマンストラブル時にもっとも気にする機能です。</p>
+</li>
+</ol>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>
+      <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2014/12/30/0257.html" title="VMware環境でのNPIVについて">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2014/12/31/1805.html" title="2014年のまとめをしておかねば">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html">VCP6-NV 取得した</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html">VCP6-NV 試験勉強メモ 2日目</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html">VCP6-NV 試験勉強メモ</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2015/01/16/2348.html">VCP5-DCV取得した</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

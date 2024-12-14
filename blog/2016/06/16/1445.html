@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="勤務先の会社に今日(2016/06/16)から真面目にSlackが導入されたので、やった設定をメモしておく。 現在のチャンネル構成 定常系 分報用のチャンネル。個々人が作る 部署用 チーム用 プロジェクト用 雑多な情報共有用 ニュース用 トラブル用 その他 臨時に必要になるとか テストとか やったことメモ RSS を Slack に移行 live dwango reader をずっと使っていたのだけど、更新頻度が …" />
+<meta name="keywords" content="slack, hubot">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="会社にslack入ったので、色々やってた"/>
+  <meta property="og:description" content="勤務先の会社に今日(2016/06/16)から真面目にSlackが導入されたので、やった設定をメモしておく。 現在のチャンネル構成 定常系 分報用のチャンネル。個々人が作る 部署用 チーム用 プロジェクト用 雑多な情報共有用 ニュース用 トラブル用 その他 臨時に必要になるとか テストとか やったことメモ RSS を Slack に移行 live dwango reader をずっと使っていたのだけど、更新頻度が …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2016/06/16/1445.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2016-06-16 14:45:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="slack"/>
+  <meta property="article:tag" content="hubot"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; 会社にslack入ったので、色々やってた</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="hui-she-nislackru-tsutanode-se-yatsuteta">会社にslack入ったので、色々やってた</h1>
+    <p>
+      Posted on Thu 16 June 2016 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#_1">現在のチャンネル構成</a></li>
+<li><a href="#_2">やったことメモ</a><ul>
+<li><a href="#rss-slack">RSS を Slack に移行</a><ul>
+<li><a href="#_3">やり方</a></li>
+<li><a href="#_4">コメント</a></li>
+</ul>
+</li>
+<li><a href="#remind">予定を remind する</a><ul>
+<li><a href="#_5">やり方</a></li>
+<li><a href="#_6">コメント</a></li>
+</ul>
+</li>
+<li><a href="#_7">実行に時間がかかるコマンドの終了通知</a><ul>
+<li><a href="#_8">やり方</a></li>
+<li><a href="#_9">コメント</a></li>
+</ul>
+</li>
+<li><a href="#gitlab-jenkins">GitLab, Jenkins との連携</a><ul>
+<li><a href="#_10">コメント</a></li>
+</ul>
+</li>
+<li><a href="#zabbix">Zabbix などの監視</a></li>
+<li><a href="#redminejira">Redmine/JIRA 連携</a></li>
+<li><a href="#office-365">Office 365</a><ul>
+<li><a href="#_11">暫定対処</a></li>
+</ul>
+</li>
+<li><a href="#bot">bot</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+    <div class="content">
+      
+<p>勤務先の会社に今日(2016/06/16)から真面目にSlackが導入されたので、やった設定をメモしておく。</p>
+<h1 id="_1">現在のチャンネル構成</h1>
+<ul>
+<li>定常系<ul>
+<li>分報用のチャンネル。個々人が作る</li>
+<li>部署用</li>
+<li>チーム用</li>
+<li>プロジェクト用</li>
+</ul>
+</li>
+<li>雑多な情報共有用<ul>
+<li>ニュース用</li>
+</ul>
+</li>
+<li>トラブル用</li>
+<li>その他<ul>
+<li>臨時に必要になるとか</li>
+<li>テストとか</li>
+</ul>
+</li>
+</ul>
+<h1 id="_2">やったことメモ</h1>
+<h2 id="rss-slack">RSS を Slack に移行</h2>
+<p>live dwango reader をずっと使っていたのだけど、更新頻度がそこそこで、重要度の高いRSSを Slack で追いかけることにした。</p>
+<h3 id="_3">やり方</h3>
+<p>追加自体は簡単で、通知をしてほしいチャンネルで、以下のようなコマンドを打つ。</p>
+<div class="highlight"><pre><span></span><code># 通知したいチャンネルで入力
+/feed &lt;feed url&gt;
+</code></pre></div>
+<p>こうしておくと、更新された時に、チャンネルに通知が来る。</p>
+<h3 id="_4">コメント</h3>
+<p>通知先のチャンネルについては、内容に応じて分けておいた方が良いと思う。<br/>
+今まで自分はRSSを読んで、チームで共有するものは個別に共有していたけど、そういう情報源はチームのチャンネルに入れてしまった。<br/>
+もしかしたら、別途チームのニュースチャンネルを作った方が良いかもしれない。<br/>
+以下のような場合分けにした。</p>
+<ul>
+<li>更新頻度が高すぎる<ul>
+<li>RSS のまま</li>
+<li>そのうち、botでサマライズするように変える予定</li>
+<li>後述する通り、「RSSを読もう」という remind をしている</li>
+</ul>
+</li>
+<li>更新頻度がそこそこ<ul>
+<li>共有したい<ul>
+<li>チーム・プロジェクト用のチャンネルへ通知</li>
+</ul>
+</li>
+<li>自分だけで良い<ul>
+<li>分報用チャンネルへ通知</li>
+<li>分報用チャンネルはオープンなので、近くのチームの人は入っているので、興味があれば見る人もいるので、RSSよりは良い</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="remind">予定を remind する</h2>
+<p>例えば、新人の日報を見る、とか、毎日RSSを見るとかの予定を Slack で通知させることにした。<br/>
+他に、そのうちやろうと思っている短い個人作業(5分以内とかのレベル)のタスクも、面倒なので、言われたその場で、 remindに入れてしまっている。</p>
+<h3 id="_5">やり方</h3>
+<div class="highlight"><pre><span></span><code># 自分用 : 平日は毎日19:00 に "&lt;リマインド&gt;"をする
+/remind #&lt;分報用チャンネル&gt; to "&lt;リマインド&gt;" at 17:00 every weekday
+# チーム用 : 月曜日は毎日19:00 に "&lt;リマインド&gt;"をする
+/remind #&lt;チームチャンネル&gt; to "&lt;リマインド&gt;" at 10:00 every Monday
+</code></pre></div>
+<h3 id="_6">コメント</h3>
+<div class="highlight"><pre><span></span><code>/remind me ...
+</code></pre></div>
+<p>としても、リマインドできるけど、その場合、プライベートチャットでリマインドされる。<br/>
+会社のタスクだったり、予定だったりするので、特にプライベートでやる意味がないので、チャンネルに通知することにしている。</p>
+<p>他の使い方については、helpを見よう。 よく使いそうなのは、 <code>in</code> とかだと思う。</p>
+<div class="highlight"><pre><span></span><code>/remind help
+</code></pre></div>
+<h2 id="_7">実行に時間がかかるコマンドの終了通知</h2>
+<p>検証などで、 ansibleやらを実行するときに、時間がかかるステップがある。(例えば、windwos update。)<br/>
+実行中は他の作業をしたいので、終了を通知されるようにした。</p>
+<h3 id="_8">やり方</h3>
+<ul>
+<li>Slack 側 : incoming webhook を設定。<ul>
+<li>アイコンは、スクリプト側で指定するので、無視して良い。</li>
+<li>URLをメモするのと、通知先のチャンネル、ユーザー名を決めておく程度。</li>
+</ul>
+</li>
+<li>zsh shell側 : <a href="http://qiita.com/izumin5210/items/c683cb6addc58cae59b6">時間がかかるコマンドの実行結果をSlackに通知する</a> を参考にした。<ul>
+<li><code>SLACK_WEBHOOK_URL</code> をメモしたURL</li>
+<li><code>SLACK_USER_NAME</code> をメンションしたいユーザー名</li>
+</ul>
+</li>
+</ul>
+<h3 id="_9">コメント</h3>
+<p>これは分報用チャンネルに入れた。</p>
+<h2 id="gitlab-jenkins">GitLab, Jenkins との連携</h2>
+<p>Merge Requestが来たときとか。<br/>
+やり方は、割愛。</p>
+<h3 id="_10">コメント</h3>
+<p>今のところは、複雑なことはやっていない。<br/>
+また細かい設定をしたら、書く。</p>
+<h2 id="zabbix">Zabbix などの監視</h2>
+<p>やった。<br/>
+ひとまず、alert の発生と収束だけを通知している。<br/>
+slackから操作できるようにしたいが、まだやっていない。</p>
+<h2 id="redminejira">Redmine/JIRA 連携</h2>
+<p>これからやるけど、全社共通のものなので、Redmine 側には pluginは入れてくれないかもしれない。<br/>
+botでやろうかと思っている。</p>
+<h2 id="office-365">Office 365</h2>
+<p>できていない。<br/>
+メール・カレンダーは連携したい。<br/>
+社内ADと連携しているはずなので、社内ADの認証を通してから、APIを叩くbotを作る必要があると思っている。<br/>
+でも、APIのたたき方がわからない。まだ調べる気が起きていない。</p>
+<h3 id="_11">暫定対処</h3>
+<p>直接は連携できていないが、ひとまず、メールをSlackに転送するようにした。</p>
+<h2 id="bot">bot</h2>
+<p>まだ書いてない。<br/>
+これから書く。ひとまず、以下のあたりをやるつもり。</p>
+<ul>
+<li>打刻</li>
+<li>定時頃になったら、今月の残業時間を通知</li>
+<li>Redmine連携</li>
+</ul>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/slack.html">slack</a>
+      <a href="https://www.hitsumabushi.org/tag/hubot.html">hubot</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2016/06/16/0602.html" title="Anisble for Windows">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html" title="VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>

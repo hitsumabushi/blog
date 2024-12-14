@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/stylesheet/style.min.css">
+
+
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
+          href="https://www.hitsumabushi.org/theme/pygments/monokai.min.css">
+
+    <link rel="stylesheet" href="https://www.hitsumabushi.org/theme/tipuesearch/tipuesearch.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/fontawesome.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/brands.css">
+  <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/theme/font-awesome/css/solid.css">
+
+    <link rel="stylesheet" type="text/css" href="https://www.hitsumabushi.org/static/custom.css">
+
+    <link href="https://www.hitsumabushi.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ひつまぶし食べたい Atom">
+
+
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JPYFS3RY30');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+
+ 
+
+<meta name="author" content="hitsumabushi" />
+<meta name="description" content="VCP-DCV取得のために勉強していたところ、NPIVという用語が出てきたので、調べてみたことを書いておきます。 資料 vSphere ドキュメント センター サーバ仮想化のカギはストレージ・ネットワークにあり：基幹系サーバ統合に適したストレージ・ネットワーク要件を探れ！ - ITmedia エンタープライズ ブレードサーバーで始めるSAN - 第4回 ブレードサーバー特有のSAN設計 …" />
+<meta name="keywords" content="VMware, VCP, NPIV, Storage">
+
+
+  <meta property="og:site_name" content="ひつまぶし食べたい"/>
+  <meta property="og:title" content="VMware環境でのNPIVについて"/>
+  <meta property="og:description" content="VCP-DCV取得のために勉強していたところ、NPIVという用語が出てきたので、調べてみたことを書いておきます。 資料 vSphere ドキュメント センター サーバ仮想化のカギはストレージ・ネットワークにあり：基幹系サーバ統合に適したストレージ・ネットワーク要件を探れ！ - ITmedia エンタープライズ ブレードサーバーで始めるSAN - 第4回 ブレードサーバー特有のSAN設計 …"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:url" content="https://www.hitsumabushi.org/blog/2014/12/30/0257.html"/>
+  <meta property="og:type" content="article"/>
+  <meta property="article:published_time" content="2014-12-30 02:57:00+09:00"/>
+  <meta property="article:modified_time" content=""/>
+  <meta property="article:author" content="https://www.hitsumabushi.org/author/hitsumabushi.html">
+  <meta property="article:section" content="blog"/>
+  <meta property="article:tag" content="VMware"/>
+  <meta property="article:tag" content="VCP"/>
+  <meta property="article:tag" content="NPIV"/>
+  <meta property="article:tag" content="Storage"/>
+  <meta property="og:image" content="/static/profile.jpg">
+
+  <title>ひつまぶし食べたい &ndash; VMware環境でのNPIVについて</title>
+
+</head>
+<body class="light-theme">
+  <aside>
+    <div>
+      <a href="https://www.hitsumabushi.org/">
+        <img src="/static/profile.jpg" alt="" title="">
+      </a>
+
+      <h1>
+        <a href="https://www.hitsumabushi.org/"></a>
+      </h1>
+
+<p>メモ代わりのブログ</p>
+        <form class="navbar-search" action="https://www.hitsumabushi.org/search.html" role="search">
+          <input type="text" name="q" id="tipue_search_input" placeholder="Search...">
+        </form>
+
+
+      <ul class="social">
+          <li>
+            <a  class="sc-twitter" href="https://twitter.com/_hitsumabushi_" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-github" href="https://github.com/hitsumabushi" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li>
+            <a  class="sc-rss" href="feeds/all.atom.xml" target="_blank">
+              <i class="fas fa-rss"></i>
+            </a>
+          </li>
+      </ul>
+    </div>
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://www.hitsumabushi.org/">Home</a>
+
+      <a href="/archives.html">Archives</a>
+
+      <a href="https://www.hitsumabushi.org/feeds/all.atom.xml">Atom</a>
+
+    </nav>
+
+<article class="single">
+  <header>
+      
+    <h1 id="vmwarehuan-jing-denonpivnitsuite">VMware環境でのNPIVについて</h1>
+    <p>
+      Posted on Tue 30 December 2014 in <a href="https://www.hitsumabushi.org/category/blog.html">blog</a>
+
+    </p>
+  </header>
+
+
+  <div>
+    <div class="toc">
+<ul>
+<li><a href="#_1">資料</a></li>
+<li><a href="#_2">まとめ</a></li>
+<li><a href="#npiv">NPIVとは</a><ul>
+<li><a href="#fc">FC環境の基本</a></li>
+<li><a href="#npiv_1">NPIV</a></li>
+</ul>
+</li>
+<li><a href="#vmware">VMware環境で利用する際の制限</a></li>
+</ul>
+</div>
+
+    <div class="content">
+      <p>VCP-DCV取得のために勉強していたところ、NPIVという用語が出てきたので、調べてみたことを書いておきます。</p>
+
+<h2 id="_1">資料</h2>
+<ul>
+<li><a href="https://pubs.vmware.com/vsphere-50/index.jsp?topic=/com.vmware.vsphere.vm_admin.doc_50/GUID-C713BCA5-71B4-4539-A4AE-8E781330755C.html">vSphere ドキュメント センター</a></li>
+<li><a href="http://www.itmedia.co.jp/enterprise/articles/0903/23/news002.html">サーバ仮想化のカギはストレージ・ネットワークにあり：基幹系サーバ統合に適したストレージ・ネットワーク要件を探れ！ - ITmedia エンタープライズ</a></li>
+<li><a href="http://itpro.nikkeibp.co.jp/article/COLUMN/20090417/328662/">ブレードサーバーで始めるSAN - 第4回 ブレードサーバー特有のSAN設計：ITpro</a></li>
+</ul>
+<h2 id="_2">まとめ</h2>
+<ol>
+<li>NPIV = N_Port ID Virtualization</li>
+<li>NPIVとは、1つのHBAに対して複数のID(WWPN)を割り当てることで、<strong>1つのHBAポートを複数のHBAポートに見せる</strong> ための技術</li>
+<li>VMware的には、RDMのディスクを持つ仮想マシンについて、 アクセス制御, QoSなどのために使われる</li>
+<li>NPIVのしようとして、1ポートあたり255WWPNしか割り当てられない</li>
+</ol>
+<h2 id="npiv">NPIVとは</h2>
+<h3 id="fc">FC環境の基本</h3>
+<p>FC環境では、各ノードはWWN(<em>World Wide Name</em>)を用いて識別されています。<br/>
+IPプロトコルで言うところの、IPアドレスと同様に、アクセス先を表したり、アクセス制限を行ったりする対象が、WWNになります。</p>
+<p>このWWNは、<br/>
+- WWNN (<em>World Wide Node Name</em>)<br/>
+- WWPN (<em>World Wide Port Name</em>)<br/>
+という2種類で構成されています(が、便宜的なものなので、通常、区別する必要はないです)。<br/>
+その名の通り、WWNNはノード自身(例えば、HBAごと)に割り当てておき、WWPNはポート(例えば、HBAポートごと)に割り当てておきます。</p>
+<h3 id="npiv_1">NPIV</h3>
+<p>前述の通り、WWNベースでアクセス制限をすることになるのですが、例えば、1つのHBAポートを複数のマシンで共有している状況で、<br/>
+各マシンごとにアクセスできるLUN(LUNはWWNを持っています。)を変えたいと思うと、どうすれば良いのでしょうか。</p>
+<p>NPIVは、1つのHBAポートに対して、最大255個のWWPNを割り当てる技術です。<br/>
+これを使って、各マシンごとにWWPNを割り当てることで、LUNからはきちんと個別のアクセス制御が行えることになります。</p>
+<p>NPIVを使うには、スイッチ側とHBA側の両方で対応している必要があります。</p>
+<h2 id="vmware">VMware環境で利用する際の制限</h2>
+<ol>
+<li>スイッチ側でNPIVを有効化</li>
+<li>ホストのHBAがNPIVをサポートしている</li>
+<li>利用できる仮想マシンは、RDMディスクを持つもののみ</li>
+<li>1台の仮想マシンに対して、最大4つの仮想ポートを割り当てられる(つまり、最大4つのWWPNが割り当てられる)</li>
+</ol>
+<p>通常の仮想マシンが利用するWWNは、ホストの物理HBAのWWNを利用します。</p>
+    </div>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://www.hitsumabushi.org/tag/vmware.html">VMware</a>
+      <a href="https://www.hitsumabushi.org/tag/vcp.html">VCP</a>
+      <a href="https://www.hitsumabushi.org/tag/npiv.html">NPIV</a>
+      <a href="https://www.hitsumabushi.org/tag/storage.html">Storage</a>
+    </p>
+  </div>
+
+
+  <div class="neighbors">
+    <a class="btn float-left" href="https://www.hitsumabushi.org/blog/2014/12/30/0130.html" title="VCP-DCVの概要 : VCP550">
+      <i class="fa fa-angle-left"></i> Previous Post
+    </a>
+    <a class="btn float-right" href="https://www.hitsumabushi.org/blog/2014/12/30/0548.html" title="VCPの学習中のメモ">
+      Next Post <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+
+  <div class="related-posts">
+    <h4>You might enjoy</h4>
+    <ul class="related-posts">
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/09/1232.html">VCP6-NV 取得した</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/07/0742.html">VCP6-NV 試験勉強メモ 2日目</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2121.html">VCP6-NV 試験勉強メモ</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2016/07/05/2040.html">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</a></li>
+      <li><a href="https://www.hitsumabushi.org/blog/2015/01/16/2348.html">VCP5-DCV取得した</a></li>
+    </ul>
+  </div>
+
+
+</article>
+
+    <footer>
+<p>
+  &copy; 2021 hitsumabushi - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.ja" target="_blank">Creative Commons Attribution-ShareAlike</a>
+</p>
+<p>
+Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
+</p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by-nc/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+           src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " ひつまぶし食べたい ",
+  "url" : "https://www.hitsumabushi.org",
+  "image": "/static/profile.jpg",
+  "description": ""
+}
+</script>
+
+</body>
+</html>
