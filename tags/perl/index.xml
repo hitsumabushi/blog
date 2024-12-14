@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Perl on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/perl/</link><description>Recent content in Perl on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Tue, 07 Jan 2014 02:39:20 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/perl/index.xml" rel="self" type="application/rss+xml"/><item><title>Perl の正規表現</title><link>https://www.hitsumabushi.org/post/old_rst_files/239/</link><pubDate>Tue, 07 Jan 2014 02:39:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/239/</guid><description>&lt;h2 id="マッチ演算子">マッチ演算子&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Perl on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/perl/</link><description>Recent content in Perl on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Tue, 07 Jan 2014 02:39:20 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/perl/index.xml" rel="self" type="application/rss+xml"/><item><title>Perl の正規表現</title><link>https://www.hitsumabushi.org/blog/2014/01/07/0239/</link><pubDate>Tue, 07 Jan 2014 02:39:20 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/01/07/0239/</guid><description>&lt;h2 id="マッチ演算子">マッチ演算子&lt;/h2>
 &lt;p>評価の結果は真偽値としては、マッチすれば真、そうでなければ偽。 and, or,
 ! が役立つのは間違いない。&lt;/p>
 &lt;h3 id="_-にマッチさせる">$_ にマッチさせる&lt;/h3>
@@ -85,7 +85,7 @@
 &lt;p>::: note
 ::: title
 Note
-:::&lt;/p></description></item><item><title>Perlスクリプトメモ</title><link>https://www.hitsumabushi.org/post/old_rst_files/238/</link><pubDate>Tue, 07 Jan 2014 02:38:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/238/</guid><description>&lt;h2 id="参考文献">参考文献&lt;/h2>
+:::&lt;/p></description></item><item><title>Perlスクリプトメモ</title><link>https://www.hitsumabushi.org/blog/2014/01/07/0238/</link><pubDate>Tue, 07 Jan 2014 02:38:20 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/01/07/0238/</guid><description>&lt;h2 id="参考文献">参考文献&lt;/h2>
 &lt;ol>
 &lt;li>&lt;a href="http://d.hatena.ne.jp/perlcodesample/20091226/1264257759">Perl基礎文法最速マスター&lt;/a>&lt;/li>
 &lt;li>ミニマル perl&lt;/li>
@@ -144,7 +144,7 @@ Note
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-perl" data-lang="perl">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">our&lt;/span>(&lt;span style="color:#8be9fd;font-style:italic">$foo&lt;/span>);
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">our&lt;/span>(&lt;span style="color:#8be9fd;font-style:italic">$foo&lt;/span>, &lt;span style="color:#8be9fd;font-style:italic">$bar&lt;/span>, &lt;span style="color:#ff79c6">...&lt;/span>);
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="真偽値">真偽値&lt;/h2>
-&lt;p>偽になるのは、次の3パターンある。&lt;/p></description></item><item><title>便利なツール</title><link>https://www.hitsumabushi.org/post/old_rst_files/160/</link><pubDate>Thu, 02 Jan 2014 02:40:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/160/</guid><description>&lt;h2 id="pod">POD&lt;/h2>
+&lt;p>偽になるのは、次の3パターンある。&lt;/p></description></item><item><title>便利なツール</title><link>https://www.hitsumabushi.org/blog/2014/01/02/0240/</link><pubDate>Thu, 02 Jan 2014 02:40:20 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/01/02/0240/</guid><description>&lt;h2 id="pod">POD&lt;/h2>
 &lt;ul>
 &lt;li>Plain Old Documentation&lt;/li>
 &lt;li>man perldoc を参照&lt;/li>
@@ -169,7 +169,7 @@ Note
 &lt;h2 id="linguaeninflect-pl_n">Lingua::En::Inflect 'PL_N'&lt;/h2>
 &lt;ul>
 &lt;li>単数形と複数形を変換してくれる&lt;/li>
-&lt;/ul></description></item><item><title>Perl のコンパイラオプション</title><link>https://www.hitsumabushi.org/post/old_rst_files/159/</link><pubDate>Wed, 01 Jan 2014 02:37:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/159/</guid><description>&lt;h2 id="参考ページ">参考ページ&lt;/h2>
+&lt;/ul></description></item><item><title>Perl のコンパイラオプション</title><link>https://www.hitsumabushi.org/blog/2014/01/01/0237/</link><pubDate>Wed, 01 Jan 2014 02:37:20 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/01/01/0237/</guid><description>&lt;h2 id="参考ページ">参考ページ&lt;/h2>
 &lt;ul>
 &lt;li>man perlrun&lt;/li>
 &lt;li>&lt;a href="http://debugitos.main.jp/index.php?Perl%2F%A5%B3%A5%DE%A5%F3%A5%C9%A5%E9%A5%A4%A5%F3">DebugIto's - Perl/コマンドライン&lt;/a>&lt;/li>

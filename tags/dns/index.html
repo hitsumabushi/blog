@@ -9,9 +9,9 @@
 col-md-8 col-md-offset-1
 col-sm-12
 col-xs-12
-post-container"><div data-pagefind-ignore=all><div class=post-preview><a href=https://www.hitsumabushi.org/post/2015/202/><h2 class=post-title>DNS サーバーの比較資料集め</h2><div class=post-content-preview><p>自宅開発環境を一新するついでに、真面目にサーバー構成を見直すことにした。
+post-container"><div data-pagefind-ignore=all><div class=post-preview><a href=https://www.hitsumabushi.org/blog/2015/01/26/0312/><h2 class=post-title>DNS サーバーの比較資料集め</h2><div class=post-content-preview><p>自宅開発環境を一新するついでに、真面目にサーバー構成を見直すことにした。
 DNSサーバーは今までbind+dnsmasqでやっていたが、改めてパフォーマンスの観点から選定したい。
-以下に、参考ページを列挙する。</p></div></a><p class=post-meta>Posted by ひつまぶし食べたい on 2015-01-26</p></div><hr><div class=post-preview><a href=https://www.hitsumabushi.org/post/old_rst_files/161/><h2 class=post-title>DNS サーバー</h2><div class=post-content-preview><p>ニフティクラウド上でサーバーを立てた。
+以下に、参考ページを列挙する。</p></div></a><p class=post-meta>Posted by ひつまぶし食べたい on 2015-01-26</p></div><hr><div class=post-preview><a href=https://www.hitsumabushi.org/blog/2014/01/01/0241/><h2 class=post-title>DNS サーバー</h2><div class=post-content-preview><p>ニフティクラウド上でサーバーを立てた。
 いろいろと設定していこうかと思っているが、まずはDNSから始める。</p><h2 id=作業内容>作業内容</h2><p>1. /etc/bind/named.conf.options 以下のように書き換える:</p><pre><code>// v6の設定： v6は応答しない
 // listen-on-v6 { any; };
 listen-on-v6 { none; };

@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/post/</link><description>Recent content in Posts on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Sat, 14 Dec 2024 02:00:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/post/index.xml" rel="self" type="application/rss+xml"/><item><title>マネジメント1年目振り返り on 2024-12</title><link>https://www.hitsumabushi.org/post/2024/128/</link><pubDate>Sat, 14 Dec 2024 02:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2024/128/</guid><description>&lt;p>この文章はもともとはローカルで自分向けに書いていたもので、dumpしているだけのもの。
-そのうちマネージャー業務のtopicごとに、自分なりにやっていることや、考えていることを書き起こしたい。&lt;/p></description></item><item><title>CloudFormation Stackを安全に削除する</title><link>https://www.hitsumabushi.org/post/2021/128/</link><pubDate>Tue, 12 Oct 2021 02:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2021/128/</guid><description>&lt;p>以前、&lt;a href="%7Bfilename%7D/diary/2019/20190125_cloudformation_drift.md">CloudFormation の不満点&lt;/a> というのを書いたが、諦めて大半のCfnをterraformに移行した。
-その際、cfn リソースをきれいにするために、cfn stackを安全に削除する必要があり、その方法をメモしておく。&lt;/p></description></item><item><title>1Password CLIを使ってTOTPを取得する</title><link>https://www.hitsumabushi.org/post/2021/64/</link><pubDate>Tue, 12 Oct 2021 01:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2021/64/</guid><description>&lt;p>2要素認証を必須にしたAWSのswitch roleで、temporary credentialsをCLIで取得したかった。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/post/</link><description>Recent content in Posts on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Sat, 14 Dec 2024 02:00:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/post/index.xml" rel="self" type="application/rss+xml"/><item><title>マネジメント1年目振り返り on 2024-12</title><link>https://www.hitsumabushi.org/blog/2024/12/14/0200/</link><pubDate>Sat, 14 Dec 2024 02:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2024/12/14/0200/</guid><description>&lt;p>この文章はもともとはローカルで自分向けに書いていたもので、dumpしているだけのもの。
+そのうちマネージャー業務のtopicごとに、自分なりにやっていることや、考えていることを書き起こしたい。&lt;/p></description></item><item><title>CloudFormation Stackを安全に削除する</title><link>https://www.hitsumabushi.org/blog/2021/10/12/0200/</link><pubDate>Tue, 12 Oct 2021 02:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2021/10/12/0200/</guid><description>&lt;p>以前、&lt;a href="%7Bfilename%7D/diary/2019/20190125_cloudformation_drift.md">CloudFormation の不満点&lt;/a> というのを書いたが、諦めて大半のCfnをterraformに移行した。
+その際、cfn リソースをきれいにするために、cfn stackを安全に削除する必要があり、その方法をメモしておく。&lt;/p></description></item><item><title>1Password CLIを使ってTOTPを取得する</title><link>https://www.hitsumabushi.org/blog/2021/10/12/0100/</link><pubDate>Tue, 12 Oct 2021 01:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2021/10/12/0100/</guid><description>&lt;p>2要素認証を必須にしたAWSのswitch roleで、temporary credentialsをCLIで取得したかった。
 TOTPの数字を毎回調べるのが面倒で、簡単にできないか調べたところ、1Password CLIというのがあった。1Passwordユーザなので、これを利用する。
-ただし、当然のことだが、2要素認証のデバイスとして、1Passwordが利用されている状況とする。&lt;/p></description></item><item><title>Python でコメント付きYAMLを扱う時には ruamel.yaml が便利だった</title><link>https://www.hitsumabushi.org/post/2019/1630/</link><pubDate>Tue, 12 Feb 2019 16:30:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2019/1630/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
+ただし、当然のことだが、2要素認証のデバイスとして、1Passwordが利用されている状況とする。&lt;/p></description></item><item><title>Python でコメント付きYAMLを扱う時には ruamel.yaml が便利だった</title><link>https://www.hitsumabushi.org/blog/2019/02/12/1630/</link><pubDate>Tue, 12 Feb 2019 16:30:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2019/02/12/1630/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://yaml.readthedocs.io/en/latest/">Document: ruamel.yaml&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://bitbucket.org/ruamel/yaml/">Repository: ruamel.yaml&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="背景">背景&lt;/h2>
 &lt;p>とある yamlで書かれたconfigファイル群(数百ファイル)を一括で変更したいことがあった。
-sedで変更するには少し難しかったので、パースしてから条件判定して、書き換えたい。&lt;/p></description></item><item><title>CloudFormation の不満点</title><link>https://www.hitsumabushi.org/post/2019/1454/</link><pubDate>Fri, 25 Jan 2019 14:54:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2019/1454/</guid><description>&lt;p>以下では「手作業で」というのは、「CloudFormation管理外で」という意味で使う。&lt;/p>
+sedで変更するには少し難しかったので、パースしてから条件判定して、書き換えたい。&lt;/p></description></item><item><title>CloudFormation の不満点</title><link>https://www.hitsumabushi.org/blog/2019/01/25/1454/</link><pubDate>Fri, 25 Jan 2019 14:54:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2019/01/25/1454/</guid><description>&lt;p>以下では「手作業で」というのは、「CloudFormation管理外で」という意味で使う。&lt;/p>
 &lt;h2 id="要点">要点&lt;/h2>
 &lt;ul>
 &lt;li>CloudFormation は、リソースが何かの理由で手作業で変更されていた場合に安全に操作できない&lt;/li>
@@ -20,7 +20,7 @@ sedで変更するには少し難しかったので、パースしてから条�
 &lt;p>CloudFormation で管理されているリソースすべてについて、新しいタグをつけたくなった。
 ただ、各サービスの担当者ごとにある程度自由にオペレーションできるため、手動で変更されていないか、一応調べておこうと思い、
 &lt;a href="https://aws.amazon.com/jp/blogs/news/new-cloudformation-drift-detection/">2018-11 にリリースされたドリフト検出&lt;/a> を使って、
-手作業で実施された変更点もCloudFormationに取り込みつつ、対応しようとした。&lt;/p></description></item><item><title>DebianでLuaJITTeXを使いたい</title><link>https://www.hitsumabushi.org/post/2018/1901/</link><pubDate>Wed, 31 Oct 2018 19:01:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2018/1901/</guid><description>&lt;p>そろそろLuaTex使ってみたいなと思ったところ、LuaJITTeXの方が早い場合があるということで、試してみようと思った。&lt;/p>
+手作業で実施された変更点もCloudFormationに取り込みつつ、対応しようとした。&lt;/p></description></item><item><title>DebianでLuaJITTeXを使いたい</title><link>https://www.hitsumabushi.org/blog/2018/10/31/1901/</link><pubDate>Wed, 31 Oct 2018 19:01:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2018/10/31/1901/</guid><description>&lt;p>そろそろLuaTex使ってみたいなと思ったところ、LuaJITTeXの方が早い場合があるということで、試してみようと思った。&lt;/p>
 &lt;h2 id="参考">参考&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="http://www.fugenji.org/~thomas/texlive-guide/luajitlatex.html">luajittex のセットアップ&lt;/a>
@@ -40,14 +40,14 @@ sedで変更するには少し難しかったので、パースしてから条�
 #
 ###
 &lt;/code>&lt;/pre>&lt;h2 id="準備">準備&lt;/h2>
-&lt;p>パッケージインストール&lt;/p></description></item><item><title>Debian でログインシェルをzshにしている人が snappy を使う場合の注意</title><link>https://www.hitsumabushi.org/post/2018/1058/</link><pubDate>Wed, 11 Apr 2018 10:58:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2018/1058/</guid><description>&lt;h2 id="snappy-について">Snappy について&lt;/h2>
+&lt;p>パッケージインストール&lt;/p></description></item><item><title>Debian でログインシェルをzshにしている人が snappy を使う場合の注意</title><link>https://www.hitsumabushi.org/blog/2018/04/11/1058/</link><pubDate>Wed, 11 Apr 2018 10:58:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2018/04/11/1058/</guid><description>&lt;h2 id="snappy-について">Snappy について&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://www.ubuntu.com/desktop/snappy">Snappy&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://snapcraft.io/">snapcraft&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;p>Canonical が主導しているパッケージシステムで、Universal Linux Package と銘打つように、ポータブルなパッケージングができそうな感じ。
 ポータビリティを上げるために、dockerみたいな感じで、依存ライブラリも全部パッケージに含めてしまうスタイルなので、多少debパッケージよりは大きくなる。
-その分、sidを使っているとよく起きる、共通ライブラリの依存バージョンの不整合がおきる、という問題は起きない。&lt;/p></description></item><item><title>PyPIへパッケージをアップロードする</title><link>https://www.hitsumabushi.org/post/2018/1420/</link><pubDate>Thu, 05 Apr 2018 14:20:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2018/1420/</guid><description>&lt;h1 id="資料">資料&lt;/h1>
+その分、sidを使っているとよく起きる、共通ライブラリの依存バージョンの不整合がおきる、という問題は起きない。&lt;/p></description></item><item><title>PyPIへパッケージをアップロードする</title><link>https://www.hitsumabushi.org/blog/2018/04/05/1420/</link><pubDate>Thu, 05 Apr 2018 14:20:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2018/04/05/1420/</guid><description>&lt;h1 id="資料">資料&lt;/h1>
 &lt;ul>
 &lt;li>パッケージ構成については &lt;a href="https://github.com/pypa/sampleproject">github.com/pypa/sampleproject&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://pypi.python.org/pypi/twine">https://pypi.python.org/pypi/twine&lt;/a>&lt;/li>
@@ -56,7 +56,7 @@ sedで変更するには少し難しかったので、パースしてから条�
 &lt;h1 id="手順">手順&lt;/h1>
 &lt;h2 id="pypiへユーザー登録する">PyPIへユーザー登録する&lt;/h2>
 &lt;p>PyPI には普段使われている本番環境とは別に、テスト環境がある。
-アカウントがそれぞれ独立しているので、両方で作成する必要がある。&lt;/p></description></item><item><title>Google Cloud Pub/Sub をGolangから使おうとしてハマったことまとめ</title><link>https://www.hitsumabushi.org/post/2018/2009/</link><pubDate>Mon, 05 Feb 2018 20:09:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2018/2009/</guid><description>&lt;h1 id="概要">概要&lt;/h1>
+アカウントがそれぞれ独立しているので、両方で作成する必要がある。&lt;/p></description></item><item><title>Google Cloud Pub/Sub をGolangから使おうとしてハマったことまとめ</title><link>https://www.hitsumabushi.org/blog/2018/02/05/2009/</link><pubDate>Mon, 05 Feb 2018 20:09:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2018/02/05/2009/</guid><description>&lt;h1 id="概要">概要&lt;/h1>
 &lt;p>&lt;a href="https://cloud.google.com/pubsub/overview?hl=ja">Google Pub/Sub&lt;/a> を &lt;a href="https://github.com/GoogleCloudPlatform/google-cloud-go">GoのSDK&lt;/a> から使おうとしていました。
 やっているといくつか詰まったので、メモしておきます。&lt;/p>
 &lt;ol>
@@ -66,11 +66,11 @@ sedで変更するには少し難しかったので、パースしてから条�
 &lt;h2 id="サービスアカウントを利用するためにcredentials-jsonを指定する">サービスアカウントを利用するためにCredentials JSONを指定する&lt;/h2>
 &lt;p>権限の都合上、サービスアカウントのCredentials JSONを利用して認証したい、という要件がありました。
 ドキュメントを見ていると、 &lt;a href="https://cloud.google.com/docs/authentication/production?hl=ja">ADC(Application Default Credentials)&lt;/a> を利用して認証している場合が多いです。
-これを使う場合、 &lt;code>GOOGLE_APPLICATION_CREDENTIALS&lt;/code> という環境変数が設定されていれば、そのファイルを読んでくれるのですが、今回の要件では複数の Credentials を利用したかったので、Go プログラム中で指定する必要がありました。&lt;/p></description></item><item><title>さくらのクラウドでN百台を管理するためにterraformとansibleを使っている話</title><link>https://www.hitsumabushi.org/post/2017/1748/</link><pubDate>Tue, 05 Dec 2017 17:48:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/1748/</guid><description>&lt;hr>
+これを使う場合、 &lt;code>GOOGLE_APPLICATION_CREDENTIALS&lt;/code> という環境変数が設定されていれば、そのファイルを読んでくれるのですが、今回の要件では複数の Credentials を利用したかったので、Go プログラム中で指定する必要がありました。&lt;/p></description></item><item><title>さくらのクラウドでN百台を管理するためにterraformとansibleを使っている話</title><link>https://www.hitsumabushi.org/blog/2017/12/05/1748/</link><pubDate>Tue, 05 Dec 2017 17:48:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2017/12/05/1748/</guid><description>&lt;hr>
 &lt;p>これは、&lt;a href="https://qiita.com/advent-calendar/2017/sakura">さくらインターネット Advent Calendar 2017&lt;/a> として書いた&lt;a href="https://qiita.com/hitsumabushi/items/e89b763dd4fc41e15136">記事&lt;/a> です。&lt;/p>
 &lt;hr>
 &lt;p>さくらインターネットでは、今年4月からIoTプラットフォームの sakura.io をサービス提供しています。
-sakura.io は、さくらのクラウド上で本番・検証環境を構築しており、数百台のサーバーを利用しています。&lt;/p></description></item><item><title>Mesos の sandbox のログローテーションをする</title><link>https://www.hitsumabushi.org/post/2017/2001/</link><pubDate>Fri, 01 Dec 2017 20:01:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/2001/</guid><description>&lt;h3 id="結論">結論&lt;/h3>
+sakura.io は、さくらのクラウド上で本番・検証環境を構築しており、数百台のサーバーを利用しています。&lt;/p></description></item><item><title>Mesos の sandbox のログローテーションをする</title><link>https://www.hitsumabushi.org/blog/2017/12/01/2001/</link><pubDate>Fri, 01 Dec 2017 20:01:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2017/12/01/2001/</guid><description>&lt;h3 id="結論">結論&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="http://mesos.apache.org/documentation/latest/logging/#logrotatecontainerlogger">http://mesos.apache.org/documentation/latest/logging/#logrotatecontainerlogger&lt;/a>&lt;/li>
 &lt;li>&lt;code>LogrotateContainerLogger&lt;/code> を使って、 module parameter を設定する&lt;/li>
@@ -81,14 +81,14 @@ sakura.io は、さくらのクラウド上で本番・検証環境を構築し�
 調べてみると、 &lt;code>/var/lib/mesos-slave/slaves/&lt;/code> 以下にあるフォルダのうち、sandbox のログが肥大化していた。
 sandbox には stdout, stderr があって、それぞれコンテナのstdout, stderrを記録しているファイルで、mesosからファイルとして取得することができる。
 長期的なものは fluentd で飛ばしているので問題ないため、障害時や直近の確認のために sandbox を使うことにして、
-短期間でのログローテーションを行うことにした。&lt;/p></description></item><item><title>Ansible でバージョンチェックする</title><link>https://www.hitsumabushi.org/post/2017/1402/</link><pubDate>Fri, 10 Nov 2017 14:02:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/1402/</guid><description>&lt;h2 id="やりたいこと">やりたいこと&lt;/h2>
+短期間でのログローテーションを行うことにした。&lt;/p></description></item><item><title>Ansible でバージョンチェックする</title><link>https://www.hitsumabushi.org/blog/2017/11/10/1402/</link><pubDate>Fri, 10 Nov 2017 14:02:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2017/11/10/1402/</guid><description>&lt;h2 id="やりたいこと">やりたいこと&lt;/h2>
 &lt;p>サーバー管理には ansible を使っていますが、apt で入れているパッケージに対して、以下をやりたい状況がありました。&lt;/p>
 &lt;ul>
 &lt;li>インストールされていなかったらインストール&lt;/li>
 &lt;li>あるバージョン未満だったらアップデート&lt;/li>
 &lt;/ul>
 &lt;p>pipやgemといった言語のパッケージマネージャと違って、apt ではバージョンの制約を書くことが面倒です。
-いい感じに playbook の中でバージョン比較をして、インストール/アップデートすべきかを判定したいと考えました。&lt;/p></description></item><item><title>Travis CIで git submodule update --init --recursive を止める</title><link>https://www.hitsumabushi.org/post/2017/222/</link><pubDate>Tue, 17 Oct 2017 03:36:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/222/</guid><description>&lt;h2 id="結論">結論&lt;/h2>
+いい感じに playbook の中でバージョン比較をして、インストール/アップデートすべきかを判定したいと考えました。&lt;/p></description></item><item><title>Travis CIで git submodule update --init --recursive を止める</title><link>https://www.hitsumabushi.org/blog/2017/10/17/0336/</link><pubDate>Tue, 17 Oct 2017 03:36:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2017/10/17/0336/</guid><description>&lt;h2 id="結論">結論&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.travis-ci.com/user/common-build-problems/#Git-Submodules-are-not-updated-correctly">https://docs.travis-ci.com/user/common-build-problems/#Git-Submodules-are-not-updated-correctly&lt;/a> に書かれている通り、 .travis.yml に以下の行を付け加えれば良い。&lt;/li>
 &lt;/ul>
@@ -100,21 +100,21 @@ sandbox には stdout, stderr があって、それぞれコンテナのstdout, 
 &lt;h2 id="経緯">経緯&lt;/h2>
 &lt;p>久しぶりにこのブログを書いたらビルドに失敗していた。
 原因としては、このブログで利用している &lt;a href="https://github.com/getpelican/pelican-plugins">getpelican/pelican-plugins&lt;/a> のsubmoduleの設定によって、
-取得できないsubmoduleがあり、 &lt;code>git submodule update --init --recursive&lt;/code> に失敗しているという感じだった。&lt;/p></description></item><item><title>Intel NUC 上に vSphere 6.5 のVSAN環境を作る</title><link>https://www.hitsumabushi.org/post/2017/70/</link><pubDate>Fri, 13 Oct 2017 01:06:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/70/</guid><description>&lt;p>あまりVMwareを触らなくなってきて、何も見ずにvCenterの設定とかMaximum configurationsとか言えなくなってきたので、VMware周りのことをメモに残しておくことにする。
-ひとまず、自宅のVSAN環境の構築メモ。&lt;/p></description></item><item><title>さくらのクラウドを便利に使うためのツールメモ</title><link>https://www.hitsumabushi.org/post/2017/1600/</link><pubDate>Mon, 10 Jul 2017 16:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/1600/</guid><description>&lt;h2 id="1-cliで操作したい">1. CLIで操作したい&lt;/h2>
+取得できないsubmoduleがあり、 &lt;code>git submodule update --init --recursive&lt;/code> に失敗しているという感じだった。&lt;/p></description></item><item><title>Intel NUC 上に vSphere 6.5 のVSAN環境を作る</title><link>https://www.hitsumabushi.org/blog/2017/10/13/0106/</link><pubDate>Fri, 13 Oct 2017 01:06:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2017/10/13/0106/</guid><description>&lt;p>あまりVMwareを触らなくなってきて、何も見ずにvCenterの設定とかMaximum configurationsとか言えなくなってきたので、VMware周りのことをメモに残しておくことにする。
+ひとまず、自宅のVSAN環境の構築メモ。&lt;/p></description></item><item><title>さくらのクラウドを便利に使うためのツールメモ</title><link>https://www.hitsumabushi.org/blog/2017/07/10/1600/</link><pubDate>Mon, 10 Jul 2017 16:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2017/07/10/1600/</guid><description>&lt;h2 id="1-cliで操作したい">1. CLIで操作したい&lt;/h2>
 &lt;p>usacloud が今一番良い。
-非公式と書かれているが、サポートされている機能、更新頻度、使い勝手、導入のしやすさ、などどれをとっても usacloud を使うべき。&lt;/p></description></item><item><title>自宅 vSphere 上の CoreOS (Container Linux) のデプロイメモ</title><link>https://www.hitsumabushi.org/post/2017/2231/</link><pubDate>Wed, 08 Feb 2017 22:31:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/2231/</guid><description>&lt;h2 id="構成">構成&lt;/h2>
+非公式と書かれているが、サポートされている機能、更新頻度、使い勝手、導入のしやすさ、などどれをとっても usacloud を使うべき。&lt;/p></description></item><item><title>自宅 vSphere 上の CoreOS (Container Linux) のデプロイメモ</title><link>https://www.hitsumabushi.org/blog/2017/02/08/2231/</link><pubDate>Wed, 08 Feb 2017 22:31:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2017/02/08/2231/</guid><description>&lt;h2 id="構成">構成&lt;/h2>
 &lt;p>Mesos などを立てるため、Master 3台, Slave 2台以上の予定で作る。&lt;/p>
 &lt;h2 id="osイメージ">OSイメージ&lt;/h2>
 &lt;p>VMware用のイメージを利用。
-&lt;code>/usr/share/oem/cloud-config.yml&lt;/code> に vmware tools周りの設定が入っているので便利。&lt;/p></description></item><item><title>Rust を始めるための設定</title><link>https://www.hitsumabushi.org/post/2017/2355/</link><pubDate>Tue, 07 Feb 2017 23:55:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/2355/</guid><description>&lt;h3 id="rust-のインストール">rust のインストール&lt;/h3>
+&lt;code>/usr/share/oem/cloud-config.yml&lt;/code> に vmware tools周りの設定が入っているので便利。&lt;/p></description></item><item><title>Rust を始めるための設定</title><link>https://www.hitsumabushi.org/blog/2017/02/07/2355/</link><pubDate>Tue, 07 Feb 2017 23:55:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2017/02/07/2355/</guid><description>&lt;h3 id="rust-のインストール">rust のインストール&lt;/h3>
 &lt;p>公式からインストールのためのスクリプトが提供されている。
 これを使うと、rustup というrustのマネージャが使えるようになって、
-rustc のバージョンアップや切替なんかができるらしい。&lt;/p></description></item><item><title>ニフティ株式会社を退職しました</title><link>https://www.hitsumabushi.org/post/2017/1936/</link><pubDate>Tue, 31 Jan 2017 19:36:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/1936/</guid><description>&lt;p>本日最終出社日でした。&lt;/p>
+rustc のバージョンアップや切替なんかができるらしい。&lt;/p></description></item><item><title>ニフティ株式会社を退職しました</title><link>https://www.hitsumabushi.org/blog/2017/01/31/1936/</link><pubDate>Tue, 31 Jan 2017 19:36:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2017/01/31/1936/</guid><description>&lt;p>本日最終出社日でした。&lt;/p>
 &lt;h2 id="ニフティでやったこと">ニフティでやったこと&lt;/h2>
 &lt;p>ニフティでは、ニフティクラウドのIaaSを中心に仕事をしていました。
 基本的にずっと &lt;a href="https://twitter.com/ysaotome">@ysaotome&lt;/a> さんの下で働いており、
-チームメンバーも優秀だったので、とても面白い環境でした。&lt;/p></description></item><item><title>チーム活動で失敗したことの振り返り</title><link>https://www.hitsumabushi.org/post/2016/0/</link><pubDate>Thu, 15 Dec 2016 00:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/0/</guid><description>&lt;hr>
+チームメンバーも優秀だったので、とても面白い環境でした。&lt;/p></description></item><item><title>チーム活動で失敗したことの振り返り</title><link>https://www.hitsumabushi.org/blog/2016/12/15/0000/</link><pubDate>Thu, 15 Dec 2016 00:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/12/15/0000/</guid><description>&lt;hr>
 &lt;p>これは、 &lt;a href="http://qiita.com/advent-calendar/2016/nifty">NIFTY Advent Calendar 2016&lt;/a> の15日目です。&lt;/p>
 &lt;p>&lt;a href="http://qiita.com/plan0213">@plan0213&lt;/a> さんの &lt;a href="http://qiita.com/plan0213/items/97374e6600bfaa25dd1d">『ネットワーク機器へのコマンド入力自動化』&lt;/a>でした。
 ネットワークインフラエンジニアが大好きな話でしたね。&lt;/p>
@@ -122,7 +122,7 @@ rustc のバージョンアップや切替なんかができるらしい。&lt;/
 &lt;p>今日の記事ですが、私が社内でやっていたチーム活動について振り返りを書きます。
 特に、失敗した点に注目して共有することで役に立てばと思っています。
 大前提としては、私は一般社員であり、チームのマネジメント等を行う立場ではありません。
-あくまでボトムアップからの活動です。&lt;/p></description></item><item><title>git bisect でバグ/仕様変更のコミットを探す</title><link>https://www.hitsumabushi.org/post/2016/234/</link><pubDate>Thu, 10 Nov 2016 03:52:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/234/</guid><description>&lt;h2 id="まとめ">まとめ&lt;/h2>
+あくまでボトムアップからの活動です。&lt;/p></description></item><item><title>git bisect でバグ/仕様変更のコミットを探す</title><link>https://www.hitsumabushi.org/blog/2016/11/10/0352/</link><pubDate>Thu, 10 Nov 2016 03:52:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/11/10/0352/</guid><description>&lt;h2 id="まとめ">まとめ&lt;/h2>
 &lt;ul>
 &lt;li>git bisect が便利&lt;/li>
 &lt;li>ansible 2.1.0 -&amp;gt; 2.1.1 で group名に &lt;code>/&lt;/code> を入れるとうまく動かないケースが存在する
@@ -135,7 +135,7 @@ rustc のバージョンアップや切替なんかができるらしい。&lt;/
 &lt;h2 id="遭遇した問題">遭遇した問題&lt;/h2>
 &lt;p>ansible で構成/コンフィグ管理やプロビジョニングをしているのだけど、
 複数のリージョンやゾーンにまたがるシステムのため、うまく設定を見やすくするために、
-以下のように &lt;code>group_vars&lt;/code> 配下にディレクトリ構造を作っていた。&lt;/p></description></item><item><title>DockerHub で docker build のオプションを設定したい</title><link>https://www.hitsumabushi.org/post/2016/1445/</link><pubDate>Tue, 27 Sep 2016 14:45:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/1445/</guid><description>&lt;h2 id="参考リポジトリ">参考リポジトリ&lt;/h2>
+以下のように &lt;code>group_vars&lt;/code> 配下にディレクトリ構造を作っていた。&lt;/p></description></item><item><title>DockerHub で docker build のオプションを設定したい</title><link>https://www.hitsumabushi.org/blog/2016/09/27/1445/</link><pubDate>Tue, 27 Sep 2016 14:45:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/09/27/1445/</guid><description>&lt;h2 id="参考リポジトリ">参考リポジトリ&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/hitsumabushi/docker-phpipam">https://github.com/hitsumabushi/docker-phpipam&lt;/a>&lt;/li>
 &lt;/ul>
@@ -162,11 +162,11 @@ rustc のバージョンアップや切替なんかができるらしい。&lt;/
 &lt;h3 id="dockerfileを別の場所に置く場合">Dockerfileを別の場所に置く場合&lt;/h3>
 &lt;p>&lt;a href="https://github.com/hitsumabushi/docker-phpipam">https://github.com/hitsumabushi/docker-phpipam&lt;/a> では、 Dockerfile を、&lt;code>/dockerimages/phpipam/&lt;/code> 以下に置いている。
 その場合であっても、 Dockerfileと同じディレクトリに、 &lt;code>hook&lt;/code> ディレクトリを作成すれば良い。
-その上で、 DockerHub の Build Settings の Dockerfile Location にて、 &lt;code>/dockerimages/phpipam/Dockerfile&lt;/code> とすれば良い。&lt;/p></description></item><item><title>GnuPGのメモ @ Debian Sid</title><link>https://www.hitsumabushi.org/post/2016/482/</link><pubDate>Tue, 12 Jul 2016 07:42:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/482/</guid><description>&lt;h2 id="debain-での-gnupg">Debain での GnuPG&lt;/h2>
+その上で、 DockerHub の Build Settings の Dockerfile Location にて、 &lt;code>/dockerimages/phpipam/Dockerfile&lt;/code> とすれば良い。&lt;/p></description></item><item><title>GnuPGのメモ @ Debian Sid</title><link>https://www.hitsumabushi.org/blog/2016/07/12/0742/</link><pubDate>Tue, 12 Jul 2016 07:42:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/07/12/0742/</guid><description>&lt;h2 id="debain-での-gnupg">Debain での GnuPG&lt;/h2>
 &lt;p>GnuPG は OpenPGPの実装の一つで、GPGと呼ばれることもあります。
 Debian では、2016/07/12現在、gpg コマンドは 1.4系で、 gpg2 パッケージで 2.1系を提供しています。
 普段使いでgpg 1.4系をわざわざ使う必要はないとは思うので、以下ではgpg2 を利用することにしています。
-以下では、gpg と gpg2 の違いに触れることはありませんが、例えば、RSAではなく楕円暗号を使おうと思ったら、gpg2 を使うしかありません。&lt;/p></description></item><item><title>もともとgitで管理されているアプリケーションをdebパッケージにしたいというメモ</title><link>https://www.hitsumabushi.org/post/2016/428/</link><pubDate>Mon, 11 Jul 2016 04:28:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/428/</guid><description>&lt;h2 id="はじめに">はじめに&lt;/h2>
+以下では、gpg と gpg2 の違いに触れることはありませんが、例えば、RSAではなく楕円暗号を使おうと思ったら、gpg2 を使うしかありません。&lt;/p></description></item><item><title>もともとgitで管理されているアプリケーションをdebパッケージにしたいというメモ</title><link>https://www.hitsumabushi.org/blog/2016/07/11/0428/</link><pubDate>Mon, 11 Jul 2016 04:28:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/07/11/0428/</guid><description>&lt;h2 id="はじめに">はじめに&lt;/h2>
 &lt;p>debパッケージを作る経験が少ないので、あまり良い方法ではないかもしれない。&lt;/p>
 &lt;h2 id="サンプル">サンプル&lt;/h2>
 &lt;p>&lt;a href="https://github.com/hitsumabushi/hub">https://github.com/hitsumabushi/hub&lt;/a>&lt;/p>
@@ -197,14 +197,14 @@ Debian では、2016/07/12現在、gpg コマンドは 1.4系で、 gpg2 パッ�
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#6272a4"># 問題がなければ&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git commit -a
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git push origin master
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>s3で自前 Debian Package リポジトリを作る</title><link>https://www.hitsumabushi.org/post/2016/228/</link><pubDate>Sun, 10 Jul 2016 03:44:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/228/</guid><description>&lt;h2 id="この記事でやること">この記事でやること&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>s3で自前 Debian Package リポジトリを作る</title><link>https://www.hitsumabushi.org/blog/2016/07/10/0344/</link><pubDate>Sun, 10 Jul 2016 03:44:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/07/10/0344/</guid><description>&lt;h2 id="この記事でやること">この記事でやること&lt;/h2>
 &lt;ul>
 &lt;li>aptly の初歩的な使い方&lt;/li>
 &lt;li>aptly を使ってs3へ自前リポジトリを公開する。&lt;/li>
 &lt;/ul>
 &lt;p>自前パッケージの作成については、書かないです。&lt;/p>
 &lt;h2 id="自前-debian-package-リポジトリ">自前 Debian Package リポジトリ&lt;/h2>
-&lt;p>なぜ自前のリポジトリが欲しいかというと、個人的には以下の3つくらいかと思います。&lt;/p></description></item><item><title>VCP6-NV 取得した</title><link>https://www.hitsumabushi.org/post/2016/1232/</link><pubDate>Sat, 09 Jul 2016 12:32:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/1232/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+&lt;p>なぜ自前のリポジトリが欲しいかというと、個人的には以下の3つくらいかと思います。&lt;/p></description></item><item><title>VCP6-NV 取得した</title><link>https://www.hitsumabushi.org/blog/2016/07/09/1232/</link><pubDate>Sat, 09 Jul 2016 12:32:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/07/09/1232/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>
@@ -215,7 +215,7 @@ Debian では、2016/07/12現在、gpg コマンドは 1.4系で、 gpg2 パッ�
 &lt;p>462 / 500 (合格点: 300)&lt;/p>
 &lt;h2 id="試験の内容について">試験の内容について&lt;/h2>
 &lt;p>割と事前に学習した内容が出ていたと感じる。
-VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違って、トレーニングの内容と試験内容がきちんと一致しているので、トレーニングのテキストを読み返すだけでも、かなり点は取れる気がする。&lt;/p></description></item><item><title>VCP6-NV 試験勉強メモ 2日目</title><link>https://www.hitsumabushi.org/post/2016/482/</link><pubDate>Thu, 07 Jul 2016 07:42:46 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/482/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違って、トレーニングの内容と試験内容がきちんと一致しているので、トレーニングのテキストを読み返すだけでも、かなり点は取れる気がする。&lt;/p></description></item><item><title>VCP6-NV 試験勉強メモ 2日目</title><link>https://www.hitsumabushi.org/blog/2016/07/07/0742/</link><pubDate>Thu, 07 Jul 2016 07:42:46 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/07/07/0742/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>
@@ -237,7 +237,7 @@ VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違っ�
 &lt;/ul>
 &lt;h3 id="分散論理ルータ">分散論理ルータ&lt;/h3>
 &lt;p>カーネルモジュール内で動作するルーター。
-各ESXiに分散して存在していて、ヘアピントラフィックを防ぐことができる。&lt;/p></description></item><item><title>VCP6-NV 試験勉強メモ</title><link>https://www.hitsumabushi.org/post/2016/2121/</link><pubDate>Tue, 05 Jul 2016 21:21:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/2121/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+各ESXiに分散して存在していて、ヘアピントラフィックを防ぐことができる。&lt;/p></description></item><item><title>VCP6-NV 試験勉強メモ</title><link>https://www.hitsumabushi.org/blog/2016/07/05/2121/</link><pubDate>Tue, 05 Jul 2016 21:21:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/07/05/2121/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>
@@ -258,7 +258,7 @@ VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違っ�
 &lt;/ul>
 &lt;h2 id="nsxの-configuration-maximums">NSXの configuration maximums&lt;/h2>
 &lt;p>&lt;a href="https://www.vmware.com/pdf/vsphere6/r60/vsphere-60-configuration-maximums.pdf">vSphere 製品のように&lt;/a> 公開されているわけではない。
-でも、以下のサイトのように、情報を公開している人はいる。&lt;/p></description></item><item><title>VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</title><link>https://www.hitsumabushi.org/post/2016/2040/</link><pubDate>Tue, 05 Jul 2016 20:40:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/2040/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+でも、以下のサイトのように、情報を公開している人はいる。&lt;/p></description></item><item><title>VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</title><link>https://www.hitsumabushi.org/blog/2016/07/05/2040/</link><pubDate>Tue, 05 Jul 2016 20:40:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/07/05/2040/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>
@@ -282,7 +282,7 @@ VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違っ�
 &lt;/ol>
 &lt;h2 id="vcp6-nv-について">VCP6-NV について&lt;/h2>
 &lt;p>VCP-NVは、VMwareのNSXを用いた仮想ネットワーク管理についての試験です。
-他のVCPと同様に、VCA-NV → VCP-NV → VCAP-NV {Design, Deploy} → VCIX-NV → VCDX-NV というような資格体系です。&lt;/p></description></item><item><title>会社にslack入ったので、色々やってた</title><link>https://www.hitsumabushi.org/post/2016/1445/</link><pubDate>Thu, 16 Jun 2016 14:45:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/1445/</guid><description>&lt;p>勤務先の会社に今日(2016/06/16)から真面目にSlackが導入されたので、やった設定をメモしておく。&lt;/p>
+他のVCPと同様に、VCA-NV → VCP-NV → VCAP-NV {Design, Deploy} → VCIX-NV → VCDX-NV というような資格体系です。&lt;/p></description></item><item><title>会社にslack入ったので、色々やってた</title><link>https://www.hitsumabushi.org/blog/2016/06/16/1445/</link><pubDate>Thu, 16 Jun 2016 14:45:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/06/16/1445/</guid><description>&lt;p>勤務先の会社に今日(2016/06/16)から真面目にSlackが導入されたので、やった設定をメモしておく。&lt;/p>
 &lt;h1 id="現在のチャンネル構成">現在のチャンネル構成&lt;/h1>
 &lt;ul>
 &lt;li>定常系
@@ -308,20 +308,20 @@ VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違っ�
 &lt;/ul>
 &lt;h1 id="やったことメモ">やったことメモ&lt;/h1>
 &lt;h2 id="rss-を-slack-に移行">RSS を Slack に移行&lt;/h2>
-&lt;p>live dwango reader をずっと使っていたのだけど、更新頻度がそこそこで、重要度の高いRSSを Slack で追いかけることにした。&lt;/p></description></item><item><title>Anisble for Windows</title><link>https://www.hitsumabushi.org/post/2016/386/</link><pubDate>Thu, 16 Jun 2016 06:02:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/386/</guid><description>&lt;p>久しぶりに ansible で windows を操作するので、メモ。
+&lt;p>live dwango reader をずっと使っていたのだけど、更新頻度がそこそこで、重要度の高いRSSを Slack で追いかけることにした。&lt;/p></description></item><item><title>Anisble for Windows</title><link>https://www.hitsumabushi.org/blog/2016/06/16/0602/</link><pubDate>Thu, 16 Jun 2016 06:02:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/06/16/0602/</guid><description>&lt;p>久しぶりに ansible で windows を操作するので、メモ。
 実行側は Debian Sid でやっているので、apt-get しているところについては、適宜置き換えて欲しい。
-ansibleは2.1.0を使っている。&lt;/p></description></item><item><title>YAMAHAのネットボランチDNSを使って、ニフティクラウドとVPN接続する</title><link>https://www.hitsumabushi.org/post/2016/404/</link><pubDate>Tue, 03 May 2016 06:24:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/404/</guid><description>&lt;h2 id="やりたいこと">やりたいこと&lt;/h2>
+ansibleは2.1.0を使っている。&lt;/p></description></item><item><title>YAMAHAのネットボランチDNSを使って、ニフティクラウドとVPN接続する</title><link>https://www.hitsumabushi.org/blog/2016/05/03/0624/</link><pubDate>Tue, 03 May 2016 06:24:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/05/03/0624/</guid><description>&lt;h2 id="やりたいこと">やりたいこと&lt;/h2>
 &lt;p>いろいろあって、自宅のグローバルIPv4アドレスが変更される機会があった。
 ニフティクラウド上のルーターとVPN接続しているため、グローバルIPが変更されると、
 いちいち変更されたタイミングでVPN設定を変更する必要があり、非常に面倒くさい。
-そういうわけで、DDNSを使って設定することで、グローバルIPが変更された場合でも設定変更の必要がないようにしようと思う。&lt;/p></description></item><item><title>久しぶりにGitHub Pagesのjekyll触ったので、メモ</title><link>https://www.hitsumabushi.org/post/2016/198/</link><pubDate>Fri, 25 Mar 2016 03:06:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/198/</guid><description>&lt;p>このブログは、pelicanを使っているのだけど、久しぶりにGitHub Pagesのjekyllを触ることがあって、
-昔とだいぶ状況も変わっていそうだったので、メモをしておく。&lt;/p></description></item><item><title>Travis コマンドでのエラー</title><link>https://www.hitsumabushi.org/post/2016/1513/</link><pubDate>Sat, 02 Jan 2016 15:13:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/1513/</guid><description>&lt;p>Travis CIでCIする素振りをしていたら、最新版のtravisコマンドでエラーが出るようになった。&lt;/p>
+そういうわけで、DDNSを使って設定することで、グローバルIPが変更された場合でも設定変更の必要がないようにしようと思う。&lt;/p></description></item><item><title>久しぶりにGitHub Pagesのjekyll触ったので、メモ</title><link>https://www.hitsumabushi.org/blog/2016/03/25/0306/</link><pubDate>Fri, 25 Mar 2016 03:06:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/03/25/0306/</guid><description>&lt;p>このブログは、pelicanを使っているのだけど、久しぶりにGitHub Pagesのjekyllを触ることがあって、
+昔とだいぶ状況も変わっていそうだったので、メモをしておく。&lt;/p></description></item><item><title>Travis コマンドでのエラー</title><link>https://www.hitsumabushi.org/blog/2016/01/02/1513/</link><pubDate>Sat, 02 Jan 2016 15:13:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/01/02/1513/</guid><description>&lt;p>Travis CIでCIする素振りをしていたら、最新版のtravisコマンドでエラーが出るようになった。&lt;/p>
 &lt;h2 id="発生した問題">発生した問題&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>$ travis setup releases
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Invalid scheme format: git@github.com
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">for&lt;/span> a full error report, run travis report
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="問題の解析">問題の解析&lt;/h2>
-&lt;p>こういう時には、&lt;/p></description></item><item><title>vSphere 6.0 でのHA機能のエンハンスの要点</title><link>https://www.hitsumabushi.org/post/2015/361/</link><pubDate>Tue, 08 Dec 2015 05:51:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/361/</guid><description>&lt;h2 id="まとめ">まとめ&lt;/h2>
+&lt;p>こういう時には、&lt;/p></description></item><item><title>vSphere 6.0 でのHA機能のエンハンスの要点</title><link>https://www.hitsumabushi.org/blog/2015/12/08/0551/</link><pubDate>Tue, 08 Dec 2015 05:51:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/12/08/0551/</guid><description>&lt;h2 id="まとめ">まとめ&lt;/h2>
 &lt;ol>
 &lt;li>vSphere 6からは、ストレージパスが死んだ場合でもHAを設定できるようになった。&lt;/li>
 &lt;li>vCenterは watchdogs によりプロセス落下時には再起動される&lt;/li>
@@ -336,9 +336,9 @@ ansibleは2.1.0を使っている。&lt;/p></description></item><item><title>YAM
 &lt;/ol>
 &lt;h2 id="vsphere-55-までの障害あるあるpart-1">vSphere 5.5 までの障害あるある(Part 1)&lt;/h2>
 &lt;p>物理ホストのHBAが死んだり経路上の問題で、特定のホスト群のみストレージへのパスが切れた。
-vSphere 5.5 までは、ストレージへのパスが死んだ場合、HAによる保護ができない障害パターンで、IOが止まっているが、管理者が別のホストに移してから再起動するまでアプリケーションは死んでいた。&lt;/p></description></item><item><title>最近の仕事の振り返り</title><link>https://www.hitsumabushi.org/post/2015/1350/</link><pubDate>Sat, 31 Oct 2015 13:50:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/1350/</guid><description>&lt;p>最近、仕事のやり方について考えている(悩んでいるに近いかも)ことが多いので、
+vSphere 5.5 までは、ストレージへのパスが死んだ場合、HAによる保護ができない障害パターンで、IOが止まっているが、管理者が別のホストに移してから再起動するまでアプリケーションは死んでいた。&lt;/p></description></item><item><title>最近の仕事の振り返り</title><link>https://www.hitsumabushi.org/blog/2015/10/31/1350/</link><pubDate>Sat, 31 Oct 2015 13:50:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/10/31/1350/</guid><description>&lt;p>最近、仕事のやり方について考えている(悩んでいるに近いかも)ことが多いので、
 頭の中を整理するために、文章にしてみようと思う。&lt;/p>
-&lt;p>なので、技術的な内容は一切ない。&lt;/p></description></item><item><title>Dockerの細々としたメモ</title><link>https://www.hitsumabushi.org/post/2015/273/</link><pubDate>Tue, 15 Sep 2015 04:21:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/273/</guid><description>&lt;p>Debian で利用する際のメモを書いておく。&lt;/p>
+&lt;p>なので、技術的な内容は一切ない。&lt;/p></description></item><item><title>Dockerの細々としたメモ</title><link>https://www.hitsumabushi.org/blog/2015/09/15/0421/</link><pubDate>Tue, 15 Sep 2015 04:21:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/09/15/0421/</guid><description>&lt;p>Debian で利用する際のメモを書いておく。&lt;/p>
 &lt;h2 id="grub-でのカーネルパラメータ">grub でのカーネルパラメータ&lt;/h2>
 &lt;ol>
 &lt;li>systemd を利用する設定&lt;/li>
@@ -348,7 +348,7 @@ vSphere 5.5 までは、ストレージへのパスが死んだ場合、HAによ
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">GRUB_CMDLINE_LINUX_DEFAULT&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;quiet init=/bin/systemd&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#8be9fd;font-style:italic">GRUB_CMDLINE_LINUX&lt;/span>&lt;span style="color:#ff79c6">=&lt;/span>&lt;span style="color:#f1fa8c">&amp;#34;cgroup_enable=memory swapaccount=1&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="cgroups-まわり">cgroups まわり&lt;/h2>
-&lt;p>cgroups のディレクトリ配下に設定がある&lt;/p></description></item><item><title>VM Resource Allocation</title><link>https://www.hitsumabushi.org/post/2015/2030/</link><pubDate>Sun, 26 Jul 2015 20:30:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2030/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
+&lt;p>cgroups のディレクトリ配下に設定がある&lt;/p></description></item><item><title>VM Resource Allocation</title><link>https://www.hitsumabushi.org/blog/2015/07/26/2030/</link><pubDate>Sun, 26 Jul 2015 20:30:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/07/26/2030/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="http://henricasanova.github.io/papers/stillwell_ipdps12.pdf">stillwell_ipdps12.pdf&lt;/a>&lt;/li>
 &lt;li>&lt;a href="http://research.microsoft.com/en-us/um/people/saikat/paper-socc12-rai-wrasse.html">Generalized Resource Allocation for the Cloud&lt;/a>&lt;/li>
@@ -356,15 +356,15 @@ vSphere 5.5 までは、ストレージへのパスが死んだ場合、HAによ
 &lt;li>&lt;a href="http://www.ce.uniroma2.it/~lopresti/Articoli/icas_camera_ready.pdf">Ghostscript wrapper for C:\Documents and Settings\Paolo\Desktop\icas2.pdf - icas_camera_ready.pdf&lt;/a>&lt;/li>
 &lt;li>&lt;a href="http://graal.ens-lyon.fr/~prenaud/Publis/resilience">resilience&lt;/a>&lt;/li>
 &lt;li>&lt;a href="http://www.cse.iitb.ac.in/synerg/lib/exe/fetch.php?media=public:resources:stage0_5ppt_dhaval.pdf">fetch.php&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Twitterからメールアドレス拾えるんじゃね?的な攻撃について</title><link>https://www.hitsumabushi.org/post/2015/1250/</link><pubDate>Fri, 26 Jun 2015 12:50:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/1250/</guid><description>&lt;p>&lt;a href="http://did2memo.net/2015/06/24/twitter-one-click-login-attack/">任意のTwitterアカウントの登録メールアドレス（伏せ字含）を表示させる攻撃が急増中（対策設定有り）&lt;/a> というエントリが盛り上がっていたらしい。(とてもシェアされている)
+&lt;/ul></description></item><item><title>Twitterからメールアドレス拾えるんじゃね?的な攻撃について</title><link>https://www.hitsumabushi.org/blog/2015/06/26/1250/</link><pubDate>Fri, 26 Jun 2015 12:50:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/06/26/1250/</guid><description>&lt;p>&lt;a href="http://did2memo.net/2015/06/24/twitter-one-click-login-attack/">任意のTwitterアカウントの登録メールアドレス（伏せ字含）を表示させる攻撃が急増中（対策設定有り）&lt;/a> というエントリが盛り上がっていたらしい。(とてもシェアされている)
 ただ、自分には有用な攻撃シナリオには見えなかったので、考えを整理するために書いておきます。
-自分はセキュリティ素人なので、間違った考察かもしれません。&lt;/p></description></item><item><title>runCをDebianで実行する</title><link>https://www.hitsumabushi.org/post/2015/2047/</link><pubDate>Tue, 23 Jun 2015 20:47:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2047/</guid><description>&lt;p>&lt;a href="https://github.com/opencontainers/runc">opencontainers/runc&lt;/a> を実行してみようとしたところ、コンパイルまではすぐできるのに、実行するとエラーが出て困ったので、対処方法を書いておく。&lt;/p>
+自分はセキュリティ素人なので、間違った考察かもしれません。&lt;/p></description></item><item><title>runCをDebianで実行する</title><link>https://www.hitsumabushi.org/blog/2015/06/23/2047/</link><pubDate>Tue, 23 Jun 2015 20:47:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/06/23/2047/</guid><description>&lt;p>&lt;a href="https://github.com/opencontainers/runc">opencontainers/runc&lt;/a> を実行してみようとしたところ、コンパイルまではすぐできるのに、実行するとエラーが出て困ったので、対処方法を書いておく。&lt;/p>
 &lt;h2 id="runcのインストール">runCのインストール&lt;/h2>
-&lt;p>golang的に普通の場所に置いてビルドすると良い。git clone の代わりに go getでも良い。&lt;/p></description></item><item><title>Windowsの勉強を始めた</title><link>https://www.hitsumabushi.org/post/2015/4/</link><pubDate>Mon, 15 Jun 2015 00:04:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/4/</guid><description>&lt;p>人生で初めて、Windowsの勉強を始めた。
+&lt;p>golang的に普通の場所に置いてビルドすると良い。git clone の代わりに go getでも良い。&lt;/p></description></item><item><title>Windowsの勉強を始めた</title><link>https://www.hitsumabushi.org/blog/2015/06/15/0004/</link><pubDate>Mon, 15 Jun 2015 00:04:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/06/15/0004/</guid><description>&lt;p>人生で初めて、Windowsの勉強を始めた。
 進捗は以下のgithub pagesから確認できる。
-とりあえず、章立てを書いて、内容を徐々に埋めているところ。&lt;/p></description></item><item><title>VDI, DaaS市場を調べてみた</title><link>https://www.hitsumabushi.org/post/2015/217/</link><pubDate>Sun, 07 Jun 2015 03:31:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/217/</guid><description>&lt;p>最近、vCloud AirがDaaSを出すというのを聞いて、にわかに自分の中でDaaSに興味が出てきた。
+とりあえず、章立てを書いて、内容を徐々に埋めているところ。&lt;/p></description></item><item><title>VDI, DaaS市場を調べてみた</title><link>https://www.hitsumabushi.org/blog/2015/06/07/0331/</link><pubDate>Sun, 07 Jun 2015 03:31:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/06/07/0331/</guid><description>&lt;p>最近、vCloud AirがDaaSを出すというのを聞いて、にわかに自分の中でDaaSに興味が出てきた。
 DaaSとかVDIは、必ずActive Directoryの話になるので、気後れしていたのだけど、会社ではWindows使っていることもあって、少しは抵抗もなくなってきたので、良いタイミングだったので、調べてみた。
-とは言っても、まずは世間にどんなものがあるかをしらべてみただけ。&lt;/p></description></item><item><title>WindowsをAnsibleで設定する</title><link>https://www.hitsumabushi.org/post/2015/391/</link><pubDate>Thu, 28 May 2015 06:07:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/391/</guid><description>&lt;h1 id="資料">資料&lt;/h1>
+とは言っても、まずは世間にどんなものがあるかをしらべてみただけ。&lt;/p></description></item><item><title>WindowsをAnsibleで設定する</title><link>https://www.hitsumabushi.org/blog/2015/05/28/0607/</link><pubDate>Thu, 28 May 2015 06:07:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/05/28/0607/</guid><description>&lt;h1 id="資料">資料&lt;/h1>
 &lt;p>&lt;a href="http://docs.ansible.com/intro_windows.html">Windows Support — Ansible Documentation&lt;/a>&lt;/p>
 &lt;h1 id="マシンの準備">マシンの準備&lt;/h1>
 &lt;h2 id="ansibleコマンドを実行するマシン">ansibleコマンドを実行するマシン&lt;/h2>
@@ -391,11 +391,11 @@ DaaSとかVDIは、必ずActive Directoryの話になるので、気後れして
 &lt;/ol>
 &lt;h1 id="ansibleの実行方法">ansibleの実行方法&lt;/h1>
 &lt;h2 id="inventory">Inventory&lt;/h2>
-&lt;p>最小構成は以下の通り。 以降は、hostsという名前で呼ぶ。&lt;/p></description></item><item><title>Ravelloが便利</title><link>https://www.hitsumabushi.org/post/2015/1822/</link><pubDate>Sat, 09 May 2015 18:22:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/1822/</guid><description>&lt;h2 id="vmware環境のテストをしたい">VMware環境のテストをしたい&lt;/h2>
+&lt;p>最小構成は以下の通り。 以降は、hostsという名前で呼ぶ。&lt;/p></description></item><item><title>Ravelloが便利</title><link>https://www.hitsumabushi.org/blog/2015/05/09/1822/</link><pubDate>Sat, 09 May 2015 18:22:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/05/09/1822/</guid><description>&lt;h2 id="vmware環境のテストをしたい">VMware環境のテストをしたい&lt;/h2>
 &lt;p>会社でVMware使っているのもあって、外でAPI叩いたりツールのテストしたいということがよくある。
 今までは自宅でESXiとvCenter立ててやっていたんですが、やっぱりリソース的にVM数を増やしたりできないので、とても困っている。
 あと、PackerとかでVMware用のイメージ作るときに使えるESXiも欲しかったので、どうにかできないかなー、というのもあって、
-探していたらRavelloというサービスが面白そうだったので、紹介がてら書いておく。&lt;/p></description></item><item><title>Xmonadの設定</title><link>https://www.hitsumabushi.org/post/2015/138/</link><pubDate>Sun, 05 Apr 2015 01:38:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/138/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
+探していたらRavelloというサービスが面白そうだったので、紹介がてら書いておく。&lt;/p></description></item><item><title>Xmonadの設定</title><link>https://www.hitsumabushi.org/blog/2015/04/05/0138/</link><pubDate>Sun, 05 Apr 2015 01:38:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/04/05/0138/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
 &lt;ol>
 &lt;li>&lt;a href="http://xmonad.org/documentation.html">http://xmonad.org/documentation.html&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://archlinuxjp.kusakata.com/wiki/Xmonad?rdfrom=https%3A%2F%2Fwiki.archlinux.org%2Findex.php%3Ftitle%3DXmonad_%28%25E6%2597%25A5%25E6%259C%25AC%25E8%25AA%259E%29%26redirect%3Dno">Archlinux Wiki - Xmonad&lt;/a>&lt;/li>
@@ -417,19 +417,19 @@ DaaSとかVDIは、必ずActive Directoryの話になるので、気後れして
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="xsession">Xsession&lt;/h3>
 &lt;ol>
 &lt;li>
-&lt;p>add &lt;code>/usr/share/xsessions/custom.desktop&lt;/code>&lt;/p></description></item><item><title>Hatena Engineer Seminar</title><link>https://www.hitsumabushi.org/post/2015/2245/</link><pubDate>Mon, 09 Feb 2015 22:45:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2245/</guid><description>&lt;h2 id="intro">Intro&lt;/h2>
+&lt;p>add &lt;code>/usr/share/xsessions/custom.desktop&lt;/code>&lt;/p></description></item><item><title>Hatena Engineer Seminar</title><link>https://www.hitsumabushi.org/blog/2015/02/09/2245/</link><pubDate>Mon, 09 Feb 2015 22:45:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/02/09/2245/</guid><description>&lt;h2 id="intro">Intro&lt;/h2>
 &lt;p>タイトルどおり、行ってきました。
 目当ては、mackerelの話だったんですが、思ったより他の話も面白かったです。
 今回は抽選だったし、参加できなかった人のためにも、メモと感想を書いておきます。
-序盤の話はTwitterでつぶやいているので、参考までに。(後半はPCの電源が死んだのでないです)&lt;/p></description></item><item><title>fioを使ったベンチマーク</title><link>https://www.hitsumabushi.org/post/2015/2227/</link><pubDate>Mon, 09 Feb 2015 22:27:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2227/</guid><description>&lt;h2 id="intro">Intro&lt;/h2>
+序盤の話はTwitterでつぶやいているので、参考までに。(後半はPCの電源が死んだのでないです)&lt;/p></description></item><item><title>fioを使ったベンチマーク</title><link>https://www.hitsumabushi.org/blog/2015/02/09/2227/</link><pubDate>Mon, 09 Feb 2015 22:27:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/02/09/2227/</guid><description>&lt;h2 id="intro">Intro&lt;/h2>
 &lt;p>ディスクベンチマークのツールとして、dbenchであるとか、もっと簡単にはhdparmなどがある。
 今回はfioという、単純なread/writeの計測には必要十分なツールを使おうと思う。
-ただ、ベンチマークツールはたいていオプションが多く、またアウトプットも複雑なので、一旦まとめてみる。&lt;/p></description></item><item><title>Easter Egg Collections</title><link>https://www.hitsumabushi.org/post/2015/2144/</link><pubDate>Sat, 07 Feb 2015 21:44:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2144/</guid><description>&lt;p>イースターエッグは、見つかるとよく話題に上がっているけど、
+ただ、ベンチマークツールはたいていオプションが多く、またアウトプットも複雑なので、一旦まとめてみる。&lt;/p></description></item><item><title>Easter Egg Collections</title><link>https://www.hitsumabushi.org/blog/2015/02/07/2144/</link><pubDate>Sat, 07 Feb 2015 21:44:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/02/07/2144/</guid><description>&lt;p>イースターエッグは、見つかるとよく話題に上がっているけど、
 実際にどんなものがあるのか、よく知らないなー、と思ったので集めようと思う。
-ただ、調べてみると、昔あったものがなくなってたりして、このリストも最新状態に保つ必要があるので、なくなってたら教えてほしいです。&lt;/p></description></item><item><title>Consistent Algorithm</title><link>https://www.hitsumabushi.org/post/2015/27/</link><pubDate>Sun, 01 Feb 2015 00:33:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/27/</guid><description>&lt;p>Consistent Hash Algorithmという負荷分散などの目的で使えるアルゴリズムがある。
-たまたまarxivでシンプルで高速, 省メモリな実装についての論文を見つけたので、読んだ。&lt;/p></description></item><item><title>CROSS 2015のアンカンファレンスで話しました</title><link>https://www.hitsumabushi.org/post/2015/208/</link><pubDate>Sat, 31 Jan 2015 03:20:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/208/</guid><description>&lt;p>CROSS 2015のアンカンファレンスで脆弱性の評価って困る、話をしました。
+ただ、調べてみると、昔あったものがなくなってたりして、このリストも最新状態に保つ必要があるので、なくなってたら教えてほしいです。&lt;/p></description></item><item><title>Consistent Algorithm</title><link>https://www.hitsumabushi.org/blog/2015/02/01/0033/</link><pubDate>Sun, 01 Feb 2015 00:33:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/02/01/0033/</guid><description>&lt;p>Consistent Hash Algorithmという負荷分散などの目的で使えるアルゴリズムがある。
+たまたまarxivでシンプルで高速, 省メモリな実装についての論文を見つけたので、読んだ。&lt;/p></description></item><item><title>CROSS 2015のアンカンファレンスで話しました</title><link>https://www.hitsumabushi.org/blog/2015/01/31/0320/</link><pubDate>Sat, 31 Jan 2015 03:20:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/31/0320/</guid><description>&lt;p>CROSS 2015のアンカンファレンスで脆弱性の評価って困る、話をしました。
 スタッフやりつつ、当日資料作りもやったので、あまり資料としての完成度はないです。
-たぶんプレゼン作成時間30分くらい。&lt;/p></description></item><item><title>CROSS2015の運営をしたので、やったこととわかったことを書いておく</title><link>https://www.hitsumabushi.org/post/2015/2209/</link><pubDate>Fri, 30 Jan 2015 22:09:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2209/</guid><description>&lt;h2 id="わかったことざっくり">わかったことざっくり&lt;/h2>
+たぶんプレゼン作成時間30分くらい。&lt;/p></description></item><item><title>CROSS2015の運営をしたので、やったこととわかったことを書いておく</title><link>https://www.hitsumabushi.org/blog/2015/01/30/2209/</link><pubDate>Fri, 30 Jan 2015 22:09:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/30/2209/</guid><description>&lt;h2 id="わかったことざっくり">わかったことざっくり&lt;/h2>
 &lt;ul>
 &lt;li>大規模イベントは、全体を把握している人はいない、という気持ちを持つことが大事。(実際いない)&lt;/li>
 &lt;li>直前に言われたときほど、利害がはっきりしているので、お互いにメリットがありそうな道を出しやすいので、出す&lt;/li>
@@ -438,17 +438,17 @@ DaaSとかVDIは、必ずActive Directoryの話になるので、気後れして
 &lt;h2 id="経緯">経緯&lt;/h2>
 &lt;p>2015年の1/29に大さん橋ホールにて、&lt;a href="http://2015.cross-party.com/">CROSS2015&lt;/a> というイベントの運営をしてきました。
 当日は都心から離れているにも関わらず、たくさんの参加者に来ていただいたのですが、どうにか大きなトラブルはなく、無事に終えることができました。
-1日中立ちっぱなしだったり、細かい備品調整の話があって、大変なのは大変でしたが、半年前くらいから準備をしていたこともあり、なんとかやりきった、という気持ちが強い状況です。&lt;/p></description></item><item><title>Dockerのプロキシ設定</title><link>https://www.hitsumabushi.org/post/2015/492/</link><pubDate>Thu, 29 Jan 2015 07:54:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/492/</guid><description>&lt;p>自宅ではプロキシを立てていないので問題なかったが、会社でDockerをいじろうとするとプロキシに阻まれてうまくいかず困っていた。
+1日中立ちっぱなしだったり、細かい備品調整の話があって、大変なのは大変でしたが、半年前くらいから準備をしていたこともあり、なんとかやりきった、という気持ちが強い状況です。&lt;/p></description></item><item><title>Dockerのプロキシ設定</title><link>https://www.hitsumabushi.org/blog/2015/01/29/0754/</link><pubDate>Thu, 29 Jan 2015 07:54:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/29/0754/</guid><description>&lt;p>自宅ではプロキシを立てていないので問題なかったが、会社でDockerをいじろうとするとプロキシに阻まれてうまくいかず困っていた。
 bashの環境変数を設定するのはうまくいかなくて、しばらく手元ではdockerをやらず、作業用マシンをクラウドに立ててどうにかごまかしていたのだけど、
-あらためて考えると解決できた。&lt;/p></description></item><item><title>DNS サーバーの比較資料集め</title><link>https://www.hitsumabushi.org/post/2015/202/</link><pubDate>Mon, 26 Jan 2015 03:12:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/202/</guid><description>&lt;p>自宅開発環境を一新するついでに、真面目にサーバー構成を見直すことにした。
+あらためて考えると解決できた。&lt;/p></description></item><item><title>DNS サーバーの比較資料集め</title><link>https://www.hitsumabushi.org/blog/2015/01/26/0312/</link><pubDate>Mon, 26 Jan 2015 03:12:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/26/0312/</guid><description>&lt;p>自宅開発環境を一新するついでに、真面目にサーバー構成を見直すことにした。
 DNSサーバーは今までbind+dnsmasqでやっていたが、改めてパフォーマンスの観点から選定したい。
-以下に、参考ページを列挙する。&lt;/p></description></item><item><title>vShere Beta Program の注意点</title><link>https://www.hitsumabushi.org/post/2015/2101/</link><pubDate>Sun, 25 Jan 2015 21:01:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2101/</guid><description>&lt;p>VMware のBetaプログラムの利用について、基本的なルールがあるので、忘れないようにまとめた。
-ここに書いてあることは、オレオレ要約なので、きちんと自分で確認してください。&lt;/p></description></item><item><title>VCP5-DCV取得した</title><link>https://www.hitsumabushi.org/post/2015/2348/</link><pubDate>Fri, 16 Jan 2015 23:48:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2348/</guid><description>&lt;p>最近のブログはVMwareの話ばかりだったのですが、やっとVCPを取得してきました。
-VCP-DCVを取得している人はたくさんいるので、個人的に受験した所感を書いておきます。&lt;/p></description></item><item><title>vDSのポートバインドタイプ</title><link>https://www.hitsumabushi.org/post/2015/2349/</link><pubDate>Sat, 10 Jan 2015 23:49:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2349/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
+以下に、参考ページを列挙する。&lt;/p></description></item><item><title>vShere Beta Program の注意点</title><link>https://www.hitsumabushi.org/blog/2015/01/25/2101/</link><pubDate>Sun, 25 Jan 2015 21:01:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/25/2101/</guid><description>&lt;p>VMware のBetaプログラムの利用について、基本的なルールがあるので、忘れないようにまとめた。
+ここに書いてあることは、オレオレ要約なので、きちんと自分で確認してください。&lt;/p></description></item><item><title>VCP5-DCV取得した</title><link>https://www.hitsumabushi.org/blog/2015/01/16/2348/</link><pubDate>Fri, 16 Jan 2015 23:48:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/16/2348/</guid><description>&lt;p>最近のブログはVMwareの話ばかりだったのですが、やっとVCPを取得してきました。
+VCP-DCVを取得している人はたくさんいるので、個人的に受験した所感を書いておきます。&lt;/p></description></item><item><title>vDSのポートバインドタイプ</title><link>https://www.hitsumabushi.org/blog/2015/01/10/2349/</link><pubDate>Sat, 10 Jan 2015 23:49:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/10/2349/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
 &lt;p>&lt;a href="http://kb.vmware.com/selfservice/search.do?cmd=displayKC&amp;amp;docType=kc&amp;amp;docTypeID=DT_KB_1_1&amp;amp;externalId=2086886">VMware KB: ESX/ESXi でのポート バインド タイプの選択&lt;/a>&lt;/p>
 &lt;h2 id="ポートバインドタイプとは">ポートバインドタイプとは&lt;/h2>
 &lt;p>vNICをvDSに接続するとき、ポートグループのポートがどのようにVMに割り当てられるかを、ポートバインドタイプとして、設定できます。
-バインドのタイプは以下の3つから選択できました。(2つめの動的バインドは、ESXi5.0で廃止。)&lt;/p></description></item><item><title>vSphere 5.5環境でMSCSクラスタを組むときの制約</title><link>https://www.hitsumabushi.org/post/2015/2029/</link><pubDate>Wed, 07 Jan 2015 20:29:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2029/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
+バインドのタイプは以下の3つから選択できました。(2つめの動的バインドは、ESXi5.0で廃止。)&lt;/p></description></item><item><title>vSphere 5.5環境でMSCSクラスタを組むときの制約</title><link>https://www.hitsumabushi.org/blog/2015/01/07/2029/</link><pubDate>Wed, 07 Jan 2015 20:29:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/07/2029/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
 &lt;p>MSCSのサポート状況&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;amp;cmd=displayKC&amp;amp;externalId=1004617">VMware KB: Microsoft Cluster Service (MSCS) support on ESXi/ESX&lt;/a>&lt;/li>
@@ -460,7 +460,7 @@ VCP-DCVを取得している人はたくさんいるので、個人的に受験�
 &lt;/ul>
 &lt;h2 id="mscs">MSCS&lt;/h2>
 &lt;p>Microsoft Cluster Serviceのこと。
-MSFC(Microsoft Failover Cluster)と名称が変わっているけど、未だにMSCSと呼ばれる場合もある。&lt;/p></description></item><item><title>VMware VDP, VDPA</title><link>https://www.hitsumabushi.org/post/2015/1924/</link><pubDate>Wed, 07 Jan 2015 19:24:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/1924/</guid><description>&lt;h2 id="vmware-data-protection">VMware Data Protection&lt;/h2>
+MSFC(Microsoft Failover Cluster)と名称が変わっているけど、未だにMSCSと呼ばれる場合もある。&lt;/p></description></item><item><title>VMware VDP, VDPA</title><link>https://www.hitsumabushi.org/blog/2015/01/07/1924/</link><pubDate>Wed, 07 Jan 2015 19:24:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/07/1924/</guid><description>&lt;h2 id="vmware-data-protection">VMware Data Protection&lt;/h2>
 &lt;h3 id="資料">資料&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="http://blogs.vmware.com/jp-cim/2013/12/vsphere-55-vdpa.html">vSphere 5.5 の新機能紹介 - VMware Blogs&lt;/a>&lt;/li>
@@ -468,7 +468,7 @@ MSFC(Microsoft Failover Cluster)と名称が変わっているけど、未だに
 &lt;/ul>
 &lt;h3 id="概要">概要&lt;/h3>
 &lt;p>VMware Data Recoveryの後継みたいなものっぽい。&lt;/p>
-&lt;p>VDRから発展した点としては、以下があある。&lt;/p></description></item><item><title>ESXiをkickstartでインストールする</title><link>https://www.hitsumabushi.org/post/2015/2338/</link><pubDate>Tue, 06 Jan 2015 23:38:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2338/</guid><description>&lt;p>ESXiをPXEブートして自動インストールする方法について、日本語での説明があまりなかったので、メモとして残しておく。&lt;/p>
+&lt;p>VDRから発展した点としては、以下があある。&lt;/p></description></item><item><title>ESXiをkickstartでインストールする</title><link>https://www.hitsumabushi.org/blog/2015/01/06/2338/</link><pubDate>Tue, 06 Jan 2015 23:38:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/06/2338/</guid><description>&lt;p>ESXiをPXEブートして自動インストールする方法について、日本語での説明があまりなかったので、メモとして残しておく。&lt;/p>
 &lt;h2 id="利用os">利用OS&lt;/h2>
 &lt;ul>
 &lt;li>ESXi 5.5&lt;/li>
@@ -478,7 +478,7 @@ MSFC(Microsoft Failover Cluster)と名称が変わっているけど、未だに
 &lt;h3 id="必要なソフトウェアのインストール">必要なソフトウェアのインストール&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>apt-get install tftpd-hpa isc-dhcp-server xinetd apache2
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="dhcpサーバーの設定">DHCPサーバーの設定&lt;/h3>
-&lt;p>BOOTPでインストールするため、あまり自由度がない。&lt;/p></description></item><item><title>vCloud Airの価格感を調べる</title><link>https://www.hitsumabushi.org/post/2015/1735/</link><pubDate>Mon, 05 Jan 2015 17:35:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/1735/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
+&lt;p>BOOTPでインストールするため、あまり自由度がない。&lt;/p></description></item><item><title>vCloud Airの価格感を調べる</title><link>https://www.hitsumabushi.org/blog/2015/01/05/1735/</link><pubDate>Mon, 05 Jan 2015 17:35:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/05/1735/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="http://www.vmware.com/jp/products/vcloud-air">VMware vCloud Air&lt;/a>&lt;/li>
 &lt;li>&lt;a href="http://vcloud.vmware.com/jp/service-offering/pricing-guide">VMware vCloud Air 価格ガイド&lt;/a>&lt;/li>
@@ -486,7 +486,7 @@ MSFC(Microsoft Failover Cluster)と名称が変わっているけど、未だに
 &lt;h2 id="vcloud-airとは">vCloud Airとは&lt;/h2>
 &lt;p>VMwareが提供している、ハイブリッドクラウドのサービス。&lt;/p>
 &lt;p>特徴として、オンプレでVMware環境を稼働させている場合に、vCloud Connectorを利用することで、
-vSphere Clientのプラグインと統合して操作ができることが挙げられる。&lt;/p></description></item><item><title>2014年のまとめをしておかねば</title><link>https://www.hitsumabushi.org/post/2014/1805/</link><pubDate>Wed, 31 Dec 2014 18:05:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/1805/</guid><description>&lt;p>今年1年は反省の多い年だったので、きちんと書いて残しておく。&lt;/p>
+vSphere Clientのプラグインと統合して操作ができることが挙げられる。&lt;/p></description></item><item><title>2014年のまとめをしておかねば</title><link>https://www.hitsumabushi.org/blog/2014/12/31/1805/</link><pubDate>Wed, 31 Dec 2014 18:05:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/12/31/1805/</guid><description>&lt;p>今年1年は反省の多い年だったので、きちんと書いて残しておく。&lt;/p>
 &lt;h2 id="2014年面白かった技術触りたかったソフトウェア">2014年面白かった技術、触りたかったソフトウェア&lt;/h2>
 &lt;h3 id="新たに導入したもの">新たに導入したもの&lt;/h3>
 &lt;ol>
@@ -513,8 +513,8 @@ vSphere Clientのプラグインと統合して操作ができることが挙げ
 &lt;/ol>
 &lt;h2 id="2014年のトピックス">2014年のトピックス&lt;/h2>
 &lt;p>思い返すと1月のこととかは何年も前に感じるが、今年は割と色々あった。
-自分の中でトピックとして大きい出来事を中心に書いてみる&lt;/p></description></item><item><title>VCPの学習中のメモ</title><link>https://www.hitsumabushi.org/post/2014/548/</link><pubDate>Tue, 30 Dec 2014 05:48:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/548/</guid><description>&lt;p>項目分けするほどでもないが、知っておくとVCP受講時に役にたつことをメモしていきます。
-特に、あまり使われていない機能については、調べてないとわからないことが多いと思うので、参考になればと思います。&lt;/p></description></item><item><title>VMware環境でのNPIVについて</title><link>https://www.hitsumabushi.org/post/2014/175/</link><pubDate>Tue, 30 Dec 2014 02:57:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/175/</guid><description>&lt;p>VCP-DCV取得のために勉強していたところ、NPIVという用語が出てきたので、調べてみたことを書いておきます。&lt;/p>
+自分の中でトピックとして大きい出来事を中心に書いてみる&lt;/p></description></item><item><title>VCPの学習中のメモ</title><link>https://www.hitsumabushi.org/blog/2014/12/30/0548/</link><pubDate>Tue, 30 Dec 2014 05:48:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/12/30/0548/</guid><description>&lt;p>項目分けするほどでもないが、知っておくとVCP受講時に役にたつことをメモしていきます。
+特に、あまり使われていない機能については、調べてないとわからないことが多いと思うので、参考になればと思います。&lt;/p></description></item><item><title>VMware環境でのNPIVについて</title><link>https://www.hitsumabushi.org/blog/2014/12/30/0257/</link><pubDate>Tue, 30 Dec 2014 02:57:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/12/30/0257/</guid><description>&lt;p>VCP-DCV取得のために勉強していたところ、NPIVという用語が出てきたので、調べてみたことを書いておきます。&lt;/p>
 &lt;h2 id="資料">資料&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://pubs.vmware.com/vsphere-50/index.jsp?topic=/com.vmware.vsphere.vm_admin.doc_50/GUID-C713BCA5-71B4-4539-A4AE-8E781330755C.html">vSphere ドキュメント センター&lt;/a>&lt;/li>
@@ -531,27 +531,27 @@ vSphere Clientのプラグインと統合して操作ができることが挙げ
 &lt;h2 id="npivとは">NPIVとは&lt;/h2>
 &lt;h3 id="fc環境の基本">FC環境の基本&lt;/h3>
 &lt;p>FC環境では、各ノードはWWN(&lt;em>World Wide Name&lt;/em>)を用いて識別されています。
-IPプロトコルで言うところの、IPアドレスと同様に、アクセス先を表したり、アクセス制限を行ったりする対象が、WWNになります。&lt;/p></description></item><item><title>VCP-DCVの概要 &amp;#58; VCP550</title><link>https://www.hitsumabushi.org/post/2014/88/</link><pubDate>Tue, 30 Dec 2014 01:30:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/88/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
+IPプロトコルで言うところの、IPアドレスと同様に、アクセス先を表したり、アクセス制限を行ったりする対象が、WWNになります。&lt;/p></description></item><item><title>VCP-DCVの概要 &amp;#58; VCP550</title><link>https://www.hitsumabushi.org/blog/2014/12/30/0130/</link><pubDate>Tue, 30 Dec 2014 01:30:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/12/30/0130/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
 &lt;p>&lt;a href="https://mylearn.vmware.com/mgrReg/plan.cfm?plan=12457">VCP-Data Center Virtualization&lt;/a>
 受験を計画されている方は、Exam Blueprints というPDFを一読されることをお勧めします。&lt;/p>
 &lt;h2 id="vcp-dcvの概要">VCP-DCVの概要&lt;/h2>
 &lt;h3 id="バージョン">バージョン&lt;/h3>
 &lt;p>VCP-DCVという資格は、VMwareの製品バージョンに合わせて区別されています。
-例えば、現在のvSphereのバージョンは、5.5が最新バージョンであるため、VCP5-DCV呼ばれています。&lt;/p></description></item><item><title>fluentd-plugin-secure-forward のソースを読んでみる(Input プラグイン編)</title><link>https://www.hitsumabushi.org/post/2014/2345/</link><pubDate>Wed, 17 Dec 2014 23:45:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/2345/</guid><description>&lt;p>本当は全部読もうと思っていたけど、想像以上に疲れたので、Inputだけにしました。
-ただ、整理されているコードなので、Ruby知らなくても読みやすいのは読みやすいと思います。&lt;/p></description></item><item><title>VMware 環境でのMACアドレス割当て</title><link>https://www.hitsumabushi.org/post/2014/1440/</link><pubDate>Wed, 17 Dec 2014 14:40:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/1440/</guid><description>&lt;h2 id="1-まとめ">1. まとめ&lt;/h2>
+例えば、現在のvSphereのバージョンは、5.5が最新バージョンであるため、VCP5-DCV呼ばれています。&lt;/p></description></item><item><title>fluentd-plugin-secure-forward のソースを読んでみる(Input プラグイン編)</title><link>https://www.hitsumabushi.org/blog/2014/12/17/2345/</link><pubDate>Wed, 17 Dec 2014 23:45:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/12/17/2345/</guid><description>&lt;p>本当は全部読もうと思っていたけど、想像以上に疲れたので、Inputだけにしました。
+ただ、整理されているコードなので、Ruby知らなくても読みやすいのは読みやすいと思います。&lt;/p></description></item><item><title>VMware 環境でのMACアドレス割当て</title><link>https://www.hitsumabushi.org/blog/2014/12/17/1440/</link><pubDate>Wed, 17 Dec 2014 14:40:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/12/17/1440/</guid><description>&lt;h2 id="1-まとめ">1. まとめ&lt;/h2>
 &lt;p>vSphere環境上のMACアドレス割当の方式は、複数あります。自分のOUIを割当てたい!!、という場合には、&lt;/p>
 &lt;ol>
 &lt;li>vCenter環境でプレフィックス指定&lt;/li>
 &lt;li>固定割当て&lt;/li>
 &lt;/ol>
-&lt;p>といった方法を使いましょう&lt;/p></description></item><item><title>ソースコードリーディングをするときにctagsを使いたい</title><link>https://www.hitsumabushi.org/post/2014/2000/</link><pubDate>Tue, 16 Dec 2014 20:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/2000/</guid><description>&lt;h2 id="きっかけ">きっかけ&lt;/h2>
+&lt;p>といった方法を使いましょう&lt;/p></description></item><item><title>ソースコードリーディングをするときにctagsを使いたい</title><link>https://www.hitsumabushi.org/blog/2014/12/16/2000/</link><pubDate>Tue, 16 Dec 2014 20:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/12/16/2000/</guid><description>&lt;h2 id="きっかけ">きっかけ&lt;/h2>
 &lt;p>とある事情によって、Fluentdプラグインを自作する or 世間の良い実装のプラグインを見つける必要がありました。
 でも、Fluentdを真面目に使ったことがないので、いまいち眺めていても難しいなー、と思っていました。
 そもそも、Rubyもまともに書いていないため、ソースを見ても、Rubyのものなのか、Fluentdで定義されているのかが、
-ぱっと見でわからず、いちいち時間がかかっていた感じです。&lt;/p></description></item><item><title>drone.ioを使って、pelicanをビルドする</title><link>https://www.hitsumabushi.org/post/2014/2300/</link><pubDate>Mon, 15 Dec 2014 23:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/2300/</guid><description>&lt;h2 id="動機">動機&lt;/h2>
+ぱっと見でわからず、いちいち時間がかかっていた感じです。&lt;/p></description></item><item><title>drone.ioを使って、pelicanをビルドする</title><link>https://www.hitsumabushi.org/blog/2014/12/15/2300/</link><pubDate>Mon, 15 Dec 2014 23:00:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/12/15/2300/</guid><description>&lt;h2 id="動機">動機&lt;/h2>
 &lt;p>最近はWordpressでブログをやっていたけど、
 あくまで Wordpressを使う人の気持ちがわかりたかったので、使ってたのでした。
-そろそろ、Wordpressの便利さもわかってきたし、vimとかemacsから書きやすいものを使いたいなー、と思ってました。&lt;/p></description></item><item><title>Consul 使ってみる</title><link>https://www.hitsumabushi.org/post/old_rst_files/239/</link><pubDate>Sat, 01 Nov 2014 02:39:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/239/</guid><description>&lt;h2 id="consul-とは">Consul とは&lt;/h2>
+そろそろ、Wordpressの便利さもわかってきたし、vimとかemacsから書きやすいものを使いたいなー、と思ってました。&lt;/p></description></item><item><title>Consul 使ってみる</title><link>https://www.hitsumabushi.org/blog/2014/11/01/0239/</link><pubDate>Sat, 01 Nov 2014 02:39:20 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/11/01/0239/</guid><description>&lt;h2 id="consul-とは">Consul とは&lt;/h2>
 &lt;h3 id="特徴">特徴&lt;/h3>
 &lt;ul>
 &lt;li>
@@ -565,7 +565,7 @@ IPプロトコルで言うところの、IPアドレスと同様に、アクセ�
 &lt;/blockquote>
 &lt;/li>
 &lt;li>
-&lt;p>Health Check&lt;/p></description></item><item><title>vSphere API事始め</title><link>https://www.hitsumabushi.org/post/2014/1639/</link><pubDate>Thu, 14 Aug 2014 16:39:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/1639/</guid><description>&lt;h2 id="リファレンス">リファレンス&lt;/h2>
+&lt;p>Health Check&lt;/p></description></item><item><title>vSphere API事始め</title><link>https://www.hitsumabushi.org/blog/2014/08/14/1639/</link><pubDate>Thu, 14 Aug 2014 16:39:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/08/14/1639/</guid><description>&lt;h2 id="リファレンス">リファレンス&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://www.vmware.com/support/developer/vc-sdk/">https://www.vmware.com/support/developer/vc-sdk/&lt;/a>&lt;/li>
 &lt;li>https:// &amp;ldquo;vcenter_ip&amp;rdquo; /mob/&lt;/li>
@@ -606,7 +606,7 @@ IPプロトコルで言うところの、IPアドレスと同様に、アクセ�
 &lt;h3 id="1-managed-object-types">1. Managed object types&lt;/h3>
 &lt;h4 id="managed-object-typeとは">Managed object typeとは&lt;/h4>
 &lt;p>(サーバーサイドのオブジェクトモデルの基本的なデータを担っている。data objectも同じく。)
-managed objectには、大きく2つの種類がある。&lt;/p></description></item><item><title>IPv6のことを調べ始めた</title><link>https://www.hitsumabushi.org/post/2014/1638/</link><pubDate>Tue, 12 Aug 2014 16:38:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/1638/</guid><description>&lt;h2 id="ipv6-環境構築">IPv6 環境構築&lt;/h2>
+managed objectには、大きく2つの種類がある。&lt;/p></description></item><item><title>IPv6のことを調べ始めた</title><link>https://www.hitsumabushi.org/blog/2014/08/12/1638/</link><pubDate>Tue, 12 Aug 2014 16:38:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/08/12/1638/</guid><description>&lt;h2 id="ipv6-環境構築">IPv6 環境構築&lt;/h2>
 &lt;h3 id="ひとまず参照すべきrfc">ひとまず参照すべきRFC&lt;/h3>
 &lt;ul>
 &lt;li>RFC3315(DHCPv6) とそれをupdateしているやつ&lt;/li>
@@ -614,13 +614,13 @@ managed objectには、大きく2つの種類がある。&lt;/p></description></
 &lt;li>RFC5942(IPv6のsubnet model)&lt;/li>
 &lt;/ul>
 &lt;h3 id="ipv6-アドレス配布方式について">IPv6 アドレス配布方式について&lt;/h3>
-&lt;p>全体としては、下記の4パターンある。&lt;/p></description></item><item><title>DebianにOzをインストールする</title><link>https://www.hitsumabushi.org/post/2014/1637/</link><pubDate>Sun, 27 Jul 2014 16:37:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/1637/</guid><description>&lt;p>ガウディ本読みはじめた。&lt;/p>
+&lt;p>全体としては、下記の4パターンある。&lt;/p></description></item><item><title>DebianにOzをインストールする</title><link>https://www.hitsumabushi.org/blog/2014/07/27/1637/</link><pubDate>Sun, 27 Jul 2014 16:37:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/07/27/1637/</guid><description>&lt;p>ガウディ本読みはじめた。&lt;/p>
 &lt;iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&amp;bc1=000000&amp;IS2=1&amp;nou=1&amp;bg1=FFFFFF&amp;fc1=000000&amp;lc1=0000FF&amp;t=l0fb-22&amp;o=9&amp;p=8&amp;l=as4&amp;m=amazon&amp;f=ifr&amp;ref=ss_til&amp;asins=4798113468" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0">&lt;/iframe>
 &lt;h2 id="困ったこと">困ったこと&lt;/h2>
 &lt;p>この本で使われるOzという言語をDebian上で実行するのに、少し困った。
 morzart2をダウンロードして、適当にインストールしただけだと、
 emacs上でコンパイルはできるのに、実行結果が表示できない状況になった。
-正常な動作は、コンパイルできるとウィンドウが開いて、そこに結果が表示される。&lt;/p></description></item><item><title>論文 - Janus &amp;#58; Optimal Flash Provisioning for Cloud Storage Workloads</title><link>https://www.hitsumabushi.org/post/2014/1635/</link><pubDate>Thu, 17 Jul 2014 16:35:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/1635/</guid><description>&lt;h2 id="読んだもの">読んだもの&lt;/h2>
+正常な動作は、コンパイルできるとウィンドウが開いて、そこに結果が表示される。&lt;/p></description></item><item><title>論文 - Janus &amp;#58; Optimal Flash Provisioning for Cloud Storage Workloads</title><link>https://www.hitsumabushi.org/blog/2014/07/17/1635/</link><pubDate>Thu, 17 Jul 2014 16:35:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/07/17/1635/</guid><description>&lt;h2 id="読んだもの">読んだもの&lt;/h2>
 &lt;p>&lt;a href="http://research.google.com/pubs/pub41179.html">http://research.google.com/pubs/pub41179.html&lt;/a>&lt;/p>
 &lt;h2 id="主な内容">主な内容&lt;/h2>
 &lt;ul>
@@ -643,14 +643,14 @@ emacs上でコンパイルはできるのに、実行結果が表示できない
 &lt;h2 id="所感">所感&lt;/h2>
 &lt;ul>
 &lt;li>
-&lt;p>よくまとまっているので、とても良い。&lt;/p></description></item><item><title>DebianでZNCを使って、快適なIRC生活を送る</title><link>https://www.hitsumabushi.org/post/2014/1634/</link><pubDate>Mon, 09 Jun 2014 16:34:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/1634/</guid><description>&lt;h2 id="やりたいこと">やりたいこと&lt;/h2>
+&lt;p>よくまとまっているので、とても良い。&lt;/p></description></item><item><title>DebianでZNCを使って、快適なIRC生活を送る</title><link>https://www.hitsumabushi.org/blog/2014/06/09/1634/</link><pubDate>Mon, 09 Jun 2014 16:34:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/06/09/1634/</guid><description>&lt;h2 id="やりたいこと">やりたいこと&lt;/h2>
 &lt;p>最近、自分の興味のあるソフトウェアのIRCによく引きこもっています。
 自宅のPCはつけっぱなしにしておけば、全部のログを見れるのですが、
-会社やスマホで見るときには、接続している間のことしか確認できず、若干もどかしいです。&lt;/p></description></item><item><title>WebHDFSで詰まったこと</title><link>https://www.hitsumabushi.org/post/2014/1633/</link><pubDate>Sun, 08 Jun 2014 16:33:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/1633/</guid><description>&lt;h2 id="困っていたこと">困っていたこと&lt;/h2>
+会社やスマホで見るときには、接続している間のことしか確認できず、若干もどかしいです。&lt;/p></description></item><item><title>WebHDFSで詰まったこと</title><link>https://www.hitsumabushi.org/blog/2014/06/08/1633/</link><pubDate>Sun, 08 Jun 2014 16:33:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/06/08/1633/</guid><description>&lt;h2 id="困っていたこと">困っていたこと&lt;/h2>
 &lt;p>HDFSでwebhdfsを使うとき、基本的にnamenodeにリクエストを投げればよいが、実データにアクセスするにはdatanodeにアクセスする。
 ただ、使うときにはあんまり気にしなくて良くて、リクエストを投げればリダイレクト先を指定してくれる、らしい。
-しかし、実際にやっているとうまくいかないケースがあった。&lt;/p></description></item><item><title>LEDバックライトの調整</title><link>https://www.hitsumabushi.org/post/2014/1631/</link><pubDate>Mon, 02 Jun 2014 16:31:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/1631/</guid><description>&lt;p>ディスプレイの輝度が高すぎて目が痛いので、輝度を下げたい。
-GUIでやっても良いけど、CLIの方が簡単そうだったので、CLIでやってみることにした。&lt;/p></description></item><item><title>Perl の正規表現</title><link>https://www.hitsumabushi.org/post/old_rst_files/239/</link><pubDate>Tue, 07 Jan 2014 02:39:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/239/</guid><description>&lt;h2 id="マッチ演算子">マッチ演算子&lt;/h2>
+しかし、実際にやっているとうまくいかないケースがあった。&lt;/p></description></item><item><title>LEDバックライトの調整</title><link>https://www.hitsumabushi.org/blog/2014/06/02/1631/</link><pubDate>Mon, 02 Jun 2014 16:31:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/06/02/1631/</guid><description>&lt;p>ディスプレイの輝度が高すぎて目が痛いので、輝度を下げたい。
+GUIでやっても良いけど、CLIの方が簡単そうだったので、CLIでやってみることにした。&lt;/p></description></item><item><title>Perl の正規表現</title><link>https://www.hitsumabushi.org/blog/2014/01/07/0239/</link><pubDate>Tue, 07 Jan 2014 02:39:20 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/01/07/0239/</guid><description>&lt;h2 id="マッチ演算子">マッチ演算子&lt;/h2>
 &lt;p>評価の結果は真偽値としては、マッチすれば真、そうでなければ偽。 and, or,
 ! が役立つのは間違いない。&lt;/p>
 &lt;h3 id="_-にマッチさせる">$_ にマッチさせる&lt;/h3>
@@ -737,7 +737,7 @@ GUIでやっても良いけど、CLIの方が簡単そうだったので、CLI�
 &lt;p>::: note
 ::: title
 Note
-:::&lt;/p></description></item><item><title>Perlスクリプトメモ</title><link>https://www.hitsumabushi.org/post/old_rst_files/238/</link><pubDate>Tue, 07 Jan 2014 02:38:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/238/</guid><description>&lt;h2 id="参考文献">参考文献&lt;/h2>
+:::&lt;/p></description></item><item><title>Perlスクリプトメモ</title><link>https://www.hitsumabushi.org/blog/2014/01/07/0238/</link><pubDate>Tue, 07 Jan 2014 02:38:20 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/01/07/0238/</guid><description>&lt;h2 id="参考文献">参考文献&lt;/h2>
 &lt;ol>
 &lt;li>&lt;a href="http://d.hatena.ne.jp/perlcodesample/20091226/1264257759">Perl基礎文法最速マスター&lt;/a>&lt;/li>
 &lt;li>ミニマル perl&lt;/li>
@@ -796,7 +796,7 @@ Note
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-perl" data-lang="perl">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">our&lt;/span>(&lt;span style="color:#8be9fd;font-style:italic">$foo&lt;/span>);
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ff79c6">our&lt;/span>(&lt;span style="color:#8be9fd;font-style:italic">$foo&lt;/span>, &lt;span style="color:#8be9fd;font-style:italic">$bar&lt;/span>, &lt;span style="color:#ff79c6">...&lt;/span>);
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="真偽値">真偽値&lt;/h2>
-&lt;p>偽になるのは、次の3パターンある。&lt;/p></description></item><item><title>VPLSについてのメモ</title><link>https://www.hitsumabushi.org/post/old_rst_files/165/</link><pubDate>Mon, 06 Jan 2014 02:43:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/165/</guid><description>&lt;h2 id="what-is-vpls">What is VPLS&lt;/h2>
+&lt;p>偽になるのは、次の3パターンある。&lt;/p></description></item><item><title>VPLSについてのメモ</title><link>https://www.hitsumabushi.org/blog/2014/01/06/0245/</link><pubDate>Mon, 06 Jan 2014 02:43:20 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/01/06/0245/</guid><description>&lt;h2 id="what-is-vpls">What is VPLS&lt;/h2>
 &lt;ul>
 &lt;li>
 &lt;p>Virtual Private LAN&lt;/p>
@@ -811,7 +811,7 @@ Note
 : - ラベルを使う理由としては、元々、経路計算を高速にしたかったはずだけど、今はそんなに気にしなくて良いっぽい
 &lt;/code>&lt;/pre>
 &lt;h2 id="why-vpls">Why VPLS&lt;/h2>
-&lt;p>MPLSが便利なのと、同じ。&lt;/p></description></item><item><title>便利なツール</title><link>https://www.hitsumabushi.org/post/old_rst_files/160/</link><pubDate>Thu, 02 Jan 2014 02:40:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/160/</guid><description>&lt;h2 id="pod">POD&lt;/h2>
+&lt;p>MPLSが便利なのと、同じ。&lt;/p></description></item><item><title>便利なツール</title><link>https://www.hitsumabushi.org/blog/2014/01/02/0240/</link><pubDate>Thu, 02 Jan 2014 02:40:20 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/01/02/0240/</guid><description>&lt;h2 id="pod">POD&lt;/h2>
 &lt;ul>
 &lt;li>Plain Old Documentation&lt;/li>
 &lt;li>man perldoc を参照&lt;/li>
@@ -836,9 +836,9 @@ Note
 &lt;h2 id="linguaeninflect-pl_n">Lingua::En::Inflect 'PL_N'&lt;/h2>
 &lt;ul>
 &lt;li>単数形と複数形を変換してくれる&lt;/li>
-&lt;/ul></description></item><item><title>PXEブートでインストーラを起動する</title><link>https://www.hitsumabushi.org/post/old_rst_files/164/</link><pubDate>Wed, 01 Jan 2014 02:44:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/164/</guid><description>&lt;p>最近、VMwareのESXiで仮想環境を作っています。
+&lt;/ul></description></item><item><title>PXEブートでインストーラを起動する</title><link>https://www.hitsumabushi.org/blog/2014/01/01/0244/</link><pubDate>Wed, 01 Jan 2014 02:44:20 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/01/01/0244/</guid><description>&lt;p>最近、VMwareのESXiで仮想環境を作っています。
 触っていて気づいたのですが、空の仮想マシンを起動するとPXEブートを試みてくれます。
-この仕様をうまく使いたいなーと思って、PXEブートでインストールを自動化する方法を調べました。&lt;/p></description></item><item><title>実UID,実行UID</title><link>https://www.hitsumabushi.org/post/old_rst_files/163/</link><pubDate>Wed, 01 Jan 2014 02:43:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/163/</guid><description>&lt;p>プロセスはいくつかのIDを持っている。
+この仕様をうまく使いたいなーと思って、PXEブートでインストールを自動化する方法を調べました。&lt;/p></description></item><item><title>実UID,実行UID</title><link>https://www.hitsumabushi.org/blog/2014/01/01/0243/</link><pubDate>Wed, 01 Jan 2014 02:43:20 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/01/01/0243/</guid><description>&lt;p>プロセスはいくつかのIDを持っている。
 あまり深く考えず、実UIDと実行UIDについて考える。&lt;/p>
 &lt;h2 id="実uiduid">実UID(UID)&lt;/h2>
 &lt;ul>
@@ -855,7 +855,7 @@ Note
 &lt;h3 id="suid-sgid-スティッキービット">SUID, SGID, スティッキービット&lt;/h3>
 &lt;h2 id="suid-sgid">SUID, SGID&lt;/h2>
 &lt;p>| それぞれ setuid, setgidのこと。
-| まず、 SUID(SGID) ビットが立っているファイルについて見る。&lt;/p></description></item><item><title>DNS サーバー</title><link>https://www.hitsumabushi.org/post/old_rst_files/161/</link><pubDate>Wed, 01 Jan 2014 02:41:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/161/</guid><description>&lt;p>ニフティクラウド上でサーバーを立てた。
+| まず、 SUID(SGID) ビットが立っているファイルについて見る。&lt;/p></description></item><item><title>DNS サーバー</title><link>https://www.hitsumabushi.org/blog/2014/01/01/0241/</link><pubDate>Wed, 01 Jan 2014 02:41:20 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/01/01/0241/</guid><description>&lt;p>ニフティクラウド上でサーバーを立てた。
 いろいろと設定していこうかと思っているが、まずはDNSから始める。&lt;/p>
 &lt;h2 id="作業内容">作業内容&lt;/h2>
 &lt;p>1. /etc/bind/named.conf.options 以下のように書き換える:&lt;/p>
@@ -866,7 +866,7 @@ listen-on-v6 { none; };
 // transfer を許すIPを制限
 allow-transfer &amp;quot;192.168.100.1&amp;quot;;
 &lt;/code>&lt;/pre>
-&lt;p>2. /etc/bind/named.conf.local ゾーンの設定:&lt;/p></description></item><item><title>Perl のコンパイラオプション</title><link>https://www.hitsumabushi.org/post/old_rst_files/159/</link><pubDate>Wed, 01 Jan 2014 02:37:20 +0900</pubDate><guid>https://www.hitsumabushi.org/post/old_rst_files/159/</guid><description>&lt;h2 id="参考ページ">参考ページ&lt;/h2>
+&lt;p>2. /etc/bind/named.conf.local ゾーンの設定:&lt;/p></description></item><item><title>Perl のコンパイラオプション</title><link>https://www.hitsumabushi.org/blog/2014/01/01/0237/</link><pubDate>Wed, 01 Jan 2014 02:37:20 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/01/01/0237/</guid><description>&lt;h2 id="参考ページ">参考ページ&lt;/h2>
 &lt;ul>
 &lt;li>man perlrun&lt;/li>
 &lt;li>&lt;a href="http://debugitos.main.jp/index.php?Perl%2F%A5%B3%A5%DE%A5%F3%A5%C9%A5%E9%A5%A4%A5%F3">DebugIto's - Perl/コマンドライン&lt;/a>&lt;/li>

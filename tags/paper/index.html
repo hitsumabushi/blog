@@ -9,7 +9,7 @@
 col-md-8 col-md-offset-1
 col-sm-12
 col-xs-12
-post-container"><div data-pagefind-ignore=all><div class=post-preview><a href=https://www.hitsumabushi.org/post/2014/1635/><h2 class=post-title>論文 - Janus &amp;#58; Optimal Flash Provisioning for Cloud Storage Workloads</h2><div class=post-content-preview><h2 id=読んだもの>読んだもの</h2><p><a href=http://research.google.com/pubs/pub41179.html>http://research.google.com/pubs/pub41179.html</a></p><h2 id=主な内容>主な内容</h2><ul><li>『2種類の異なるストレージ(フラッシュとディスク)を複数のワークロードで共用する』効率的な使い方を最適化問題への帰着
+post-container"><div data-pagefind-ignore=all><div class=post-preview><a href=https://www.hitsumabushi.org/blog/2014/07/17/1635/><h2 class=post-title>論文 - Janus &amp;#58; Optimal Flash Provisioning for Cloud Storage Workloads</h2><div class=post-content-preview><h2 id=読んだもの>読んだもの</h2><p><a href=http://research.google.com/pubs/pub41179.html>http://research.google.com/pubs/pub41179.html</a></p><h2 id=主な内容>主な内容</h2><ul><li>『2種類の異なるストレージ(フラッシュとディスク)を複数のワークロードで共用する』効率的な使い方を最適化問題への帰着
 使い方に2つの戦略があって、『FIFO or LRU』。</li><li>LRUの方がキャッシュヒットレート的には良いけど、メトリクスを取るのが複雑になりがちなので、FIFOで良いのでは。</li><li>実システムでの計測結果</li></ul><h3 id=使われているシステム-技術要素>使われているシステム, 技術要素</h3><ul><li>Clossus (GFSの改良版)</li><li>アルゴリズム: 貪欲法</li></ul><h3 id=大事なこと>大事なこと</h3><ul><li>最適化問題を特にあたって、ワークロード特性を表す関数を、convexで近似したことにすることがアイディアの1つ。</li><li>理論としては、piecewise-linearでなくても良いが、実測では有限個の点しか取れないので、piecewise-linearとしておくと計算が楽になる。</li><li>運用中もワークロード特性を測定してフィードバックすることで、特性の変化に対応することができる。</li></ul><h2 id=所感>所感</h2><ul><li><p>よくまとまっているので、とても良い。</p></div></a><p class=post-meta>Posted by ひつまぶし食べたい on 2014-07-17</p></div><hr></div></div><div class="col-lg-3 col-lg-offset-0
 col-md-3 col-md-offset-0
 col-sm-12

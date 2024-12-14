@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vmware on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/vmware/</link><description>Recent content in Vmware on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Fri, 13 Oct 2017 01:06:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/vmware/index.xml" rel="self" type="application/rss+xml"/><item><title>Intel NUC 上に vSphere 6.5 のVSAN環境を作る</title><link>https://www.hitsumabushi.org/post/2017/70/</link><pubDate>Fri, 13 Oct 2017 01:06:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2017/70/</guid><description>&lt;p>あまりVMwareを触らなくなってきて、何も見ずにvCenterの設定とかMaximum configurationsとか言えなくなってきたので、VMware周りのことをメモに残しておくことにする。
-ひとまず、自宅のVSAN環境の構築メモ。&lt;/p></description></item><item><title>VCP6-NV 取得した</title><link>https://www.hitsumabushi.org/post/2016/1232/</link><pubDate>Sat, 09 Jul 2016 12:32:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/1232/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vmware on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/vmware/</link><description>Recent content in Vmware on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Fri, 13 Oct 2017 01:06:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/vmware/index.xml" rel="self" type="application/rss+xml"/><item><title>Intel NUC 上に vSphere 6.5 のVSAN環境を作る</title><link>https://www.hitsumabushi.org/blog/2017/10/13/0106/</link><pubDate>Fri, 13 Oct 2017 01:06:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2017/10/13/0106/</guid><description>&lt;p>あまりVMwareを触らなくなってきて、何も見ずにvCenterの設定とかMaximum configurationsとか言えなくなってきたので、VMware周りのことをメモに残しておくことにする。
+ひとまず、自宅のVSAN環境の構築メモ。&lt;/p></description></item><item><title>VCP6-NV 取得した</title><link>https://www.hitsumabushi.org/blog/2016/07/09/1232/</link><pubDate>Sat, 09 Jul 2016 12:32:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/07/09/1232/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>
@@ -10,7 +10,7 @@
 &lt;p>462 / 500 (合格点: 300)&lt;/p>
 &lt;h2 id="試験の内容について">試験の内容について&lt;/h2>
 &lt;p>割と事前に学習した内容が出ていたと感じる。
-VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違って、トレーニングの内容と試験内容がきちんと一致しているので、トレーニングのテキストを読み返すだけでも、かなり点は取れる気がする。&lt;/p></description></item><item><title>VCP6-NV 試験勉強メモ 2日目</title><link>https://www.hitsumabushi.org/post/2016/482/</link><pubDate>Thu, 07 Jul 2016 07:42:46 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/482/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違って、トレーニングの内容と試験内容がきちんと一致しているので、トレーニングのテキストを読み返すだけでも、かなり点は取れる気がする。&lt;/p></description></item><item><title>VCP6-NV 試験勉強メモ 2日目</title><link>https://www.hitsumabushi.org/blog/2016/07/07/0742/</link><pubDate>Thu, 07 Jul 2016 07:42:46 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/07/07/0742/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>
@@ -32,7 +32,7 @@ VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違っ�
 &lt;/ul>
 &lt;h3 id="分散論理ルータ">分散論理ルータ&lt;/h3>
 &lt;p>カーネルモジュール内で動作するルーター。
-各ESXiに分散して存在していて、ヘアピントラフィックを防ぐことができる。&lt;/p></description></item><item><title>VCP6-NV 試験勉強メモ</title><link>https://www.hitsumabushi.org/post/2016/2121/</link><pubDate>Tue, 05 Jul 2016 21:21:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/2121/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+各ESXiに分散して存在していて、ヘアピントラフィックを防ぐことができる。&lt;/p></description></item><item><title>VCP6-NV 試験勉強メモ</title><link>https://www.hitsumabushi.org/blog/2016/07/05/2121/</link><pubDate>Tue, 05 Jul 2016 21:21:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/07/05/2121/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>
@@ -53,7 +53,7 @@ VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違っ�
 &lt;/ul>
 &lt;h2 id="nsxの-configuration-maximums">NSXの configuration maximums&lt;/h2>
 &lt;p>&lt;a href="https://www.vmware.com/pdf/vsphere6/r60/vsphere-60-configuration-maximums.pdf">vSphere 製品のように&lt;/a> 公開されているわけではない。
-でも、以下のサイトのように、情報を公開している人はいる。&lt;/p></description></item><item><title>VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</title><link>https://www.hitsumabushi.org/post/2016/2040/</link><pubDate>Tue, 05 Jul 2016 20:40:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/2040/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+でも、以下のサイトのように、情報を公開している人はいる。&lt;/p></description></item><item><title>VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</title><link>https://www.hitsumabushi.org/blog/2016/07/05/2040/</link><pubDate>Tue, 05 Jul 2016 20:40:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/07/05/2040/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>
@@ -77,7 +77,7 @@ VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違っ�
 &lt;/ol>
 &lt;h2 id="vcp6-nv-について">VCP6-NV について&lt;/h2>
 &lt;p>VCP-NVは、VMwareのNSXを用いた仮想ネットワーク管理についての試験です。
-他のVCPと同様に、VCA-NV → VCP-NV → VCAP-NV {Design, Deploy} → VCIX-NV → VCDX-NV というような資格体系です。&lt;/p></description></item><item><title>vSphere 6.0 でのHA機能のエンハンスの要点</title><link>https://www.hitsumabushi.org/post/2015/361/</link><pubDate>Tue, 08 Dec 2015 05:51:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/361/</guid><description>&lt;h2 id="まとめ">まとめ&lt;/h2>
+他のVCPと同様に、VCA-NV → VCP-NV → VCAP-NV {Design, Deploy} → VCIX-NV → VCDX-NV というような資格体系です。&lt;/p></description></item><item><title>vSphere 6.0 でのHA機能のエンハンスの要点</title><link>https://www.hitsumabushi.org/blog/2015/12/08/0551/</link><pubDate>Tue, 08 Dec 2015 05:51:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/12/08/0551/</guid><description>&lt;h2 id="まとめ">まとめ&lt;/h2>
 &lt;ol>
 &lt;li>vSphere 6からは、ストレージパスが死んだ場合でもHAを設定できるようになった。&lt;/li>
 &lt;li>vCenterは watchdogs によりプロセス落下時には再起動される&lt;/li>
@@ -92,19 +92,19 @@ VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違っ�
 &lt;/ol>
 &lt;h2 id="vsphere-55-までの障害あるあるpart-1">vSphere 5.5 までの障害あるある(Part 1)&lt;/h2>
 &lt;p>物理ホストのHBAが死んだり経路上の問題で、特定のホスト群のみストレージへのパスが切れた。
-vSphere 5.5 までは、ストレージへのパスが死んだ場合、HAによる保護ができない障害パターンで、IOが止まっているが、管理者が別のホストに移してから再起動するまでアプリケーションは死んでいた。&lt;/p></description></item><item><title>VDI, DaaS市場を調べてみた</title><link>https://www.hitsumabushi.org/post/2015/217/</link><pubDate>Sun, 07 Jun 2015 03:31:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/217/</guid><description>&lt;p>最近、vCloud AirがDaaSを出すというのを聞いて、にわかに自分の中でDaaSに興味が出てきた。
+vSphere 5.5 までは、ストレージへのパスが死んだ場合、HAによる保護ができない障害パターンで、IOが止まっているが、管理者が別のホストに移してから再起動するまでアプリケーションは死んでいた。&lt;/p></description></item><item><title>VDI, DaaS市場を調べてみた</title><link>https://www.hitsumabushi.org/blog/2015/06/07/0331/</link><pubDate>Sun, 07 Jun 2015 03:31:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/06/07/0331/</guid><description>&lt;p>最近、vCloud AirがDaaSを出すというのを聞いて、にわかに自分の中でDaaSに興味が出てきた。
 DaaSとかVDIは、必ずActive Directoryの話になるので、気後れしていたのだけど、会社ではWindows使っていることもあって、少しは抵抗もなくなってきたので、良いタイミングだったので、調べてみた。
-とは言っても、まずは世間にどんなものがあるかをしらべてみただけ。&lt;/p></description></item><item><title>Ravelloが便利</title><link>https://www.hitsumabushi.org/post/2015/1822/</link><pubDate>Sat, 09 May 2015 18:22:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/1822/</guid><description>&lt;h2 id="vmware環境のテストをしたい">VMware環境のテストをしたい&lt;/h2>
+とは言っても、まずは世間にどんなものがあるかをしらべてみただけ。&lt;/p></description></item><item><title>Ravelloが便利</title><link>https://www.hitsumabushi.org/blog/2015/05/09/1822/</link><pubDate>Sat, 09 May 2015 18:22:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/05/09/1822/</guid><description>&lt;h2 id="vmware環境のテストをしたい">VMware環境のテストをしたい&lt;/h2>
 &lt;p>会社でVMware使っているのもあって、外でAPI叩いたりツールのテストしたいということがよくある。
 今までは自宅でESXiとvCenter立ててやっていたんですが、やっぱりリソース的にVM数を増やしたりできないので、とても困っている。
 あと、PackerとかでVMware用のイメージ作るときに使えるESXiも欲しかったので、どうにかできないかなー、というのもあって、
-探していたらRavelloというサービスが面白そうだったので、紹介がてら書いておく。&lt;/p></description></item><item><title>vShere Beta Program の注意点</title><link>https://www.hitsumabushi.org/post/2015/2101/</link><pubDate>Sun, 25 Jan 2015 21:01:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2101/</guid><description>&lt;p>VMware のBetaプログラムの利用について、基本的なルールがあるので、忘れないようにまとめた。
-ここに書いてあることは、オレオレ要約なので、きちんと自分で確認してください。&lt;/p></description></item><item><title>VCP5-DCV取得した</title><link>https://www.hitsumabushi.org/post/2015/2348/</link><pubDate>Fri, 16 Jan 2015 23:48:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2348/</guid><description>&lt;p>最近のブログはVMwareの話ばかりだったのですが、やっとVCPを取得してきました。
-VCP-DCVを取得している人はたくさんいるので、個人的に受験した所感を書いておきます。&lt;/p></description></item><item><title>vDSのポートバインドタイプ</title><link>https://www.hitsumabushi.org/post/2015/2349/</link><pubDate>Sat, 10 Jan 2015 23:49:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2349/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
+探していたらRavelloというサービスが面白そうだったので、紹介がてら書いておく。&lt;/p></description></item><item><title>vShere Beta Program の注意点</title><link>https://www.hitsumabushi.org/blog/2015/01/25/2101/</link><pubDate>Sun, 25 Jan 2015 21:01:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/25/2101/</guid><description>&lt;p>VMware のBetaプログラムの利用について、基本的なルールがあるので、忘れないようにまとめた。
+ここに書いてあることは、オレオレ要約なので、きちんと自分で確認してください。&lt;/p></description></item><item><title>VCP5-DCV取得した</title><link>https://www.hitsumabushi.org/blog/2015/01/16/2348/</link><pubDate>Fri, 16 Jan 2015 23:48:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/16/2348/</guid><description>&lt;p>最近のブログはVMwareの話ばかりだったのですが、やっとVCPを取得してきました。
+VCP-DCVを取得している人はたくさんいるので、個人的に受験した所感を書いておきます。&lt;/p></description></item><item><title>vDSのポートバインドタイプ</title><link>https://www.hitsumabushi.org/blog/2015/01/10/2349/</link><pubDate>Sat, 10 Jan 2015 23:49:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/10/2349/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
 &lt;p>&lt;a href="http://kb.vmware.com/selfservice/search.do?cmd=displayKC&amp;amp;docType=kc&amp;amp;docTypeID=DT_KB_1_1&amp;amp;externalId=2086886">VMware KB: ESX/ESXi でのポート バインド タイプの選択&lt;/a>&lt;/p>
 &lt;h2 id="ポートバインドタイプとは">ポートバインドタイプとは&lt;/h2>
 &lt;p>vNICをvDSに接続するとき、ポートグループのポートがどのようにVMに割り当てられるかを、ポートバインドタイプとして、設定できます。
-バインドのタイプは以下の3つから選択できました。(2つめの動的バインドは、ESXi5.0で廃止。)&lt;/p></description></item><item><title>vSphere 5.5環境でMSCSクラスタを組むときの制約</title><link>https://www.hitsumabushi.org/post/2015/2029/</link><pubDate>Wed, 07 Jan 2015 20:29:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2029/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
+バインドのタイプは以下の3つから選択できました。(2つめの動的バインドは、ESXi5.0で廃止。)&lt;/p></description></item><item><title>vSphere 5.5環境でMSCSクラスタを組むときの制約</title><link>https://www.hitsumabushi.org/blog/2015/01/07/2029/</link><pubDate>Wed, 07 Jan 2015 20:29:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/07/2029/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
 &lt;p>MSCSのサポート状況&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;amp;cmd=displayKC&amp;amp;externalId=1004617">VMware KB: Microsoft Cluster Service (MSCS) support on ESXi/ESX&lt;/a>&lt;/li>
@@ -116,7 +116,7 @@ VCP-DCVを取得している人はたくさんいるので、個人的に受験�
 &lt;/ul>
 &lt;h2 id="mscs">MSCS&lt;/h2>
 &lt;p>Microsoft Cluster Serviceのこと。
-MSFC(Microsoft Failover Cluster)と名称が変わっているけど、未だにMSCSと呼ばれる場合もある。&lt;/p></description></item><item><title>VMware VDP, VDPA</title><link>https://www.hitsumabushi.org/post/2015/1924/</link><pubDate>Wed, 07 Jan 2015 19:24:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/1924/</guid><description>&lt;h2 id="vmware-data-protection">VMware Data Protection&lt;/h2>
+MSFC(Microsoft Failover Cluster)と名称が変わっているけど、未だにMSCSと呼ばれる場合もある。&lt;/p></description></item><item><title>VMware VDP, VDPA</title><link>https://www.hitsumabushi.org/blog/2015/01/07/1924/</link><pubDate>Wed, 07 Jan 2015 19:24:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/07/1924/</guid><description>&lt;h2 id="vmware-data-protection">VMware Data Protection&lt;/h2>
 &lt;h3 id="資料">資料&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="http://blogs.vmware.com/jp-cim/2013/12/vsphere-55-vdpa.html">vSphere 5.5 の新機能紹介 - VMware Blogs&lt;/a>&lt;/li>
@@ -124,7 +124,7 @@ MSFC(Microsoft Failover Cluster)と名称が変わっているけど、未だに
 &lt;/ul>
 &lt;h3 id="概要">概要&lt;/h3>
 &lt;p>VMware Data Recoveryの後継みたいなものっぽい。&lt;/p>
-&lt;p>VDRから発展した点としては、以下があある。&lt;/p></description></item><item><title>ESXiをkickstartでインストールする</title><link>https://www.hitsumabushi.org/post/2015/2338/</link><pubDate>Tue, 06 Jan 2015 23:38:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/2338/</guid><description>&lt;p>ESXiをPXEブートして自動インストールする方法について、日本語での説明があまりなかったので、メモとして残しておく。&lt;/p>
+&lt;p>VDRから発展した点としては、以下があある。&lt;/p></description></item><item><title>ESXiをkickstartでインストールする</title><link>https://www.hitsumabushi.org/blog/2015/01/06/2338/</link><pubDate>Tue, 06 Jan 2015 23:38:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/06/2338/</guid><description>&lt;p>ESXiをPXEブートして自動インストールする方法について、日本語での説明があまりなかったので、メモとして残しておく。&lt;/p>
 &lt;h2 id="利用os">利用OS&lt;/h2>
 &lt;ul>
 &lt;li>ESXi 5.5&lt;/li>
@@ -134,7 +134,7 @@ MSFC(Microsoft Failover Cluster)と名称が変わっているけど、未だに
 &lt;h3 id="必要なソフトウェアのインストール">必要なソフトウェアのインストール&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>apt-get install tftpd-hpa isc-dhcp-server xinetd apache2
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="dhcpサーバーの設定">DHCPサーバーの設定&lt;/h3>
-&lt;p>BOOTPでインストールするため、あまり自由度がない。&lt;/p></description></item><item><title>vCloud Airの価格感を調べる</title><link>https://www.hitsumabushi.org/post/2015/1735/</link><pubDate>Mon, 05 Jan 2015 17:35:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2015/1735/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
+&lt;p>BOOTPでインストールするため、あまり自由度がない。&lt;/p></description></item><item><title>vCloud Airの価格感を調べる</title><link>https://www.hitsumabushi.org/blog/2015/01/05/1735/</link><pubDate>Mon, 05 Jan 2015 17:35:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2015/01/05/1735/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="http://www.vmware.com/jp/products/vcloud-air">VMware vCloud Air&lt;/a>&lt;/li>
 &lt;li>&lt;a href="http://vcloud.vmware.com/jp/service-offering/pricing-guide">VMware vCloud Air 価格ガイド&lt;/a>&lt;/li>
@@ -142,8 +142,8 @@ MSFC(Microsoft Failover Cluster)と名称が変わっているけど、未だに
 &lt;h2 id="vcloud-airとは">vCloud Airとは&lt;/h2>
 &lt;p>VMwareが提供している、ハイブリッドクラウドのサービス。&lt;/p>
 &lt;p>特徴として、オンプレでVMware環境を稼働させている場合に、vCloud Connectorを利用することで、
-vSphere Clientのプラグインと統合して操作ができることが挙げられる。&lt;/p></description></item><item><title>VCPの学習中のメモ</title><link>https://www.hitsumabushi.org/post/2014/548/</link><pubDate>Tue, 30 Dec 2014 05:48:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/548/</guid><description>&lt;p>項目分けするほどでもないが、知っておくとVCP受講時に役にたつことをメモしていきます。
-特に、あまり使われていない機能については、調べてないとわからないことが多いと思うので、参考になればと思います。&lt;/p></description></item><item><title>VMware環境でのNPIVについて</title><link>https://www.hitsumabushi.org/post/2014/175/</link><pubDate>Tue, 30 Dec 2014 02:57:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/175/</guid><description>&lt;p>VCP-DCV取得のために勉強していたところ、NPIVという用語が出てきたので、調べてみたことを書いておきます。&lt;/p>
+vSphere Clientのプラグインと統合して操作ができることが挙げられる。&lt;/p></description></item><item><title>VCPの学習中のメモ</title><link>https://www.hitsumabushi.org/blog/2014/12/30/0548/</link><pubDate>Tue, 30 Dec 2014 05:48:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/12/30/0548/</guid><description>&lt;p>項目分けするほどでもないが、知っておくとVCP受講時に役にたつことをメモしていきます。
+特に、あまり使われていない機能については、調べてないとわからないことが多いと思うので、参考になればと思います。&lt;/p></description></item><item><title>VMware環境でのNPIVについて</title><link>https://www.hitsumabushi.org/blog/2014/12/30/0257/</link><pubDate>Tue, 30 Dec 2014 02:57:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/12/30/0257/</guid><description>&lt;p>VCP-DCV取得のために勉強していたところ、NPIVという用語が出てきたので、調べてみたことを書いておきます。&lt;/p>
 &lt;h2 id="資料">資料&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://pubs.vmware.com/vsphere-50/index.jsp?topic=/com.vmware.vsphere.vm_admin.doc_50/GUID-C713BCA5-71B4-4539-A4AE-8E781330755C.html">vSphere ドキュメント センター&lt;/a>&lt;/li>
@@ -160,19 +160,19 @@ vSphere Clientのプラグインと統合して操作ができることが挙げ
 &lt;h2 id="npivとは">NPIVとは&lt;/h2>
 &lt;h3 id="fc環境の基本">FC環境の基本&lt;/h3>
 &lt;p>FC環境では、各ノードはWWN(&lt;em>World Wide Name&lt;/em>)を用いて識別されています。
-IPプロトコルで言うところの、IPアドレスと同様に、アクセス先を表したり、アクセス制限を行ったりする対象が、WWNになります。&lt;/p></description></item><item><title>VCP-DCVの概要 &amp;#58; VCP550</title><link>https://www.hitsumabushi.org/post/2014/88/</link><pubDate>Tue, 30 Dec 2014 01:30:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/88/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
+IPプロトコルで言うところの、IPアドレスと同様に、アクセス先を表したり、アクセス制限を行ったりする対象が、WWNになります。&lt;/p></description></item><item><title>VCP-DCVの概要 &amp;#58; VCP550</title><link>https://www.hitsumabushi.org/blog/2014/12/30/0130/</link><pubDate>Tue, 30 Dec 2014 01:30:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/12/30/0130/</guid><description>&lt;h2 id="資料">資料&lt;/h2>
 &lt;p>&lt;a href="https://mylearn.vmware.com/mgrReg/plan.cfm?plan=12457">VCP-Data Center Virtualization&lt;/a>
 受験を計画されている方は、Exam Blueprints というPDFを一読されることをお勧めします。&lt;/p>
 &lt;h2 id="vcp-dcvの概要">VCP-DCVの概要&lt;/h2>
 &lt;h3 id="バージョン">バージョン&lt;/h3>
 &lt;p>VCP-DCVという資格は、VMwareの製品バージョンに合わせて区別されています。
-例えば、現在のvSphereのバージョンは、5.5が最新バージョンであるため、VCP5-DCV呼ばれています。&lt;/p></description></item><item><title>VMware 環境でのMACアドレス割当て</title><link>https://www.hitsumabushi.org/post/2014/1440/</link><pubDate>Wed, 17 Dec 2014 14:40:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/1440/</guid><description>&lt;h2 id="1-まとめ">1. まとめ&lt;/h2>
+例えば、現在のvSphereのバージョンは、5.5が最新バージョンであるため、VCP5-DCV呼ばれています。&lt;/p></description></item><item><title>VMware 環境でのMACアドレス割当て</title><link>https://www.hitsumabushi.org/blog/2014/12/17/1440/</link><pubDate>Wed, 17 Dec 2014 14:40:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/12/17/1440/</guid><description>&lt;h2 id="1-まとめ">1. まとめ&lt;/h2>
 &lt;p>vSphere環境上のMACアドレス割当の方式は、複数あります。自分のOUIを割当てたい!!、という場合には、&lt;/p>
 &lt;ol>
 &lt;li>vCenter環境でプレフィックス指定&lt;/li>
 &lt;li>固定割当て&lt;/li>
 &lt;/ol>
-&lt;p>といった方法を使いましょう&lt;/p></description></item><item><title>vSphere API事始め</title><link>https://www.hitsumabushi.org/post/2014/1639/</link><pubDate>Thu, 14 Aug 2014 16:39:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2014/1639/</guid><description>&lt;h2 id="リファレンス">リファレンス&lt;/h2>
+&lt;p>といった方法を使いましょう&lt;/p></description></item><item><title>vSphere API事始め</title><link>https://www.hitsumabushi.org/blog/2014/08/14/1639/</link><pubDate>Thu, 14 Aug 2014 16:39:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2014/08/14/1639/</guid><description>&lt;h2 id="リファレンス">リファレンス&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://www.vmware.com/support/developer/vc-sdk/">https://www.vmware.com/support/developer/vc-sdk/&lt;/a>&lt;/li>
 &lt;li>https:// &amp;ldquo;vcenter_ip&amp;rdquo; /mob/&lt;/li>

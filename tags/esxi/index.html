@@ -9,7 +9,7 @@
 col-md-8 col-md-offset-1
 col-sm-12
 col-xs-12
-post-container"><div data-pagefind-ignore=all><div class=post-preview><a href=https://www.hitsumabushi.org/post/2015/2338/><h2 class=post-title>ESXiをkickstartでインストールする</h2><div class=post-content-preview><p>ESXiをPXEブートして自動インストールする方法について、日本語での説明があまりなかったので、メモとして残しておく。</p><h2 id=利用os>利用OS</h2><ul><li>ESXi 5.5</li><li>Debian 7.7 (DHCPサーバー, HTTPサーバーを兼務させる)</li></ul><h2 id=dhcp-tftp-httpサーバーの準備>DHCP, TFTP, HTTPサーバーの準備</h2><h3 id=必要なソフトウェアのインストール>必要なソフトウェアのインストール</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>apt-get install tftpd-hpa isc-dhcp-server xinetd apache2
+post-container"><div data-pagefind-ignore=all><div class=post-preview><a href=https://www.hitsumabushi.org/blog/2015/01/06/2338/><h2 class=post-title>ESXiをkickstartでインストールする</h2><div class=post-content-preview><p>ESXiをPXEブートして自動インストールする方法について、日本語での説明があまりなかったので、メモとして残しておく。</p><h2 id=利用os>利用OS</h2><ul><li>ESXi 5.5</li><li>Debian 7.7 (DHCPサーバー, HTTPサーバーを兼務させる)</li></ul><h2 id=dhcp-tftp-httpサーバーの準備>DHCP, TFTP, HTTPサーバーの準備</h2><h3 id=必要なソフトウェアのインストール>必要なソフトウェアのインストール</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>apt-get install tftpd-hpa isc-dhcp-server xinetd apache2
 </span></span></code></pre></div><h3 id=dhcpサーバーの設定>DHCPサーバーの設定</h3><p>BOOTPでインストールするため、あまり自由度がない。</p></div></a><p class=post-meta>Posted by ひつまぶし食べたい on 2015-01-06</p></div><hr></div></div><div class="col-lg-3 col-lg-offset-0
 col-md-3 col-md-offset-0
 col-sm-12

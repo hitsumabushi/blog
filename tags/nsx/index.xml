@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>NSX on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/nsx/</link><description>Recent content in NSX on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Sat, 09 Jul 2016 12:32:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/nsx/index.xml" rel="self" type="application/rss+xml"/><item><title>VCP6-NV 取得した</title><link>https://www.hitsumabushi.org/post/2016/1232/</link><pubDate>Sat, 09 Jul 2016 12:32:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/1232/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>NSX on ひつまぶし食べたい</title><link>https://www.hitsumabushi.org/tags/nsx/</link><description>Recent content in NSX on ひつまぶし食べたい</description><generator>Hugo</generator><language>ja</language><copyright>&amp;copy; 2024 hitsumabushi</copyright><lastBuildDate>Sat, 09 Jul 2016 12:32:00 +0900</lastBuildDate><atom:link href="https://www.hitsumabushi.org/tags/nsx/index.xml" rel="self" type="application/rss+xml"/><item><title>VCP6-NV 取得した</title><link>https://www.hitsumabushi.org/blog/2016/07/09/1232/</link><pubDate>Sat, 09 Jul 2016 12:32:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/07/09/1232/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>
@@ -9,7 +9,7 @@
 &lt;p>462 / 500 (合格点: 300)&lt;/p>
 &lt;h2 id="試験の内容について">試験の内容について&lt;/h2>
 &lt;p>割と事前に学習した内容が出ていたと感じる。
-VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違って、トレーニングの内容と試験内容がきちんと一致しているので、トレーニングのテキストを読み返すだけでも、かなり点は取れる気がする。&lt;/p></description></item><item><title>VCP6-NV 試験勉強メモ 2日目</title><link>https://www.hitsumabushi.org/post/2016/482/</link><pubDate>Thu, 07 Jul 2016 07:42:46 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/482/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違って、トレーニングの内容と試験内容がきちんと一致しているので、トレーニングのテキストを読み返すだけでも、かなり点は取れる気がする。&lt;/p></description></item><item><title>VCP6-NV 試験勉強メモ 2日目</title><link>https://www.hitsumabushi.org/blog/2016/07/07/0742/</link><pubDate>Thu, 07 Jul 2016 07:42:46 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/07/07/0742/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>
@@ -31,7 +31,7 @@ VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違っ�
 &lt;/ul>
 &lt;h3 id="分散論理ルータ">分散論理ルータ&lt;/h3>
 &lt;p>カーネルモジュール内で動作するルーター。
-各ESXiに分散して存在していて、ヘアピントラフィックを防ぐことができる。&lt;/p></description></item><item><title>VCP6-NV 試験勉強メモ</title><link>https://www.hitsumabushi.org/post/2016/2121/</link><pubDate>Tue, 05 Jul 2016 21:21:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/2121/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+各ESXiに分散して存在していて、ヘアピントラフィックを防ぐことができる。&lt;/p></description></item><item><title>VCP6-NV 試験勉強メモ</title><link>https://www.hitsumabushi.org/blog/2016/07/05/2121/</link><pubDate>Tue, 05 Jul 2016 21:21:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/07/05/2121/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>
@@ -52,7 +52,7 @@ VCP-DCV (といっても、VCP5-DCVしか受けたことはない。) と違っ�
 &lt;/ul>
 &lt;h2 id="nsxの-configuration-maximums">NSXの configuration maximums&lt;/h2>
 &lt;p>&lt;a href="https://www.vmware.com/pdf/vsphere6/r60/vsphere-60-configuration-maximums.pdf">vSphere 製品のように&lt;/a> 公開されているわけではない。
-でも、以下のサイトのように、情報を公開している人はいる。&lt;/p></description></item><item><title>VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</title><link>https://www.hitsumabushi.org/post/2016/2040/</link><pubDate>Tue, 05 Jul 2016 20:40:00 +0900</pubDate><guid>https://www.hitsumabushi.org/post/2016/2040/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
+でも、以下のサイトのように、情報を公開している人はいる。&lt;/p></description></item><item><title>VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる</title><link>https://www.hitsumabushi.org/blog/2016/07/05/2040/</link><pubDate>Tue, 05 Jul 2016 20:40:00 +0900</pubDate><guid>https://www.hitsumabushi.org/blog/2016/07/05/2040/</guid><description>&lt;h2 id="vcp6-nv-受験シリーズ">VCP6-NV 受験シリーズ&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv.md">VMware VCP-NV (VCP6-NV) の試験を今週受けるので、試験について調べる&lt;/a>&lt;/li>
 &lt;li>&lt;a href="%7Bfilename%7D/diary/2016/20160705_vmware_vcp_nv_study.md">VCP6-NV 試験勉強メモ&lt;/a>&lt;/li>

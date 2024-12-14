@@ -9,7 +9,7 @@
 col-md-8 col-md-offset-1
 col-sm-12
 col-xs-12
-post-container"><div data-pagefind-ignore=all><div class=post-preview><a href=https://www.hitsumabushi.org/post/2017/2001/><h2 class=post-title>Mesos の sandbox のログローテーションをする</h2><div class=post-content-preview><h3 id=結論>結論</h3><ul><li><a href=http://mesos.apache.org/documentation/latest/logging/#logrotatecontainerlogger>http://mesos.apache.org/documentation/latest/logging/#logrotatecontainerlogger</a></li><li><code>LogrotateContainerLogger</code> を使って、 module parameter を設定する</li></ul><h3 id=概要>概要</h3><p>Mesos + Marathon 環境でdockerを動かしている。
+post-container"><div data-pagefind-ignore=all><div class=post-preview><a href=https://www.hitsumabushi.org/blog/2017/12/01/2001/><h2 class=post-title>Mesos の sandbox のログローテーションをする</h2><div class=post-content-preview><h3 id=結論>結論</h3><ul><li><a href=http://mesos.apache.org/documentation/latest/logging/#logrotatecontainerlogger>http://mesos.apache.org/documentation/latest/logging/#logrotatecontainerlogger</a></li><li><code>LogrotateContainerLogger</code> を使って、 module parameter を設定する</li></ul><h3 id=概要>概要</h3><p>Mesos + Marathon 環境でdockerを動かしている。
 基本的にコンテナのログは fluentd で飛ばしているのだけど、日に日に mesos slave のディスク容量が圧迫されていた。
 調べてみると、 <code>/var/lib/mesos-slave/slaves/</code> 以下にあるフォルダのうち、sandbox のログが肥大化していた。
 sandbox には stdout, stderr があって、それぞれコンテナのstdout, stderrを記録しているファイルで、mesosからファイルとして取得することができる。

@@ -1,0 +1,203 @@
+<!doctype html><html lang=ja><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:site_name" content="ひつまぶし食べたい"><meta property="og:type" content="article"><meta property="og:image" content="https://www.hitsumabushi.org//img/home-bg-jeep.jpg"><meta property="twitter:image" content="https://www.hitsumabushi.org//img/home-bg-jeep.jpg"><meta name=title content="Perl の正規表現"><meta property="og:title" content="Perl の正規表現"><meta property="twitter:title" content="Perl の正規表現"><meta name=description content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="og:description" content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="twitter:description" content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="twitter:card" content="summary"><meta name=keyword content="hitsumabushi,SRE,Management,Cloud,Infrastructure,Software,Programming,Engineering"><link rel="shortcut icon" href=/img/favicon.ico><title>Perl の正規表現 | ひつまぶし食べたい</title>
+<link rel=canonical href=/blog/2014/01/07/0239/><link rel=stylesheet href=/css/bootstrap.min.css><link rel=stylesheet href=/css/hugo-theme-cleanwhite.min.css><link rel=stylesheet href=/css/zanshang.css><link rel=stylesheet href=/css/font-awesome.all.min.css><link rel=stylesheet href=https://www.hitsumabushi.org/css/hugo-theme-clearnwhite/custom-font.css><link rel=stylesheet href=https://www.hitsumabushi.org/css/hugo-theme-clearnwhite/main.css><script src=/js/jquery.min.js></script><script src=/js/bootstrap.min.js></script><script src=/js/hux-blog.min.js></script><script src=/js/lazysizes.min.js></script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script><script>var dnt,doNotTrack=!1;if(!1&&(dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes"),!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-JPYFS3RY30")}</script><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=/>ひつまぶし食べたい</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=/>All Posts</a></li><li><a href=/search><i class="fa fa-search"></i></a></li></ul></div></div></div></nav><script>var $body=document.body,$toggle=document.querySelector(".navbar-toggle"),$navbar=document.querySelector("#huxblog_navbar"),$collapse=document.querySelector(".navbar-collapse");$toggle.addEventListener("click",handleMagic);function handleMagic(){$navbar.className.indexOf("in")>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf("in")<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script><style type=text/css>header.intro-header{background-image:url(/img/home-bg-jeep.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/perl title=perl>perl</a></div><h1>Perl の正規表現</h1><h2 class=subheading></h2><span class=meta>Posted by
+ひつまぶし食べたい
+on
+Tuesday, January 7, 2014</span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container"><h2 id=マッチ演算子>マッチ演算子</h2><p>評価の結果は真偽値としては、マッチすれば真、そうでなければ偽。 and, or,
+! が役立つのは間違いない。</p><h3 id=_-にマッチさせる>$_ にマッチさせる</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-perl data-lang=perl><span style=display:flex><span><span style=color:#f1fa8c>/regex/</span>
+</span></span><span style=display:flex><span>m:regex:
+</span></span></code></pre></div><h3 id=string-にマッチさせる><em>string</em> にマッチさせる</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-perl data-lang=perl><span style=display:flex><span>string <span style=color:#ff79c6>=~</span><span style=color:#f1fa8c> /regex/</span>
+</span></span><span style=display:flex><span>string <span style=color:#ff79c6>=~</span> m:regex:
+</span></span></code></pre></div><h3 id=_-の文字列置換>$_ の文字列置換</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-perl data-lang=perl><span style=display:flex><span><span style=color:#f1fa8c>s/regex/new/</span>
+</span></span><span style=display:flex><span>s:regex:new:
+</span></span></code></pre></div><h3 id=string-の文字列置換><em>string</em> の文字列置換</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-perl data-lang=perl><span style=display:flex><span>string <span style=color:#ff79c6>=~</span> <span style=color:#f1fa8c>s/regex/new/</span>
+</span></span><span style=display:flex><span>string <span style=color:#ff79c6>=~</span> s:regex:new:
+</span></span></code></pre></div><h2 id=特殊なメタキャラクタ>特殊なメタキャラクタ</h2><h3 id=->^, $</h3><ul><li>行頭、末尾にマッチ</li></ul><h3 id=heading>.</h3><ul><li>ニューライン以外の任意の文字にマッチ</li></ul><h3 id=chars>[<em>chars</em>]</h3><ul><li><em>chars</em> に含まれる任意の1文字にマッチ</li><li><em>chars</em>
+内のバックスラッシュ付き英数字以外のメタキャラクタは、リテラル扱い</li></ul><h3 id=-chars>[^ <em>chars</em>]</h3><ul><li><em>chars</em> に含まれない任意の1文字にマッチ</li><li>メタキャラクタの扱いは [<em>chars</em>] と同様</li></ul><h3 id=char1-char2>[<em>char1</em>-<em>char2</em>]</h3><ul><li><em>char1</em> の <em>char2</em> の間に入る任意の文字にマッチ</li><li><em>char1</em>, <em>char2</em> を含む。</li></ul><h3 id=heading-1>$&</h3><ul><li>最後にマッチした内容を保持</li><li>'Foo' =~ /^[A-Z]/ なら $& は F</li></ul><h3 id=heading-2>\</h3><ul><li>メタキャラクタに使ったり、エスケープに使う</li></ul><h3 id=b>\b</h3><ul><li>単語の区切りにマッチする</li><li>'abc def' にマッチさせたいときに、'Zabc def'
+にマッチしないよう、'babc def' と書いておく。</li><li>アルファベットは、単語構成文字クラスなので、スペースや!は、b
+にマッチするが、Zはマッチしない。</li></ul><h3 id=n>\n</h3><ul><li>ニューライン</li></ul><h3 id=r>\r</h3><ul><li>キャリッジリターン文字</li><li>カーソルを行頭に戻す</li></ul><h3 id=t>\t</h3><ul><li>タブ</li></ul><h3 id=f>\f</h3><ul><li>フォームフィード</li><li>改ページ</li></ul><h3 id=e>\e</h3><ul><li>エスケープ文字</li></ul><h3 id=nnn>\NNN</h3><ul><li>8進数が NNN となる文字</li><li>例えば、040 はスペース</li></ul><p>::: note
+::: title
+Note
+:::</p><p>8進数や16進数を調べるには、man ascii
+:::</p><h3 id=xnn>\xNN</h3><ul><li>16進数が NN となる文字</li><li>例えば、x20 はスペース</li></ul><h3 id=cx>\cX</h3><ul><li>X によって表される制御文字</li><li>例えば、 cC はCtrl-C</li></ul><h3 id=q-e>\Q, \E</h3><ul><li>メタキャラクタを文字として見せたい部分を、\Q ... \E で囲む</li></ul><h2 id=posix-の文字クラスとショートカットメタキャラクタ>POSIX の文字クラスとショートカットメタキャラクタ</h2><hr><p>文字クラス ショートカットメタキャラクタ 説明</p><hr><p>[a-zA-Z0-9_] \w 単語構成文字</p><p>[^a-zA-Z0-9_] \W 非単語構成文字</p><p>[\040\t\r\n\cJ\cL] \s 空白文字</p><p>[^\040\t\r\n\cJ\cL] \S 非空白文字</p><p>[0-9] \d 数字</p><h2 id=0-9----------------------d----------------------------数字以外の文字>[^0-9] \D 数字以外の文字</h2><h2 id=マッチ修飾子>マッチ修飾子</h2><p>/<em>RE</em>/i や m%RE%xs, s/<em>RE</em>/<em>new</em>/e
+など、最後に修飾子をいくつかつけて、マッチングの動作を変更させることができる。</p><p>+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| マッチ修飾子 |
++======================================================================+
+| 修飾子 説明 |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| =============== ==================================================== |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| i | 大文字小文字の違いを無視 |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| x | 拡張モード |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| > | REフィールドに空白文字とコメントを許す |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| s | シングルラインモード |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| > | . をニューラインにもマッチさせる |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| m | マルチラインモード |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| > | ^, $ |
+| > を文字列の絶対的 |
+| な先頭、末尾でなく、ターゲット文字列中の行の先頭、末尾にマッチさせる |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| g | |
+| すべてのマッチを、スカラーコ |
+| ンテキストかリストコンテキストかによって、連続的もしくは集合的に返す |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| e | 置換の時に使う。 <em>new</em> を Perl のコードとして評価して、*RE* |
+| にマッチしたものをその結果で置き換える。 |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+</p><h2 id=その他の構文>その他の構文</h2><p>+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;+
+| 選択、グループ化、キャプチャ、後方参照 |
++=====================================================================+
+| 構文 説明 |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;+
+| ===================== ============================================= |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;+
+| XZ | X, Y, Zのいずれかにまっち |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;+
+| (X) | グループ化とキャプチャ |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;+
+| > | a(X|Y)bc や (XY)+ といった感じで使う |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;+
+| \1, \2, ... | 後方参照。検索文字列フィールドで使用 |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;+
+| $1, $2, ... | 後方参照。検索文字列フィールド以外で使用 |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;+</p><h2 id=量指定子>量指定子</h2><p>+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| 量指定子 |
++======================================================================+
+| 構文 説明 |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| ====================== ============================================= |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| X* | 0回以上の繰り返し |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| X+ | 1回以上の繰り返し |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| X? | 0 または 1回の出現 |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| X{min, max} | min回以上max回以下の繰り返し |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| X{min, } | min回以上の繰り返し |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| X{count} | count回の繰り返し |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| X{, max} | max回以下の繰り返し |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| REP? | 量指定子の直後に ? をつけると、最短マッチ |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| > | 例えば、.*? という風な。 |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+</p><p>以下は、Perl で正規表現を扱うときのコツ</p><h2 id=grep>grep</h2><h3 id=grep--v>grep -v</h3><ul><li><p>| perl で grep -v
+のように、マッチしないものを表示させるのは、次のように行う。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-perl data-lang=perl><span style=display:flex><span><span style=color:#6272a4># 空行以外を表示</span>
+</span></span><span style=display:flex><span>perl <span style=color:#ff79c6>-</span>wnl <span style=color:#ff79c6>-</span>e <span style=color:#f1fa8c>&#39;/^$/ or print;&#39;</span> file
+</span></span></code></pre></div><p>| このように or を使うと便利。</p></li></ul><h3 id=grep--l>grep -l</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-perl data-lang=perl><span style=display:flex><span><span style=color:#6272a4># foo にマッチするもののファイル名を表示</span>
+</span></span><span style=display:flex><span><span style=color:#6272a4># close することで、マッチした後は探索しない。</span>
+</span></span><span style=display:flex><span>perl <span style=color:#ff79c6>-</span>wnl <span style=color:#ff79c6>-</span>e <span style=color:#f1fa8c>&#39;/\bfoo\b/ and print $ARGV and close ARGV;&#39;</span> file
+</span></span></code></pre></div><h3 id=カスケードフィルタ>カスケードフィルタ</h3><ul><li><p>シェルで grep "regex1" file | grep "regex2" とやることに相当</p><blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-perl data-lang=perl><span style=display:flex><span><span style=color:#6272a4># foo という単語と bar という単語を含む行を見つける</span>
+</span></span><span style=display:flex><span>perl <span style=color:#ff79c6>-</span>wnl <span style=color:#ff79c6>-</span>e <span style=color:#f1fa8c>&#39;/\bfoo\b/ and /\bbar\b/ and print;&#39;</span> file
+</span></span></code></pre></div></blockquote></li></ul><h3 id=コンテキスト表示>コンテキスト表示</h3><ul><li><p>段落モード -00 と ファイルモード -0777 を上手く使う</p></li><li><p>/regex/s も上手く使うと良い</p></li><li><p>行をまたがるマッチングを行うとき、間にどんな文字を許すか考える必要がある。ニューラインについて言えば、</p><blockquote><ul><li>マッチ修飾子の s を使って . をニューラインにマッチさせる</li><li>[\t\n]+ や [_\s]+
+というように、明示的に指定したり、[^aiueo]+ などを使う</li><li>s を使う</li></ul></blockquote></li></ul><h2 id=sed>sed</h2><h3 id=置換のデリミタ>置換のデリミタ</h3><ul><li><p>対応する括弧も使用可能</p><blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-perl data-lang=perl><span style=display:flex><span><span style=color:#f1fa8c>s/.../.../</span>
+</span></span><span style=display:flex><span>s<span style=color:#ff79c6>|...|...|</span>
+</span></span><span style=display:flex><span><span style=color:#f1fa8c>s{...}{...}</span>, <span style=color:#f1fa8c>s(...)(...)</span>
+</span></span></code></pre></div></blockquote></li></ul><h3 id=行指定置換-コンテキストアドレス>行指定置換, コンテキストアドレス</h3><ul><li><p>sed
+では、次のように、置換の構文の前に、アドレスを指定して、置換する場所を制限できる。</p><blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#6272a4># 2行目のみ置換</span>
+</span></span><span style=display:flex><span>2s/regex/new/g
+</span></span><span style=display:flex><span><span style=color:#6272a4># 2〜5行目のみ置換</span>
+</span></span><span style=display:flex><span>2,5s/regex/new/g
+</span></span><span style=display:flex><span><span style=color:#6272a4># 行頭が fff の行について置換</span>
+</span></span><span style=display:flex><span>/^fff/s/regex/new/g
+</span></span></code></pre></div></blockquote></li><li><p>これを Perl では、行数に関する条件式で書く必要がある</p><blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-perl data-lang=perl><span style=display:flex><span><span style=color:#6272a4># 2行目のみ置換</span>
+</span></span><span style=display:flex><span>perl <span style=color:#ff79c6>-</span>wpl <span style=color:#ff79c6>-</span>e <span style=color:#f1fa8c>&#39;$. == 2 and s/regex/new/g;&#39;</span> file
+</span></span><span style=display:flex><span><span style=color:#6272a4># 2〜5行目のみ置換</span>
+</span></span><span style=display:flex><span>perl <span style=color:#ff79c6>-</span>wpl <span style=color:#ff79c6>-</span>e <span style=color:#f1fa8c>&#39;2 &lt;= $. and $. &lt;= 5 and s/regex/new/g;&#39;</span> file
+</span></span><span style=display:flex><span><span style=color:#6272a4># 行頭が fff の行について置換</span>
+</span></span><span style=display:flex><span>perl <span style=color:#ff79c6>-</span>wpl <span style=color:#ff79c6>-</span>e <span style=color:#f1fa8c>&#39;/^fff/ and s/regex/new/g;&#39;</span> file
+</span></span></code></pre></div></blockquote></li></ul><h3 id=後方参照>後方参照</h3><ul><li><p>sed では、キャプチャするときに、 ? を使えなかった。 Perl では、?
+を使える。</p></li><li><p>sed では、どこでも 1, 2, ...で参照したが、Perlでは 1, 2, ... と
+$1, $2, ... とどこから参照するかによって異なる。</p><blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-perl data-lang=perl><span style=display:flex><span><span style=color:#6272a4># Mr か Mr. を見る</span>
+</span></span><span style=display:flex><span>perl <span style=color:#ff79c6>-</span>wnl <span style=color:#ff79c6>-</span>e <span style=color:#f1fa8c>&#39;s/(Mr.?) (Fo[oa])/$1 Bar $2/g;&#39;</span> file
+</span></span></code></pre></div></blockquote></li></ul><h3 id=計算結果で置換>計算結果で置換</h3><ul><li><p>sed
+では、置換文字列フィールドに計算結果を入れることが難しかった。(できるか知らない。)</p></li><li><p>perl では、簡単にできる。マッチ修飾子の e が必要。</p><blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-perl data-lang=perl><span style=display:flex><span>perl <span style=color:#ff79c6>-</span>wnl <span style=color:#ff79c6>-</span>e <span style=color:#f1fa8c>&#39;s/\d+/$&amp; * 2.1/ge;&#39;</span> file
+</span></span></code></pre></div></blockquote></li></ul><h2 id=awk>AWK</h2><h3 id=フィールドアクセス>フィールドアクセス</h3><ul><li><p>AWK では、フィールドアクセスが便利</p><blockquote><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-awk data-lang=awk><span style=display:flex><span><span style=color:#6272a4># スペースorタブ区切りのフィールドの順番を入れ替える</span>
+</span></span><span style=display:flex><span>awk <span style=color:#f1fa8c>&#39;{ print $2, $1}&#39;</span> file
+</span></span></code></pre></div></blockquote></li><li><p>Perl で似たようなことをやるには、2つ方法がある。</p><ol><li><p>コマンドラインオプション -a (と合わせて、-F)を使う</p></li><li><p>自分で各フィールドを変数に代入する</p><blockquote><h2 id=フィールドアクセス-1>フィールドアクセス</h2><p>構文 コメント
+===================== ==============================
+($A, $B)=@F; それぞれの変数にセット
+($A, undef, $B)=@F; 第2フィールドは変数に入れない
+$<a href="mailto:numfields=@F">numfields=@F</a>; レコードのフィールド数を格納</p></blockquote></li></ol></li></ul><h3 id=パターン範囲>パターン範囲</h3><p>+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| パターン範囲 |
++======================================================================+
+| 演算子 構文 コメント |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| ========= ================== |
+| = |
+| ==================================================================== |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| .. regex1 .. regex2 | |
+| regex1を含む最初のレコードからregex2を含む最初のレコードまでの範囲 |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| > | 一旦regex1とregex2の組が見つかると次のregex1を見つけるまで、無視 |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| > | regex1とregex2が同じレコードにある場合もマッチ。 |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| ... regex1 ... regex2 | .. とほぼ同じ。 |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+| > | ただし、regex2はregex1の次の行以降から探す。 |
++&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+</p><h2 id=find>find</h2><h3 id=ファイル属性テスト>ファイル属性テスト</h3><h2 id=ファイル属性テスト--は属性に対応する文字>ファイル属性テスト (○ は属性に対応する文字)</h2><p>構文 コメント
+====================== =========================================================
+-○ filename filename が○という属性を有していることをテスト
+! -○ filename filename が○という属性を有していないことをテスト
+-○ $_ が○という属性を有していることをテスト
+! -○ $_ が○という属性を有していないことをテスト</p><h2 id=ファイル属性と対応する演算子>ファイル属性と対応する演算子</h2><p>ファイル属性 演算子
+===================================== =========================================================
+通常ファイル -f
+ディレクトリ -d
+シンボリックリンク -l
+名前付きパイプ -p
+キャラクタ -c
+ブロック -b
+ソケット -S
+空 -z
+空でない -s
+------------------------------------- ---------------------------------------------------------
+実UID/GIDで読取り可 -R
+実UID/GIDで書込み可 -W
+実UID/GIDで実行可 -X
+実UIDが所有 -O
+実効UID/GIDで読取り可 -r
+実効UID/GIDで書込み可 -w
+実効UID/GIDで実行可 -x
+実効UIDが所有 -o
+指定のUID/GIDが所有 stat
+------------------------------------- ---------------------------------------------------------
+setuid -u
+setgid -g
+sticky -k
+テキスト -T
+バイナリ -B
+------------------------------------- ---------------------------------------------------------
+別のファイルより新しい stat
+別のファイルより後にアクセスされた stat
+リンクの数 stat
+inode番号 stat</p><hr><ul class=pager><li class=previous><a href=/blog/2014/01/07/0238/ data-toggle=tooltip data-placement=top title=Perlスクリプトメモ>&larr;
+Previous Post</a></li><li class=next><a href=/blog/2014/06/02/1631/ data-toggle=tooltip data-placement=top title=LEDバックライトの調整>Next
+Post &rarr;</a></li></ul><div id=disqus-comment></div><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hitsumabushi.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div class="col-lg-2 col-lg-offset-0
+visible-lg-block
+sidebar-container
+catalog-container"><div class=side-catalog><hr class="hidden-sm hidden-xs"><h5><a class=catalog-toggle href=#>CATALOG</a></h5><ul class=catalog-body></ul></div></div><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/debian title=debian>debian
+</a><a href=/tags/vcp title=vcp>vcp
+</a><a href=/tags/vmware title=vmware>vmware</a></div></section></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href=https://x.com/_hitsumabushi_><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/hitsumabushi><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-github fa-stack-1x fa-inverse"></i></span></a></li><li><a href rel=alternate type=application/rss+xml title=ひつまぶし食べたい><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-rss fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; ひつまぶし食べたい 2024</p></div></div></div></footer><script>function loadAsync(e,t){var s=document,o="script",n=s.createElement(o),i=s.getElementsByTagName(o)[0];n.src=e,t&&n.addEventListener("load",function(e){t(null,e)},!1),i.parentNode.insertBefore(n,i)}</script><script>$("#tag_cloud").length!==0&&loadAsync("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:"#bbbbee",end:"#0085a1"}},$("#tag_cloud a").tagcloud()})</script><script>loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js",function(){var e=document.querySelector("nav");e&&FastClick.attach(e)})</script><script type=text/javascript>function generateCatalog(e){_containerSelector="div.post-container";var t,n,s,o,i,a=$(_containerSelector),r=a.find("h1,h2,h3,h4,h5,h6");return $(e).html(""),r.each(function(){t=$(this).prop("tagName").toLowerCase(),o="#"+$(this).prop("id"),n=$(this).text(),i=$('<a href="'+o+'" rel="nofollow">'+n+"</a>"),s=$('<li class="'+t+'_nav"></li>').append(i),$(e).append(s)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(e){e.preventDefault(),$(".side-catalog").toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$(".catalog-body").onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script></body></html>

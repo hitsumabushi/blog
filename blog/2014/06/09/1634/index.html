@@ -1,0 +1,151 @@
+<!doctype html><html lang=ja><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:site_name" content="ひつまぶし食べたい"><meta property="og:type" content="article"><meta property="og:image" content="https://www.hitsumabushi.org//img/home-bg-jeep.jpg"><meta property="twitter:image" content="https://www.hitsumabushi.org//img/home-bg-jeep.jpg"><meta name=title content="DebianでZNCを使って、快適なIRC生活を送る"><meta property="og:title" content="DebianでZNCを使って、快適なIRC生活を送る"><meta property="twitter:title" content="DebianでZNCを使って、快適なIRC生活を送る"><meta name=description content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="og:description" content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="twitter:description" content="Topic around SRE, Management, Cloud, Infrastructure Engineering, Software Engineering, Programming"><meta property="twitter:card" content="summary"><meta name=keyword content="hitsumabushi,SRE,Management,Cloud,Infrastructure,Software,Programming,Engineering"><link rel="shortcut icon" href=/img/favicon.ico><title>DebianでZNCを使って、快適なIRC生活を送る | ひつまぶし食べたい</title>
+<link rel=canonical href=/blog/2014/06/09/1634/><link rel=stylesheet href=/css/bootstrap.min.css><link rel=stylesheet href=/css/hugo-theme-cleanwhite.min.css><link rel=stylesheet href=/css/zanshang.css><link rel=stylesheet href=/css/font-awesome.all.min.css><link rel=stylesheet href=https://www.hitsumabushi.org/css/hugo-theme-clearnwhite/custom-font.css><link rel=stylesheet href=https://www.hitsumabushi.org/css/hugo-theme-clearnwhite/main.css><script src=/js/jquery.min.js></script><script src=/js/bootstrap.min.js></script><script src=/js/hux-blog.min.js></script><script src=/js/lazysizes.min.js></script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-JPYFS3RY30"></script><script>var dnt,doNotTrack=!1;if(!1&&(dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes"),!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-JPYFS3RY30")}</script><nav class="navbar navbar-default navbar-custom navbar-fixed-top"><div class=container-fluid><div class="navbar-header page-scroll"><button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=/>ひつまぶし食べたい</a></div><div id=huxblog_navbar><div class=navbar-collapse><ul class="nav navbar-nav navbar-right"><li><a href=/>All Posts</a></li><li><a href=/search><i class="fa fa-search"></i></a></li></ul></div></div></div></nav><script>var $body=document.body,$toggle=document.querySelector(".navbar-toggle"),$navbar=document.querySelector("#huxblog_navbar"),$collapse=document.querySelector(".navbar-collapse");$toggle.addEventListener("click",handleMagic);function handleMagic(){$navbar.className.indexOf("in")>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf("in")<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script><style type=text/css>header.intro-header{background-image:url(/img/home-bg-jeep.jpg)}</style><header class=intro-header><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><div class=post-heading><div class=tags><a class=tag href=/tags/debian title=Debian>Debian</a></div><h1>DebianでZNCを使って、快適なIRC生活を送る</h1><h2 class=subheading></h2><span class=meta>Posted by
+ひつまぶし食べたい
+on
+Monday, June 9, 2014</span></div></div></div></div></header><article><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container"><h2 id=やりたいこと>やりたいこと</h2><p>最近、自分の興味のあるソフトウェアのIRCによく引きこもっています。
+自宅のPCはつけっぱなしにしておけば、全部のログを見れるのですが、
+会社やスマホで見るときには、接続している間のことしか確認できず、若干もどかしいです。</p><p>そういうわけで、ZNCサーバーを立てて、IRCのログを出先からでも確認できるようにしましょう。</p><h2 id=実現すること>実現すること</h2><ul><li>スマホからIRCのログを見る</li></ul><h2 id=作業環境>作業環境</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#6272a4># lsb_release  -a</span>
+</span></span><span style=display:flex><span>No LSB modules are available.
+</span></span><span style=display:flex><span>Distributor ID: Debian
+</span></span><span style=display:flex><span>Description:  Debian GNU/Linux 7.5 <span style=color:#ff79c6>(</span>wheezy<span style=color:#ff79c6>)</span>
+</span></span><span style=display:flex><span>Release:  7.5
+</span></span><span style=display:flex><span>Codename: wheezy
+</span></span></code></pre></div><h2 id=インストール>インストール</h2><p>色んなブログでは、build-depして自前でビルドするように書かれているが、今はパッケージがあるので、それを使おう。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ sudo apt-get install znc
+</span></span></code></pre></div><h2 id=設定>設定</h2><ol><li><p>ユーザーの作成
+zncを動かすユーザーを作成しておく。</p><pre><code> :::bash
+ $ useradd -d /home/znc -s /bin/bash -m znc
+</code></pre></li><li><p>設定ファイルの作成
+適当に答えるだけです。
+設定値もモジュールも後からどうにでもなると思うので、気にしない。
+webadminを入れて、webから設定をできるようにしておきます。</p><pre><code> :::bash
+ $ znc --makeconf
+ [ ** ] Building new config
+ [ ** ].
+ [ ** ] First let's start with some global settings...
+ [ ** ].
+ [ ?? ] What port would you like ZNC to listen on? (1025 to 65535): 6667
+ [ ?? ] Would you like ZNC to listen using SSL? (yes/no) [no]:.
+ [ ?? ] Would you like ZNC to listen using ipv6? (yes/no) [yes]: no
+ [ ?? ] Listen Host (Blank for all ips):.
+ [ ok ] Verifying the listener....
+ [ ** ].
+ [ ** ] -- Global Modules --
+ [ ** ].
+ [ ** ] +-----------+----------------------------------------------------------+
+ [ ** ] | Name      | Description                                              |
+ [ ** ] +-----------+----------------------------------------------------------+
+ [ ** ] | partyline | Internal channels and queries for users connected to znc |
+ [ ** ] | webadmin  | Web based administration module                          |
+ [ ** ] +-----------+----------------------------------------------------------+
+ [ ** ] And 13 other (uncommon) modules. You can enable those later.
+ [ ** ].
+ [ ?? ] Load global module &lt;partyline&gt;? (yes/no) [no]:.
+ [ ?? ] Load global module &lt;webadmin&gt;? (yes/no) [no]: yes 
+ [ ** ].
+ [ ** ] Now we need to set up a user...
+ [ ** ] ZNC needs one user per IRC network.
+ [ ** ].
+ [ ?? ] Username (AlphaNumeric): hitsumabushi
+ [ ?? ] Enter Password:.
+ [ ?? ] Confirm Password:.
+ [ ?? ] Would you like this user to be an admin? (yes/no) [yes]:.
+ [ ?? ] Nick [hitsumabushi]:.
+ [ ?? ] Alt Nick [hitsumabushi_]:.
+ [ ?? ] Ident [hitsumabushi]:.
+ [ ?? ] Real Name [Got ZNC?]: &lt;name&gt;
+ [ ?? ] Bind Host (optional):.
+ [ ?? ] Number of lines to buffer per channel [50]:.
+ [ ?? ] Would you like to keep buffers after replay? (yes/no) [no]:.
+ [ ?? ] Default channel modes [+stn]:.
+ [ ** ].
+ [ ** ] -- User Modules --
+ [ ** ].
+ [ ** ] +-------------+------------------------------------------------------------------------------------------------------------+
+ [ ** ] | Name        | Description                                                                                                |
+ [ ** ] +-------------+------------------------------------------------------------------------------------------------------------+
+ [ ** ] | admin       | Dynamic configuration of users/settings through IRC. Allows editing only yourself if you're not ZNC admin. |
+ [ ** ] | chansaver   | Keep config up-to-date when user joins/parts                                                               |
+ [ ** ] | keepnick    | Keep trying for your primary nick                                                                          |
+ [ ** ] | kickrejoin  | Autorejoin on kick                                                                                         |
+ [ ** ] | nickserv    | Auths you with NickServ                                                                                    |
+ [ ** ] | perform     | Keeps a list of commands to be executed when ZNC connects to IRC.                                          |
+ [ ** ] | simple_away | Auto away when last client disconnects                                                                     |
+ [ ** ] +-------------+------------------------------------------------------------------------------------------------------------+
+ [ ** ] And 36 other (uncommon) modules. You can enable those later.
+ [ ** ].
+ [ ?? ] Load module &lt;admin&gt;? (yes/no) [no]: yes
+ [ ?? ] Load module &lt;chansaver&gt;? (yes/no) [no]:.
+ [ ?? ] Load module &lt;keepnick&gt;? (yes/no) [no]:.
+ [ ?? ] Load module &lt;kickrejoin&gt;? (yes/no) [no]:.
+ [ ?? ] Load module &lt;nickserv&gt;? (yes/no) [no]: yes
+ [ ?? ] Load module &lt;perform&gt;? (yes/no) [no]:.
+ [ ?? ] Load module &lt;simple_away&gt;? (yes/no) [no]: yes
+ [ ** ].
+ [ ** ] -- IRC Servers --
+ [ ** ] Only add servers from the same IRC network.
+ [ ** ] If a server from the list can't be reached, another server will be used.
+ [ ** ].
+ [ ?? ] IRC server (host only): irc.freenode.net
+ [ ?? ] [irc.freenode.net] Port (1 to 65535) [6667]:.
+ [ ?? ] [irc.freenode.net] Password (probably empty):....
+ [ ?? ] Does this server use SSL? (yes/no) [no]:.
+ [ ** ].
+ [ ?? ] Would you like to add another server for this IRC network? (yes/no) [no]:.
+ [ ** ].
+ [ ** ] -- Channels --
+ [ ** ].
+ [ ?? ] Would you like to add a channel for ZNC to automatically join? (yes/no) [yes]:.
+ [ ?? ] Channel name: #ceph
+ [ ?? ] Would you like to add another channel? (yes/no) [no]:.
+ [ ** ].
+ [ ?? ] Would you like to set up another user (e.g. for connecting to another network)? (yes/no) [no]:.
+ [ ok ] Writing config [/home/znc/.znc/configs/znc.conf]....
+ [ ** ].
+ [ ** ] To connect to this ZNC you need to connect to it as your IRC server
+ [ ** ] using the port that you supplied.  You have to supply your login info
+ [ ** ] as the IRC server password like this: user:pass.
+ [ ** ].
+ [ ** ] Try something like this in your IRC client...
+ [ ** ] /server &lt;znc_server_ip&gt; 6667 hitsumabushi:&lt;pass&gt;
+ [ ** ] And this in your browser...
+ [ ** ] http://&lt;znc_server_ip&gt;:6667/
+ [ ** ].
+ [ ?? ] Launch ZNC now? (yes/no) [yes]:...
+ [ ok ] Opening Config [/home/znc/.znc/configs/znc.conf]....
+ [ ok ] Loading Global Module [webadmin]... [/usr/lib/znc/webadmin.so]
+ [ ok ] Binding to port [6667]....
+ [ ** ] Loading user [hitsumabushi]
+ [ ok ] Adding Server [irc.freenode.net 6667 ]....
+ [ ok ] Adding Server [irc.oftc.net 6667 ]....
+ [ ok ] Loading Module [admin]... [/usr/lib/znc/admin.so]
+ [ ok ] Loading Module [nickserv]... [/usr/lib/znc/nickserv.so]
+ [ ok ] Loading Module [simple_away]... [/usr/lib/znc/simple_away.so]
+ [ ok ] Forking into the background... [pid: 27494]
+ [ ** ] ZNC 0.206+deb2 - http://znc.in
+</code></pre></li><li><p>Webからzncに接続する
+ブラウザから http(s)://hostname:6667 にアクセスする
+ログインして、List Users→Editを開いて、log モジュールにチェックを入れておくと、IRCのログを書いてくれる。</p></li><li><p>クライアントから接続する
+xchatでやってみた。
+SSLで接続する場合には、ネットワーク一覧の設定から、SSLで接続するように設定をし、SSL不正な証明書を受け入れるようにしておく必要がある。
+例として、zncサーバーが blog.hitsumabushi.org:6667, ユーザー名が oftc, パスワードが 123456 というユーザーで接続したことにすると、以下のようになる。
+<img src=/images/2014/XChat_201406061.jpg alt=XChat></p></li></ol><h2 id=おわり>おわり</h2><p>これで快適なIRC生活がおくれるぞ！</p><hr><ul class=pager><li class=previous><a href=/blog/2014/06/08/1633/ data-toggle=tooltip data-placement=top title=WebHDFSで詰まったこと>&larr;
+Previous Post</a></li><li class=next><a href=/blog/2014/07/17/1635/ data-toggle=tooltip data-placement=top title="論文 - Janus &amp;#58; Optimal Flash Provisioning for Cloud Storage Workloads">Next
+Post &rarr;</a></li></ul><div id=disqus-comment></div><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hitsumabushi.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><div class="col-lg-2 col-lg-offset-0
+visible-lg-block
+sidebar-container
+catalog-container"><div class=side-catalog><hr class="hidden-sm hidden-xs"><h5><a class=catalog-toggle href=#>CATALOG</a></h5><ul class=catalog-body></ul></div></div><div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container"><section><hr class="hidden-sm hidden-xs"><h5><a href=/tags/>FEATURED TAGS</a></h5><div class=tags><a href=/tags/debian title=debian>debian
+</a><a href=/tags/vcp title=vcp>vcp
+</a><a href=/tags/vmware title=vmware>vmware</a></div></section></div></div></div></article><footer><div class=container><div class=row><div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"><ul class="list-inline text-center"><li><a href=https://x.com/_hitsumabushi_><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-twitter fa-stack-1x fa-inverse"></i></span></a></li><li><a target=_blank href=https://github.com/hitsumabushi><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-github fa-stack-1x fa-inverse"></i></span></a></li><li><a href rel=alternate type=application/rss+xml title=ひつまぶし食べたい><span class="fa-stack fa-lg"><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-rss fa-stack-1x fa-inverse"></i></span></a></li></ul><p class="copyright text-muted">Copyright &copy; ひつまぶし食べたい 2024</p></div></div></div></footer><script>function loadAsync(e,t){var s=document,o="script",n=s.createElement(o),i=s.getElementsByTagName(o)[0];n.src=e,t&&n.addEventListener("load",function(e){t(null,e)},!1),i.parentNode.insertBefore(n,i)}</script><script>$("#tag_cloud").length!==0&&loadAsync("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:"#bbbbee",end:"#0085a1"}},$("#tag_cloud a").tagcloud()})</script><script>loadAsync("https://cdn.jsdelivr.net/npm/fastclick@1.0.6/lib/fastclick.min.js",function(){var e=document.querySelector("nav");e&&FastClick.attach(e)})</script><script type=text/javascript>function generateCatalog(e){_containerSelector="div.post-container";var t,n,s,o,i,a=$(_containerSelector),r=a.find("h1,h2,h3,h4,h5,h6");return $(e).html(""),r.each(function(){t=$(this).prop("tagName").toLowerCase(),o="#"+$(this).prop("id"),n=$(this).text(),i=$('<a href="'+o+'" rel="nofollow">'+n+"</a>"),s=$('<li class="'+t+'_nav"></li>').append(i),$(e).append(s)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(e){e.preventDefault(),$(".side-catalog").toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$(".catalog-body").onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script></body></html>
