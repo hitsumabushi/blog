@@ -1,5 +1,6 @@
 ---
 title: 'このブログをPelicanからHugoに載せ替えた'
+slug: 'migrate-blog-from-pelican-to-hugo'
 date: '2024-12-15T19:33:28+09:00'
 author: hitsumabushi
 categories: blog

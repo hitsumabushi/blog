@@ -1,6 +1,6 @@
 ---
 title: '{{ replace .File.ContentBaseName "-" " " | title }}'
-slug: 'migrate-blog-from-pelican-to-hugo'
+slug: ''
 date: '{{ .Date }}'
 author: hitsumabushi
 categories:
