@@ -118,5 +118,13 @@ enableInlineShortcodes = true # inline short code
   notAlternative = true
 
 [params.algolia]
-  vars = ["title", "summary", "date", "publishdate", "expirydate", "permalink"]
+  vars = [
+    "title",
+    "summary",
+    "date",
+    "publishdate",
+    "expirydate",
+    "permalink",
+    "excerpt_html",
+  ]
   params = ["categories", "tags", "keywords"]
