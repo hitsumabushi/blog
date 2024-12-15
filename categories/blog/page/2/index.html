@@ -9,7 +9,8 @@
 col-md-8 col-md-offset-1
 col-sm-12
 col-xs-12
-post-container"><div data-pagefind-ignore=all><div class=post-preview><a href=https://www.hitsumabushi.org/blog/2017/12/01/2001/><h2 class=post-title>Mesos の sandbox のログローテーションをする</h2><div class=post-content-preview><h3 id=結論>結論</h3><ul><li><a href=http://mesos.apache.org/documentation/latest/logging/#logrotatecontainerlogger>http://mesos.apache.org/documentation/latest/logging/#logrotatecontainerlogger</a></li><li><code>LogrotateContainerLogger</code> を使って、 module parameter を設定する</li></ul><h3 id=概要>概要</h3><p>Mesos + Marathon 環境でdockerを動かしている。
+post-container"><div data-pagefind-ignore=all><div class=post-preview><a href=https://www.hitsumabushi.org/blog/2017/12/05/1748/><h2 class=post-title>さくらのクラウドでN百台を管理するためにterraformとansibleを使っている話</h2><div class=post-content-preview><hr><p>これは、<a href=https://qiita.com/advent-calendar/2017/sakura>さくらインターネット Advent Calendar 2017</a> として書いた<a href=https://qiita.com/hitsumabushi/items/e89b763dd4fc41e15136>記事</a> です。</p><hr><p>さくらインターネットでは、今年4月からIoTプラットフォームの sakura.io をサービス提供しています。
+sakura.io は、さくらのクラウド上で本番・検証環境を構築しており、数百台のサーバーを利用しています。</p></div></a><p class=post-meta>Posted by ひつまぶし食べたい on 2017-12-05</p></div><hr><div class=post-preview><a href=https://www.hitsumabushi.org/blog/2017/12/01/2001/><h2 class=post-title>Mesos の sandbox のログローテーションをする</h2><div class=post-content-preview><h3 id=結論>結論</h3><ul><li><a href=http://mesos.apache.org/documentation/latest/logging/#logrotatecontainerlogger>http://mesos.apache.org/documentation/latest/logging/#logrotatecontainerlogger</a></li><li><code>LogrotateContainerLogger</code> を使って、 module parameter を設定する</li></ul><h3 id=概要>概要</h3><p>Mesos + Marathon 環境でdockerを動かしている。
 基本的にコンテナのログは fluentd で飛ばしているのだけど、日に日に mesos slave のディスク容量が圧迫されていた。
 調べてみると、 <code>/var/lib/mesos-slave/slaves/</code> 以下にあるフォルダのうち、sandbox のログが肥大化していた。
 sandbox には stdout, stderr があって、それぞれコンテナのstdout, stderrを記録しているファイルで、mesosからファイルとして取得することができる。
@@ -30,9 +31,7 @@ rustc のバージョンアップや切替なんかができるらしい。</p><
 ネットワークインフラエンジニアが大好きな話でしたね。</p><h2 id=はじめに>はじめに</h2><p>今日の記事ですが、私が社内でやっていたチーム活動について振り返りを書きます。
 特に、失敗した点に注目して共有することで役に立てばと思っています。
 大前提としては、私は一般社員であり、チームのマネジメント等を行う立場ではありません。
-あくまでボトムアップからの活動です。</p></div></a><p class=post-meta>Posted by ひつまぶし食べたい on 2016-12-15</p></div><hr><div class=post-preview><a href=https://www.hitsumabushi.org/blog/2016/11/10/0352/><h2 class=post-title>git bisect でバグ/仕様変更のコミットを探す</h2><div class=post-content-preview><h2 id=まとめ>まとめ</h2><ul><li>git bisect が便利</li><li>ansible 2.1.0 -> 2.1.1 で group名に <code>/</code> を入れるとうまく動かないケースが存在する<ul><li><a href=https://github.com/ansible/ansible>ansible</a> リポジトリでbisect すると対象のコミットは <code>7287effb5ce241ce645d61e55e981edc73fa382a</code></li><li>group名には <code>/</code> を入れないように、 <code>group_vars</code> 以下はフラットな構成にしよう</li></ul></li></ul><h2 id=遭遇した問題>遭遇した問題</h2><p>ansible で構成/コンフィグ管理やプロビジョニングをしているのだけど、
-複数のリージョンやゾーンにまたがるシステムのため、うまく設定を見やすくするために、
-以下のように <code>group_vars</code> 配下にディレクトリ構造を作っていた。</p></div></a><p class=post-meta>Posted by ひつまぶし食べたい on 2016-11-10</p></div><hr></div><ul class=pager data-pagefind-ignore=all><li class=previous><a href=/categories/blog/>&larr; Newer Posts</a></li><li class=next><a href=/categories/blog/page/3/>Older Posts &rarr;</a></li></ul></div><div class="col-lg-3 col-lg-offset-0
+あくまでボトムアップからの活動です。</p></div></a><p class=post-meta>Posted by ひつまぶし食べたい on 2016-12-15</p></div><hr></div><ul class=pager data-pagefind-ignore=all><li class=previous><a href=/categories/blog/>&larr; Newer Posts</a></li><li class=next><a href=/categories/blog/page/3/>Older Posts &rarr;</a></li></ul></div><div class="col-lg-3 col-lg-offset-0
 col-md-3 col-md-offset-0
 col-sm-12
 col-xs-12

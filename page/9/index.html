@@ -9,7 +9,9 @@
 col-md-8 col-md-offset-1
 col-sm-12
 col-xs-12
-post-container"><div data-pagefind-ignore=all><div class=post-preview><a href=https://www.hitsumabushi.org/blog/2014/01/01/0243/><h2 class=post-title>実UID,実行UID</h2><div class=post-content-preview><p>プロセスはいくつかのIDを持っている。
+post-container"><div data-pagefind-ignore=all><div class=post-preview><a href=https://www.hitsumabushi.org/blog/2014/01/01/0244/><h2 class=post-title>PXEブートでインストーラを起動する</h2><div class=post-content-preview><p>最近、VMwareのESXiで仮想環境を作っています。
+触っていて気づいたのですが、空の仮想マシンを起動するとPXEブートを試みてくれます。
+この仕様をうまく使いたいなーと思って、PXEブートでインストールを自動化する方法を調べました。</p></div></a><p class=post-meta>Posted by ひつまぶし食べたい on 2014-01-01</p></div><hr><div class=post-preview><a href=https://www.hitsumabushi.org/blog/2014/01/01/0243/><h2 class=post-title>実UID,実行UID</h2><div class=post-content-preview><p>プロセスはいくつかのIDを持っている。
 あまり深く考えず、実UIDと実行UIDについて考える。</p><h2 id=実uiduid>実UID(UID)</h2><ul><li>呼び出し元のプロセス(親プロセス)の実ユーザーID。</li><li>普通にログインして、何かプロセスをシェルから走らせる場合、ログインシェルのUIDがログインユーザーIDなので、ログインユーザーIDになる。</li></ul><h2 id=実効uid>実効UID</h2><ul><li>呼び出し元のプロセス(親プロセス)の実効ユーザーID。</li><li>ファイルアクセスに影響。</li><li>普通にログインして、何かプロセスをシェルから走らせる場合、ログインシェルのUIDがログインユーザーIDなので、ログインユーザーIDになる。</li><li>ただし、SUID ビットがあるときは、それに従う。</li></ul><h3 id=suid-sgid-スティッキービット>SUID, SGID, スティッキービット</h3><h2 id=suid-sgid>SUID, SGID</h2><p>| それぞれ setuid, setgidのこと。
 | まず、 SUID(SGID) ビットが立っているファイルについて見る。</p></div></a><p class=post-meta>Posted by ひつまぶし食べたい on 2014-01-01</p></div><hr><div class=post-preview><a href=https://www.hitsumabushi.org/blog/2014/01/01/0241/><h2 class=post-title>DNS サーバー</h2><div class=post-content-preview><p>ニフティクラウド上でサーバーを立てた。
 いろいろと設定していこうかと思っているが、まずはDNSから始める。</p><h2 id=作業内容>作業内容</h2><p>1. /etc/bind/named.conf.options 以下のように書き換える:</p><pre><code>// v6の設定： v6は応答しない
