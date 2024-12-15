@@ -1,6 +1,6 @@
 ---
 title: '{{ replace .File.ContentBaseName "-" " " | title }}'
-slug: ''
+slug: '{{ replace .File.ContentBaseName "_" "-" }}'
 date: '{{ .Date }}'
 author: hitsumabushi
 categories:
